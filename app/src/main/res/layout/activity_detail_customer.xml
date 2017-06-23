@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_person_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_dark"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.endorphinapps.kemikal.queenofclean.DetailCustomer">
+
+    <TableLayout
+        style="@style/container">
+
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="Name:" />
+
+            <TextView
+                android:id="@+id/first_name"
+                style="@style/field_start"/>
+
+            <TextView
+                android:id="@+id/last_name"
+                style="@style/field_start"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="@string/home_number" />
+
+            <TextView
+                android:id="@+id/home_number"
+                style="@style/field_start"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="@string/mobile_number" />
+
+            <TextView
+                android:id="@+id/mobile_number"
+                style="@style/field_start"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="@string/email_address" />
+
+            <TextView
+                android:id="@+id/email_address"
+                style="@style/field_start"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="@string/address" />
+
+            <TextView
+                android:id="@+id/address_line_1"
+                style="@style/field_start"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                android:id="@+id/address_line_2"
+                style="@style/field_start"
+                android:layout_column="1"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                android:id="@+id/address_town"
+                style="@style/field_start"
+                android:layout_column="1"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                android:id="@+id/address_city"
+                style="@style/field_start"
+                android:layout_column="1"/>
+        </TableRow>
+
+
+        <TableRow>
+            <TextView
+                android:id="@+id/address_postcode"
+                style="@style/field_start"
+                android:layout_column="1"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

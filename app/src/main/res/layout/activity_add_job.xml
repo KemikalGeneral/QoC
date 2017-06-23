@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_job"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/grey_dark"
+    tools:context="com.endorphinapps.kemikal.queenofclean.AddJob">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <!--Customer Section-->
+        <LinearLayout
+            style="@style/container"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dummy_customer"
+                style="@style/field_start"
+                android:text="Select a Customer..."/>
+
+            <Spinner
+                android:id="@+id/add_customer_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:id="@+id/add_job_customer_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/address_line_1"
+                    style="@style/field_start"
+                    android:text="@string/address_line_1" />
+
+                <TextView
+                    android:id="@+id/address_line_2"
+                    style="@style/field_start"
+                    android:text="@string/address_line_2" />
+
+                <TextView
+                    android:id="@+id/address_town"
+                    style="@style/field_start"
+                    android:text="@string/town" />
+
+                <TextView
+                    android:id="@+id/address_city"
+                    style="@style/field_start"
+                    android:text="@string/city" />
+
+                <TextView
+                    android:id="@+id/address_postcode"
+                    style="@style/field_start"
+                    android:text="@string/postcode" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--Employee Section-->
+        <LinearLayout
+            style="@style/container">
+
+            <TextView
+                android:id="@+id/dummy_employee"
+                style="@style/field_start"
+                android:text="Select an Employee..."/>
+
+            <Spinner
+                android:id="@+id/add_employee_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+        <!--Date-->
+        <LinearLayout
+            style="@style/container">
+
+            <TextView
+                android:id="@+id/add_start_date"
+                style="@style/field_start"
+                android:text="Select a Start Date..." />
+        </LinearLayout>
+
+
+        <!--Job Status-->
+        <LinearLayout
+            style="@style/container">
+
+            <Spinner
+                android:id="@+id/add_status_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <!--Job Items-->
+        <LinearLayout
+            style="@style/container"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/add_job_item_row"
+                style="@style/field_start"
+                android:hint="Add a Job Item..."/>
+
+            <LinearLayout
+                android:id="@+id/add_job_list_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--Estimated Time-->
+        <LinearLayout
+            style="@style/container"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/label_job_estimated_time"
+                style="@style/field_weight_1"
+                android:text="Estimated Time Required in Hours:"/>
+
+            <EditText
+                android:id="@+id/add_estimated_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_16"
+                android:inputType="number"
+                android:hint="00"/>
+        </LinearLayout>
+
+
+        <!--Total Job Price-->
+        <LinearLayout
+            style="@style/container"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/label_job_total_price"
+                style="@style/field_weight_1"
+                android:text="Total Price for Job:"/>
+
+            <TextView
+                android:id="@+id/job_total_price"
+                style="@style/field_start"
+                android:hint="00.00"/>
+        </LinearLayout>
+
+
+        <!--Notes-->
+        <LinearLayout
+            style="@style/container">
+
+            <EditText
+                android:id="@+id/add_job_notes"
+                style="@style/field_start"
+                android:hint="Add Notes..."/>
+        </LinearLayout>
+
+
+        <!--Submit-->
+        <Button
+            android:id="@+id/add_submit"
+            style="@style/submit_button"
+            android:text="@string/submit" />
+
+    </LinearLayout>
+</ScrollView>
