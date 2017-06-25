@@ -1,11 +1,13 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class DetailEmployee extends AppCompatActivity {
+import com.endorphinapps.kemikal.queenofclean.R;
+
+public class DetailCustomer extends AppCompatActivity {
 
     private TextView tv_firstName;
     private TextView tv_lastName;
@@ -17,12 +19,11 @@ public class DetailEmployee extends AppCompatActivity {
     private TextView tv_town;
     private TextView tv_city;
     private TextView tv_postcode;
-    private TextView tv_rateOfPay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_employee);
+        setContentView(R.layout.activity_detail_customer);
 
         findViews();
 
@@ -37,7 +38,6 @@ public class DetailEmployee extends AppCompatActivity {
         tv_town.setText(intent.getStringExtra("EXTRAS_town"));
         tv_city.setText(intent.getStringExtra("EXTRAS_city"));
         tv_postcode.setText(intent.getStringExtra("EXTRAS_postcode"));
-        tv_rateOfPay.setText(String.valueOf(intent.getIntExtra("EXTRAS_rateOfPay", 0)));
     }
 
     private void findViews() {
@@ -51,6 +51,5 @@ public class DetailEmployee extends AppCompatActivity {
         tv_town = (TextView) findViewById(R.id.address_town);
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
-        tv_rateOfPay = (TextView) findViewById(R.id.rate_of_pay);
     }
 }

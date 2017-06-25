@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.endorphinapps.kemikal.queenofclean.DetailEmployee;
+import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailEmployee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.R;
 

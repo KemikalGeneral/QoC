@@ -21,8 +21,8 @@
         <activity android:name=".ViewCustomers" />
         <activity android:name=".ViewEmployees" />
         <activity android:name=".ViewJobs" />
-        <activity android:name=".DetailCustomer" />
-        <activity android:name=".DetailEmployee" />
+        <activity android:name=".DetailViews.DetailCustomer" />
+        <activity android:name=".DetailViews.DetailEmployee" />
     </application>
 
 </manifest>
