@@ -316,6 +316,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
 
         //Total cost of job, (jobItems + employee pay)
         double totalCostForJob = priceOfJobItems + payToEmployee;
+        Log.v("z! totalCostForJob: ", String.valueOf(totalCostForJob));
 
         //Set TextView with the total cost for the job
         tv_jobTotalPrice.setText(String.valueOf(totalCostForJob));

@@ -56,7 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_START_DATE = "startDate";
     private static final String COLUMN_END_DATE = "endDate";
     private static final String COLUMN_STATUS = "status";
-    private static final String COLUMN_TIME_TAKEN = "timeTaken";
+    private static final String COLUMN_ESTIMATED_TIME = "estimatedTime";
     private static final String COLUMN_TOTAL_JOB_COST = "totalJobCost";
     private static final String COLUMN_NOTES = "notes";
     private static final String COLUMN_CUSTOMER = "customer";
@@ -103,8 +103,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_START_DATE + " INTEGER NOT NULL, " +
                     COLUMN_END_DATE + " INTEGER, " +
                     COLUMN_STATUS + " VARCHAR(50) NOT NULL, " +
-                    COLUMN_TIME_TAKEN + " INTEGER NOT NULL, " +
-                    COLUMN_TOTAL_JOB_COST + " INTEGER NOT NULL, " +
+                    COLUMN_ESTIMATED_TIME + " INTEGER NOT NULL, " +
+                    COLUMN_TOTAL_JOB_COST + " REAL NOT NULL, " +
                     COLUMN_NOTES + " TEXT, " +
                     COLUMN_CUSTOMER + " INTEGER NOT NULL, " +
                     COLUMN_EMPLOYEE + " INTEGER NOT NULL, " +
@@ -234,7 +234,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * Insert Job details passed from AddJob
      * @param startDate
      * @param status
-     * @param timeTaken
+     * @param estimatedTime
      * @param totalPrice
      * @param notes
      * @param customer
@@ -242,14 +242,15 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return jobId as a long
      */
     public long insertJob(long startDate, String status,
-                          int timeTaken, double totalPrice,
+                          int estimatedTime, double totalPrice,
                           String notes, long customer, long employee) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_START_DATE, startDate);
+        System.out.println("z! DBDate: " + startDate);
         values.put(COLUMN_STATUS, status);
-        values.put(COLUMN_TIME_TAKEN, timeTaken);
+        values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
         values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
         values.put(COLUMN_NOTES, notes);
         values.put(COLUMN_CUSTOMER, customer);
@@ -422,9 +423,13 @@ public class DBHelper extends SQLiteOpenHelper {
             do {
                 Job job = new Job();
                 job.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_ID)));
-                job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
                 job.setCustomer(cursor.getInt(cursor.getColumnIndex(COLUMN_CUSTOMER)));
                 job.setEmployee(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE)));
+                job.setStartDate(cursor.getLong(cursor.getColumnIndex(COLUMN_START_DATE)));
+                job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
+                job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
+                job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
+                job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
                 jobs.add(job);
             } while (cursor.moveToNext());
         }
