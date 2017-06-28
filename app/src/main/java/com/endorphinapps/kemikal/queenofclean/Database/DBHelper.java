@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
+import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "queenOfKleen.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     /**
      * Tables
@@ -28,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_CUSTOMERS = "customers";
     private static final String TABLE_EMPLOYEES = "employees";
     private static final String TABLE_JOBS = "jobs";
+    private static final String TABLE_JOB_ITEMS = "jobItems";
 
     /**
      * Columns
@@ -61,6 +63,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NOTES = "notes";
     private static final String COLUMN_CUSTOMER = "customer";
     private static final String COLUMN_EMPLOYEE = "employee";
+    //Job Items
+    private static final String COLUMN_JOB_ITEM_ID = "jobItem_id";
+    private static final String COLUMN_JOB = "job";
+    private static final String COLUMN_JOB_ITEM_DESCRIPTION = "jobItemDescription";
+    private static final String COLUMN_JOB_ITEM_PRICE = "jobItemPrice";
 
     /**
      * Create Tables
@@ -111,6 +118,13 @@ public class DBHelper extends SQLiteOpenHelper {
                         "FOREIGN KEY (" + COLUMN_CUSTOMER + ") REFERENCES " + TABLE_CUSTOMERS + " (" + COLUMN_CUSTOMER_ID + "), " +
                         " FOREIGN KEY (" + COLUMN_EMPLOYEE + ") REFERENCES " + TABLE_EMPLOYEES + " (" + COLUMN_EMPLOYEE_ID + "));";
 
+    private static final String CREATE_JOB_ITEMS_TABLE =
+            "CREATE TABLE IF NOT EXISTS " + TABLE_JOB_ITEMS + "(" +
+                    COLUMN_JOB_ITEM_ID + " INTEGER PRIMARY KEY, " +
+                    COLUMN_JOB + " INTEGER NOT NULL, " +
+                    COLUMN_JOB_ITEM_DESCRIPTION + " VARCHAR(100) NOT NULL, " +
+                    COLUMN_JOB_ITEM_PRICE + " REAL NOT NULL, " +
+                        "FOREIGN KEY (" + COLUMN_JOB + ") REFERENCES " + TABLE_JOBS + "(" + COLUMN_JOB_ID + "));";
 
     /**
      * Main constructor for DBHelper class
@@ -130,6 +144,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_CUSTOMERS_TABLE);
         db.execSQL(CREATE_EMPLOYEES_TABLE);
         db.execSQL(CREATE_JOBS_TABLE);
+        db.execSQL(CREATE_JOB_ITEMS_TABLE);
     }
 
     /**
@@ -248,7 +263,6 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_START_DATE, startDate);
-        System.out.println("z! DBDate: " + startDate);
         values.put(COLUMN_STATUS, status);
         values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
         values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
@@ -259,6 +273,29 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
         return jobId;
+    }
+
+    /**
+     * Insert JobItem details
+     * @param job
+     * @param description
+     * @param price
+     */
+    public void insertJobItem(long job, String description, double price) {
+        SQLiteDatabase db =getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_JOB, job);
+        values.put(COLUMN_JOB_ITEM_DESCRIPTION, description);
+        values.put(COLUMN_JOB_ITEM_PRICE, price);
+        long id = db.insert(TABLE_JOB_ITEMS, null, values);
+
+        System.out.println("z! insert: " + id);
+        System.out.println("z! insert: " + job);
+        System.out.println("z! insert: " + description);
+        System.out.println("z! insert: " + price);
+
+        db.close();
     }
 
     /**
@@ -439,6 +476,41 @@ public class DBHelper extends SQLiteOpenHelper {
         return jobs;
     }
 
+    public ArrayList<JobItem> getJobItems(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<JobItem> jobItems = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + TABLE_JOB_ITEMS +
+                 " WHERE " + COLUMN_JOB + " = " + id
+                , null
+        );
+
+        if (cursor.moveToFirst()) {
+            do{
+                JobItem jobItem = new JobItem();
+
+                jobItem.setJobItemId(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_ITEM_ID)));
+                jobItem.setJob(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB)));
+                jobItem.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_ITEM_DESCRIPTION)));
+                jobItem.setPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_JOB_ITEM_PRICE)));
+
+                jobItems.add(jobItem);
+
+                System.out.println("z! --------------------------------");
+                System.out.println("z! id: " + jobItem.getJobItemId());
+                System.out.println("z! job: " + jobItem.getJob());
+                System.out.println("z! desc: " + jobItem.getDescription());
+                System.out.println("z! price: " + jobItem.getPrice());
+
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return jobItems;
+    }
+
     /**
      * Drop all tables
      * @param db
@@ -448,6 +520,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EMPLOYEES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOBS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOB_ITEMS);
     }
 
     /**

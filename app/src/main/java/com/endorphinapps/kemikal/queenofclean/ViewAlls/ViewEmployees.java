@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.ViewAlls;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.EmployeeArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.R;
 
 public class ViewEmployees extends AppCompatActivity {
 

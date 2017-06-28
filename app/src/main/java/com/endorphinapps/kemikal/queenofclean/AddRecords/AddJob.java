@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.AddRecords;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
@@ -21,9 +21,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.DatePickerFragment;
 import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
+import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -227,7 +230,6 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         calendar.getTime();
 
         startDate = calendar.getTimeInMillis();
-        Log.v("z! StartDate: ", String.valueOf(startDate));
     }
 
     /**
@@ -371,20 +373,24 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
      */
     private double calculatePriceOfJobItems() {
         double totalPriceOfJobItems = 0;
+        LinearLayout currentRow;
+        EditText editText;
+        String description;
+        double price;
 
         //Get the values from the description and price fields
         for (int i = 0; i < ll_jobListContainer.getChildCount(); i++) {
-            LinearLayout currentRow = (LinearLayout) ll_jobListContainer.getChildAt(i);
+            currentRow = (LinearLayout) ll_jobListContainer.getChildAt(i);
 
             //Get the text from the Description field
-            EditText editText = (EditText) currentRow.findViewById(R.id.add_item_description);
-            String description = editText.getText().toString();
+            editText = (EditText) currentRow.findViewById(R.id.add_item_description);
+            description = editText.getText().toString();
 
             //Get the text from the Price field, if it's not
             // empty convert it to a double, and keep a
             // running totalPriceOfJobItems
             editText = (EditText) currentRow.findViewById(R.id.add_item_price);
-            double price = 0;
+            price = 0;
             if (!editText.getText().toString().equals("")) {
                 price = Double.parseDouble(editText.getText().toString());
             }
@@ -435,12 +441,59 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         return jobNotes;
     }
 
+    /**
+     * Save all details of Job to DB
+     * Save the JobItems separately as they require the
+     * id returned from the saved Job as a FK
+     * @param startDate
+     * @param jobStatus
+     * @param estimateJobTime
+     * @param totalCostForJob
+     * @param jobNotes
+     * @param customerId
+     * @param employeeId
+     */
     private void saveToDB(long startDate, String jobStatus,
                           int estimateJobTime, double totalCostForJob,
                           String jobNotes, long customerId, long employeeId) {
         long jobId = db.insertJob(startDate, jobStatus, estimateJobTime,
                 totalCostForJob, jobNotes, customerId, employeeId);
 
-        Log.v("z! saveToDB jobId: ", String.valueOf(jobId));
+        // Save the jobItems separately as they require
+        // the jobId as a FK
+        saveJobItemsToDB(jobId);
+    }
+
+    /**
+     * Save the jobItems to the DB using the
+     * id returned from saving the Job
+     * @param jobId
+     */
+    private void saveJobItemsToDB(long jobId) {
+        LinearLayout currentRow;
+        EditText editText;
+        String description;
+        double price;
+
+        //Get the values from the description and price fields
+        for (int i = 0; i < ll_jobListContainer.getChildCount(); i++) {
+            currentRow = (LinearLayout) ll_jobListContainer.getChildAt(i);
+
+            //Get the text from the Description field
+            editText = (EditText) currentRow.findViewById(R.id.add_item_description);
+            description = editText.getText().toString();
+
+            //Get the text from the Price field, if it's not
+            // empty convert it to a double, and keep a
+            // running totalPriceOfJobItems
+            editText = (EditText) currentRow.findViewById(R.id.add_item_price);
+            price = 0;
+            if (!editText.getText().toString().equals("")) {
+                price = Double.parseDouble(editText.getText().toString());
+            }
+            // Save to DB
+            db.insertJobItem(jobId, description, price);
+        }
+
     }
 }

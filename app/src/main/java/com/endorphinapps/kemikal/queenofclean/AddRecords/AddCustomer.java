@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.AddRecords;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
-
-public class AddEmployee extends AppCompatActivity {
+public class AddCustomer extends AppCompatActivity {
 
     private EditText et_firstName;
     private EditText et_lastName;
@@ -23,7 +24,6 @@ public class AddEmployee extends AppCompatActivity {
     private EditText et_town;
     private EditText et_city;
     private EditText et_postcode;
-    private EditText et_rateOfPay;
 
     private Button btn_populate;
     private Button btn_addNew;
@@ -33,7 +33,7 @@ public class AddEmployee extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_employee);
+        setContentView(R.layout.activity_add_customer);
 
         //Find all views by ID
         findViews();
@@ -43,7 +43,7 @@ public class AddEmployee extends AppCompatActivity {
         btn_populate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                et_firstName.setText("Employee");
+                et_firstName.setText("Customer");
                 et_lastName.setText("last");
                 et_mobileNumber.setText("07511750244");
                 et_homeNumber.setText("02920485612");
@@ -53,15 +53,14 @@ public class AddEmployee extends AppCompatActivity {
                 et_town.setText("Pengam Green");
                 et_city.setText("Cardiff");
                 et_postcode.setText("CF242HH");
-                et_rateOfPay.setText("100");
             }
         });
 
-        //Add new Employee
+        //Add new Customer
         btn_addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewEmployee();
+                addNewCustomer();
             }
         });
     }
@@ -80,39 +79,37 @@ public class AddEmployee extends AppCompatActivity {
         et_town = (EditText) findViewById(R.id.add_town);
         et_city = (EditText) findViewById(R.id.add_city);
         et_postcode = (EditText) findViewById(R.id.add_postcode);
-        et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
         btn_addNew = (Button) findViewById(R.id.add_submit);
         btn_populate = (Button) findViewById(R.id.btn_populate);
     }
 
     /**
-     * Add New Employee - separates address from entity
+     * Add New Customer - separates address from entity
      * for insertion to the DB.
      * The address PK is caught as 'addressID' to be used
      * as the FK in the entity table
      */
-    private void addNewEmployee() {
+    private void addNewCustomer() {
 
-        long addressID = db.insertAddress(
+        int addressID = (int) db.insertAddress(
                 et_addressLine1.getText().toString().trim(),
                 et_addressLine2.getText().toString().trim(),
                 et_town.getText().toString().trim(),
                 et_city.getText().toString().trim(),
                 et_postcode.getText().toString().trim());
 
-        long employeeId = db.insertEmployee(
+        int customerId = (int) db.insertCustomer(
                 et_firstName.getText().toString().trim(),
                 et_lastName.getText().toString().trim(),
                 et_homeNumber.getText().toString().trim(),
                 et_mobileNumber.getText().toString().trim(),
                 et_eMail.getText().toString().trim(),
-                addressID,
-                Integer.parseInt(et_rateOfPay.getText().toString().trim())
+                addressID
         );
 
-        Log.v("z! EmployeeId: ", String.valueOf(employeeId));
+        Log.v("z! CustomerId: ", String.valueOf(customerId));
 
-        Intent intent = new Intent(AddEmployee.this, ViewEmployees.class);
+        Intent intent = new Intent(AddCustomer.this, ViewCustomers.class);
         startActivity(intent);
         finish();
     }
