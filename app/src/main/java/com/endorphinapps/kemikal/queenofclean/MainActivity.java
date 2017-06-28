@@ -2,13 +2,19 @@ package com.endorphinapps.kemikal.queenofclean;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.endorphinapps.kemikal.queenofclean.AddRecords.AddCustomer;
+import com.endorphinapps.kemikal.queenofclean.AddRecords.AddEmployee;
+import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 public class MainActivity extends AppCompatActivity {
 

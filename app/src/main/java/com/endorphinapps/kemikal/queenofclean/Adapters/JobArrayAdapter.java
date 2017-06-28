@@ -1,6 +1,8 @@
 package com.endorphinapps.kemikal.queenofclean.Adapters;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
@@ -20,7 +23,7 @@ import com.endorphinapps.kemikal.queenofclean.R;
 
 public class JobArrayAdapter extends ArrayAdapter<Job> {
 
-    DBHelper db = new DBHelper(getContext());
+    private DBHelper db = new DBHelper(getContext());
 
     public JobArrayAdapter(Context context) {
         super(context, 0);
@@ -34,20 +37,23 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.job_list_item, parent, false);
         }
 
-        Job job = getItem(position);
+        final Job job = getItem(position);
 
         /**
          * Customer details
          */
-        //Get Customer from DB by ID
-        Customer customer = db.getCustomerById(job.getCustomer());
-        //Customer First Name
+        // Get Customer from DB by ID
+        final Customer customer = db.getCustomerById(job.getCustomer());
+
+        // Fetch and populate the FirstName field
         TextView customerFirstName = (TextView) convertView.findViewById(R.id.first_name_customer);
         customerFirstName.setText(customer.getFirstName());
-        //Customer Last Name
+
+        // Fetch and populate the LastName field
         TextView customerLastName = (TextView) convertView.findViewById(R.id.last_name_customer);
         customerLastName.setText(customer.getLastName());
-        //Customer Address Line 1
+
+        // Fetch and populate the AddressLine1 field
         TextView customerAddress = (TextView) convertView.findViewById(R.id.address_line_1);
         customerAddress.setText(customer.getAddressLine1());
 
@@ -55,13 +61,32 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
          * Employee details
          */
         //Get Employee from DB by ID
-        Employee employee = db.getEmployeeById(job.getEmployee());
-        //Employee First Name
+        final Employee employee = db.getEmployeeById(job.getEmployee());
+
+        // Fetch and populate the FirstName field
         TextView employeeFirstName = (TextView) convertView.findViewById(R.id.first_name_employee);
         employeeFirstName.setText(employee.getFirstName());
-        //Employee Last Name
+
+        // Fetch and populate the LastName field
         TextView employeeLastName = (TextView) convertView.findViewById(R.id.last_name_employee);
         employeeLastName.setText(employee.getLastName());
+
+        // On click of listView item, send details to the DetailView
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), DetailJob.class);
+                intent.putExtra("EXTRAS_id", job.getId());
+                intent.putExtra("EXTRAS_customer", customer.getFirstName());
+                intent.putExtra("EXTRAS_employee", employee.getFirstName());
+                intent.putExtra("EXTRAS_startDate", job.getStartDate());
+                intent.putExtra("EXTRAS_status", job.getJobStatusEnum());
+                intent.putExtra("EXTRAS_estimatedTime", job.getEstimatedTime());
+                intent.putExtra("EXTRAS_totalPrice", job.getTotalPrice());
+                intent.putExtra("EXTRAS_notes", job.getNotes());
+                getContext().startActivity(intent);
+            }
+        });
 
         return convertView;
     }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detail_job"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_dark"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob">
+
+    <TableLayout
+        android:id="@+id/job_detail_container"
+        style="@style/container">
+
+        <!--Customer Details-->
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="Customer Name:" />
+
+            <TextView
+                android:id="@+id/first_name_customer"
+                style="@style/field_start"/>
+        </TableRow>
+
+        <!--Employee Details-->
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="Employee Name:" />
+
+            <TextView
+                android:id="@+id/first_name_employee"
+                style="@style/field_start"/>
+        </TableRow>
+
+        <!--Start Date-->
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="Start Date:" />
+
+            <TextView
+                android:id="@+id/start_date"
+                style="@style/field_start"/>
+        </TableRow>
+
+        <!--Status-->
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="Status:" />
+
+            <TextView
+                android:id="@+id/status"
+                style="@style/field_start"/>
+        </TableRow>
+
+        <!--Estimated Time-->
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="Estimated Time:" />
+
+            <TextView
+                android:id="@+id/estimated_time"
+                style="@style/field_start"/>
+        </TableRow>
+
+        <!--Total Price-->
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="Total Price:" />
+
+            <TextView
+                android:id="@id/job_total_price"
+                style="@style/field_start"/>
+        </TableRow>
+
+        <!--Notes-->
+        <TableRow>
+            <TextView
+                style="@style/field_end"
+                android:text="Notes:" />
+
+            <TextView
+                android:id="@+id/notes"
+                style="@style/field_start"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

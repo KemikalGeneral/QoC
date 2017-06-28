@@ -15,14 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddCustomer" />
-        <activity android:name=".AddEmployee" />
-        <activity android:name=".AddJob" />
-        <activity android:name=".ViewCustomers" />
-        <activity android:name=".ViewEmployees" />
-        <activity android:name=".ViewJobs" />
+        <activity android:name=".AddRecords.AddCustomer" />
+        <activity android:name=".AddRecords.AddEmployee" />
+        <activity android:name=".AddRecords.AddJob" />
+        <activity android:name=".ViewAlls.ViewCustomers" />
+        <activity android:name=".ViewAlls.ViewEmployees" />
+        <activity android:name=".ViewAlls.ViewJobs" />
         <activity android:name=".DetailViews.DetailCustomer" />
         <activity android:name=".DetailViews.DetailEmployee" />
+        <activity android:name=".DetailViews.DetailJob"></activity>
     </application>
 
 </manifest>

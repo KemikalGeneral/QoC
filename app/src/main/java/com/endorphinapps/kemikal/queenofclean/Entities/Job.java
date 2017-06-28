@@ -1,9 +1,5 @@
 package com.endorphinapps.kemikal.queenofclean.Entities;
 
-import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
-
-import java.util.Date;
-
 /**
  * Created by User on 06/12/2016.
  */
@@ -11,30 +7,31 @@ import java.util.Date;
 public class Job {
 
     private int id;
-    private Date startDate;
-    private Date endDate;
-    private Enum<JobStatus> jobStatusEnum;
-    private int timeTaken;
-    private int totalPrice;
-    private String notes;
     private long customer;
     private long employee;
+    private long startDate;
+    private long endDate;
+    private String jobStatusEnum;
+    private int estimatedTime;
+    private int actualTime;
+    private double totalPrice;
+    private String notes;
 
     public Job() {}
 
-    public Job(int id, Date startDate, Date endDate,
-               Enum<JobStatus> jobStatus, int timeTaken,
-               int totalPrice, String notes, long customer,
-               long employee) {
+    public Job(int id, long customer, long employee,
+               long startDate, long endDate, String jobStatusEnum,
+               int estimatedTime, int actualTime, double totalPrice, String notes) {
         this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.jobStatusEnum = jobStatus;
-        this.timeTaken = timeTaken;
-        this.totalPrice = totalPrice;
-        this.notes = notes;
         this.customer = customer;
         this.employee = employee;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.jobStatusEnum = jobStatusEnum;
+        this.estimatedTime = estimatedTime;
+        this.actualTime = actualTime;
+        this.totalPrice = totalPrice;
+        this.notes = notes;
     }
 
     public int getId() {
@@ -43,54 +40,6 @@ public class Job {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Enum<JobStatus> getJobStatusEnum() {
-        return jobStatusEnum;
-    }
-
-    public void setJobStatusEnum(Enum<JobStatus> jobStatusEnum) {
-        this.jobStatusEnum = jobStatusEnum;
-    }
-
-    public int getTimeTaken() {
-        return timeTaken;
-    }
-
-    public void setTimeTaken(int timeTaken) {
-        this.timeTaken = timeTaken;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
     }
 
     public long getCustomer() {
@@ -109,18 +58,75 @@ public class Job {
         this.employee = employee;
     }
 
+    public long getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
+    }
+
+    public long getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(long endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getJobStatusEnum() {
+        return String.valueOf(jobStatusEnum);
+    }
+
+    public void setJobStatusEnum(String jobStatusEnum) {
+        this.jobStatusEnum = jobStatusEnum;
+    }
+
+    public int getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(int estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
+    public int getActualTime() {
+        return actualTime;
+    }
+
+    public void setActualTime(int actualTime) {
+        this.actualTime = actualTime;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
     @Override
     public String toString() {
         return "Job{" +
                 "id=" + id +
+                ", customer=" + customer +
+                ", employee=" + employee +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", jobStatusEnum=" + jobStatusEnum +
-                ", timeTaken=" + timeTaken +
+                ", estimatedTime=" + estimatedTime +
+                ", actualTime=" + actualTime +
                 ", totalPrice=" + totalPrice +
                 ", notes='" + notes + '\'' +
-                ", customer=" + customer +
-                ", employee=" + employee +
                 '}';
     }
 }
