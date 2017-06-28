@@ -23,7 +23,7 @@ import com.endorphinapps.kemikal.queenofclean.R;
 
 public class JobArrayAdapter extends ArrayAdapter<Job> {
 
-    DBHelper db = new DBHelper(getContext());
+    private DBHelper db = new DBHelper(getContext());
 
     public JobArrayAdapter(Context context) {
         super(context, 0);
@@ -42,15 +42,18 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
         /**
          * Customer details
          */
-        //Get Customer from DB by ID
+        // Get Customer from DB by ID
         final Customer customer = db.getCustomerById(job.getCustomer());
-        //Customer First Name
+
+        // Fetch and populate the FirstName field
         TextView customerFirstName = (TextView) convertView.findViewById(R.id.first_name_customer);
         customerFirstName.setText(customer.getFirstName());
-        //Customer Last Name
+
+        // Fetch and populate the LastName field
         TextView customerLastName = (TextView) convertView.findViewById(R.id.last_name_customer);
         customerLastName.setText(customer.getLastName());
-        //Customer Address Line 1
+
+        // Fetch and populate the AddressLine1 field
         TextView customerAddress = (TextView) convertView.findViewById(R.id.address_line_1);
         customerAddress.setText(customer.getAddressLine1());
 
@@ -59,10 +62,12 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
          */
         //Get Employee from DB by ID
         final Employee employee = db.getEmployeeById(job.getEmployee());
-        //Employee First Name
+
+        // Fetch and populate the FirstName field
         TextView employeeFirstName = (TextView) convertView.findViewById(R.id.first_name_employee);
         employeeFirstName.setText(employee.getFirstName());
-        //Employee Last Name
+
+        // Fetch and populate the LastName field
         TextView employeeLastName = (TextView) convertView.findViewById(R.id.last_name_employee);
         employeeLastName.setText(employee.getLastName());
 

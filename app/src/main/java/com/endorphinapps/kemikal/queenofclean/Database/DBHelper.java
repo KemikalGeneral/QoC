@@ -476,25 +476,29 @@ public class DBHelper extends SQLiteOpenHelper {
         return jobs;
     }
 
+    /**
+     * Select details of jobItems by Job ID
+     * @param id
+     * @return jobItems as arrayList
+     */
     public ArrayList<JobItem> getJobItems(long id) {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<JobItem> jobItems = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM " + TABLE_JOB_ITEMS +
-                 " WHERE " + COLUMN_JOB + " = " + id
+                "SELECT * " +
+                "FROM " + TABLE_JOB_ITEMS +
+                " WHERE " + COLUMN_JOB + " = " + id
                 , null
         );
 
         if (cursor.moveToFirst()) {
             do{
                 JobItem jobItem = new JobItem();
-
                 jobItem.setJobItemId(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_ITEM_ID)));
                 jobItem.setJob(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB)));
                 jobItem.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_ITEM_DESCRIPTION)));
                 jobItem.setPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_JOB_ITEM_PRICE)));
-
                 jobItems.add(jobItem);
 
                 System.out.println("z! --------------------------------");

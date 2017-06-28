@@ -37,6 +37,8 @@ public class AddCustomer extends AppCompatActivity {
 
         //Find all views by ID
         findViews();
+
+        //Instantiate a new instance of the DBHelper
         db = new DBHelper(this);
 
         //Populate form for testing

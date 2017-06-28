@@ -12,7 +12,6 @@ import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
-
 public class AddEmployee extends AppCompatActivity {
 
     private EditText et_firstName;
@@ -39,6 +38,8 @@ public class AddEmployee extends AppCompatActivity {
 
         //Find all views by ID
         findViews();
+
+        //Instantiate a new instance of the DBHelper
         db = new DBHelper(this);
 
         //Populate form for testing

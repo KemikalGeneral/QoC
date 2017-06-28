@@ -13,6 +13,7 @@
     tools:context="com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob">
 
     <TableLayout
+        android:id="@+id/job_detail_container"
         style="@style/container">
 
         <!--Customer Details-->
@@ -92,12 +93,4 @@
                 style="@style/field_start"/>
         </TableRow>
     </TableLayout>
-
-    <!--Job Items-->
-    <LinearLayout
-        android:id="@+id/job_item_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    </LinearLayout>
 </LinearLayout>

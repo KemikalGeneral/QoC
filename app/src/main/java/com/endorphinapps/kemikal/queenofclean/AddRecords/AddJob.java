@@ -311,7 +311,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         double priceOfJobItems = calculatePriceOfJobItems();
 
         //Get estimated employee time required
-        int estimateJobTime = getHoursWorked();
+        int estimateJobTime = getEstimatedTime();
 
         //Calculate pay to employee
         double payToEmployee = calculatePayToEmployee();
@@ -402,18 +402,18 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
     }
 
     /**
-     * Get the estimated hours needed for the employee pay
-     * @return hours worked as an int
+     * Get the estimated time needed for the employee pay
+     * @return estimatedTime as an int
      */
-    private int getHoursWorked() {
-        int hoursWorked = 0;
+    private int getEstimatedTime() {
+        int estimatedTime = 0;
 
         if (!et_estimatedTime.getText().toString().equals("")) {
-            hoursWorked = Integer.valueOf(et_estimatedTime.getText().toString());
+            estimatedTime = Integer.valueOf(et_estimatedTime.getText().toString());
         }
-        Log.v("z! HoursWorked: ", String.valueOf(hoursWorked));
+        Log.v("z! HoursWorked: ", String.valueOf(estimatedTime));
 
-        return hoursWorked;
+        return estimatedTime;
     }
 
     /**
@@ -423,7 +423,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
      */
     private double calculatePayToEmployee() {
         double rateOfPay = employee.getRateOfPay();
-        double employeePay = rateOfPay * getHoursWorked();
+        double employeePay = rateOfPay * getEstimatedTime();
         Log.v("z! EmployeePay: ", String.valueOf(employeePay));
 
         return employeePay;
@@ -442,7 +442,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
     }
 
     /**
-     * Save all details of Job to DB
+     * Save all details of Job to DB.
      * Save the JobItems separately as they require the
      * id returned from the saved Job as a FK
      * @param startDate
