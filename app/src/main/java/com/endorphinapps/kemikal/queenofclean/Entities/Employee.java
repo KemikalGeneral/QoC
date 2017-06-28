@@ -22,11 +22,13 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName,
-                    String addressLine1, String addressLine2,
-                    String town, String city, String postcode,
-                    String mobileNumber, String homeNumber,
-                    String emailAddress, int rateOfPay) {
+    public Employee(long employeeId, String firstName,
+                    String lastName, String addressLine1,
+                    String addressLine2,  String town, String city,
+                    String postcode, String mobileNumber,
+                    String homeNumber, String emailAddress,
+                    int rateOfPay) {
+        this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.addressLine1 = addressLine1;
