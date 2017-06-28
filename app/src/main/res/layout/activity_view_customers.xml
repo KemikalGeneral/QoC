@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.endorphinapps.kemikal.queenofclean.ViewCustomers">
+    tools:context="com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers">
 
     <ListView
         android:id="@+id/customers_list_view"

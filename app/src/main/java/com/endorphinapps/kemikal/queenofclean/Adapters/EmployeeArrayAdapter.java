@@ -36,8 +36,9 @@ public class EmployeeArrayAdapter extends ArrayAdapter<Employee> {
 
         final Employee employee = getItem(position);
 
+        // Fetch and populate the ID field
         TextView employeeId = (TextView) convertView.findViewById(R.id.employee_id);
-        employeeId.setText("" + employee.getEmployeeId());
+        employeeId.setText(String.valueOf(employee.getEmployeeId()));
 
         // Fetch and populate the FirstName field
         TextView firstName = (TextView) convertView.findViewById(R.id.first_name);

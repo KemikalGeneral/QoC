@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.AddRecords;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-
+import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
 public class AddEmployee extends AppCompatActivity {
 
@@ -37,6 +38,8 @@ public class AddEmployee extends AppCompatActivity {
 
         //Find all views by ID
         findViews();
+
+        //Instantiate a new instance of the DBHelper
         db = new DBHelper(this);
 
         //Populate form for testing
