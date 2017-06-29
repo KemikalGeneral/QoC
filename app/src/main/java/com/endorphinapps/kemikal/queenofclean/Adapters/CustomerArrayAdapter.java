@@ -31,7 +31,7 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.customer_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_customer, parent, false);
         }
 
         final Customer customer = getItem(position);

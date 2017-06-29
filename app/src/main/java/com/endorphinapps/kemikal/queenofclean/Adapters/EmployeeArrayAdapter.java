@@ -31,7 +31,7 @@ public class EmployeeArrayAdapter extends ArrayAdapter<Employee> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.employee_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_employee, parent, false);
         }
 
         final Employee employee = getItem(position);
