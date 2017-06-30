@@ -10,6 +10,7 @@ import com.endorphinapps.kemikal.queenofclean.R;
 public class Finances extends AppCompatActivity {
 
     private DBHelper db;
+    private Finances_logic finances;
     private TextView tv_totalAmountIn;
     private TextView tv_totalAmountOut;
 
@@ -20,6 +21,18 @@ public class Finances extends AppCompatActivity {
 
         // Find all views by Id
         findViews();
+
+        // Instantiate DB and Finance_logic classes
+        db = new DBHelper(this);
+        finances = new Finances_logic(db);
+
+        // Display total amount in
+        tv_totalAmountIn.setText("£");
+        tv_totalAmountIn.append(String.valueOf(finances.getTotalAmount_In()));
+
+        // Display total amount out
+        tv_totalAmountOut.setText("£");
+        tv_totalAmountOut.append(String.valueOf(finances.getTotalAmount_out()));
     }
 
     /**

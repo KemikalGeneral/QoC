@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by User on 30/06/2017.
+ * Created by Kemikal on 30/06/2017.
  */
 
 class Finances_logic {
@@ -48,8 +48,8 @@ class Finances_logic {
 
     /**
      * Cycle through the Jobs and calculate the
-     * totalAmount coming in for the current week
-     * @return totalPrice as a double
+     * totalAmount of income for the current week
+     * @return totalAmount as a double
      */
     double getTotalAmount_In() {
         double totalAmount = 0;
@@ -62,16 +62,44 @@ class Finances_logic {
         return totalAmount;
     }
 
-    public double getTotalAmount_out() {
+    /**
+     * Cycle through the Jobs and calculate the
+     * totalAmount of outgoings for the current week
+     * @return totalAmount as a double
+     */
+    double getTotalAmount_out() {
         double totalAmount = 0;
         int arrayLength = jobs.size();
+        long employeeId;
+        Employee employee;
+        double rateOfPay;
+        int hours;
+        double employeePayForJob;
 
         for (int i = 0; i < arrayLength; i++) {
-            long employeeId = jobs.get(i).getEmployee();
-            Employee employee = db.getEmployeeById(employeeId);
+            // Get job-employee by Id
+            employeeId = jobs.get(i).getEmployee();
+            employee = db.getEmployeeById(employeeId);
 
-            System.out.println("Finances Employee: " + employee.getLastName());
+            // Get employee rateOfPay and
+            // hours worked per job
+            rateOfPay = employee.getRateOfPay();
+            hours = jobs.get(i).getEstimatedTime();
+
+            // Calculate employee pay for current job
+            employeePayForJob = rateOfPay * hours;
+
+            // Calculate total amount of pay to employees
+            // for current week, Monday to Sunday
+            totalAmount += employeePayForJob;
+
+            System.out.println("z! Finances lastName: " + employee.getLastName());
+            System.out.println("z! Finances rate: " + rateOfPay);
+            System.out.println("z! Finances hours: " + hours);
+            System.out.println("z! Finances payForJob: " + employeePayForJob);
         }
+
+        System.out.println("z! Finances totalAmount: " + totalAmount);
 
         return totalAmount;
     }

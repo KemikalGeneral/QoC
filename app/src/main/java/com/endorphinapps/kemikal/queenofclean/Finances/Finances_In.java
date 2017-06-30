@@ -7,18 +7,14 @@ import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.R;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Finances_In extends AppCompatActivity {
 
+    private DBHelper db;
+    private Finances_logic finances;
     private ListView lv_listView;
     private TextView tv_totalAmountIn;
-    private DBHelper db;
-    private ArrayList<Job> jobs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +24,20 @@ public class Finances_In extends AppCompatActivity {
         // Find views by their ID
         findViews();
 
-        // Initialise DB
+        // Instantiate DB and Finance_logic classes
         db = new DBHelper(this);
-
-        // Populate Jobs array with DB results
-        jobs = getJobsByDateRange();
+        finances = new Finances_logic(db);
 
         // Setup and display ListView
         // using the getJobsByDateRange method
         // Monday - Sunday of current week
         FinanceArrayAdapter financeArrayAdapter = new FinanceArrayAdapter(this);
-        financeArrayAdapter.addAll(getJobsByDateRange());
+        financeArrayAdapter.addAll(finances.getJobsByDateRange());
         lv_listView.setAdapter(financeArrayAdapter);
 
         // Cycle through Jobs array and total job amounts.
         // Display to TextView.
-        double totalPrice = getTotalPrice();
+        double totalPrice = finances.getTotalAmount_In();
         tv_totalAmountIn.setText("£");
         tv_totalAmountIn.append(String.valueOf(totalPrice));
     }
@@ -56,43 +50,4 @@ public class Finances_In extends AppCompatActivity {
         tv_totalAmountIn = (TextView) findViewById(R.id.total_in_amount);
     }
 
-    /**
-     * Get all details of Jobs  between
-     * Monday and Sunday of the current week
-     * @return Jobs as an ArrayList
-     */
-    private ArrayList<Job> getJobsByDateRange() {
-        ArrayList<Job> jobsArr = new ArrayList<>();
-        long dateFrom;
-        long dateTo;
-        Calendar calendar = Calendar.getInstance();
-
-        // Get first day of week for dateFrom
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-        dateFrom = calendar.getTimeInMillis();
-
-        // Get last day of week for dateTo
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek() + 6);
-        dateTo = calendar.getTimeInMillis();
-
-        // Populate array with results from DB search
-        jobsArr.addAll(db.getJobsByDateRange(dateFrom, dateTo));
-
-        return jobsArr;
-    }
-
-    /**
-     * Cycle through the Jobs and calculate the total
-     * @return totalPrice as a double
-     */
-    public double getTotalPrice() {
-        double totalPrice = 0;
-        int arrayLength = jobs.size();
-
-        for (int i = 0; i < arrayLength; i++) {
-            totalPrice += jobs.get(i).getTotalPrice();
-        }
-
-        return totalPrice;
-    }
 }
