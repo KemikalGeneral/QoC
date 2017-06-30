@@ -23,7 +23,7 @@
                 android:text="Customer Name:" />
 
             <TextView
-                android:id="@+id/first_name_customer"
+                android:id="@+id/full_name_customer"
                 style="@style/field_start"/>
         </TableRow>
 
@@ -34,7 +34,7 @@
                 android:text="Employee Name:" />
 
             <TextView
-                android:id="@+id/first_name_employee"
+                android:id="@+id/full_name_employee"
                 style="@style/field_start"/>
         </TableRow>
 

@@ -45,13 +45,10 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
         // Get Customer from DB by ID
         final Customer customer = db.getCustomerById(job.getCustomer());
 
-        // Fetch and populate the FirstName field
-        TextView customerFirstName = (TextView) convertView.findViewById(R.id.first_name_customer);
-        customerFirstName.setText(customer.getFirstName());
-
-        // Fetch and populate the LastName field
-        TextView customerLastName = (TextView) convertView.findViewById(R.id.last_name_customer);
-        customerLastName.setText(customer.getLastName());
+        // Fetch, concatenate and populate the first and last name
+        final String customerFullName = customer.getFirstName() + " " + customer.getLastName();
+        TextView customerFirstLast = (TextView) convertView.findViewById(R.id.full_name_customer);
+        customerFirstLast.setText(customerFullName);
 
         // Fetch and populate the AddressLine1 field
         TextView customerAddress = (TextView) convertView.findViewById(R.id.address_line_1);
@@ -63,13 +60,10 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
         //Get Employee from DB by ID
         final Employee employee = db.getEmployeeById(job.getEmployee());
 
-        // Fetch and populate the FirstName field
-        TextView employeeFirstName = (TextView) convertView.findViewById(R.id.first_name_employee);
-        employeeFirstName.setText(employee.getFirstName());
-
-        // Fetch and populate the LastName field
-        TextView employeeLastName = (TextView) convertView.findViewById(R.id.last_name_employee);
-        employeeLastName.setText(employee.getLastName());
+        // Fetch, concatenate and populate the first and last name
+        final String employeeFullName = employee.getFirstName() + " " + employee.getLastName();
+        TextView employeeFirstLast = (TextView) convertView.findViewById(R.id.full_name_employee);
+        employeeFirstLast.setText(employeeFullName);
 
         // On click of listView item, send details to the DetailView
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +71,8 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DetailJob.class);
                 intent.putExtra("EXTRAS_id", job.getId());
-                intent.putExtra("EXTRAS_customer", customer.getFirstName());
-                intent.putExtra("EXTRAS_employee", employee.getFirstName());
+                intent.putExtra("EXTRAS_customer_full_name", customerFullName);
+                intent.putExtra("EXTRAS_employee_full_name", employeeFullName);
                 intent.putExtra("EXTRAS_startDate", job.getStartDate());
                 intent.putExtra("EXTRAS_status", job.getJobStatusEnum());
                 intent.putExtra("EXTRAS_estimatedTime", job.getEstimatedTime());
