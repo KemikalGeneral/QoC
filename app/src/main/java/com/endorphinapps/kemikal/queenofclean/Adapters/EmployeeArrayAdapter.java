@@ -31,22 +31,19 @@ public class EmployeeArrayAdapter extends ArrayAdapter<Employee> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.employee_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_employee, parent, false);
         }
 
         final Employee employee = getItem(position);
 
-        // Fetch and populate the ID field
-        TextView employeeId = (TextView) convertView.findViewById(R.id.employee_id);
-        employeeId.setText(String.valueOf(employee.getEmployeeId()));
+//        // Fetch and populate the ID field - Testing purposes
+//        TextView employeeId = (TextView) convertView.findViewById(R.id.employee_id);
+//        employeeId.setText(String.valueOf(employee.getEmployeeId()));
 
         // Fetch and populate the FirstName field
-        TextView firstName = (TextView) convertView.findViewById(R.id.first_name);
-        firstName.setText(employee.getFirstName());
-
-        // Fetch and populate the LastName field
-        TextView lastName = (TextView) convertView.findViewById(R.id.last_name);
-        lastName.setText(employee.getLastName());
+        String employeeFullName = employee.getFirstName() + " " + employee.getLastName();
+        TextView employeeName = (TextView) convertView.findViewById(R.id.first_name);
+        employeeName.setText(employeeFullName);
 
         // Onclick, send all details below to the DetailCustomer page
         convertView.setOnClickListener(new View.OnClickListener() {

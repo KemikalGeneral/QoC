@@ -31,22 +31,19 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.customer_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_customer, parent, false);
         }
 
         final Customer customer = getItem(position);
 
-        // Fetch and populate the ID field
-        TextView customerId = (TextView) convertView.findViewById(R.id.customer_id);
-        customerId.setText(String.valueOf(customer.getCustomerId()));
+//        // Fetch and populate the ID field - Testing purposes
+//        TextView customerId = (TextView) convertView.findViewById(R.id.customer_id);
+//        customerId.setText(String.valueOf(customer.getCustomerId()));
 
         // Fetch and populate the FirstName field
-        TextView firstName = (TextView) convertView.findViewById(R.id.first_name);
-        firstName.setText(customer.getFirstName());
-
-        // Fetch and populate the LastName field
-        TextView lastName = (TextView) convertView.findViewById(R.id.last_name);
-        lastName.setText(customer.getLastName());
+        String customerFullName = customer.getFirstName() + " " + customer.getLastName();
+        TextView customerName = (TextView) convertView.findViewById(R.id.first_name);
+        customerName.setText(customerFullName);
 
         // Fetch and populate the AddressLine1  field
         TextView addressLine1 = (TextView) convertView.findViewById(R.id.address_line_1);

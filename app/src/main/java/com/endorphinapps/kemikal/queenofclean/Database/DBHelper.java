@@ -477,6 +477,46 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Select all jobs details between a date range.
+     * The dates will be FROM the Monday of the present week
+     * TO the Sunday of the present week.
+     * @param from
+     * @param to
+     * @return All details of Jobs as an ArrayList
+     */
+    public ArrayList<Job> getJobsByDateRange(long from, long to) {
+        ArrayList<Job> jobs = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * " +
+                "FROM " + TABLE_JOBS +
+                " WHERE " + COLUMN_START_DATE + " >= " + from +
+                " AND " + COLUMN_START_DATE + " <= " + to + ";",
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            do{
+                Job job = new Job();
+                job.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_ID)));
+                job.setCustomer(cursor.getInt(cursor.getColumnIndex(COLUMN_CUSTOMER)));
+                job.setEmployee(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE)));
+                job.setStartDate(cursor.getLong(cursor.getColumnIndex(COLUMN_START_DATE)));
+                job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
+                job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
+                job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
+                job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
+                jobs.add(job);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return jobs;
+    }
+
+    /**
      * Select details of jobItems by Job ID
      * @param id
      * @return jobItems as arrayList

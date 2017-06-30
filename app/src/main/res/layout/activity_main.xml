@@ -49,10 +49,39 @@
         android:layout_weight="1"
         android:text="View Job"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/view_finances_in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="In"/>
+
+        <Button
+            android:id="@+id/view_finances"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Finances"/>
+
+        <Button
+            android:id="@+id/view_finances_out"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Out"/>
+    </LinearLayout>
+
     <Button
         android:id="@+id/drop_tables"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ff0000"
         android:layout_weight="1"
         android:text="Drop Tables"/>
 </LinearLayout>

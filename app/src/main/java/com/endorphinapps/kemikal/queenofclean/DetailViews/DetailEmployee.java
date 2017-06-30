@@ -9,8 +9,7 @@ import com.endorphinapps.kemikal.queenofclean.R;
 
 public class DetailEmployee extends AppCompatActivity {
 
-    private TextView tv_firstName;
-    private TextView tv_lastName;
+    private TextView tv_fullName;
     private TextView tv_homeNumber;
     private TextView tv_mobileNumber;
     private TextView tv_eMailAddress;
@@ -29,8 +28,10 @@ public class DetailEmployee extends AppCompatActivity {
         findViews();
 
         Intent intent = getIntent();
-        tv_firstName.setText(intent.getStringExtra("EXTRAS_firstName"));
-        tv_lastName.setText(intent.getStringExtra("EXTRAS_lastName"));
+        String fullName =
+                intent.getStringExtra("EXTRAS_firstName") + " " +
+                        intent.getStringExtra("EXTRAS_lastName");
+        tv_fullName.setText(fullName);
         tv_homeNumber.setText(intent.getStringExtra("EXTRAS_homeNumber"));
         tv_mobileNumber.setText(intent.getStringExtra("EXTRAS_mobileNumber"));
         tv_eMailAddress.setText(intent.getStringExtra("EXTRAS_emailAddress"));
@@ -43,8 +44,7 @@ public class DetailEmployee extends AppCompatActivity {
     }
 
     private void findViews() {
-        tv_firstName = (TextView) findViewById(R.id.first_name);
-        tv_lastName = (TextView) findViewById(R.id.last_name);
+        tv_fullName = (TextView) findViewById(R.id.employee_full_name);
         tv_homeNumber = (TextView) findViewById(R.id.home_number);
         tv_mobileNumber = (TextView) findViewById(R.id.mobile_number);
         tv_eMailAddress = (TextView) findViewById(R.id.email_address);

@@ -12,6 +12,9 @@ import com.endorphinapps.kemikal.queenofclean.AddRecords.AddCustomer;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddEmployee;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.Finances.Finances;
+import com.endorphinapps.kemikal.queenofclean.Finances.Finances_In;
+import com.endorphinapps.kemikal.queenofclean.Finances.Finances_out;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
@@ -24,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_viewEmployees;
     private Button btn_addJob;
     private Button btn_viewJob;
+    private Button btn_financesIn;
+    private Button btn_finances;
+    private Button btn_financesOut;
     private Button btn_dropTables;
 
     private Intent intent;
@@ -91,6 +97,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_financesIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this, Finances_In.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_finances.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this, Finances.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_financesOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this, Finances_out.class);
+                startActivity(intent);
+            }
+        });
+
         btn_dropTables.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
         btn_viewEmployees = (Button) findViewById(R.id.view_employees);
         btn_addJob = (Button) findViewById(R.id.add_job);
         btn_viewJob = (Button) findViewById(R.id.view_job);
+        btn_financesIn = (Button) findViewById(R.id.view_finances_in);
+        btn_finances = (Button) findViewById(R.id.view_finances);
+        btn_financesOut = (Button) findViewById(R.id.view_finances_out);
         btn_dropTables = (Button) findViewById(R.id.drop_tables);
     }
 }

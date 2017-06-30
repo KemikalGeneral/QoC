@@ -23,7 +23,10 @@
         <activity android:name=".ViewAlls.ViewJobs" />
         <activity android:name=".DetailViews.DetailCustomer" />
         <activity android:name=".DetailViews.DetailEmployee" />
-        <activity android:name=".DetailViews.DetailJob"></activity>
+        <activity android:name=".DetailViews.DetailJob" />
+        <activity android:name=".Finances.Finances" />
+        <activity android:name=".Finances.Finances_In" />
+        <activity android:name=".Finances.Finances_out"></activity>
     </application>
 
 </manifest>

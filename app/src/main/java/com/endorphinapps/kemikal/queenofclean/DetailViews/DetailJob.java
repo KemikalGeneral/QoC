@@ -44,8 +44,8 @@ public class DetailJob extends AppCompatActivity {
      * Find all views by ID
      */
     private void findViews() {
-        tv_customerName = (TextView) findViewById(R.id.first_name_customer);
-        tv_employeeName = (TextView) findViewById(R.id.first_name_employee);
+        tv_customerName = (TextView) findViewById(R.id.full_name_customer);
+        tv_employeeName = (TextView) findViewById(R.id.full_name_employee);
         tv_startDate = (TextView) findViewById(R.id.start_date);
         tv_jobStatus = (TextView) findViewById(R.id.status);
         tv_estimatedTime = (TextView) findViewById(R.id.estimated_time);
@@ -66,8 +66,8 @@ public class DetailJob extends AppCompatActivity {
         // Get string value of estimated time
         int time = intent.getIntExtra("EXTRAS_estimatedTime", 0);
 
-        tv_customerName.setText(intent.getStringExtra("EXTRAS_customer"));
-        tv_employeeName.setText(intent.getStringExtra("EXTRAS_employee"));
+        tv_customerName.setText(intent.getStringExtra("EXTRAS_customer_full_name"));
+        tv_employeeName.setText(intent.getStringExtra("EXTRAS_employee_full_name"));
         tv_startDate.setText(date);
         tv_jobStatus.setText(intent.getStringExtra("EXTRAS_status"));
         tv_estimatedTime.setText(String.valueOf(time));

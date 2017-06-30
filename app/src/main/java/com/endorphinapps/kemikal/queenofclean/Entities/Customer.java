@@ -21,11 +21,12 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName,
-                    String addressLine1, String addressLine2,
-                    String town, String city, String postcode,
-                    String mobileNumber, String homeNumber,
-                    String emailAddress) {
+    public Customer(long customerId, String firstName,
+                    String lastName, String addressLine1,
+                    String addressLine2, String town, String city,
+                    String postcode, String mobileNumber,
+                    String homeNumber, String emailAddress) {
+        this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.addressLine1 = addressLine1;
