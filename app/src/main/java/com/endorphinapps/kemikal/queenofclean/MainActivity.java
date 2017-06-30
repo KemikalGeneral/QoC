@@ -14,6 +14,7 @@ import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Finances.Finances;
 import com.endorphinapps.kemikal.queenofclean.Finances.Finances_In;
+import com.endorphinapps.kemikal.queenofclean.Finances.Finances_out;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
@@ -108,6 +109,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(MainActivity.this, Finances.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_financesOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MainActivity.this, Finances_out.class);
                 startActivity(intent);
             }
         });

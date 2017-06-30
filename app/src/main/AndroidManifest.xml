@@ -25,7 +25,8 @@
         <activity android:name=".DetailViews.DetailEmployee" />
         <activity android:name=".DetailViews.DetailJob" />
         <activity android:name=".Finances.Finances" />
-        <activity android:name=".Finances.Finances_In"></activity>
+        <activity android:name=".Finances.Finances_In" />
+        <activity android:name=".Finances.Finances_out"></activity>
     </application>
 
 </manifest>

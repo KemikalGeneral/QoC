@@ -20,11 +20,11 @@ import java.text.DateFormat;
  * Created by User on 28/06/2017.
  */
 
-public class FinanceArrayAdapter extends ArrayAdapter<Job> {
+public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
 
     private DBHelper db = new DBHelper(getContext());
 
-    public FinanceArrayAdapter(Context context) {
+    public FinanceArrayAdapter_in(Context context) {
         super(context, 0);
     }
 
@@ -32,7 +32,7 @@ public class FinanceArrayAdapter extends ArrayAdapter<Job> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_finances, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_finances_in, parent, false);
         }
 
         Job job = getItem(position);

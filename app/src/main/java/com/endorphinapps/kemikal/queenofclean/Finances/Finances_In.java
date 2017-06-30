@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter;
+import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_in;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.R;
 
@@ -31,9 +31,9 @@ public class Finances_In extends AppCompatActivity {
         // Setup and display ListView
         // using the getJobsByDateRange method
         // Monday - Sunday of current week
-        FinanceArrayAdapter financeArrayAdapter = new FinanceArrayAdapter(this);
-        financeArrayAdapter.addAll(finances.getJobsByDateRange());
-        lv_listView.setAdapter(financeArrayAdapter);
+        FinanceArrayAdapter_in financeArrayAdapterIn = new FinanceArrayAdapter_in(this);
+        financeArrayAdapterIn.addAll(finances.getJobsByDateRange());
+        lv_listView.setAdapter(financeArrayAdapterIn);
 
         // Cycle through Jobs array and total job amounts.
         // Display to TextView.

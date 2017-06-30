@@ -104,5 +104,10 @@ class Finances_logic {
         return totalAmount;
     }
 
+    double getTotalAmount_sum() {
+        double in = getTotalAmount_In();
+        double out = getTotalAmount_out();
 
+        return in - out;
+    }
 }
