@@ -71,8 +71,9 @@ public class DetailJob extends AppCompatActivity {
         tv_startDate.setText(date);
         tv_jobStatus.setText(intent.getStringExtra("EXTRAS_status"));
         tv_estimatedTime.setText(String.valueOf(time));
+        double totalPrice = intent.getDoubleExtra("EXTRAS_totalPrice", 0.0);
         tv_totalPrice.setText("£");
-        tv_totalPrice.append(String.valueOf(intent.getDoubleExtra("EXTRAS_totalPrice", 0.0)));
+        tv_totalPrice.append(String.format("%.2f", totalPrice));
         tv_notes.setText(intent.getStringExtra("EXTRAS_notes"));
     }
 
@@ -82,7 +83,6 @@ public class DetailJob extends AppCompatActivity {
 
         // Ge the Job ID
         long id = intent.getIntExtra("EXTRAS_id", 0);
-        System.out.println("z! id: " + id);
 
         // Populate jobItems according to the job in the DB
         jobItems = db.getJobItems(id);
@@ -110,7 +110,8 @@ public class DetailJob extends AppCompatActivity {
             // with the jobItemPrice from the jobItem array
             // and add TextView to the row
             price = new TextView(new ContextThemeWrapper(this, R.style.field_start));
-            price.setText(String.valueOf(jobItems.get(i).getPrice()));
+            price.setText("£");
+            price.append(String.format("%.2f", jobItems.get(i).getPrice()));
             jobItemRow.addView(price);
 
             // Add new row to the jobItems container

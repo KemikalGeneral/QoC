@@ -56,7 +56,7 @@ public class AddEmployee extends AppCompatActivity {
                 et_town.setText("Pengam Green");
                 et_city.setText("Cardiff");
                 et_postcode.setText("CF242HH");
-                et_rateOfPay.setText("100");
+                et_rateOfPay.setText("10.50");
             }
         });
 
@@ -110,7 +110,7 @@ public class AddEmployee extends AppCompatActivity {
                 et_mobileNumber.getText().toString().trim(),
                 et_eMail.getText().toString().trim(),
                 addressID,
-                Integer.parseInt(et_rateOfPay.getText().toString().trim())
+                Double.parseDouble(et_rateOfPay.getText().toString().trim())
         );
 
         Log.v("z! EmployeeId: ", String.valueOf(employeeId));

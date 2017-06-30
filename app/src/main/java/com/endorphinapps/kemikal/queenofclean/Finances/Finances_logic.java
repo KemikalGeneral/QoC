@@ -92,18 +92,15 @@ class Finances_logic {
             // Calculate total amount of pay to employees
             // for current week, Monday to Sunday
             totalAmount += employeePayForJob;
-
-            System.out.println("z! Finances lastName: " + employee.getLastName());
-            System.out.println("z! Finances rate: " + rateOfPay);
-            System.out.println("z! Finances hours: " + hours);
-            System.out.println("z! Finances payForJob: " + employeePayForJob);
         }
-
-        System.out.println("z! Finances totalAmount: " + totalAmount);
 
         return totalAmount;
     }
 
+    /**
+     * Calculate the total sum (in - out)
+     * @return sum as a double
+     */
     double getTotalAmount_sum() {
         double in = getTotalAmount_In();
         double out = getTotalAmount_out();

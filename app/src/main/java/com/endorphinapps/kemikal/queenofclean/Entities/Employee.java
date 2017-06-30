@@ -17,7 +17,7 @@ public class Employee {
     private String mobileNumber;
     private String homeNumber;
     private String emailAddress;
-    private int rateOfPay;
+    private double rateOfPay;
 
     public Employee() {
     }
@@ -27,7 +27,7 @@ public class Employee {
                     String addressLine2,  String town, String city,
                     String postcode, String mobileNumber,
                     String homeNumber, String emailAddress,
-                    int rateOfPay) {
+                    double rateOfPay) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -130,11 +130,11 @@ public class Employee {
         this.emailAddress = emailAddress;
     }
 
-    public int getRateOfPay() {
+    public double getRateOfPay() {
         return rateOfPay;
     }
 
-    public void setRateOfPay(int rateOfPay) {
+    public void setRateOfPay(double rateOfPay) {
         this.rateOfPay = rateOfPay;
     }
 

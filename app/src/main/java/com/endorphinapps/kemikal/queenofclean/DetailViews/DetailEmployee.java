@@ -25,6 +25,7 @@ public class DetailEmployee extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_employee);
 
+        // Find all views by Id
         findViews();
 
         Intent intent = getIntent();
@@ -40,9 +41,14 @@ public class DetailEmployee extends AppCompatActivity {
         tv_town.setText(intent.getStringExtra("EXTRAS_town"));
         tv_city.setText(intent.getStringExtra("EXTRAS_city"));
         tv_postcode.setText(intent.getStringExtra("EXTRAS_postcode"));
-        tv_rateOfPay.setText(String.valueOf(intent.getIntExtra("EXTRAS_rateOfPay", 0)));
+        double rate = intent.getDoubleExtra("EXTRAS_rateOfPay", 0);
+        tv_rateOfPay.setText("£");
+        tv_rateOfPay.append(String.format("%.2f", rate));
     }
 
+    /**
+     * Find all views bt their Id's
+     */
     private void findViews() {
         tv_fullName = (TextView) findViewById(R.id.employee_full_name);
         tv_homeNumber = (TextView) findViewById(R.id.home_number);

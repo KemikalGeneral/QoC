@@ -100,7 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_HOME_NUMBER + " VARCHAR(11), " +
                     COLUMN_MOBILE_NUMBER + " VARCHAR(11) NOT NULL, " +
                     COLUMN_EMAIL_ADDRESS + " VARCHAR(50), " +
-                    COLUMN_RATE_OF_PAY + " INTEGER, " +
+                    COLUMN_RATE_OF_PAY + " REAL, " +
                     COLUMN_ADDRESS + " INTEGER NOT NULL, " +
                         " FOREIGN KEY (" + COLUMN_ADDRESS + ") REFERENCES " + TABLE_ADDRESSES + " (" + COLUMN_EMPLOYEE_ID + "));";
 
@@ -200,7 +200,7 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public long insertEmployee(String firstName, String lastName,
                                String homeNumber, String mobileNumber,
-                               String eMail, long address, int rateOfPay) {
+                               String eMail, long address, double rateOfPay) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -209,7 +209,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_HOME_NUMBER, homeNumber);
         values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
         values.put(COLUMN_EMAIL_ADDRESS, eMail);
-        values.put(COLUMN_RATE_OF_PAY, rateOfPay);
+        values.put(COLUMN_RATE_OF_PAY, rateOfPay); System.out.println("DBHelper - insertEmployee - rateOfPay: " + rateOfPay);
         values.put(COLUMN_ADDRESS, address);
         long employeeId = db.insert(TABLE_EMPLOYEES, null, values);
         db.close();
@@ -397,7 +397,7 @@ public class DBHelper extends SQLiteOpenHelper {
             employee.setTown(cursor.getString(cursor.getColumnIndex(COLUMN_TOWN)));
             employee.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
             employee.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
-            employee.setRateOfPay(cursor.getInt(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
+            employee.setRateOfPay(cursor.getDouble(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
         }
         cursor.close();
         db.close();
@@ -433,7 +433,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 employee.setTown(cursor.getString(cursor.getColumnIndex(COLUMN_TOWN)));
                 employee.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
                 employee.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
-                employee.setRateOfPay(cursor.getInt(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
+                employee.setRateOfPay(cursor.getDouble(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
                 employees.add(employee);
             } while (cursor.moveToNext());
         }

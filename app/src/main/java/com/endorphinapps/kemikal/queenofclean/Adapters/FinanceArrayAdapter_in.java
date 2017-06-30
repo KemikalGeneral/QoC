@@ -44,20 +44,24 @@ public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
 
         // Fetch and display customer name
         TextView customerName = (TextView) convertView.findViewById(R.id.finances_customer);
-        customerName.setText("Customer: " + customerFullName);
+        customerName.setText("Customer: ");
+        customerName.append(customerFullName);
 
         // Fetch and display total amount
         TextView totalAmount = (TextView) convertView.findViewById(R.id.finances_amount);
-        totalAmount.setText("Total: £" + String.valueOf(job.getTotalPrice()));
+        totalAmount.setText("Total: £");
+        totalAmount.append(String.format("%.2f", job.getTotalPrice()));
 
         // Fetch and display date
         TextView endDate = (TextView) convertView.findViewById(R.id.finances_date);
         String date = DateFormat.getDateInstance().format(job.getStartDate());
-        endDate.setText("Date: " + date);
+        endDate.setText("Date: ");
+        endDate.append(date);
 
         // Fetch and display status
         TextView status = (TextView) convertView.findViewById(R.id.finances_status);
-        status.setText("Status: " + job.getJobStatusEnum());
+        status.setText("Status: ");
+        status.append(job.getJobStatusEnum());
 
         return convertView;
     }

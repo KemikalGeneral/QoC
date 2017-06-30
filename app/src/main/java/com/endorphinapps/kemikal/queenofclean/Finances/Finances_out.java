@@ -39,7 +39,7 @@ public class Finances_out extends AppCompatActivity {
         // Display to TextView
         double totalPayToEmployee = finances.getTotalAmount_out();
         tv_totalAmountOut.setText("£");
-        tv_totalAmountOut.append(String.valueOf(totalPayToEmployee));
+        tv_totalAmountOut.append(String.format("%.2f", totalPayToEmployee));
     }
 
     /**
