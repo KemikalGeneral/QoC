@@ -36,13 +36,9 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
 
         final Customer customer = getItem(position);
 
-//        // Fetch and populate the ID field - Testing purposes
-//        TextView customerId = (TextView) convertView.findViewById(R.id.customer_id);
-//        customerId.setText(String.valueOf(customer.getCustomerId()));
-
         // Fetch and populate the FirstName field
         String customerFullName = customer.getFirstName() + " " + customer.getLastName();
-        TextView customerName = (TextView) convertView.findViewById(R.id.first_name);
+        TextView customerName = (TextView) convertView.findViewById(R.id.customer_full_name);
         customerName.setText(customerFullName);
 
         // Fetch and populate the AddressLine1  field
