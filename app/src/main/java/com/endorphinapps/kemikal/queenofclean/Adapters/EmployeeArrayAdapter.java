@@ -36,17 +36,14 @@ public class EmployeeArrayAdapter extends ArrayAdapter<Employee> {
 
         final Employee employee = getItem(position);
 
-        // Fetch and populate the ID field
-        TextView employeeId = (TextView) convertView.findViewById(R.id.employee_id);
-        employeeId.setText(String.valueOf(employee.getEmployeeId()));
+//        // Fetch and populate the ID field - Testing purposes
+//        TextView employeeId = (TextView) convertView.findViewById(R.id.employee_id);
+//        employeeId.setText(String.valueOf(employee.getEmployeeId()));
 
         // Fetch and populate the FirstName field
-        TextView firstName = (TextView) convertView.findViewById(R.id.first_name);
-        firstName.setText(employee.getFirstName());
-
-        // Fetch and populate the LastName field
-        TextView lastName = (TextView) convertView.findViewById(R.id.last_name);
-        lastName.setText(employee.getLastName());
+        String employeeFullName = employee.getFirstName() + " " + employee.getLastName();
+        TextView employeeName = (TextView) convertView.findViewById(R.id.first_name);
+        employeeName.setText(employeeFullName);
 
         // Onclick, send all details below to the DetailCustomer page
         convertView.setOnClickListener(new View.OnClickListener() {

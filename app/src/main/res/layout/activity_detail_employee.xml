@@ -22,11 +22,7 @@
                 android:text="@string/name" />
 
             <TextView
-                android:id="@+id/first_name"
-                style="@style/field_start"/>
-
-            <TextView
-                android:id="@+id/last_name"
+                android:id="@+id/employee_full_name"
                 style="@style/field_start"/>
         </TableRow>
 
