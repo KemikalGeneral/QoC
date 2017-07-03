@@ -4,6 +4,7 @@ import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -34,11 +35,19 @@ class Finances_logic {
 
         // Get first day of week for dateFrom
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
         dateFrom = calendar.getTimeInMillis();
+        String from = DateFormat.getDateInstance().format(dateFrom);
+        System.out.println(from);
 
         // Get last day of week for dateTo
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek() + 6);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
         dateTo = calendar.getTimeInMillis();
+        String to = DateFormat.getDateInstance().format(dateTo);
+        System.out.println(to);
 
         // Populate array with results from DB search
         jobsArr.addAll(db.getJobsByDateRange(dateFrom, dateTo));

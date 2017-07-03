@@ -29,16 +29,15 @@ public class Finances extends AppCompatActivity {
 
         // Display total amount in
         tv_totalAmountIn.setText("£");
-        tv_totalAmountIn.append(String.valueOf(finances.getTotalAmount_In()));
+        tv_totalAmountIn.append(String.format("%.2f", finances.getTotalAmount_In()));
 
         // Display total amount out
         tv_totalAmountOut.setText("£");
-        tv_totalAmountOut.append(String.valueOf(finances.getTotalAmount_out()));
+        tv_totalAmountOut.append(String.format("%.2f", finances.getTotalAmount_out()));
 
         // Display total amount sum to 2 decimal places
         tv_totalAmountSum.setText("£");
-        double sumAmount = finances.getTotalAmount_sum();
-        tv_totalAmountSum.append(String.format("%.2f", sumAmount));
+        tv_totalAmountSum.append(String.format("%.2f", finances.getTotalAmount_sum()));
     }
 
     /**
