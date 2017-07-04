@@ -19,6 +19,7 @@ public class Finances_In extends AppCompatActivity {
     private Finances finances;
     private ListView lv_listView;
     private TextView tv_totalAmountIn;
+
     private Button btn_dateBack;
     private TextView tv_dateRange;
     private Button btn_dateFWD;
@@ -43,7 +44,7 @@ public class Finances_In extends AppCompatActivity {
 
         // Cycle through Jobs array and total job amounts.
         // Display to TextView.
-        calculateAndDisplayTotalIn();
+        displayTotalToTextView();
 
         // Display the date range for the selected period
         // Monday - Sunday, defaults to current week.
@@ -57,7 +58,7 @@ public class Finances_In extends AppCompatActivity {
                 datePeriod -= 1;
                 System.out.println("Date Period: " + datePeriod);
                 getJobsAndSetupListView();
-                calculateAndDisplayTotalIn();
+                displayTotalToTextView();
                 displayDateRange();
             }
         });
@@ -70,7 +71,7 @@ public class Finances_In extends AppCompatActivity {
                 datePeriod += 1;
                 System.out.println("Date Period: " + datePeriod);
                 getJobsAndSetupListView();
-                calculateAndDisplayTotalIn();
+                displayTotalToTextView();
                 displayDateRange();
             }
         });
@@ -95,17 +96,18 @@ public class Finances_In extends AppCompatActivity {
      * the weeks.
      */
     private void getJobsAndSetupListView() {
-        FinanceArrayAdapter_in financeArrayAdapterIn = new FinanceArrayAdapter_in(this);
-        financeArrayAdapterIn.addAll(finances.getJobsByDateRange(datePeriod));
-        lv_listView.setAdapter(financeArrayAdapterIn);
+        FinanceArrayAdapter_in financeArrayAdapter_in =
+                new FinanceArrayAdapter_in(this);
+        financeArrayAdapter_in.addAll(finances.getJobsByDateRange(datePeriod));
+        lv_listView.setAdapter(financeArrayAdapter_in);
     }
 
     /**
-     * Calculate the total money in for the
-     * given week (Monday to Sunday), and display it
+     * Display the total money in for the
+     * given week (Monday to Sunday),
      * to two decimal places.
      */
-    private void calculateAndDisplayTotalIn() {
+    private void displayTotalToTextView() {
         double totalPrice = finances.getTotalAmount_In();
         tv_totalAmountIn.setText("£");
         tv_totalAmountIn.append(String.format("%.2f", totalPrice));
