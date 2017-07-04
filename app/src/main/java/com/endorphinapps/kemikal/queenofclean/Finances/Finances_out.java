@@ -32,7 +32,7 @@ public class Finances_out extends AppCompatActivity {
         // using the getJobsByDateRange method
         // Monday - Sunday of current week
         FinanceArrayAdapter_out adapter = new FinanceArrayAdapter_out(this);
-        adapter.addAll(finances.getJobsByDateRange());
+        adapter.addAll(finances.getJobsByDateRange(0));
         lv_listView.setAdapter(adapter);
 
         // Cycle through Jobs and total pay to employees.
