@@ -12,7 +12,7 @@ import com.endorphinapps.kemikal.queenofclean.R;
 public class Finances_In extends AppCompatActivity {
 
     private DBHelper db;
-    private Finances_logic finances;
+    private Finances finances;
     private ListView lv_listView;
     private TextView tv_totalAmountIn;
 
@@ -26,7 +26,7 @@ public class Finances_In extends AppCompatActivity {
 
         // Instantiate DB and Finance_logic classes
         db = new DBHelper(this);
-        finances = new Finances_logic(db);
+        finances = new Finances(db);
 
         // Setup and display ListView
         // using the getJobsByDateRange method
