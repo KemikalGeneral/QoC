@@ -172,7 +172,7 @@ public class EmployeeTest {
 
     @Test
     public void getRateOfPay() throws Exception {
-        int rate = employee.getRateOfPay();
+        double rate = employee.getRateOfPay();
 
         assertEquals(123, rate);
     }
