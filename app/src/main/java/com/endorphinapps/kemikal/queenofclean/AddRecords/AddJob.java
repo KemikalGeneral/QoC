@@ -44,6 +44,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
     private TextView tv_town;
     private TextView tv_city;
     private TextView tv_postcode;
+
     private Spinner sp_employeeSpinner;
     private TextView tv_startDate;
     private long startDate;
@@ -94,14 +95,21 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         db = new DBHelper(this);
 
         /**
-         * Populate Customers ArrayList with all customer
-         * details from the DB
-         * Set-up customer adapter
+         * Populate 'customers' ArrayList with all customer details from the DB.
+         * Loop through and populate the 'customerNames' ArrayList with the first and last names of the customers.
+         * Set-up customer adapter.
          */
         final ArrayList<Customer> customers = db.getAllCustomers();
-        ArrayAdapter<Customer> customerSpinnerAdapter = new ArrayAdapter<Customer>(
-                this, R.layout.spinner_list_item, customers);
+        ArrayList<String> customerNames = new ArrayList<>();
+        String fullName;
+        for (int i = 0; i < customers.size(); i++) {
+            fullName = customers.get(i).getFirstName() + " " + customers.get(i).getLastName();
+            customerNames.add(fullName);
+        }
+        ArrayAdapter<String> customerSpinnerAdapter = new ArrayAdapter<>(
+                this, R.layout.spinner_list_item, customerNames);
         sp_customerSpinner.setAdapter(customerSpinnerAdapter);
+
 
         /**
          * On button click, populate the customer's
@@ -110,7 +118,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         sp_customerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                customer = (Customer) parent.getItemAtPosition(position);
+                customer = db.getCustomerById(id+1);
                 tv_addressLine1.setText(customer.getAddressLine1());
                 tv_addressLine2.setText(customer.getAddressLine2());
                 tv_town.setText(customer.getTown());
@@ -125,12 +133,18 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         });
 
         /**
-         * Populate employees with all customer details from the DB
-         * Set-up employee adapter
+         * Populate 'employees' ArrayList with all employee details from the DB.
+         * Loop through and populate the 'employeeNames' ArrayList with the first and last names of the employees.
+         * Set-up employee adapter.
          */
         final ArrayList<Employee> employees = db.getAllEmployees();
-        ArrayAdapter<Employee> employeeSpinnerAdapter = new ArrayAdapter<Employee>(
-                this, R.layout.spinner_list_item, employees);
+        ArrayList<String> employeeName = new ArrayList<>();
+        for (int i = 0; i < employees.size(); i++) {
+            fullName = employees.get(i).getFirstName() + " " + employees.get(i).getLastName();
+            employeeName.add(fullName);
+        }
+        ArrayAdapter<String> employeeSpinnerAdapter = new ArrayAdapter<>(
+                this, R.layout.spinner_list_item, employeeName);
         sp_employeeSpinner.setAdapter(employeeSpinnerAdapter);
 
         /**
@@ -139,7 +153,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         sp_employeeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                employee = (Employee) parent.getItemAtPosition(position);
+                employee = db.getEmployeeById(id);
             }
 
             @Override
