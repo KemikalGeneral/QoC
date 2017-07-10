@@ -82,12 +82,20 @@
 
 
         <!--Date-->
-        <LinearLayout style="@style/container">
+        <LinearLayout
+            style="@style/container"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/add_start_date"
                 style="@style/field_start"
                 android:text="Select a Start Date..." />
+
+            <TextView
+                android:id="@+id/add_start_time"
+                style="@style/field_start"
+                android:padding="@dimen/padding_16"
+                android:text="Select a Start Time" />
         </LinearLayout>
 
 

@@ -20,6 +20,7 @@ public class DetailJob extends AppCompatActivity {
     private TextView tv_customerName;
     private TextView tv_employeeName;
     private TextView tv_startDate;
+    private TextView tv_startTime;
     private TextView tv_jobStatus;
     private TextView tv_estimatedTime;
     private TextView tv_totalPrice;
@@ -35,8 +36,13 @@ public class DetailJob extends AppCompatActivity {
 
         intent = getIntent();
 
+        // Find all views by ID's
         findViews();
+
+        // Populate all fields of the job from adapter intent
         setAllTextViews();
+
+        // Display all job items
         displayJobItems();
     }
 
@@ -47,6 +53,7 @@ public class DetailJob extends AppCompatActivity {
         tv_customerName = (TextView) findViewById(R.id.full_name_customer);
         tv_employeeName = (TextView) findViewById(R.id.full_name_employee);
         tv_startDate = (TextView) findViewById(R.id.start_date);
+        tv_startTime = (TextView) findViewById(R.id.start_time);
         tv_jobStatus = (TextView) findViewById(R.id.status);
         tv_estimatedTime = (TextView) findViewById(R.id.estimated_time);
         tv_totalPrice = (TextView) findViewById(R.id.job_total_price);
@@ -63,20 +70,27 @@ public class DetailJob extends AppCompatActivity {
         // Get date as a long and format to locale
         String date = DateFormat.getDateInstance()
                 .format(intent.getLongExtra("EXTRAS_startDate", 0));
+        // Get time as a long and format to hh:mm
+        String time = DateFormat.getTimeInstance(DateFormat.SHORT)
+                .format(intent.getLongExtra("EXTRAS_startTime", 0));
         // Get string value of estimated time
-        int time = intent.getIntExtra("EXTRAS_estimatedTime", 0);
+        int estimatedTime = intent.getIntExtra("EXTRAS_estimatedTime", 0);
 
         tv_customerName.setText(intent.getStringExtra("EXTRAS_customer_full_name"));
         tv_employeeName.setText(intent.getStringExtra("EXTRAS_employee_full_name"));
         tv_startDate.setText(date);
+        tv_startTime.setText(time);
         tv_jobStatus.setText(intent.getStringExtra("EXTRAS_status"));
-        tv_estimatedTime.setText(String.valueOf(time));
+        tv_estimatedTime.setText(String.valueOf(estimatedTime));
         double totalPrice = intent.getDoubleExtra("EXTRAS_totalPrice", 0.0);
         tv_totalPrice.setText("£");
         tv_totalPrice.append(String.format("%.2f", totalPrice));
         tv_notes.setText(intent.getStringExtra("EXTRAS_notes"));
     }
 
+    /**
+     * Create views for, and display all job items.
+     */
     private void displayJobItems() {
         ArrayList<JobItem> jobItems;
         DBHelper db = new DBHelper(this);

@@ -48,6 +48,18 @@
                 style="@style/field_start"/>
         </TableRow>
 
+        <!--Start Time-->
+        <TableRow>
+
+            <TextView
+                style="@style/field_end"
+                android:text="Start Time:" />
+
+            <TextView
+                android:id="@+id/start_time"
+                style="@style/field_start" />
+        </TableRow>
+
         <!--Status-->
         <TableRow>
             <TextView

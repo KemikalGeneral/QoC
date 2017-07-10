@@ -74,6 +74,7 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
                 intent.putExtra("EXTRAS_customer_full_name", customerFullName);
                 intent.putExtra("EXTRAS_employee_full_name", employeeFullName);
                 intent.putExtra("EXTRAS_startDate", job.getStartDate());
+                intent.putExtra("EXTRAS_startTime", job.getStartTime());
                 intent.putExtra("EXTRAS_status", job.getJobStatusEnum());
                 intent.putExtra("EXTRAS_estimatedTime", job.getEstimatedTime());
                 intent.putExtra("EXTRAS_totalPrice", job.getTotalPrice());

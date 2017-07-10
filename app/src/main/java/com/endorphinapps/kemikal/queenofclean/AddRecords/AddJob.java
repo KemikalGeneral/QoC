@@ -2,6 +2,7 @@ package com.endorphinapps.kemikal.queenofclean.AddRecords;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.DatePickerFragment;
@@ -26,6 +28,7 @@ import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.TimePickerFragment;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 import java.text.DateFormat;
@@ -34,7 +37,9 @@ import java.util.Calendar;
 
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
-public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class AddJob extends AppCompatActivity
+        implements DatePickerDialog.OnDateSetListener,
+        TimePickerDialog.OnTimeSetListener {
 
     private DBHelper db;
 
@@ -48,7 +53,9 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
 
     private Spinner sp_employeeSpinner;
     private TextView tv_startDate;
+    private TextView tv_startTime;
     private long startDate;
+    private long startTime;
     private Spinner sp_statusSpinner;
     private LinearLayout ll_jobListContainer;
     private TextView tv_addNewJobRow;
@@ -110,26 +117,18 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         // On button click, select the employee for the job
         populateEmployeeDetailsFromSpinnerSelection();
 
-        /**
-         * Pick a date for the start of the job, using a datePicker
-         * Returned in onDateSet
-         */
-        tv_startDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getFragmentManager(), "datePicker");
-            }
-        });
+        // Pick a date for the start of the job, using a datePicker
+        // Returned in onDateSet
+        createAndReturnDatePicker();
 
-        /**
-         * Populate JobStatus spinner with values from Enum class
-         */
+        // Pick a time for the start of the job, using a timePicker
+        // Returned in onTimeSet
+        createAndReturnTimePicker();
+
+        // Populate JobStatus spinner with values from Enum class
         sp_statusSpinner.setAdapter(new ArrayAdapter<JobStatus>(this, R.layout.spinner_list_item, JobStatus.values()));
 
-        /**
-         * Calls addJobRow() to add a new row layout
-         */
+        //Calls addJobRow() to add a new row layout
         tv_addNewJobRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,9 +136,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
             }
         });
 
-        /**
-         * Get the values of the Description and Price, for each row
-         */
+        // Get the values of the Description and Price, for each row
         btn_JobSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +159,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         sp_customerSpinner = (Spinner) findViewById(R.id.add_customer_spinner);
         sp_employeeSpinner = (Spinner) findViewById(R.id.add_employee_spinner);
         tv_startDate = (TextView) findViewById(R.id.add_start_date);
+        tv_startTime = (TextView) findViewById(R.id.add_start_time);
         sp_statusSpinner = (Spinner) findViewById(R.id.add_status_spinner);
         ll_jobListContainer = (LinearLayout) findViewById(R.id.add_job_list_container);
         tv_addNewJobRow = (TextView) findViewById(R.id.add_job_item_row);
@@ -240,7 +238,7 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         sp_employeeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                employee = db.getEmployeeById(id);
+                employee = db.getEmployeeById(id + 1);
             }
 
             @Override
@@ -251,9 +249,24 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
     }
 
     /**
+     * Create a datePicker Dialog box.
+     * Return the selection in the onDateSet method.
+     */
+    private void createAndReturnDatePicker() {
+        tv_startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+    }
+
+    /**
      * onDateSet returns the date chosen from the datePicker,
      * sets values to a calendar object and converts
      * to millis for inserting into DB
+     * Displays the date in the relevant TextView.
      * @param view
      * @param year
      * @param month
@@ -272,6 +285,56 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         // Display formatted date in the startDate TextView
         String date = DateFormat.getDateInstance().format(startDate);
         tv_startDate.setText(date);
+    }
+
+    /**
+     * Create a timePicker Dialog box.
+     * Return the selection in the onTimeSet method.
+     */
+    private void createAndReturnTimePicker() {
+        tv_startTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialogFragment = new TimePickerFragment();
+                dialogFragment.show(getFragmentManager(), "timePicker");
+            }
+        });
+    }
+
+    /**
+     * onTimeSet returns the time chosen from the timePicker,
+     * sets the value to a calendar object and converts
+     * to millis for inserting to DB.
+     * Displays the time in the relevant TextView.
+     *
+     * @param view
+     * @param hourOfDay
+     * @param minute
+     */
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.getTime();
+
+        startTime = calendar.getTimeInMillis();
+
+        // Display formatted time in the startTime TextView
+        String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime);
+        tv_startTime.setText(time);
+    }
+
+    /**
+     * Get the job status from the job status spinner
+     *
+     * @return job status as a string
+     */
+    private String getJobStatus() {
+        String jobStatus = sp_statusSpinner.getSelectedItem().toString();
+        Log.v("z! JobStatus: ", jobStatus);
+
+        return jobStatus;
     }
 
     /**
@@ -332,81 +395,6 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
     private void removeJobRow(Button delete) {
         LinearLayout currentRow = (LinearLayout) delete.getParent();
         ((ViewGroup) currentRow.getParent()).removeView(currentRow);
-    }
-
-    /**
-     * On submit button click, get values from all description and price fields,
-     * calculate pay to employee and cost of job items,
-     * totaling the jobs total price
-     */
-    private void onSubmit() {
-        //Get customer ID
-        long customerId = getCustomerId();
-
-        //Get employee ID
-        long employeeId = getEmployeeId();
-
-        //Get job status
-        String jobStatus = getJobStatus();
-
-        //Calculate price of job items
-        double priceOfJobItems = calculatePriceOfJobItems();
-
-        //Get estimated employee time required
-        int estimateJobTime = getEstimatedTime();
-
-        //Calculate pay to employee
-        double payToEmployee = calculatePayToEmployee();
-
-        //Total cost of job, (jobItems + employee pay)
-        double totalCostForJob = priceOfJobItems + payToEmployee;
-        Log.v("z! totalCostForJob: ", String.valueOf(totalCostForJob));
-
-        //Set TextView with the total cost for the job
-        tv_jobTotalPrice.setText(String.valueOf(totalCostForJob));
-
-        //Get job notes
-        String jobNotes = getJobNotes();
-
-        //Save all job attributes to the DB
-        saveToDB(startDate, jobStatus, estimateJobTime, totalCostForJob, jobNotes, customerId, employeeId);
-
-        Intent intent = new Intent(AddJob.this, ViewJobs.class);
-        startActivity(intent);
-        finish();
-    }
-
-    /**
-     * Get the ID of the customer
-     * @return ID as a long
-     */
-    private long getCustomerId() {
-        long customerId = customer.getCustomerId();
-        Log.v("z! CustomerID: ", String.valueOf(customerId));
-
-        return customerId;
-    }
-
-    /**
-     * Get the ID of the customer
-     * @return ID as a long
-     */
-    private long getEmployeeId() {
-        long employeeId = employee.getEmployeeId();
-        Log.v("z! EmployeeId: ", String.valueOf(employeeId));
-
-        return employeeId;
-    }
-
-    /**
-     * Get the job status from the job status spinner
-     * @return job status as a string
-     */
-    private String getJobStatus() {
-        String jobStatus = sp_statusSpinner.getSelectedItem().toString();
-        Log.v("z! JobStatus: ", jobStatus);
-
-        return jobStatus;
     }
 
     /**
@@ -484,6 +472,72 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
     }
 
     /**
+     * On submit button click, get values from all description and price fields,
+     * calculate pay to employee and cost of job items,
+     * totaling the jobs total price
+     */
+    private void onSubmit() {
+        //Get customer ID
+        long customerId = getCustomerId();
+
+        //Get employee ID
+        long employeeId = getEmployeeId();
+
+        //Get job status
+        String jobStatus = getJobStatus();
+
+        //Calculate price of job items
+        double priceOfJobItems = calculatePriceOfJobItems();
+
+        //Get estimated employee time required
+        int estimateJobTime = getEstimatedTime();
+
+        //Calculate pay to employee
+        double payToEmployee = calculatePayToEmployee();
+
+        //Total cost of job, (jobItems + employee pay)
+        double totalCostForJob = priceOfJobItems + payToEmployee;
+        Log.v("z! totalCostForJob: ", String.valueOf(totalCostForJob));
+
+        //Set TextView with the total cost for the job
+        tv_jobTotalPrice.setText(String.valueOf(totalCostForJob));
+
+        //Get job notes
+        String jobNotes = getJobNotes();
+
+        //Save all job attributes to the DB
+        saveToDB(startDate, startTime, jobStatus, estimateJobTime, totalCostForJob, jobNotes, customerId, employeeId);
+
+        Intent intent = new Intent(AddJob.this, ViewJobs.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * Get the ID of the customer
+     *
+     * @return ID as a long
+     */
+    private long getCustomerId() {
+        long customerId = customer.getCustomerId();
+        Log.v("z! CustomerID: ", String.valueOf(customerId));
+
+        return customerId;
+    }
+
+    /**
+     * Get the ID of the customer
+     *
+     * @return ID as a long
+     */
+    private long getEmployeeId() {
+        long employeeId = employee.getEmployeeId();
+        Log.v("z! EmployeeId: ", String.valueOf(employeeId));
+
+        return employeeId;
+    }
+
+    /**
      * Save all details of Job to DB.
      * Save the JobItems separately as they require the
      * id returned from the saved Job as a FK
@@ -495,11 +549,13 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
      * @param customerId
      * @param employeeId
      */
-    private void saveToDB(long startDate, String jobStatus,
-                          int estimateJobTime, double totalCostForJob,
-                          String jobNotes, long customerId, long employeeId) {
-        long jobId = db.insertJob(startDate, jobStatus, estimateJobTime,
-                totalCostForJob, jobNotes, customerId, employeeId);
+    private void saveToDB(long startDate, long startTime,
+                          String jobStatus, int estimateJobTime,
+                          double totalCostForJob, String jobNotes,
+                          long customerId, long employeeId) {
+        long jobId = db.insertJob(startDate, startTime,
+                jobStatus, estimateJobTime, totalCostForJob,
+                jobNotes, customerId, employeeId);
 
         // Save the jobItems separately as they require
         // the jobId as a FK
@@ -538,4 +594,5 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         }
 
     }
+
 }

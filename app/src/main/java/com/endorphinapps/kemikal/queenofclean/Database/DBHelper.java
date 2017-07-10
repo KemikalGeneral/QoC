@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "queenOfKleen.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     /**
      * Tables
@@ -56,6 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //Job Columns
     private static final String COLUMN_JOB_ID = "job_id";
     private static final String COLUMN_START_DATE = "startDate";
+    private static final String COLUMN_START_TIME = "startTime";
     private static final String COLUMN_END_DATE = "endDate";
     private static final String COLUMN_STATUS = "status";
     private static final String COLUMN_ESTIMATED_TIME = "estimatedTime";
@@ -108,6 +109,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS " + TABLE_JOBS + "(" +
                     COLUMN_JOB_ID + " INTEGER PRIMARY KEY, " +
                     COLUMN_START_DATE + " INTEGER NOT NULL, " +
+                    COLUMN_START_TIME + " INTEGER NOT NULL, " +
                     COLUMN_END_DATE + " INTEGER, " +
                     COLUMN_STATUS + " VARCHAR(50) NOT NULL, " +
                     COLUMN_ESTIMATED_TIME + " INTEGER NOT NULL, " +
@@ -256,13 +258,14 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param employee
      * @return jobId as a long
      */
-    public long insertJob(long startDate, String status,
-                          int estimatedTime, double totalPrice,
+    public long insertJob(long startDate, long startTime,
+                          String status, int estimatedTime, double totalPrice,
                           String notes, long customer, long employee) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_START_DATE, startDate);
+        values.put(COLUMN_START_TIME, startTime);
         values.put(COLUMN_STATUS, status);
         values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
         values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
@@ -463,6 +466,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 job.setCustomer(cursor.getInt(cursor.getColumnIndex(COLUMN_CUSTOMER)));
                 job.setEmployee(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE)));
                 job.setStartDate(cursor.getLong(cursor.getColumnIndex(COLUMN_START_DATE)));
+                job.setStartTime(cursor.getLong(cursor.getColumnIndex(COLUMN_START_TIME)));
                 job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
                 job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
                 job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
@@ -503,6 +507,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 job.setCustomer(cursor.getInt(cursor.getColumnIndex(COLUMN_CUSTOMER)));
                 job.setEmployee(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE)));
                 job.setStartDate(cursor.getLong(cursor.getColumnIndex(COLUMN_START_DATE)));
+                job.setStartTime(cursor.getLong(cursor.getColumnIndex(COLUMN_START_TIME)));
                 job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
                 job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
                 job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));

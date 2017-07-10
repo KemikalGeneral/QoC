@@ -10,6 +10,7 @@ public class Job {
     private long customer;
     private long employee;
     private long startDate;
+    private long startTime;
     private long endDate;
     private String jobStatusEnum;
     private int estimatedTime;
@@ -20,12 +21,14 @@ public class Job {
     public Job() {}
 
     public Job(int id, long customer, long employee,
-               long startDate, long endDate, String jobStatusEnum,
-               int estimatedTime, int actualTime, double totalPrice, String notes) {
+               long startDate, long startTime, long endDate,
+               String jobStatusEnum, int estimatedTime,
+               int actualTime, double totalPrice, String notes) {
         this.id = id;
         this.customer = customer;
         this.employee = employee;
         this.startDate = startDate;
+        this.startTime = startTime;
         this.endDate = endDate;
         this.jobStatusEnum = jobStatusEnum;
         this.estimatedTime = estimatedTime;
@@ -64,6 +67,14 @@ public class Job {
 
     public void setStartDate(long startDate) {
         this.startDate = startDate;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 
     public long getEndDate() {
