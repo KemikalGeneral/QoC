@@ -28,6 +28,7 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -91,76 +92,23 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
             }
         });
 
-        //Instantiate a new instance of the DBHelper
+        // Instantiate a new instance of the DBHelper
         db = new DBHelper(this);
 
-        /**
-         * Populate 'customers' ArrayList with all customer details from the DB.
-         * Loop through and populate the 'customerNames' ArrayList with the first and last names of the customers.
-         * Set-up customer adapter.
-         */
-        final ArrayList<Customer> customers = db.getAllCustomers();
-        ArrayList<String> customerNames = new ArrayList<>();
-        String fullName;
-        for (int i = 0; i < customers.size(); i++) {
-            fullName = customers.get(i).getFirstName() + " " + customers.get(i).getLastName();
-            customerNames.add(fullName);
-        }
-        ArrayAdapter<String> customerSpinnerAdapter = new ArrayAdapter<>(
-                this, R.layout.spinner_list_item, customerNames);
-        sp_customerSpinner.setAdapter(customerSpinnerAdapter);
+        // Populate customers ArrayList and spinner with
+        // customer details from the DB.
+        getCustomersAndPopulateSpinner();
 
+        // On button click, populate the customer's
+        // address fields from the spinner selection
+        populateCustomerDetailsFromSpinnerSelection();
 
-        /**
-         * On button click, populate the customer's
-         * address fields from the spinner selection
-         */
-        sp_customerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                customer = db.getCustomerById(id+1);
-                tv_addressLine1.setText(customer.getAddressLine1());
-                tv_addressLine2.setText(customer.getAddressLine2());
-                tv_town.setText(customer.getTown());
-                tv_city.setText(customer.getCity());
-                tv_postcode.setText(customer.getPostcode());
-            }
+        // Populate employees ArrayList and spinner with
+        // employee details from the DB.
+        getEmployeesAndPopulateSpinner();
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //do nothing
-            }
-        });
-
-        /**
-         * Populate 'employees' ArrayList with all employee details from the DB.
-         * Loop through and populate the 'employeeNames' ArrayList with the first and last names of the employees.
-         * Set-up employee adapter.
-         */
-        final ArrayList<Employee> employees = db.getAllEmployees();
-        ArrayList<String> employeeName = new ArrayList<>();
-        for (int i = 0; i < employees.size(); i++) {
-            fullName = employees.get(i).getFirstName() + " " + employees.get(i).getLastName();
-            employeeName.add(fullName);
-        }
-        ArrayAdapter<String> employeeSpinnerAdapter = new ArrayAdapter<>(
-                this, R.layout.spinner_list_item, employeeName);
-        sp_employeeSpinner.setAdapter(employeeSpinnerAdapter);
-
-        /**
-         * On button click, select the employee for the job
-         */
-        sp_employeeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                employee = db.getEmployeeById(id);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //do nothing
-            }
-        });
+        // On button click, select the employee for the job
+        populateEmployeeDetailsFromSpinnerSelection();
 
         /**
          * Pick a date for the start of the job, using a datePicker
@@ -227,6 +175,82 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
     }
 
     /**
+     * Populate 'customers' ArrayList with all customer details from the DB.
+     * Loop through and populate the 'customerNames' ArrayList with the first and last names of the customers.
+     * Set-up customer adapter.
+     */
+    private void getCustomersAndPopulateSpinner() {
+        final ArrayList<Customer> customers = db.getAllCustomers();
+        ArrayList<String> customerNames = new ArrayList<>();
+        String fullName;
+        for (int i = 0; i < customers.size(); i++) {
+            fullName = customers.get(i).getFirstName() + " " + customers.get(i).getLastName();
+            customerNames.add(fullName);
+        }
+        ArrayAdapter<String> customerSpinnerAdapter = new ArrayAdapter<>(
+                this, R.layout.spinner_list_item, customerNames);
+        sp_customerSpinner.setAdapter(customerSpinnerAdapter);
+    }
+
+    /**
+     * On button click, populate the customer's
+     * address fields from the spinner selection
+     */
+    private void populateCustomerDetailsFromSpinnerSelection() {
+        sp_customerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                customer = db.getCustomerById(id + 1);
+                tv_addressLine1.setText(customer.getAddressLine1());
+                tv_addressLine2.setText(customer.getAddressLine2());
+                tv_town.setText(customer.getTown());
+                tv_city.setText(customer.getCity());
+                tv_postcode.setText(customer.getPostcode());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //do nothing
+            }
+        });
+    }
+
+    /**
+     * Populate 'employees' ArrayList with all employee details from the DB.
+     * Loop through and populate the 'employeeNames' ArrayList with the first and last names of the employees.
+     * Set-up employee adapter.
+     */
+    private void getEmployeesAndPopulateSpinner() {
+        final ArrayList<Employee> employees = db.getAllEmployees();
+        ArrayList<String> employeeName = new ArrayList<>();
+        String fullName;
+        for (int i = 0; i < employees.size(); i++) {
+            fullName = employees.get(i).getFirstName() + " " + employees.get(i).getLastName();
+            employeeName.add(fullName);
+        }
+        ArrayAdapter<String> employeeSpinnerAdapter = new ArrayAdapter<>(
+                this, R.layout.spinner_list_item, employeeName);
+        sp_employeeSpinner.setAdapter(employeeSpinnerAdapter);
+    }
+
+    /**
+     * On button click, select the employee for the job
+     */
+    private void populateEmployeeDetailsFromSpinnerSelection() {
+        sp_employeeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                employee = db.getEmployeeById(id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //do nothing
+            }
+        });
+    }
+
+    /**
      * onDateSet returns the date chosen from the datePicker,
      * sets values to a calendar object and converts
      * to millis for inserting into DB
@@ -244,6 +268,10 @@ public class AddJob extends AppCompatActivity implements DatePickerDialog.OnDate
         calendar.getTime();
 
         startDate = calendar.getTimeInMillis();
+
+        // Display formatted date in the startDate TextView
+        String date = DateFormat.getDateInstance().format(startDate);
+        tv_startDate.setText(date);
     }
 
     /**

@@ -25,12 +25,12 @@
             <TextView
                 android:id="@+id/dummy_customer"
                 style="@style/field_start"
-                android:text="Select a Customer..."/>
+                android:text="Select a Customer..." />
 
             <Spinner
                 android:id="@+id/add_customer_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:id="@+id/add_job_customer_container"
@@ -67,24 +67,22 @@
 
 
         <!--Employee Section-->
-        <LinearLayout
-            style="@style/container">
+        <LinearLayout style="@style/container">
 
             <TextView
                 android:id="@+id/dummy_employee"
                 style="@style/field_start"
-                android:text="Select an Employee..."/>
+                android:text="Select an Employee..." />
 
             <Spinner
                 android:id="@+id/add_employee_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
         <!--Date-->
-        <LinearLayout
-            style="@style/container">
+        <LinearLayout style="@style/container">
 
             <TextView
                 android:id="@+id/add_start_date"
@@ -94,8 +92,7 @@
 
 
         <!--Job Status-->
-        <LinearLayout
-            style="@style/container">
+        <LinearLayout style="@style/container">
 
             <Spinner
                 android:id="@+id/add_status_spinner"
@@ -112,14 +109,13 @@
             <TextView
                 android:id="@+id/add_job_item_row"
                 style="@style/field_start"
-                android:hint="Add a Job Item..."/>
+                android:hint="Add a Job Item..." />
 
             <LinearLayout
                 android:id="@+id/add_job_list_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
         </LinearLayout>
 
 
@@ -131,15 +127,15 @@
             <TextView
                 android:id="@+id/label_job_estimated_time"
                 style="@style/field_weight_1"
-                android:text="Estimated Time Required in Hours:"/>
+                android:text="Estimated Time Required in Hours:" />
 
             <EditText
                 android:id="@+id/add_estimated_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_16"
+                android:hint="00"
                 android:inputType="number"
-                android:hint="00"/>
+                android:padding="@dimen/padding_16" />
         </LinearLayout>
 
 
@@ -151,24 +147,24 @@
             <TextView
                 android:id="@+id/label_job_total_price"
                 style="@style/field_weight_1"
-                android:text="Total Price for Job:"/>
+                android:text="Total Price for Job:" />
 
             <TextView
                 android:id="@+id/job_total_price"
                 style="@style/field_start"
-                android:hint="00.00"/>
+                android:hint="00.00" />
         </LinearLayout>
 
 
         <!--Notes-->
-        <LinearLayout
-            style="@style/container">
-
-            <EditText
-                android:id="@+id/add_job_notes"
-                style="@style/field_start"
-                android:hint="Add Notes..."/>
-        </LinearLayout>
+        <EditText
+            android:id="@+id/add_job_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:lines="5"
+            android:padding="@dimen/padding_16"
+            android:hint="Add Notes..." />
 
 
         <!--Submit-->
