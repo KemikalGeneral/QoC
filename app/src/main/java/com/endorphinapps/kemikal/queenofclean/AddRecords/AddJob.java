@@ -23,12 +23,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.DatePickerFragment;
+import com.endorphinapps.kemikal.queenofclean.DateTime.DatePickerFragment;
+import com.endorphinapps.kemikal.queenofclean.DateTime.TimePickerFragment;
 import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.R;
-import com.endorphinapps.kemikal.queenofclean.TimePickerFragment;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 import java.text.DateFormat;

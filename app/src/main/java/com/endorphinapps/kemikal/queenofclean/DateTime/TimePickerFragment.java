@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.DateTime;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -9,7 +9,7 @@ import android.text.format.DateFormat;
 import java.util.Calendar;
 
 /**
- * Created by User on 10/07/2017.
+ * Created by Kemikal on 10/07/2017.
  */
 
 public class TimePickerFragment extends DialogFragment {
