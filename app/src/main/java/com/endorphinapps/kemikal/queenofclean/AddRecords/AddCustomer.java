@@ -47,17 +47,20 @@ public class AddCustomer extends AppCompatActivity {
         btn_populate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter++;
-                et_firstName.setText("Customer" + counter);
-                et_lastName.setText("last" + counter);
-                et_mobileNumber.setText("07511750244");
-                et_homeNumber.setText("02920485612");
-                et_eMail.setText("e@mail.com");
-                et_addressLine1.setText(counter + " My Street");
-                et_addressLine2.setText("No Road");
-                et_town.setText("Pengam Green");
-                et_city.setText("Cardiff");
-                et_postcode.setText("CF242HH");
+                for (int i = 0; i < 10; i++) {
+                    counter++;
+                    et_firstName.setText("Customer" + counter);
+                    et_lastName.setText("last" + counter);
+                    et_mobileNumber.setText("07511750244");
+                    et_homeNumber.setText("02920485612");
+                    et_eMail.setText("e@mail.com");
+                    et_addressLine1.setText(counter + " My Street");
+                    et_addressLine2.setText("No Road");
+                    et_town.setText("Pengam Green");
+                    et_city.setText("Cardiff");
+                    et_postcode.setText("CF242HH");
+                    addNewCustomer();
+                }
             }
         });
 
