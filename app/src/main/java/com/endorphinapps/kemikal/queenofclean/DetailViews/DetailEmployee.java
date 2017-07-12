@@ -3,8 +3,11 @@ package com.endorphinapps.kemikal.queenofclean.DetailViews;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.endorphinapps.kemikal.queenofclean.EditEmployee;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 public class DetailEmployee extends AppCompatActivity {
@@ -20,6 +23,8 @@ public class DetailEmployee extends AppCompatActivity {
     private TextView tv_postcode;
     private TextView tv_rateOfPay;
 
+    private Button btn_edit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,7 @@ public class DetailEmployee extends AppCompatActivity {
 
         // Get all details from Adapter Intent
         Intent intent = getIntent();
+        final long id = intent.getLongExtra("EXTRAS_id", 0);
         String fullName =
                 intent.getStringExtra("EXTRAS_firstName") + " " +
                         intent.getStringExtra("EXTRAS_lastName");
@@ -45,6 +51,15 @@ public class DetailEmployee extends AppCompatActivity {
         double rate = intent.getDoubleExtra("EXTRAS_rateOfPay", 0);
         tv_rateOfPay.setText("£");
         tv_rateOfPay.append(String.format("%.2f", rate));
+
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editIntent = new Intent(DetailEmployee.this, EditEmployee.class);
+                editIntent.putExtra("EXTRAS_id", id);
+                startActivity(editIntent);
+            }
+        });
     }
 
     /**
@@ -61,5 +76,7 @@ public class DetailEmployee extends AppCompatActivity {
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
         tv_rateOfPay = (TextView) findViewById(R.id.rate_of_pay);
+
+        btn_edit = (Button) findViewById(R.id.edit_employee);
     }
 }

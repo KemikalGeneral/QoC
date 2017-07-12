@@ -33,7 +33,7 @@ public class DetailCustomer extends AppCompatActivity {
         findViews();
 
         // Get all details from Adapter Intent
-        final Intent intent = getIntent();
+        Intent intent = getIntent();
         final long id = intent.getLongExtra("EXTRAS_id", 0);
         String customerFullName =
                 intent.getStringExtra("EXTRAS_firstName") + " " +

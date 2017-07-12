@@ -112,4 +112,10 @@
                 style="@style/field_start"/>
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:id="@+id/edit_employee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit" />
 </LinearLayout>
