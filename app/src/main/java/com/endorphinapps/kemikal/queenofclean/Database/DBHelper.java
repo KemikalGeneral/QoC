@@ -189,34 +189,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return addressID;
     }
 
-    /**
-     * Insert Employee details passed from AddEmployee
-     * @param firstName
-     * @param lastName
-     * @param homeNumber
-     * @param mobileNumber
-     * @param eMail
-     * @param address
-     * @param rateOfPay
-     * @return employeeId as a long
-     */
-    public long insertEmployee(String firstName, String lastName,
-                               String homeNumber, String mobileNumber,
-                               String eMail, long address, double rateOfPay) {
+    public void updateAddress(long id, String line1,
+                              String line2, String town, String city,
+                              String postcode) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_FIRST_NAME, firstName);
-        values.put(COLUMN_LAST_NAME, lastName);
-        values.put(COLUMN_HOME_NUMBER, homeNumber);
-        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
-        values.put(COLUMN_EMAIL_ADDRESS, eMail);
-        values.put(COLUMN_RATE_OF_PAY, rateOfPay); System.out.println("DBHelper - insertEmployee - rateOfPay: " + rateOfPay);
-        values.put(COLUMN_ADDRESS, address);
-        long employeeId = db.insert(TABLE_EMPLOYEES, null, values);
-        db.close();
+        values.put(COLUMN_ADDRESS_LINE_1, line1);
+        values.put(COLUMN_ADDRESS_LINE_2, line2);
+        values.put(COLUMN_TOWN, town);
+        values.put(COLUMN_CITY, city);
+        values.put(COLUMN_POSTCODE, postcode);
 
-        return employeeId;
+        db.update(TABLE_ADDRESSES, values, COLUMN_ADDRESS_ID + " = " + id, null);
+        db.close();
     }
 
     /**
@@ -245,6 +231,52 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
         return customerId;
+    }
+
+    public void updateCustomer(long id, String firstName,
+                               String lastName, String homeNumber,
+                               String mobileNumber, String eMail) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_FIRST_NAME, firstName);
+        values.put(COLUMN_LAST_NAME, lastName);
+        values.put(COLUMN_HOME_NUMBER, homeNumber);
+        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
+        values.put(COLUMN_EMAIL_ADDRESS, eMail);
+        db.update(TABLE_CUSTOMERS, values, COLUMN_CUSTOMER_ID + " = " + id, null);
+        db.close();
+    }
+
+    /**
+     * Insert Employee details passed from AddEmployee
+     * @param firstName
+     * @param lastName
+     * @param homeNumber
+     * @param mobileNumber
+     * @param eMail
+     * @param address
+     * @param rateOfPay
+     * @return employeeId as a long
+     */
+    public long insertEmployee(String firstName, String lastName,
+                               String homeNumber, String mobileNumber,
+                               String eMail, long address, double rateOfPay) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_FIRST_NAME, firstName);
+        values.put(COLUMN_LAST_NAME, lastName);
+        values.put(COLUMN_HOME_NUMBER, homeNumber);
+        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
+        values.put(COLUMN_EMAIL_ADDRESS, eMail);
+        values.put(COLUMN_RATE_OF_PAY, rateOfPay);
+        System.out.println("DBHelper - insertEmployee - rateOfPay: " + rateOfPay);
+        values.put(COLUMN_ADDRESS, address);
+        long employeeId = db.insert(TABLE_EMPLOYEES, null, values);
+        db.close();
+
+        return employeeId;
     }
 
     /**
@@ -578,5 +610,24 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public String getDatabaseName() {
         return DATABASE_NAME;
+    }
+
+    public long getAddressIdFromCustomerId(long customerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        long addressId = 0;
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COLUMN_ADDRESS +
+                        " FROM " + TABLE_CUSTOMERS +
+                        " WHERE " + COLUMN_CUSTOMER_ID + " = " + customerId + ";",
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            addressId = cursor.getLong(cursor.getColumnIndex(COLUMN_ADDRESS));
+        }
+        cursor.close();
+        db.close();
+
+        return addressId;
     }
 }

@@ -28,6 +28,7 @@ public class DetailEmployee extends AppCompatActivity {
         // Find all views by Id
         findViews();
 
+        // Get all details from Adapter Intent
         Intent intent = getIntent();
         String fullName =
                 intent.getStringExtra("EXTRAS_firstName") + " " +

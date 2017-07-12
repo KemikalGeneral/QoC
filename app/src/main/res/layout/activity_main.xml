@@ -7,12 +7,12 @@
     android:orientation="vertical"
     tools:context="com.endorphinapps.kemikal.queenofclean.MainActivity">
 
-    <Button
-        android:id="@+id/add_customer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Add a Customer" />
+    <!--<Button-->
+    <!--android:id="@+id/add_customer"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="Add a Customer" />-->
 
     <Button
         android:id="@+id/view_customers"
@@ -21,12 +21,12 @@
         android:layout_weight="1"
         android:text="View Customers"/>
 
-    <Button
-        android:id="@+id/add_employee"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Add an Employee" />
+    <!--<Button-->
+    <!--android:id="@+id/add_employee"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="Add an Employee" />-->
 
     <Button
         android:id="@+id/view_employees"
@@ -35,12 +35,12 @@
         android:layout_weight="1"
         android:text="View Employees"/>
 
-    <Button
-        android:id="@+id/add_job"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Add Job"/>
+    <!--<Button-->
+    <!--android:id="@+id/add_job"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="Add Job"/>-->
 
     <Button
         android:id="@+id/view_job"
