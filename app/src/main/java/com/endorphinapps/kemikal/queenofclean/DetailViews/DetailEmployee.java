@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditEmployee;
 import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
 public class DetailEmployee extends AppCompatActivity {
 
@@ -24,6 +26,9 @@ public class DetailEmployee extends AppCompatActivity {
     private TextView tv_rateOfPay;
 
     private Button btn_edit;
+    private Button btn_delete;
+
+    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +38,12 @@ public class DetailEmployee extends AppCompatActivity {
         // Find all views by Id
         findViews();
 
+        // Instantiate a new DBHelper class
+        db = new DBHelper(this);
+
         // Get all details from Adapter Intent
         Intent intent = getIntent();
-        final long id = intent.getLongExtra("EXTRAS_id", 0);
+        final long employeeId = intent.getLongExtra("EXTRAS_id", 0);
         String fullName =
                 intent.getStringExtra("EXTRAS_firstName") + " " +
                         intent.getStringExtra("EXTRAS_lastName");
@@ -52,12 +60,25 @@ public class DetailEmployee extends AppCompatActivity {
         tv_rateOfPay.setText("£");
         tv_rateOfPay.append(String.format("%.2f", rate));
 
+        // On Edit button click, send the employee ID
+        // in the intent and start the EditEmployee activity
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editIntent = new Intent(DetailEmployee.this, EditEmployee.class);
-                editIntent.putExtra("EXTRAS_id", id);
+                editIntent.putExtra("EXTRAS_id", employeeId);
                 startActivity(editIntent);
+            }
+        });
+
+        // On Delete button click,
+        // delete the record by row ID
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteEmployeeById(employeeId);
+                Intent deleteIntent = new Intent(DetailEmployee.this, ViewEmployees.class);
+                startActivity(deleteIntent);
             }
         });
     }
@@ -78,5 +99,6 @@ public class DetailEmployee extends AppCompatActivity {
         tv_rateOfPay = (TextView) findViewById(R.id.rate_of_pay);
 
         btn_edit = (Button) findViewById(R.id.edit_employee);
+        btn_delete = (Button) findViewById(R.id.delete_employee);
     }
 }

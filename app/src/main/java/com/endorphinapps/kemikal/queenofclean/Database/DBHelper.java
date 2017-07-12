@@ -272,6 +272,17 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Delete the customer by the row ID
+     * @param customerId
+     */
+    public void deleteCustomerById(long customerId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(TABLE_CUSTOMERS, COLUMN_CUSTOMER_ID + " = " + customerId, null);
+        db.close();
+    }
+
+    /**
      * Insert Employee details passed from AddEmployee
      * @param firstName
      * @param lastName
@@ -304,7 +315,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Update the customer's details using the ID
-     *
      * @param id
      * @param firstName
      * @param lastName
@@ -327,6 +337,17 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_RATE_OF_PAY, rateOfPay);
 
         db.update(TABLE_EMPLOYEES, values, COLUMN_EMPLOYEE_ID + " = " + id, null);
+        db.close();
+    }
+
+    /**
+     * Delete the employee by the row ID
+     * @param employeeId
+     */
+    public void deleteEmployeeById(long employeeId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(TABLE_EMPLOYEES, COLUMN_EMPLOYEE_ID + " = " + employeeId, null);
         db.close();
     }
 
@@ -694,7 +715,6 @@ public class DBHelper extends SQLiteOpenHelper {
      * Get the address ID (FK in the employee table)
      * from the employee ID, so that it can be used
      * to update the address record.
-     *
      * @param employeeId
      * @return addressID as a type long
      */

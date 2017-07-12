@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.JobArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
@@ -13,6 +14,8 @@ import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 public class ViewJobs extends AppCompatActivity {
+
+    private TextView tv_emptyList;
 
     private ListView lv_jobsListView;
     private JobArrayAdapter arrayAdapter;
@@ -35,6 +38,14 @@ public class ViewJobs extends AppCompatActivity {
         arrayAdapter.addAll(db.getAllJobs());
         lv_jobsListView.setAdapter(arrayAdapter);
 
+        // If there are no records, show the 'No Jobs'
+        // message, if there are, hide the message
+        if (arrayAdapter.getCount() == 0) {
+            tv_emptyList.setVisibility(View.VISIBLE);
+        } else {
+            tv_emptyList.setVisibility(View.GONE);
+        }
+
         // FAB to add a new Job
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +60,7 @@ public class ViewJobs extends AppCompatActivity {
      * Find all views by ID
      */
     private void findViews() {
+        tv_emptyList = (TextView) findViewById(R.id.jobs_empty_list);
         lv_jobsListView = (ListView) findViewById(R.id.jobs_list_view);
         fab = (FloatingActionButton) findViewById(R.id.FAB);
     }

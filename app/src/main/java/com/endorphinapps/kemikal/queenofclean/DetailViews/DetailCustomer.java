@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditCustomer;
 import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
 public class DetailCustomer extends AppCompatActivity {
 
@@ -23,6 +25,9 @@ public class DetailCustomer extends AppCompatActivity {
     private TextView tv_postcode;
 
     private Button btn_edit;
+    private Button btn_delete;
+
+    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +37,16 @@ public class DetailCustomer extends AppCompatActivity {
         // Find all views by ID
         findViews();
 
+        // Instantiate a new DBHelper class
+        db = new DBHelper(this);
+
         // Get all details from Adapter Intent
         Intent intent = getIntent();
-        final long id = intent.getLongExtra("EXTRAS_id", 0);
-        String customerFullName =
+        final long customerId = intent.getLongExtra("EXTRAS_id", 0);
+        String fullName =
                 intent.getStringExtra("EXTRAS_firstName") + " " +
                         intent.getStringExtra("EXTRAS_lastName");
-        tv_fullName.setText(customerFullName);
+        tv_fullName.setText(fullName);
         tv_homeNumber.setText(intent.getStringExtra("EXTRAS_homeNumber"));
         tv_mobileNumber.setText(intent.getStringExtra("EXTRAS_mobileNumber"));
         tv_eMailAddress.setText(intent.getStringExtra("EXTRAS_emailAddress"));
@@ -54,8 +62,19 @@ public class DetailCustomer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent editIntent = new Intent(DetailCustomer.this, EditCustomer.class);
-                editIntent.putExtra("EXTRAS_id", id);
+                editIntent.putExtra("EXTRAS_id", customerId);
                 startActivity(editIntent);
+            }
+        });
+
+        // On Delete button click,
+        // delete the record by row ID
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteCustomerById(customerId);
+                Intent deleteIntent = new Intent(DetailCustomer.this, ViewCustomers.class);
+                startActivity(deleteIntent);
             }
         });
     }
@@ -75,5 +94,6 @@ public class DetailCustomer extends AppCompatActivity {
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
 
         btn_edit = (Button) findViewById(R.id.edit_customer);
+        btn_delete = (Button) findViewById(R.id.delete_customer);
     }
 }

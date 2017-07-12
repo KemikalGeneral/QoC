@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs">
 
+    <TextView
+        android:id="@+id/jobs_empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="You haven't added any jobs yet!" />
+
     <ListView
         android:id="@+id/jobs_list_view"
         android:layout_width="match_parent"
