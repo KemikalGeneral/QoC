@@ -52,6 +52,7 @@ public class ViewEmployees extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ViewEmployees.this, AddEmployee.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

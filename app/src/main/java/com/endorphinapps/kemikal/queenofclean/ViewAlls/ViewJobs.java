@@ -52,6 +52,7 @@ public class ViewJobs extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ViewJobs.this, AddJob.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

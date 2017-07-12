@@ -64,6 +64,7 @@ public class DetailCustomer extends AppCompatActivity {
                 Intent editIntent = new Intent(DetailCustomer.this, EditCustomer.class);
                 editIntent.putExtra("EXTRAS_id", customerId);
                 startActivity(editIntent);
+                finish();
             }
         });
 
@@ -75,6 +76,7 @@ public class DetailCustomer extends AppCompatActivity {
                 db.deleteCustomerById(customerId);
                 Intent deleteIntent = new Intent(DetailCustomer.this, ViewCustomers.class);
                 startActivity(deleteIntent);
+                finish();
             }
         });
     }

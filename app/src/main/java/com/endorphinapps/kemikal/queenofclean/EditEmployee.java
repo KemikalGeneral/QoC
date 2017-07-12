@@ -88,7 +88,6 @@ public class EditEmployee extends AppCompatActivity {
      * Update the employee record.
      * Update the address details first
      * and then the personal details.
-     *
      * @param employeeId
      */
     private void updateEmployee(long employeeId) {

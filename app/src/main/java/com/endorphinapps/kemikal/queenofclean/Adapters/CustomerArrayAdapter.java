@@ -1,5 +1,6 @@
 package com.endorphinapps.kemikal.queenofclean.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -62,6 +63,7 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
                 intent.putExtra("EXTRAS_city", customer.getCity());
                 intent.putExtra("EXTRAS_postcode", customer.getPostcode());
                 getContext().startActivity(intent);
+                ((Activity) getContext()).finish();
             }
         });
 

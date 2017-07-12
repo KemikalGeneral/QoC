@@ -54,6 +54,7 @@ public class ViewCustomers extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ViewCustomers.this, AddCustomer.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -68,6 +68,7 @@ public class DetailEmployee extends AppCompatActivity {
                 Intent editIntent = new Intent(DetailEmployee.this, EditEmployee.class);
                 editIntent.putExtra("EXTRAS_id", employeeId);
                 startActivity(editIntent);
+                finish();
             }
         });
 
@@ -79,6 +80,7 @@ public class DetailEmployee extends AppCompatActivity {
                 db.deleteEmployeeById(employeeId);
                 Intent deleteIntent = new Intent(DetailEmployee.this, ViewEmployees.class);
                 startActivity(deleteIntent);
+                finish();
             }
         });
     }
