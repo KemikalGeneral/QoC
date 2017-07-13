@@ -18,11 +18,8 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 public class MainActivity extends AppCompatActivity {
 
-    //    private Button btn_addCustomer;
     private Button btn_viewCustomers;
-    //    private Button btn_addEmployee;
     private Button btn_viewEmployees;
-    //        private Button btn_addJob;
     private Button btn_viewJob;
     private Button btn_financesIn;
     private Button btn_finances;
@@ -46,15 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper.onCreate(sqLiteDatabase);
 
-
-//        btn_addCustomer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                intent = new Intent(MainActivity.this, AddCustomer.class);
-//                startActivity(intent);
-//            }
-//        });
-
         btn_viewCustomers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,14 +51,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        btn_addEmployee.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                intent = new Intent(MainActivity.this, AddEmployee.class);
-//                startActivity(intent);
-//            }
-//        });
-
         btn_viewEmployees.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,14 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//        btn_addJob.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                intent = new Intent(MainActivity.this, AddJob.class);
-//                startActivity(intent);
-//            }
-//        });
 
         btn_viewJob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,11 +105,8 @@ public class MainActivity extends AppCompatActivity {
      * Find all views by their ID
      */
     private void findViews() {
-//        btn_addCustomer = (Button) findViewById(R.id.add_customer);
         btn_viewCustomers = (Button) findViewById(R.id.view_customers);
-//        btn_addEmployee = (Button) findViewById(R.id.add_employee);
         btn_viewEmployees = (Button) findViewById(R.id.view_employees);
-//        btn_addJob = (Button) findViewById(R.id.add_job);
         btn_viewJob = (Button) findViewById(R.id.view_job);
         btn_financesIn = (Button) findViewById(R.id.view_finances_in);
         btn_finances = (Button) findViewById(R.id.view_finances);

@@ -1,9 +1,5 @@
 package com.endorphinapps.kemikal.queenofclean.Entities;
 
-/**
- * Created by User on 06/12/2016.
- */
-
 public class Customer {
 
     private long customerId;

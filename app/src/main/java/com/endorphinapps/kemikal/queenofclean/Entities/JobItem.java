@@ -1,9 +1,5 @@
 package com.endorphinapps.kemikal.queenofclean.Entities;
 
-/**
- * Created by User on 27/06/2017.
- */
-
 public class JobItem {
 
     private long jobItemId;
@@ -13,8 +9,8 @@ public class JobItem {
 
     public JobItem(){}
 
-    public JobItem(long jobItemId, long job, String description,
-                   double price) {
+    JobItem(long jobItemId, long job, String description,
+            double price) {
         this.jobItemId = jobItemId;
         this.job = job;
         this.description = description;

@@ -13,10 +13,6 @@ import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
 
 import java.util.ArrayList;
 
-/**
- * Created by KeMiKaL on 06/12/2016.
- */
-
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "queenOfKleen.db";

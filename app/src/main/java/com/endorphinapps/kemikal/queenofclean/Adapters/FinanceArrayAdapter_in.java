@@ -15,10 +15,7 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
-
-/**
- * Created by User on 28/06/2017.
- */
+import java.util.Locale;
 
 public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
 
@@ -50,7 +47,7 @@ public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
         // Fetch and display total amount
         TextView totalAmount = (TextView) convertView.findViewById(R.id.finances_amount);
         totalAmount.setText("Total: £");
-        totalAmount.append(String.format("%.2f", job.getTotalPrice()));
+        totalAmount.append(String.format(Locale.getDefault(), "%.2f", job.getTotalPrice()));
 
         // Fetch and display date
         TextView endDate = (TextView) convertView.findViewById(R.id.finances_date);

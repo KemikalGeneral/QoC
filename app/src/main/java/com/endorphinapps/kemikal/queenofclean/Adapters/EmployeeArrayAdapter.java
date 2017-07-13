@@ -13,9 +13,6 @@ import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailEmployee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.R;
 
-/**
- * Created by Kemikal on 29/01/2017.
- */
 public class EmployeeArrayAdapter extends ArrayAdapter<Employee> {
 
     /**
@@ -28,7 +25,7 @@ public class EmployeeArrayAdapter extends ArrayAdapter<Employee> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_employee, parent, false);

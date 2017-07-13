@@ -12,6 +12,7 @@ import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
+import java.util.Locale;
 
 public class Finances_out extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class Finances_out extends AppCompatActivity {
         // Find all views by Id
         findViews();
 
-        // Instantiate DB and Finance_logic classes
+        // Instantiate DB and Finance classes
         db = new DBHelper(this);
         finances = new Finances(db);
 
@@ -110,7 +111,7 @@ public class Finances_out extends AppCompatActivity {
     private void displayTotalToTextView() {
         double totalPayToEmployee = finances.getTotalAmount_out();
         tv_totalAmountOut.setText("£");
-        tv_totalAmountOut.append(String.format("%.2f", totalPayToEmployee));
+        tv_totalAmountOut.append(String.format(Locale.getDefault(), "%.2f", totalPayToEmployee));
     }
 
     /**

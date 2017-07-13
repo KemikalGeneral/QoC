@@ -1,6 +1,5 @@
 package com.endorphinapps.kemikal.queenofclean.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,9 +13,6 @@ import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailCustomer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.R;
 
-/**
- * Created by Kemikal on 29/01/2017.
- */
 public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
 
     /**
@@ -29,7 +25,7 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_customer, parent, false);
@@ -63,7 +59,7 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
                 intent.putExtra("EXTRAS_city", customer.getCity());
                 intent.putExtra("EXTRAS_postcode", customer.getPostcode());
                 getContext().startActivity(intent);
-                ((Activity) getContext()).finish();
+//                ((Activity) getContext()).finish();
             }
         });
 

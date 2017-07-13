@@ -8,10 +8,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Created by Kemikal on 30/06/2017.
- */
-
 class Finances {
 
     private DBHelper db;

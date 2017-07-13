@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.R;
 
+import java.util.Locale;
+
 public class Finances_overview extends AppCompatActivity {
 
     private DBHelper db;
@@ -23,21 +25,21 @@ public class Finances_overview extends AppCompatActivity {
         // Find all views by Id
         findViews();
 
-        // Instantiate DB and Finance_logic classes
+        // Instantiate DB and Finance classes
         db = new DBHelper(this);
         finances = new Finances(db);
 
         // Display total amount in
         tv_totalAmountIn.setText("£");
-        tv_totalAmountIn.append(String.format("%.2f", finances.getTotalAmount_In()));
+        tv_totalAmountIn.append(String.format(Locale.getDefault(), "%.2f", finances.getTotalAmount_In()));
 
         // Display total amount out
         tv_totalAmountOut.setText("£");
-        tv_totalAmountOut.append(String.format("%.2f", finances.getTotalAmount_out()));
+        tv_totalAmountOut.append(String.format(Locale.getDefault(), "%.2f", finances.getTotalAmount_out()));
 
         // Display total amount sum to 2 decimal places
         tv_totalAmountSum.setText("£");
-        tv_totalAmountSum.append(String.format("%.2f", finances.getTotalAmount_sum()));
+        tv_totalAmountSum.append(String.format(Locale.getDefault(), "%.2f", finances.getTotalAmount_sum()));
     }
 
     /**

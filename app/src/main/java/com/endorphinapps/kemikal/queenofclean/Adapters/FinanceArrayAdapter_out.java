@@ -15,10 +15,7 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
-
-/**
- * Created by Kemi on 30/06/2017.
- */
+import java.util.Locale;
 
 public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
 
@@ -56,7 +53,7 @@ public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
         // Fetch and display the employee rate of pay
         TextView rateOfPay = (TextView) convertView.findViewById(R.id.rate_of_pay);
         rateOfPay.setText("Rate of Pay: £");
-        rateOfPay.append(String.format("%.2f", employee.getRateOfPay()));
+        rateOfPay.append(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
 
         // Fetch and display estimated time required
         //TODO - change to actual time taken
@@ -68,7 +65,7 @@ public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
         TextView payForJob = (TextView) convertView.findViewById(R.id.finances_amount);
         double pay = employee.getRateOfPay() * job.getEstimatedTime();
         payForJob.setText("Job Pay: £");
-        payForJob.append(String.format("%.2f", pay));
+        payForJob.append(String.format(Locale.getDefault(), "%.2f", pay));
 
         return convertView;
     }

@@ -17,10 +17,6 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.R;
 
-/**
- * Created by User on 13/02/2017.
- */
-
 public class JobArrayAdapter extends ArrayAdapter<Job> {
 
     private DBHelper db = new DBHelper(getContext());

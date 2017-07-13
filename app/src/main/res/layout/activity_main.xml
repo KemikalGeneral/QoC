@@ -7,54 +7,38 @@
     android:orientation="vertical"
     tools:context="com.endorphinapps.kemikal.queenofclean.MainActivity">
 
-    <!--<Button-->
-    <!--android:id="@+id/add_customer"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:text="Add a Customer" />-->
-
+    <!--Customers-->
     <Button
         android:id="@+id/view_customers"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="View Customers"/>
+        android:text="Customers" />
 
-    <!--<Button-->
-    <!--android:id="@+id/add_employee"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:text="Add an Employee" />-->
-
+    <!--Employees-->
     <Button
         android:id="@+id/view_employees"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="View Employees"/>
+        android:text="Employees" />
 
-    <!--<Button-->
-    <!--android:id="@+id/add_job"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:text="Add Job"/>-->
-
+    <!--Jobs-->
     <Button
         android:id="@+id/view_job"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="View Jobs" />
+        android:text="Jobs" />
 
+    <!--Finances-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_weight="1">
 
+        <!--Finances - In-->
         <Button
             android:id="@+id/view_finances_in"
             android:layout_width="0dp"
@@ -62,6 +46,7 @@
             android:layout_weight="1"
             android:text="In"/>
 
+        <!--Finances - Overview-->
         <Button
             android:id="@+id/view_finances"
             android:layout_width="0dp"
@@ -69,6 +54,7 @@
             android:layout_weight="1"
             android:text="Finances"/>
 
+        <!--Finances - Out-->
         <Button
             android:id="@+id/view_finances_out"
             android:layout_width="0dp"
@@ -77,6 +63,7 @@
             android:text="Out"/>
     </LinearLayout>
 
+    <!--Drop all Tables-->
     <Button
         android:id="@+id/drop_tables"
         android:layout_width="match_parent"

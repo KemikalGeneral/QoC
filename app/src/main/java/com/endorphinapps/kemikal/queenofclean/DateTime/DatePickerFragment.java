@@ -7,10 +7,6 @@ import android.os.Bundle;
 
 import java.util.Calendar;
 
-/**
- * Created by Kemikal on 06/02/2017.
- */
-
 public class DatePickerFragment extends DialogFragment {
 
     @Override
