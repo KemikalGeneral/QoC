@@ -662,14 +662,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Drop all tables
-     * @param db
      */
-    public void dropTables(SQLiteDatabase db) {
+    public void dropTables() {
+        SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADDRESSES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EMPLOYEES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOBS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOB_ITEMS);
+        onCreate(db);
     }
 
     /**

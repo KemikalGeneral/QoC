@@ -1,15 +1,15 @@
 package com.endorphinapps.kemikal.queenofclean.Finances;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.util.Locale;
 
-public class Finances_overview extends AppCompatActivity {
+public class Finances_overview extends MenuMain {
 
     private DBHelper db;
     private Finances finances;

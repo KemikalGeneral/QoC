@@ -3,7 +3,6 @@ package com.endorphinapps.kemikal.queenofclean.ViewAlls;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -11,9 +10,10 @@ import android.widget.TextView;
 import com.endorphinapps.kemikal.queenofclean.Adapters.EmployeeArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddEmployee;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 
-public class ViewEmployees extends AppCompatActivity {
+public class ViewEmployees extends MenuMain {
 
     private TextView tv_emptyList;
 

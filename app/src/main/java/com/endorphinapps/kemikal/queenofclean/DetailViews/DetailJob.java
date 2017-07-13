@@ -2,7 +2,6 @@ package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -10,12 +9,13 @@ import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 
-public class DetailJob extends AppCompatActivity {
+public class DetailJob extends MenuMain {
 
     private TextView tv_customerName;
     private TextView tv_employeeName;

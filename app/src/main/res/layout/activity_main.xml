@@ -62,13 +62,4 @@
             android:layout_weight="1"
             android:text="Out"/>
     </LinearLayout>
-
-    <!--Drop all Tables-->
-    <Button
-        android:id="@+id/drop_tables"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#ff0000"
-        android:layout_weight="1"
-        android:text="Drop Tables"/>
 </LinearLayout>

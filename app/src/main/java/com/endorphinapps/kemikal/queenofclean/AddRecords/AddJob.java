@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +27,7 @@ import com.endorphinapps.kemikal.queenofclean.DateTime.TimePickerFragment;
 import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
@@ -37,7 +37,7 @@ import java.util.Calendar;
 
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
-public class AddJob extends AppCompatActivity
+public class AddJob extends MenuMain
         implements DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
 

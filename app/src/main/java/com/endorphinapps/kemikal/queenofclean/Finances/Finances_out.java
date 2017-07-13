@@ -1,7 +1,6 @@
 package com.endorphinapps.kemikal.queenofclean.Finances;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -9,12 +8,13 @@ import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_out;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
 import java.util.Locale;
 
-public class Finances_out extends AppCompatActivity {
+public class Finances_out extends MenuMain {
 
     private DBHelper db;
     private Finances finances;

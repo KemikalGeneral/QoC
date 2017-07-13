@@ -3,10 +3,8 @@ package com.endorphinapps.kemikal.queenofclean;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Finances.Finances_In;
@@ -16,7 +14,7 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MenuMain {
 
     private Button btn_viewCustomers;
     private Button btn_viewEmployees;
@@ -24,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_financesIn;
     private Button btn_finances;
     private Button btn_financesOut;
-    private Button btn_dropTables;
 
     private Intent intent;
 
@@ -90,15 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btn_dropTables.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dbHelper.dropTables(sqLiteDatabase);
-                Toast.makeText(getApplicationContext(), "Tables Dropped", Toast.LENGTH_LONG).show();
-                recreate();
-            }
-        });
     }
 
     /**
@@ -111,6 +99,5 @@ public class MainActivity extends AppCompatActivity {
         btn_financesIn = (Button) findViewById(R.id.view_finances_in);
         btn_finances = (Button) findViewById(R.id.view_finances);
         btn_financesOut = (Button) findViewById(R.id.view_finances_out);
-        btn_dropTables = (Button) findViewById(R.id.drop_tables);
     }
 }
