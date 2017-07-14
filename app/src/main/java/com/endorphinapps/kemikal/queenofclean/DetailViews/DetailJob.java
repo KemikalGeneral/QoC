@@ -56,7 +56,7 @@ public class DetailJob extends MenuMain {
         tv_startTime = (TextView) findViewById(R.id.start_time);
         tv_jobStatus = (TextView) findViewById(R.id.status);
         tv_estimatedTime = (TextView) findViewById(R.id.estimated_time);
-        tv_totalPrice = (TextView) findViewById(R.id.job_total_price);
+        tv_totalPrice = (TextView) findViewById(R.id.add_job_total_price);
         tv_notes = (TextView) findViewById(R.id.notes);
         tl_jobDetailContainer = (TableLayout) findViewById(R.id.job_detail_container);
     }

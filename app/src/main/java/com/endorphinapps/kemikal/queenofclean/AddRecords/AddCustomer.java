@@ -87,7 +87,7 @@ public class AddCustomer extends MenuMain {
         et_town = (EditText) findViewById(R.id.add_town);
         et_city = (EditText) findViewById(R.id.add_city);
         et_postcode = (EditText) findViewById(R.id.add_postcode);
-        btn_addNew = (Button) findViewById(R.id.add_submit);
+        btn_addNew = (Button) findViewById(R.id.btn_submit);
         btn_populate = (Button) findViewById(R.id.btn_populate);
     }
 

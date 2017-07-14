@@ -90,7 +90,7 @@ public class AddEmployee extends MenuMain {
         et_city = (EditText) findViewById(R.id.add_city);
         et_postcode = (EditText) findViewById(R.id.add_postcode);
         et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
-        btn_addNew = (Button) findViewById(R.id.add_submit);
+        btn_addNew = (Button) findViewById(R.id.btn_submit);
         btn_populate = (Button) findViewById(R.id.btn_populate);
     }
 

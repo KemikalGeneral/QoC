@@ -1,185 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_add_job"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <!--Customer Section-->
-        <LinearLayout
-            style="@style/container"
-            android:orientation="vertical">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_job_customer_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
             <TextView
                 android:id="@+id/dummy_customer"
-                style="@style/field_start"
-                android:text="Select a Customer..." />
+                style="@style/text_input"
+                android:layout_width="0dp"
+                android:text="Select a Customer..."
+                app:layout_constraintTop_toTopOf="@id/add_job_customer_container"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
             <Spinner
                 android:id="@+id/add_customer_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                style="@style/text_input"
+                app:layout_constraintTop_toBottomOf="@id/dummy_customer"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/add_job_customer_container"
-                android:layout_width="match_parent"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/add_job_customer_address_container"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:layout_constraintTop_toBottomOf="@+id/add_customer_spinner"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
 
                 <TextView
                     android:id="@+id/address_line_1"
-                    style="@style/field_start"
-                    android:text="@string/address_line_1" />
+                    style="@style/text_input"
+                    android:text="@string/address_line_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
                     android:id="@+id/address_line_2"
-                    style="@style/field_start"
-                    android:text="@string/address_line_2" />
+                    style="@style/text_input"
+                    android:text="@string/address_line_2"
+                    app:layout_constraintTop_toBottomOf="@+id/address_line_1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
                     android:id="@+id/address_town"
-                    style="@style/field_start"
-                    android:text="@string/town" />
+                    style="@style/text_input"
+                    android:text="@string/town"
+                    app:layout_constraintTop_toBottomOf="@+id/address_line_2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
                     android:id="@+id/address_city"
-                    style="@style/field_start"
-                    android:text="@string/city" />
+                    style="@style/text_input"
+                    android:text="@string/city"
+                    app:layout_constraintTop_toBottomOf="@+id/address_town"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
                 <TextView
                     android:id="@+id/address_postcode"
-                    style="@style/field_start"
-                    android:text="@string/postcode" />
-            </LinearLayout>
-        </LinearLayout>
+                    style="@style/text_input"
+                    android:text="@string/postcode"
+                    app:layout_constraintTop_toBottomOf="@+id/address_city"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
 
 
         <!--Employee Section-->
-        <LinearLayout style="@style/container">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_job_employee_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/add_job_customer_container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
             <TextView
                 android:id="@+id/dummy_employee"
-                style="@style/field_start"
-                android:text="Select an Employee..." />
+                style="@style/text_input"
+                android:text="Select an Employee..."
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
             <Spinner
                 android:id="@+id/add_employee_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                style="@style/text_input"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
 
         <!--Date-->
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_job_date_time_container"
             style="@style/container"
-            android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/add_job_employee_container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
             <TextView
                 android:id="@+id/add_start_date"
-                style="@style/field_start"
-                android:text="Select a Start Date..." />
+                style="@style/text_input"
+                android:text="Select a Start Date..."
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
                 android:id="@+id/add_start_time"
-                style="@style/field_start"
-                android:padding="@dimen/padding_16"
-                android:text="Select a Start Time" />
-        </LinearLayout>
+                style="@style/text_input"
+                android:text="Select a Start Time..."
+                app:layout_constraintTop_toBottomOf="@+id/add_start_date"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
 
         <!--Job Status-->
-        <LinearLayout style="@style/container">
-
             <Spinner
                 android:id="@+id/add_status_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/add_job_date_time_container"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
 
         <!--Job Items-->
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_job_items_container"
             style="@style/container"
-            android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/add_status_spinner"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
             <TextView
                 android:id="@+id/add_job_item_row"
-                style="@style/field_start"
-                android:hint="Add a Job Item..." />
+                style="@style/text_input"
+                android:hint="Add a Job Item..."
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
             <LinearLayout
                 android:id="@+id/add_job_list_container"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"></LinearLayout>
-        </LinearLayout>
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/add_job_item_row"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"></LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
 
         <!--Estimated Time-->
-        <LinearLayout
-            style="@style/container"
-            android:orientation="horizontal">
-
             <TextView
-                android:id="@+id/label_job_estimated_time"
-                style="@style/field_weight_1"
-                android:text="Estimated Time Required in Hours:" />
+                android:id="@+id/add_job_estimated_time_label"
+                style="@style/text_input"
+                android:layout_width="wrap_content"
+                android:text="Estimated Time Required in Hours:"
+                app:layout_constraintTop_toBottomOf="@id/add_job_items_container"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
             <EditText
-                android:id="@+id/add_estimated_time"
+                android:id="@+id/add_job_estimated_time"
+                style="@style/text_input"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:hint="00"
                 android:inputType="number"
-                android:padding="@dimen/padding_16" />
-        </LinearLayout>
+                app:layout_constraintTop_toTopOf="@id/add_job_estimated_time_label"
+                app:layout_constraintRight_toRightOf="parent" />
 
 
         <!--Total Job Price-->
-        <LinearLayout
-            style="@style/container"
-            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/add_job_total_price_label"
+                style="@style/text_input"
+                android:layout_width="wrap_content"
+                android:text="Total Price for Job:"
+                app:layout_constraintTop_toBottomOf="@id/add_job_estimated_time"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
-                android:id="@+id/label_job_total_price"
-                style="@style/field_weight_1"
-                android:text="Total Price for Job:" />
-
-            <TextView
-                android:id="@+id/job_total_price"
-                style="@style/field_start"
-                android:hint="00.00" />
-        </LinearLayout>
+                android:id="@+id/add_job_total_price"
+                style="@style/text_input"
+                android:layout_width="wrap_content"
+                android:hint="00.00"
+                app:layout_constraintTop_toTopOf="@id/add_job_total_price_label"
+                app:layout_constraintRight_toRightOf="parent" />
 
 
         <!--Notes-->
         <EditText
             android:id="@+id/add_job_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/text_input"
             android:gravity="top"
             android:lines="5"
-            android:padding="@dimen/padding_16"
-            android:hint="Add Notes..." />
+            android:hint="Add Notes..."
+            app:layout_constraintTop_toBottomOf="@id/add_job_total_price"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
         <!--Submit-->
         <Button
-            android:id="@+id/add_submit"
-            style="@style/submit_button"
-            android:text="@string/submit" />
+            android:id="@+id/add_Job_btn_submit"
+            style="@style/text_input"
+            android:text="@string/submit"
+            app:layout_constraintTop_toBottomOf="@id/add_job_notes"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>
