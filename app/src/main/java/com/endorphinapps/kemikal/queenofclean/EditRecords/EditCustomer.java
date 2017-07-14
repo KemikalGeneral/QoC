@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.EditRecords;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
-import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
+import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
-public class EditEmployee extends MenuMain {
+public class EditCustomer extends MenuMain {
 
     private EditText et_firstName;
     private EditText et_lastName;
@@ -22,7 +24,6 @@ public class EditEmployee extends MenuMain {
     private EditText et_town;
     private EditText et_city;
     private EditText et_postcode;
-    private EditText et_rateOfPay;
 
     private Button btn_applyChanges;
     private DBHelper db;
@@ -30,43 +31,42 @@ public class EditEmployee extends MenuMain {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_employee);
+        setContentView(R.layout.activity_edit_customer);
 
-        //Find all views by ID
+        // Find all views by ID
         findViews();
 
-        //Instantiate a new instance of the DBHelper
+        // Instantiate a new DBHelper class
         db = new DBHelper(this);
 
-        // Get the ID of the employee from the Detail intent
-        // and get the required employee by the ID
+        // Get the ID of the customer from the Detail intent
+        // and get the required customer by the ID
         Intent intent = getIntent();
-        final long employeeId = intent.getLongExtra("EXTRAS_id", 0);
-        Employee employee = db.getEmployeeById(employeeId);
+        final long customerId = intent.getLongExtra("EXTRAS_id", 0);
+        Customer customer = db.getCustomerById(customerId);
 
-        // Populate employee detail fields with employee info
-        et_firstName.setText(employee.getFirstName());
-        et_lastName.setText(employee.getLastName());
-        et_mobileNumber.setText(employee.getMobileNumber());
-        et_homeNumber.setText(employee.getHomeNumber());
-        et_eMail.setText(employee.getEmailAddress());
-        et_addressLine1.setText(employee.getAddressLine1());
-        et_addressLine2.setText(employee.getAddressLine2());
-        et_town.setText(employee.getTown());
-        et_city.setText(employee.getCity());
-        et_postcode.setText(employee.getPostcode());
-        et_rateOfPay.setText(String.valueOf(employee.getRateOfPay()));
+        // Populate customer detail fields with customer info
+        et_firstName.setText(customer.getFirstName());
+        et_lastName.setText(customer.getLastName());
+        et_mobileNumber.setText(customer.getMobileNumber());
+        et_homeNumber.setText(customer.getHomeNumber());
+        et_eMail.setText(customer.getEmailAddress());
+        et_addressLine1.setText(customer.getAddressLine1());
+        et_addressLine2.setText(customer.getAddressLine2());
+        et_town.setText(customer.getTown());
+        et_city.setText(customer.getCity());
+        et_postcode.setText(customer.getPostcode());
 
         btn_applyChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateEmployee(employeeId);
+                updateCustomer(customerId);
             }
         });
     }
 
     /**
-     * Find all views by id
+     * Find all views by their ID's
      */
     private void findViews() {
         et_firstName = (EditText) findViewById(R.id.add_first_name);
@@ -79,21 +79,21 @@ public class EditEmployee extends MenuMain {
         et_town = (EditText) findViewById(R.id.add_town);
         et_city = (EditText) findViewById(R.id.add_city);
         et_postcode = (EditText) findViewById(R.id.add_postcode);
-        et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
+
         btn_applyChanges = (Button) findViewById(R.id.apply_changes);
     }
 
     /**
-     * Update the employee record.
+     * Update the customer record.
      * Update the address details first
      * and then the personal details.
-     * @param employeeId
+     * @param customerId
      */
-    private void updateEmployee(long employeeId) {
-        // Get the address FK from the employee table
-        long addressId = db.getAddressIdFromEmployeeId(employeeId);
+    private void updateCustomer(long customerId) {
+        // Get the address FK from the customer table
+        long addressId = db.getAddressIdFromCustomerId(customerId);
 
-        // Update employee's address details
+        // Update customer's address details
         db.updateAddress(
                 addressId,
                 et_addressLine1.getText().toString().trim(),
@@ -103,18 +103,17 @@ public class EditEmployee extends MenuMain {
                 et_postcode.getText().toString().trim()
         );
 
-        // Update employee's personal details
-        db.updateEmployee(
-                employeeId,
+        // Update customer's personal details
+        db.updateCustomer(
+                customerId,
                 et_firstName.getText().toString().trim(),
                 et_lastName.getText().toString().trim(),
                 et_homeNumber.getText().toString().trim(),
                 et_mobileNumber.getText().toString().trim(),
-                et_eMail.getText().toString().trim(),
-                Double.parseDouble(et_rateOfPay.getText().toString().trim())
+                et_eMail.getText().toString().trim()
         );
 
-        Intent intent = new Intent(EditEmployee.this, ViewEmployees.class);
+        Intent intent = new Intent(EditCustomer.this, ViewCustomers.class);
         startActivity(intent);
         finish();
     }

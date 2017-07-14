@@ -9,6 +9,10 @@ import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 
+/**
+ * Main Options menu that runs throughout the app.
+ * It is extended by all activity classes that use it.
+ */
 public class MenuMain extends AppCompatActivity {
 
     DBHelper db = new DBHelper(this);

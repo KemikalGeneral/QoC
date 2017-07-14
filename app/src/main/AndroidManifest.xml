@@ -27,8 +27,8 @@
         <activity android:name=".Finances.Finances_overview" />
         <activity android:name=".Finances.Finances_In" />
         <activity android:name=".Finances.Finances_out" />
-        <activity android:name=".EditCustomer" />
-        <activity android:name=".EditEmployee" />
+        <activity android:name=".EditRecords.EditCustomer" />
+        <activity android:name=".EditRecords.EditEmployee" />
         <activity android:name=".MenuMain"></activity>
     </application>
 
