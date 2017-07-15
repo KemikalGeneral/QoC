@@ -85,7 +85,7 @@ public class DetailCustomer extends MenuMain {
      * Find all views by their ID's
      */
     private void findViews() {
-        tv_fullName = (TextView) findViewById(R.id.customer_full_name);
+        tv_fullName = (TextView) findViewById(R.id.full_name);
         tv_homeNumber = (TextView) findViewById(R.id.home_number);
         tv_mobileNumber = (TextView) findViewById(R.id.mobile_number);
         tv_eMailAddress = (TextView) findViewById(R.id.email_address);
@@ -95,7 +95,7 @@ public class DetailCustomer extends MenuMain {
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
 
-        btn_edit = (Button) findViewById(R.id.edit_customer);
-        btn_delete = (Button) findViewById(R.id.delete_customer);
+        btn_edit = (Button) findViewById(R.id.btn_edit_customer);
+        btn_delete = (Button) findViewById(R.id.btn_delete_customer);
     }
 }

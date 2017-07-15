@@ -89,7 +89,7 @@ public class DetailEmployee extends MenuMain {
      * Find all views bt their Id's
      */
     private void findViews() {
-        tv_fullName = (TextView) findViewById(R.id.employee_full_name);
+        tv_fullName = (TextView) findViewById(R.id.full_name);
         tv_homeNumber = (TextView) findViewById(R.id.home_number);
         tv_mobileNumber = (TextView) findViewById(R.id.mobile_number);
         tv_eMailAddress = (TextView) findViewById(R.id.email_address);
@@ -100,7 +100,7 @@ public class DetailEmployee extends MenuMain {
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
         tv_rateOfPay = (TextView) findViewById(R.id.rate_of_pay);
 
-        btn_edit = (Button) findViewById(R.id.edit_employee);
-        btn_delete = (Button) findViewById(R.id.delete_employee);
+        btn_edit = (Button) findViewById(R.id.btn_edit_employee);
+        btn_delete = (Button) findViewById(R.id.btn_delete_employee);
     }
 }

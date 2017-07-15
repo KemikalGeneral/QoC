@@ -43,7 +43,7 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
 
         // Fetch, concatenate and populate the first and last name
         final String customerFullName = customer.getFirstName() + " " + customer.getLastName();
-        TextView customerFirstLast = (TextView) convertView.findViewById(R.id.full_name_customer);
+        TextView customerFirstLast = (TextView) convertView.findViewById(R.id.full_name);
         customerFirstLast.setText(customerFullName);
 
         // Fetch and populate the AddressLine1 field

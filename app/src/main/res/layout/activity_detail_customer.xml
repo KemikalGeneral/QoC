@@ -1,120 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_person_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:padding="@dimen/padding_16"
     tools:context="com.endorphinapps.kemikal.queenofclean.DetailViews.DetailCustomer">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TableLayout
-        style="@style/container">
+        <!--Name-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_name_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow>
+            <!--Name Label-->
             <TextView
-                style="@style/field_end"
-                android:text="Name:" />
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="Name:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <!--Name-->
             <TextView
-                android:id="@+id/customer_full_name"
-                style="@style/field_start"/>
-        </TableRow>
+                android:id="@+id/full_name"
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="FirstName LastName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
+        <!--Contact Details-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_contact_details_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_name_container">
 
-        <TableRow>
+            <!--Home Number Label-->
             <TextView
-                style="@style/field_end"
-                android:text="@string/home_number" />
+                android:id="@+id/home_number_label"
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="@string/home_number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <!--Home Number-->
             <TextView
                 android:id="@+id/home_number"
-                style="@style/field_start" />
-        </TableRow>
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="02920123456"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-
-        <TableRow>
+            <!--Mobile Number Label-->
             <TextView
-                style="@style/field_end"
-                android:text="@string/mobile_number" />
+                android:id="@+id/mobile_number_label"
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="@string/mobile_number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_number_label" />
 
+            <!--Mobile Number-->
             <TextView
                 android:id="@+id/mobile_number"
-                style="@style/field_start"/>
-        </TableRow>
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="07890123456"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_number" />
 
-
-        <TableRow>
+            <!--Email Label-->
             <TextView
-                style="@style/field_end"
-                android:text="@string/email_address" />
+                android:id="@+id/email_address_label"
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="@string/email_address"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mobile_number_label" />
 
+            <!--Email-->
             <TextView
                 android:id="@+id/email_address"
-                style="@style/field_start"/>
-        </TableRow>
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="e@mail.com"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mobile_number" />
+        </android.support.constraint.ConstraintLayout>
 
+        <!--Address-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_address_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_contact_details_container">
 
-        <TableRow>
+            <!--Label-->
             <TextView
-                style="@style/field_end"
-                android:text="@string/address" />
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="@string/address"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <!--Address Line 1-->
             <TextView
                 android:id="@+id/address_line_1"
-                style="@style/field_start"/>
-        </TableRow>
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="1 My Street"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-
-        <TableRow>
+            <!--Address Line 2-->
             <TextView
                 android:id="@+id/address_line_2"
-                style="@style/field_start"
-                android:layout_column="1"/>
-        </TableRow>
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="My Area"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
-
-        <TableRow>
+            <!--Town-->
             <TextView
                 android:id="@+id/address_town"
-                style="@style/field_start"
-                android:layout_column="1"/>
-        </TableRow>
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="My Town"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_line_2" />
 
-
-        <TableRow>
+            <!--City-->
             <TextView
                 android:id="@+id/address_city"
-                style="@style/field_start"
-                android:layout_column="1"/>
-        </TableRow>
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="My City"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_town" />
 
-
-        <TableRow>
+            <!--Postcode-->
             <TextView
                 android:id="@+id/address_postcode"
-                style="@style/field_start"
-                android:layout_column="1"/>
-        </TableRow>
-    </TableLayout>
-
-    <Button
-        android:id="@+id/edit_customer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edit" />
+                style="@style/text_field"
+                android:layout_width="wrap_content"
+                android:text="CF123AB"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_city" />
+        </android.support.constraint.ConstraintLayout>
 
         <Button
-            android:id="@+id/delete_customer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Delete" />
-    </LinearLayout>
+            android:id="@+id/btn_edit_customer"
+            style="@style/button"
+            android:text="Edit"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_address_container" />
+
+        <Button
+            android:id="@+id/btn_delete_customer"
+            style="@style/button"
+            android:text="Delete"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_edit_customer" />
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>

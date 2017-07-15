@@ -2,8 +2,8 @@ package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.view.ContextThemeWrapper;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -25,7 +25,7 @@ public class DetailJob extends MenuMain {
     private TextView tv_estimatedTime;
     private TextView tv_totalPrice;
     private TextView tv_notes;
-    private TableLayout tl_jobDetailContainer;
+    private ConstraintLayout tl_jobDetailContainer;
 
     private Intent intent;
 
@@ -56,9 +56,9 @@ public class DetailJob extends MenuMain {
         tv_startTime = (TextView) findViewById(R.id.start_time);
         tv_jobStatus = (TextView) findViewById(R.id.status);
         tv_estimatedTime = (TextView) findViewById(R.id.estimated_time);
-        tv_totalPrice = (TextView) findViewById(R.id.add_job_total_price);
+        tv_totalPrice = (TextView) findViewById(R.id.total_price);
         tv_notes = (TextView) findViewById(R.id.notes);
-        tl_jobDetailContainer = (TableLayout) findViewById(R.id.job_detail_container);
+        tl_jobDetailContainer = (ConstraintLayout) findViewById(R.id.job_detail_container);
     }
 
     /**
