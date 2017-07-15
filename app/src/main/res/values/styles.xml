@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -11,35 +11,37 @@
     <style name="text_input_wrapper">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-
     </style>
+
     <!--TextInput-->
     <style name="text_input">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/padding_16</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-
-    <style name="container">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
-        <item name="android:layout_marginBottom">@dimen/padding_16</item>
     </style>
+
+    <!--Container-->
+    <style name="container">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/container</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
 
     <style name="field_start">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/padding_16</item>
+        <!--<item name="android:padding">@dimen/padding_16</item>-->
         <item name="android:textSize">@dimen/text_size_standard</item>
     </style>
 
     <style name="field_end">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/padding_16</item>
+        <!--<item name="android:padding">@dimen/padding_16</item>-->
         <item name="android:gravity">end</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
     </style>
@@ -47,7 +49,7 @@
     <style name="field_weight_1">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/padding_16</item>
+        <!--<item name="android:padding">@dimen/padding_16</item>-->
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
     </style>

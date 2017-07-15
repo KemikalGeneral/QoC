@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_job"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/padding_16"
     tools:context="com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob">
 
     <android.support.constraint.ConstraintLayout
@@ -14,75 +15,75 @@
         <!--Customer Section-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_customer_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            style="@style/container"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/dummy_customer"
                 style="@style/text_input"
                 android:layout_width="0dp"
                 android:text="Select a Customer..."
-                app:layout_constraintTop_toTopOf="@id/add_job_customer_container"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
                 android:id="@+id/add_customer_spinner"
                 style="@style/text_input"
-                app:layout_constraintTop_toBottomOf="@id/dummy_customer"
+                android:padding="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/add_job_customer_address_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/add_customer_spinner"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_customer_spinner">
 
                 <TextView
                     android:id="@+id/address_line_1"
                     style="@style/text_input"
                     android:text="@string/address_line_1"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/address_line_2"
                     style="@style/text_input"
                     android:text="@string/address_line_2"
-                    app:layout_constraintTop_toBottomOf="@+id/address_line_1"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
                 <TextView
                     android:id="@+id/address_town"
                     style="@style/text_input"
                     android:text="@string/town"
-                    app:layout_constraintTop_toBottomOf="@+id/address_line_2"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address_line_2" />
 
                 <TextView
                     android:id="@+id/address_city"
                     style="@style/text_input"
                     android:text="@string/city"
-                    app:layout_constraintTop_toBottomOf="@+id/address_town"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address_town" />
 
                 <TextView
                     android:id="@+id/address_postcode"
                     style="@style/text_input"
                     android:text="@string/postcode"
-                    app:layout_constraintTop_toBottomOf="@+id/address_city"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address_city" />
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
 
@@ -90,26 +91,26 @@
         <!--Employee Section-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_employee_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/add_job_customer_container"
+            style="@style/container"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_job_customer_container">
 
             <TextView
                 android:id="@+id/dummy_employee"
                 style="@style/text_input"
                 android:text="Select an Employee..."
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
                 android:id="@+id/add_employee_spinner"
                 style="@style/text_input"
-                app:layout_constraintTop_toTopOf="parent"
+                android:padding="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -117,77 +118,88 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_date_time_container"
             style="@style/container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/add_job_employee_container"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_job_employee_container">
 
             <TextView
                 android:id="@+id/add_start_date"
                 style="@style/text_input"
                 android:text="Select a Start Date..."
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/add_start_time"
                 style="@style/text_input"
                 android:text="Select a Start Time..."
-                app:layout_constraintTop_toBottomOf="@+id/add_start_date"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_start_date" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Job Status-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_job_status_spinner_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_job_date_time_container">
+
             <Spinner
-                android:id="@+id/add_status_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/add_job_date_time_container"
+                android:id="@+id/add_job_status_spinner"
+                style="@style/text_input"
+                android:padding="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
 
         <!--Job Items-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_items_container"
             style="@style/container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/add_status_spinner"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner_container">
 
             <TextView
                 android:id="@+id/add_job_item_row"
                 style="@style/text_input"
                 android:hint="Add a Job Item..."
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/add_job_list_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/add_job_item_row"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"></LinearLayout>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_job_item_row" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Estimated Time-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_job_estimated_time_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_job_items_container">
+
             <TextView
                 android:id="@+id/add_job_estimated_time_label"
                 style="@style/text_input"
                 android:layout_width="wrap_content"
                 android:text="Estimated Time Required in Hours:"
-                app:layout_constraintTop_toBottomOf="@id/add_job_items_container"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/add_job_estimated_time"
@@ -195,38 +207,55 @@
                 android:layout_width="wrap_content"
                 android:hint="00"
                 android:inputType="number"
-                app:layout_constraintTop_toTopOf="@id/add_job_estimated_time_label"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
 
         <!--Total Job Price-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_job_total_price_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_job_estimated_time_container">
+
             <TextView
                 android:id="@+id/add_job_total_price_label"
                 style="@style/text_input"
                 android:layout_width="wrap_content"
                 android:text="Total Price for Job:"
-                app:layout_constraintTop_toBottomOf="@id/add_job_estimated_time"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/add_job_total_price"
                 style="@style/text_input"
                 android:layout_width="wrap_content"
                 android:hint="00.00"
-                app:layout_constraintTop_toTopOf="@id/add_job_total_price_label"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
 
         <!--Notes-->
-        <EditText
-            android:id="@+id/add_job_notes"
-            style="@style/text_input"
-            android:gravity="top"
-            android:lines="5"
-            android:hint="Add Notes..."
-            app:layout_constraintTop_toBottomOf="@id/add_job_total_price"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_job_notes_container"
+            style="@style/container"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_job_total_price_container">
+
+            <EditText
+                android:id="@+id/add_job_notes"
+                style="@style/text_input"
+                android:gravity="top"
+                android:hint="Add Notes..."
+                android:lines="5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
 
         <!--Submit-->
@@ -234,9 +263,9 @@
             android:id="@+id/add_Job_btn_submit"
             style="@style/text_input"
             android:text="@string/submit"
-            app:layout_constraintTop_toBottomOf="@id/add_job_notes"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_job_notes_container" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -161,7 +161,7 @@ public class AddJob extends MenuMain
         sp_employeeSpinner = (Spinner) findViewById(R.id.add_employee_spinner);
         tv_startDate = (TextView) findViewById(R.id.add_start_date);
         tv_startTime = (TextView) findViewById(R.id.add_start_time);
-        sp_statusSpinner = (Spinner) findViewById(R.id.add_status_spinner);
+        sp_statusSpinner = (Spinner) findViewById(R.id.add_job_status_spinner);
         ll_jobListContainer = (LinearLayout) findViewById(R.id.add_job_list_container);
         tv_addNewJobRow = (TextView) findViewById(R.id.add_job_item_row);
         et_estimatedTime = (EditText) findViewById(R.id.add_job_estimated_time);
@@ -307,7 +307,6 @@ public class AddJob extends MenuMain
      * sets the value to a calendar object and converts
      * to millis for inserting to DB.
      * Displays the time in the relevant TextView.
-     *
      * @param view
      * @param hourOfDay
      * @param minute
@@ -328,7 +327,6 @@ public class AddJob extends MenuMain
 
     /**
      * Get the job status from the job status spinner
-     *
      * @return job status as a string
      */
     private String getJobStatus() {
