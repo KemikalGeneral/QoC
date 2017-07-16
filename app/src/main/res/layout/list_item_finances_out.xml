@@ -1,33 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/padding_16">
 
+    <!--Employee Name-->
     <TextView
         android:id="@+id/finances_employee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/text_field_wrap"
+        android:text="Employee Name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!--Job Address-->
     <TextView
-        android:id="@id/finances_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/finances_address"
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_small"
+        android:text="Job @ Address Line 1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finances_employee" />
 
-    <TextView
-        android:id="@id/rate_of_pay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@id/estimated_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+    <!--Total Amount-->
     <TextView
         android:id="@id/finances_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_large"
+        android:text="£1234.00"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <!--Rate of Pay-->
+    <TextView
+        android:id="@id/rate_of_pay"
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_small"
+        android:text="£10.00"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finances_amount" />
+
+    <!--Estimated Time-->
+    <TextView
+        android:id="@id/estimated_time"
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_small"
+        android:text="5 hours @ "
+        app:layout_constraintRight_toLeftOf="@id/rate_of_pay"
+        app:layout_constraintTop_toTopOf="@id/rate_of_pay" />
+
+    <!--TODO - Add status and change methods-->
+    <!--Payment Status-->
+    <TextView
+        android:id="@+id/payment_status"
+        style="@style/text_field_wrap"
+        android:text="Status"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/estimated_time" />
+
+    <!--Job Date-->
+    <TextView
+        android:id="@id/finances_date"
+        style="@style/text_field_wrap"
+        android:text="dd/mm/yyyy"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/payment_status" />
+
+</android.support.constraint.ConstraintLayout>

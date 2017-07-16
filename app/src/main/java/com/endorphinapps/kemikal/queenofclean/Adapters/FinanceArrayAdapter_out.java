@@ -40,31 +40,29 @@ public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
         // employee first and last names
         String fullName = employee.getFirstName() + " " + employee.getLastName();
         TextView employeeFirstLast = (TextView) convertView.findViewById(R.id.finances_employee);
-        employeeFirstLast.setText("Employee: ");
-        employeeFirstLast.append(fullName);
+        employeeFirstLast.setText(fullName);
 
         // Fetch and display the date
         //TODO - change to endDate
         TextView startDate = (TextView) convertView.findViewById(R.id.finances_date);
         String date = DateFormat.getDateInstance().format(job.getStartDate());
-        startDate.setText("Date: ");
-        startDate.append(date);
+        startDate.setText(date);
 
         // Fetch and display the employee rate of pay
         TextView rateOfPay = (TextView) convertView.findViewById(R.id.rate_of_pay);
-        rateOfPay.setText("Rate of Pay: £");
-        rateOfPay.append(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
+        rateOfPay.setText("£");
+        rateOfPay.setText(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
 
         // Fetch and display estimated time required
         //TODO - change to actual time taken
         TextView estimatedTime = (TextView) convertView.findViewById(R.id.estimated_time);
-        estimatedTime.setText("Hours: ");
-        estimatedTime.append(String.valueOf(job.getEstimatedTime()));
+        estimatedTime.setText(String.valueOf(job.getEstimatedTime()));
+        estimatedTime.append(" hours @ ");
 
         // Calculate the pay to employee for the job
         TextView payForJob = (TextView) convertView.findViewById(R.id.finances_amount);
         double pay = employee.getRateOfPay() * job.getEstimatedTime();
-        payForJob.setText("Job Pay: £");
+        payForJob.setText("£");
         payForJob.append(String.format(Locale.getDefault(), "%.2f", pay));
 
         return convertView;
