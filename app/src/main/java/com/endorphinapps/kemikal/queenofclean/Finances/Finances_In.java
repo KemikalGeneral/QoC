@@ -2,7 +2,6 @@ package com.endorphinapps.kemikal.queenofclean.Finances;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -12,6 +11,7 @@ import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
+import java.util.Locale;
 
 public class Finances_In extends MenuMain {
 
@@ -20,9 +20,9 @@ public class Finances_In extends MenuMain {
     private ListView lv_listView;
     private TextView tv_totalAmountIn;
 
-    private Button btn_dateBack;
+    private TextView tv_dateBack;
     private TextView tv_dateRange;
-    private Button btn_dateFWD;
+    private TextView tv_dateFWD;
     private int datePeriod = 0;
 
     @Override
@@ -52,7 +52,7 @@ public class Finances_In extends MenuMain {
 
         // With each 'back' button press on the date range
         // the previous weeks jobs will be calculated and displayed
-        btn_dateBack.setOnClickListener(new View.OnClickListener() {
+        tv_dateBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePeriod -= 1;
@@ -65,7 +65,7 @@ public class Finances_In extends MenuMain {
 
         // With each 'forward' button press on the date range
         // the next weeks jobs will be calculated and displayed
-        btn_dateFWD.setOnClickListener(new View.OnClickListener() {
+        tv_dateFWD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePeriod += 1;
@@ -83,9 +83,9 @@ public class Finances_In extends MenuMain {
     private void findViews() {
         lv_listView = (ListView) findViewById(R.id.finances_in_listview);
         tv_totalAmountIn = (TextView) findViewById(R.id.total_in_amount);
-        btn_dateBack = (Button) findViewById(R.id.finance_calendar_button_back);
+        tv_dateBack = (TextView) findViewById(R.id.finance_calendar_button_back);
         tv_dateRange = (TextView) findViewById(R.id.finance_date_range);
-        btn_dateFWD = (Button) findViewById(R.id.finance_calendar_button_forward);
+        tv_dateFWD = (TextView) findViewById(R.id.finance_calendar_button_forward);
     }
 
     /**
@@ -109,8 +109,8 @@ public class Finances_In extends MenuMain {
      */
     private void displayTotalToTextView() {
         double totalPrice = finances.getTotalAmount_In();
-        tv_totalAmountIn.setText("£");
-        tv_totalAmountIn.append(String.format("%.2f", totalPrice));
+        tv_totalAmountIn.setText("Total in this week: £");
+        tv_totalAmountIn.append(String.format(Locale.getDefault(), "%.2f", totalPrice));
     }
 
     /**
