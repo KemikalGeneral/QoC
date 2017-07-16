@@ -22,11 +22,19 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <!--Text Field-->
-    <style name="text_field">
+    <!--Text Field Full-->
+    <style name="text_field_full">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:textSize">@dimen/text_size_standard</item>
+    </style>
+
+    <!--Text Field Wrap-->
+    <style name="text_field_wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:padding">@dimen/padding_16</item>-->
         <item name="android:textSize">@dimen/text_size_standard</item>
     </style>
 

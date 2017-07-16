@@ -23,7 +23,7 @@
 
             <!--Name Label-->
             <TextView
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Customer Name:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -32,7 +32,7 @@
             <!--Name-->
             <TextView
                 android:id="@+id/full_name_customer"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="First Last"
                 app:layout_constraintRight_toRightOf="parent"
@@ -50,7 +50,7 @@
 
             <!--Name Label-->
             <TextView
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Employee Name:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -59,7 +59,7 @@
             <!--Name-->
             <TextView
                 android:id="@+id/full_name_employee"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="First Last"
                 app:layout_constraintRight_toRightOf="parent"
@@ -78,7 +78,7 @@
             <!--Start Date Label-->
             <TextView
                 android:id="@+id/start_date_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Start Date:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -87,7 +87,7 @@
             <!--Start Date-->
             <TextView
                 android:id="@+id/start_date"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="dd/mm/yy"
                 app:layout_constraintRight_toRightOf="parent"
@@ -96,7 +96,7 @@
             <!--Start Time Label-->
             <TextView
                 android:id="@+id/start_time_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Start Time:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -105,7 +105,7 @@
             <!--Start Time-->
             <TextView
                 android:id="@+id/start_time"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="hh:mm"
                 app:layout_constraintRight_toRightOf="parent"
@@ -124,7 +124,7 @@
             <!--Status Label-->
             <TextView
                 android:id="@+id/status_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Status:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -133,7 +133,7 @@
             <!--Status-->
             <TextView
                 android:id="@+id/status"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[status]"
                 app:layout_constraintRight_toRightOf="parent"
@@ -152,7 +152,7 @@
             <!--Time Label-->
             <TextView
                 android:id="@+id/estimated_time_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Estimated Time:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -161,7 +161,7 @@
             <!--Time-->
             <TextView
                 android:id="@+id/estimated_time"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="hh:mm"
                 app:layout_constraintRight_toRightOf="parent"
@@ -180,7 +180,7 @@
             <!--Price Label-->
             <TextView
                 android:id="@+id/total_price_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Total Price:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -189,7 +189,7 @@
             <!--Price-->
             <TextView
                 android:id="@+id/total_price"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="£1234.00"
                 app:layout_constraintRight_toRightOf="parent"
@@ -208,7 +208,7 @@
             <!--Notes Label-->
             <TextView
                 android:id="@+id/notes_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Notes:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -217,7 +217,7 @@
             <!--Notes-->
             <TextView
                 android:id="@+id/notes"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="This is a sample note"
                 app:layout_constraintLeft_toLeftOf="parent"

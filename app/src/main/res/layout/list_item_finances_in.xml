@@ -1,28 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/padding_16">
 
+    <!--Customer name-->
     <TextView
         android:id="@+id/finances_customer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/text_field_wrap"
+        android:text="Customer Name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!--Address-->
     <TextView
-        android:id="@+id/finances_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/finances_address"
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_small"
+        android:text="Address Line 1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finances_customer" />
 
+    <!--Date of job-->
     <TextView
         android:id="@+id/finances_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/text_field_wrap"
+        android:text="dd/mm/yyyy"
+        android:layout_marginTop="@dimen/padding_8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finances_address" />
 
+    <!--Total amount in-->
+    <TextView
+        android:id="@+id/finances_amount"
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_large"
+        android:text="£1234.00"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Job status-->
     <TextView
         android:id="@+id/finances_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/text_field_wrap"
+        android:text="Status"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/finances_date" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

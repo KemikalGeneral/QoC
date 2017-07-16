@@ -22,7 +22,7 @@
 
             <!--Name Label-->
             <TextView
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Name:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -31,7 +31,7 @@
             <!--Name-->
             <TextView
                 android:id="@+id/full_name"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="FirstName LastName"
                 app:layout_constraintRight_toRightOf="parent"
@@ -49,7 +49,7 @@
             <!--Home Number Label-->
             <TextView
                 android:id="@+id/home_number_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="@string/home_number"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -58,7 +58,7 @@
             <!--Home Number-->
             <TextView
                 android:id="@+id/home_number"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="02920123456"
                 app:layout_constraintRight_toRightOf="parent"
@@ -67,7 +67,7 @@
             <!--Mobile Number Label-->
             <TextView
                 android:id="@+id/mobile_number_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="@string/mobile_number"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -76,7 +76,7 @@
             <!--Mobile Number-->
             <TextView
                 android:id="@+id/mobile_number"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="07890123456"
                 app:layout_constraintRight_toRightOf="parent"
@@ -85,7 +85,7 @@
             <!--Email Label-->
             <TextView
                 android:id="@+id/email_address_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="@string/email_address"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -94,7 +94,7 @@
             <!--Email-->
             <TextView
                 android:id="@+id/email_address"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="e@mail.com"
                 app:layout_constraintRight_toRightOf="parent"
@@ -111,7 +111,7 @@
 
             <!--Label-->
             <TextView
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="@string/address"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -120,7 +120,7 @@
             <!--Address Line 1-->
             <TextView
                 android:id="@+id/address_line_1"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="1 My Street"
                 app:layout_constraintRight_toRightOf="parent"
@@ -129,7 +129,7 @@
             <!--Address Line 2-->
             <TextView
                 android:id="@+id/address_line_2"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="My Area"
                 app:layout_constraintRight_toRightOf="parent"
@@ -138,7 +138,7 @@
             <!--Town-->
             <TextView
                 android:id="@+id/address_town"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="My Town"
                 app:layout_constraintRight_toRightOf="parent"
@@ -147,7 +147,7 @@
             <!--City-->
             <TextView
                 android:id="@+id/address_city"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="My City"
                 app:layout_constraintRight_toRightOf="parent"
@@ -156,7 +156,7 @@
             <!--Postcode-->
             <TextView
                 android:id="@+id/address_postcode"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="CF123AB"
                 app:layout_constraintRight_toRightOf="parent"

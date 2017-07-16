@@ -22,7 +22,7 @@
 
             <TextView
                 android:id="@+id/dummy_customer"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="0dp"
                 android:text="Select a Customer..."
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -31,7 +31,7 @@
 
             <Spinner
                 android:id="@+id/add_customer_spinner"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:padding="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -47,7 +47,7 @@
 
                 <TextView
                     android:id="@+id/address_line_1"
-                    style="@style/text_field"
+                    style="@style/text_field_full"
                     android:text="@string/address_line_1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -55,7 +55,7 @@
 
                 <TextView
                     android:id="@+id/address_line_2"
-                    style="@style/text_field"
+                    style="@style/text_field_full"
                     android:text="@string/address_line_2"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -63,7 +63,7 @@
 
                 <TextView
                     android:id="@+id/address_town"
-                    style="@style/text_field"
+                    style="@style/text_field_full"
                     android:text="@string/town"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -71,7 +71,7 @@
 
                 <TextView
                     android:id="@+id/address_city"
-                    style="@style/text_field"
+                    style="@style/text_field_full"
                     android:text="@string/city"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -79,7 +79,7 @@
 
                 <TextView
                     android:id="@+id/address_postcode"
-                    style="@style/text_field"
+                    style="@style/text_field_full"
                     android:text="@string/postcode"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -98,7 +98,7 @@
 
             <TextView
                 android:id="@+id/dummy_employee"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:text="Select an Employee..."
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -106,7 +106,7 @@
 
             <Spinner
                 android:id="@+id/add_employee_spinner"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:padding="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -124,7 +124,7 @@
 
             <TextView
                 android:id="@+id/add_start_date"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:text="Select a Start Date..."
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -132,7 +132,7 @@
 
             <TextView
                 android:id="@+id/add_start_time"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:text="Select a Start Time..."
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -150,7 +150,7 @@
 
             <Spinner
                 android:id="@+id/add_job_status_spinner"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:padding="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -168,7 +168,7 @@
 
             <TextView
                 android:id="@+id/add_job_item_row"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:hint="Add a Job Item..."
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -195,7 +195,7 @@
 
             <TextView
                 android:id="@+id/add_job_estimated_time_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Estimated Time Required in Hours:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -203,7 +203,7 @@
 
             <EditText
                 android:id="@+id/add_job_estimated_time"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:hint="00"
                 android:inputType="number"
@@ -222,7 +222,7 @@
 
             <TextView
                 android:id="@+id/add_job_total_price_label"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Total Price for Job:"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -230,7 +230,7 @@
 
             <TextView
                 android:id="@+id/add_job_total_price"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:hint="00.00"
                 app:layout_constraintRight_toRightOf="parent"
@@ -248,7 +248,7 @@
 
             <EditText
                 android:id="@+id/add_job_notes"
-                style="@style/text_field"
+                style="@style/text_field_full"
                 android:gravity="top"
                 android:hint="Add Notes..."
                 android:lines="5"
@@ -261,7 +261,7 @@
         <!--Submit-->
         <Button
             android:id="@+id/add_Job_btn_submit"
-            style="@style/text_field"
+            style="@style/text_field_full"
             android:text="@string/submit"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

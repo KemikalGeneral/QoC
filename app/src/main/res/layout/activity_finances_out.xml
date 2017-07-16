@@ -15,14 +15,14 @@
         <!--Back button-->
         <TextView
             android:id="@+id/finance_calendar_button_back"
-            style="@style/text_field"
+            style="@style/text_field_full"
             android:layout_width="wrap_content"
             android:text="@string/calendarButtonBack" />
 
         <!--Date range-->
         <TextView
             android:id="@+id/finance_date_range"
-            style="@style/text_field"
+            style="@style/text_field_full"
             android:text="dd/mm/yy - dd/mm/yy"
             android:layout_weight="1"
             android:textAlignment="center" />
@@ -30,7 +30,7 @@
         <!--Forward button-->
         <TextView
             android:id="@+id/finance_calendar_button_forward"
-            style="@style/text_field"
+            style="@style/text_field_full"
             android:layout_width="wrap_content"
             android:text="@string/calendarButtonForward" />
     </LinearLayout>
@@ -43,7 +43,7 @@
 
     <TextView
         android:id="@+id/total_out_amount"
-        style="@style/text_field"
+        style="@style/text_field_full"
         android:layout_width="wrap_content"
         android:layout_gravity="end"
         android:text="£1234.00" />
