@@ -1,11 +1,13 @@
 package com.endorphinapps.kemikal.queenofclean.Finances;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
@@ -22,6 +24,15 @@ public class Finances_overview extends MenuMain
     private TextView tv_totalAmountSum;
 
     private NavigationBottom navigationBottom;
+
+    /**
+     * Go back to the MainActivity on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +72,12 @@ public class Finances_overview extends MenuMain
         tv_totalAmountSum = (TextView) findViewById(R.id.total_sum_amount);
     }
 
+    /**
+     * BottomNavigation onClick method.
+     * View is the icon clicked.
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         navigationBottom = new NavigationBottom(this);

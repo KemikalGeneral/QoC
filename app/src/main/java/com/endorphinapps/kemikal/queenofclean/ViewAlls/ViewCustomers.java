@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.endorphinapps.kemikal.queenofclean.Adapters.CustomerArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddCustomer;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
@@ -25,6 +26,15 @@ public class ViewCustomers extends MenuMain
 
     private FloatingActionButton fab;
     private NavigationBottom navigationBottom;
+
+    /**
+     * Go back to the MainActivity on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +85,12 @@ public class ViewCustomers extends MenuMain
         fab = (FloatingActionButton) findViewById(R.id.FAB);
     }
 
+    /**
+     * BottomNavigation onClick method.
+     * View is the icon clicked.
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         navigationBottom = new NavigationBottom(this);

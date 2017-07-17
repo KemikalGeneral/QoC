@@ -101,6 +101,12 @@ public class MainActivity extends MenuMain
         btn_financesOut = (Button) findViewById(R.id.view_finances_out);
     }
 
+    /**
+     * BottomNavigation onClick method.
+     * View is the icon clicked.
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         navigationBottom = new NavigationBottom(this);

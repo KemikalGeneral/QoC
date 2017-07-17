@@ -1,5 +1,6 @@
 package com.endorphinapps.kemikal.queenofclean.Finances;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_in;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
@@ -29,6 +31,15 @@ public class Finances_In extends MenuMain
     private int datePeriod = 0;
 
     private NavigationBottom navigationBottom;
+
+    /**
+     * Go back to the MainActivity on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +148,12 @@ public class Finances_In extends MenuMain
         tv_dateRange.setText(range);
     }
 
+    /**
+     * BottomNavigation onClick method.
+     * View is the icon clicked.
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         navigationBottom = new NavigationBottom(this);
