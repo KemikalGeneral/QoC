@@ -12,9 +12,11 @@ import com.endorphinapps.kemikal.queenofclean.Adapters.CustomerArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddCustomer;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
-public class ViewCustomers extends MenuMain {
+public class ViewCustomers extends MenuMain
+        implements View.OnClickListener {
 
     private TextView tv_emptyList;
 
@@ -22,6 +24,7 @@ public class ViewCustomers extends MenuMain {
     private CustomerArrayAdapter arrayAdapter;
 
     private FloatingActionButton fab;
+    private NavigationBottom navigationBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +60,7 @@ public class ViewCustomers extends MenuMain {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ViewCustomers.this, AddCustomer.class);
-                startActivity(intent);
+                startActivity(new Intent(ViewCustomers.this, AddCustomer.class));
                 finish();
             }
         });
@@ -71,5 +73,11 @@ public class ViewCustomers extends MenuMain {
         tv_emptyList = (TextView) findViewById(R.id.customers_empty_list);
         lv_customersListView = (ListView) findViewById(R.id.customers_list_view);
         fab = (FloatingActionButton) findViewById(R.id.FAB);
+    }
+
+    @Override
+    public void onClick(View v) {
+        navigationBottom = new NavigationBottom(this);
+        navigationBottom.onClick(v);
     }
 }

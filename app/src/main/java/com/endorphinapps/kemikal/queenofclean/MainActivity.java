@@ -15,7 +15,8 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
-public class MainActivity extends MenuMain {
+public class MainActivity extends MenuMain
+        implements View.OnClickListener {
 
     private Button btn_viewCustomers;
     private Button btn_viewEmployees;
@@ -24,7 +25,7 @@ public class MainActivity extends MenuMain {
     private Button btn_finances;
     private Button btn_financesOut;
 
-    private Intent intent;
+    private NavigationBottom navigationBottom;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -48,48 +49,42 @@ public class MainActivity extends MenuMain {
         btn_viewCustomers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(MainActivity.this, ViewCustomers.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, ViewCustomers.class));
             }
         });
 
         btn_viewEmployees.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(MainActivity.this, ViewEmployees.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, ViewEmployees.class));
             }
         });
 
         btn_viewJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(MainActivity.this, ViewJobs.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, ViewJobs.class));
             }
         });
 
         btn_financesIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(MainActivity.this, Finances_In.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, Finances_In.class));
             }
         });
 
         btn_finances.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(MainActivity.this, Finances_overview.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, Finances_overview.class));
             }
         });
 
         btn_financesOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(MainActivity.this, Finances_out.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, Finances_out.class));
             }
         });
     }
@@ -104,5 +99,11 @@ public class MainActivity extends MenuMain {
         btn_financesIn = (Button) findViewById(R.id.view_finances_in);
         btn_finances = (Button) findViewById(R.id.view_finances);
         btn_financesOut = (Button) findViewById(R.id.view_finances_out);
+    }
+
+    @Override
+    public void onClick(View v) {
+        navigationBottom = new NavigationBottom(this);
+        navigationBottom.onClick(v);
     }
 }

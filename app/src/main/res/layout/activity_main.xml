@@ -62,4 +62,6 @@
             android:layout_weight="1"
             android:text="Out"/>
     </LinearLayout>
+
+    <include layout="@layout/nav_bottom" />
 </LinearLayout>

@@ -12,9 +12,11 @@ import com.endorphinapps.kemikal.queenofclean.Adapters.JobArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
-public class ViewJobs extends MenuMain {
+public class ViewJobs extends MenuMain
+        implements View.OnClickListener {
 
     private TextView tv_emptyList;
 
@@ -22,6 +24,7 @@ public class ViewJobs extends MenuMain {
     private JobArrayAdapter arrayAdapter;
 
     private FloatingActionButton fab;
+    private NavigationBottom navigationBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +72,11 @@ public class ViewJobs extends MenuMain {
         tv_emptyList = (TextView) findViewById(R.id.jobs_empty_list);
         lv_jobsListView = (ListView) findViewById(R.id.jobs_list_view);
         fab = (FloatingActionButton) findViewById(R.id.FAB);
+    }
+
+    @Override
+    public void onClick(View v) {
+        navigationBottom = new NavigationBottom(this);
+        navigationBottom.onClick(v);
     }
 }

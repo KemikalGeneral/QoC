@@ -9,12 +9,14 @@ import android.widget.TextView;
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_out;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
 import java.util.Locale;
 
-public class Finances_out extends MenuMain {
+public class Finances_out extends MenuMain
+        implements View.OnClickListener {
 
     private DBHelper db;
     private Finances finances;
@@ -25,6 +27,8 @@ public class Finances_out extends MenuMain {
     private TextView tv_dateRange;
     private TextView tv_dateFWD;
     private int datePeriod = 0;
+
+    private NavigationBottom navigationBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,4 +137,9 @@ public class Finances_out extends MenuMain {
         tv_dateRange.setText(range);
     }
 
+    @Override
+    public void onClick(View v) {
+        navigationBottom = new NavigationBottom(this);
+        navigationBottom.onClick(v);
+    }
 }
