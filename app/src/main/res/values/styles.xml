@@ -34,8 +34,30 @@
     <style name="text_field_wrap">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <!--<item name="android:padding">@dimen/padding_16</item>-->
         <item name="android:textSize">@dimen/text_size_standard</item>
+    </style>
+
+    <!--Text Field Tab - Selected-->
+    <style name="text_field_tab_selected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:textSize">@dimen/text_size_standard</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!--Text Field Tab - Non selected-->
+    <style name="text_field_tab_non_selected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:textSize">@dimen/text_size_standard</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
     <!--Buttons-->

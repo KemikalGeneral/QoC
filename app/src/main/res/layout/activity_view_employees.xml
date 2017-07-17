@@ -11,6 +11,8 @@
     <TextView
         android:id="@+id/employees_empty_list"
         style="@style/text_field_wrap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:text="You haven't added any employees yet!"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,25 +30,40 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <!--Top Tabs-->
+        <LinearLayout
+            android:id="@+id/tabs_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--Employees Tab-->
+            <TextView
+                android:id="@+id/customer_tab"
+                style="@style/text_field_tab_non_selected"
+                android:text="Customers" />
+
+            <!--TODO - Make this work-->
+            <!--Employees Tab-->
+            <TextView
+                android:id="@+id/employees_tab"
+                style="@style/text_field_tab_selected"
+                android:text="Employees" />
+        </LinearLayout>
+
         <!--Employees List-->
         <ListView
             android:id="@+id/employees_list_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_weight="1" />
 
         <!--Bottom Navigation Bar-->
         <include
             layout="@layout/nav_bottom"
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <!--FAB - to add a new entry-->

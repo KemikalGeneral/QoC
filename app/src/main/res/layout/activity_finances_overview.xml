@@ -6,6 +6,38 @@
     android:layout_height="match_parent"
     tools:context="com.endorphinapps.kemikal.queenofclean.Finances.Finances_overview">
 
+    <!--Top Tabs-->
+    <LinearLayout
+        android:id="@+id/tabs_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--In Tab-->
+        <TextView
+            android:id="@+id/inTab"
+            style="@style/text_field_tab_non_selected"
+            android:layout_weight="1"
+            android:text="In" />
+
+        <!--Overview Tab-->
+        <TextView
+            android:id="@+id/overviewTab"
+            style="@style/text_field_tab_selected"
+            android:layout_weight="1"
+            android:text="Overview" />
+
+        <!--Out Tab-->
+        <TextView
+            android:id="@+id/outTab"
+            style="@style/text_field_tab_non_selected"
+            android:layout_weight="1"
+            android:text="Out" />
+    </LinearLayout>
+
 
     <!--Total In-->
     <TextView
@@ -14,7 +46,7 @@
         android:padding="@dimen/padding_16"
         android:text="Total In"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tabs_container" />
 
     <TextView
         android:id="@+id/total_in_amount"
@@ -22,7 +54,7 @@
         android:padding="@dimen/padding_16"
         android:text="£1234.00"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/total_in_amount_label" />
+        app:layout_constraintTop_toTopOf="@+id/total_in_amount_label" />
 
 
     <!--Total Out-->
@@ -32,7 +64,7 @@
         android:padding="@dimen/padding_16"
         android:text="Total Out"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/total_in_amount_label" />
+        app:layout_constraintTop_toBottomOf="@+id/total_in_amount_label" />
 
     <TextView
         android:id="@+id/total_out_amount"
@@ -40,7 +72,7 @@
         android:padding="@dimen/padding_16"
         android:text="£1234.00"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/total_out_amount_label" />
+        app:layout_constraintTop_toTopOf="@+id/total_out_amount_label" />
 
 
     <!--Total Sum-->
@@ -50,7 +82,7 @@
         android:padding="@dimen/padding_16"
         android:text="Total Sum"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/total_out_amount_label" />
+        app:layout_constraintTop_toBottomOf="@+id/total_out_amount_label" />
 
     <TextView
         android:id="@+id/total_sum_amount"
@@ -58,7 +90,7 @@
         android:padding="@dimen/padding_16"
         android:text="£1234.00"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/total_sum_amount_label" />
+        app:layout_constraintTop_toTopOf="@+id/total_sum_amount_label" />
 
 
     <!--Bottom Navigation-->
