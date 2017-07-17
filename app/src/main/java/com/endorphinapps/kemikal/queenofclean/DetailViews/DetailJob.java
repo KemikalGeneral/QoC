@@ -3,6 +3,7 @@ package com.endorphinapps.kemikal.queenofclean.DetailViews;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.view.ContextThemeWrapper;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,6 +39,10 @@ public class DetailJob extends MenuMain {
 
         // Find all views by ID's
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Jobs");
 
         // Populate all fields of the job from adapter intent
         setAllTextViews();

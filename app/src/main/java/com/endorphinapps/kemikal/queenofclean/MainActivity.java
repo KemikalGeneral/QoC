@@ -3,6 +3,7 @@ package com.endorphinapps.kemikal.queenofclean;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 
@@ -32,6 +33,10 @@ public class MainActivity extends MenuMain {
 
         // Find all views by ID
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Queen of Clean");
 
         final DBHelper dbHelper = new DBHelper(this);
         final SQLiteDatabase sqLiteDatabase =

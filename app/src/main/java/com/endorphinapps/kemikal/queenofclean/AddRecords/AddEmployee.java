@@ -2,6 +2,7 @@ package com.endorphinapps.kemikal.queenofclean.AddRecords;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,10 @@ public class AddEmployee extends MenuMain {
 
         //Find all views by ID
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Add an Employee");
 
         //Instantiate a new instance of the DBHelper
         db = new DBHelper(this);

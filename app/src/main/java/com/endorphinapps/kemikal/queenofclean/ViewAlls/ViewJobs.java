@@ -3,6 +3,7 @@ package com.endorphinapps.kemikal.queenofclean.ViewAlls;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +30,10 @@ public class ViewJobs extends MenuMain {
 
         // Find all views by ID
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Jobs");
 
         // Instantiate a new DBHelper class
         DBHelper db = new DBHelper(this);

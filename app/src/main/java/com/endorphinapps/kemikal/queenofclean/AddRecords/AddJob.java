@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -78,6 +79,10 @@ public class AddJob extends MenuMain
 
         //Find all views by their Id's
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Add a Job");
 
         sp_customerSpinner.setVisibility(View.GONE);
         ll_addressContainer.setVisibility(View.GONE);

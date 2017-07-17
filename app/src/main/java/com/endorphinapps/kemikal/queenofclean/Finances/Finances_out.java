@@ -1,6 +1,7 @@
 package com.endorphinapps.kemikal.queenofclean.Finances;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +33,10 @@ public class Finances_out extends MenuMain {
 
         // Find all views by Id
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Finances Out");
 
         // Instantiate DB and Finance classes
         db = new DBHelper(this);
