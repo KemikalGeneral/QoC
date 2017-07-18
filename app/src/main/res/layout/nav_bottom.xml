@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:layout_gravity="bottom"
+    android:padding="@dimen/padding_16">
+
+    <ImageButton
+        android:id="@+id/nav_bottom_btn_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_home_black_24dp"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/nav_bottom_btn_people"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onClick" />
+
+    <ImageButton
+        android:id="@+id/nav_bottom_btn_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_person_black_24dp"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintLeft_toRightOf="@+id/nav_bottom_btn_home"
+        app:layout_constraintRight_toLeftOf="@+id/nav_bottom_btn_jobs"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onClick" />
+
+    <ImageButton
+        android:id="@+id/nav_bottom_btn_jobs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_work_black_24dp"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintLeft_toRightOf="@+id/nav_bottom_btn_people"
+        app:layout_constraintRight_toLeftOf="@+id/nav_bottom_btn_finances"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="onClick" />
+
+    <ImageButton
+        android:id="@+id/nav_bottom_btn_finances"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_attach_money_black_24dp"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintLeft_toRightOf="@+id/nav_bottom_btn_jobs"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:onClick="onClick" />
+
+</android.support.constraint.ConstraintLayout>

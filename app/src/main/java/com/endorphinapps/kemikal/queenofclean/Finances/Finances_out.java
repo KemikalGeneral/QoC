@@ -1,30 +1,47 @@
 package com.endorphinapps.kemikal.queenofclean.Finances;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_out;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
 import java.util.Locale;
 
-public class Finances_out extends MenuMain {
+public class Finances_out extends MenuMain
+        implements View.OnClickListener {
 
     private DBHelper db;
     private Finances finances;
     private ListView lv_listView;
     private TextView tv_totalAmountOut;
+    private TextView tv_inTab;
+    private TextView tv_overviewTab;
 
-    private Button btn_dateBack;
+    private TextView tv_dateBack;
     private TextView tv_dateRange;
-    private Button btn_dateFWD;
+    private TextView tv_dateFWD;
     private int datePeriod = 0;
+
+    private NavigationBottom navigationBottom;
+
+    /**
+     * Go back to the MainActivity on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +51,31 @@ public class Finances_out extends MenuMain {
         // Find all views by Id
         findViews();
 
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Finances Out");
+
         // Instantiate DB and Finance classes
         db = new DBHelper(this);
         finances = new Finances(db);
+
+        // In Tab
+        tv_inTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Finances_out.this, Finances_In.class));
+                finish();
+            }
+        });
+
+        // Overview Tab
+        tv_overviewTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Finances_out.this, Finances_overview.class));
+                finish();
+            }
+        });
 
         // Setup and display ListView
         // using the getJobsByDateRange method
@@ -53,7 +92,7 @@ public class Finances_out extends MenuMain {
 
         // With each 'back' button press on the date range
         // the previous weeks jobs will be calculated and displayed
-        btn_dateBack.setOnClickListener(new View.OnClickListener() {
+        tv_dateBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePeriod -= 1;
@@ -66,7 +105,7 @@ public class Finances_out extends MenuMain {
 
         // With each 'forward' button press on the date range
         // the next weeks jobs will be calculated and displayed
-        btn_dateFWD.setOnClickListener(new View.OnClickListener() {
+        tv_dateFWD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePeriod += 1;
@@ -82,11 +121,13 @@ public class Finances_out extends MenuMain {
      * Find all views by their Id's
      */
     private void findViews() {
+        tv_inTab = (TextView) findViewById(R.id.inTab);
+        tv_overviewTab = (TextView) findViewById(R.id.overviewTab);
         lv_listView = (ListView) findViewById(R.id.finances_out_listview);
         tv_totalAmountOut = (TextView) findViewById(R.id.total_out_amount);
-        btn_dateBack = (Button) findViewById(R.id.finance_calendar_button_back);
+        tv_dateBack = (TextView) findViewById(R.id.finance_calendar_button_back);
         tv_dateRange = (TextView) findViewById(R.id.finance_date_range);
-        btn_dateFWD = (Button) findViewById(R.id.finance_calendar_button_forward);
+        tv_dateFWD = (TextView) findViewById(R.id.finance_calendar_button_forward);
     }
 
     /**
@@ -110,7 +151,7 @@ public class Finances_out extends MenuMain {
      */
     private void displayTotalToTextView() {
         double totalPayToEmployee = finances.getTotalAmount_out();
-        tv_totalAmountOut.setText("£");
+        tv_totalAmountOut.setText("Total out this week: £");
         tv_totalAmountOut.append(String.format(Locale.getDefault(), "%.2f", totalPayToEmployee));
     }
 
@@ -129,4 +170,15 @@ public class Finances_out extends MenuMain {
         tv_dateRange.setText(range);
     }
 
+    /**
+     * BottomNavigation onClick method.
+     * View is the icon clicked.
+     *
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        navigationBottom = new NavigationBottom(this);
+        navigationBottom.onClick(v);
+    }
 }

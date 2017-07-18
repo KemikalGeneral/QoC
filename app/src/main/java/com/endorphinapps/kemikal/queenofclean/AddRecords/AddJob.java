@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +46,7 @@ public class AddJob extends MenuMain
     private DBHelper db;
 
     private Spinner sp_customerSpinner;
-    private LinearLayout ll_addressContainer;
+    private ConstraintLayout ll_addressContainer;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
     private TextView tv_town;
@@ -77,6 +79,10 @@ public class AddJob extends MenuMain
 
         //Find all views by their Id's
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Add a Job");
 
         sp_customerSpinner.setVisibility(View.GONE);
         ll_addressContainer.setVisibility(View.GONE);
@@ -150,7 +156,7 @@ public class AddJob extends MenuMain
      * Find all views by their ID's
      */
     private void findViews() {
-        ll_addressContainer = (LinearLayout) findViewById(R.id.add_job_customer_container);
+        ll_addressContainer = (ConstraintLayout) findViewById(R.id.add_job_customer_address_container);
         tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
         tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
         tv_town = (TextView) findViewById(R.id.address_town);
@@ -160,13 +166,13 @@ public class AddJob extends MenuMain
         sp_employeeSpinner = (Spinner) findViewById(R.id.add_employee_spinner);
         tv_startDate = (TextView) findViewById(R.id.add_start_date);
         tv_startTime = (TextView) findViewById(R.id.add_start_time);
-        sp_statusSpinner = (Spinner) findViewById(R.id.add_status_spinner);
+        sp_statusSpinner = (Spinner) findViewById(R.id.add_job_status_spinner);
         ll_jobListContainer = (LinearLayout) findViewById(R.id.add_job_list_container);
         tv_addNewJobRow = (TextView) findViewById(R.id.add_job_item_row);
-        et_estimatedTime = (EditText) findViewById(R.id.add_estimated_time);
-        tv_jobTotalPrice = (TextView) findViewById(R.id.job_total_price);
+        et_estimatedTime = (EditText) findViewById(R.id.add_job_estimated_time);
+        tv_jobTotalPrice = (TextView) findViewById(R.id.add_job_total_price);
         et_notes = (EditText) findViewById(R.id.add_job_notes);
-        btn_JobSubmit = (Button) findViewById(R.id.add_submit);
+        btn_JobSubmit = (Button) findViewById(R.id.add_Job_btn_submit);
 
         tv_dummyCustomer = (TextView) findViewById(R.id.dummy_customer);
         tv_dummyEmployee = (TextView) findViewById(R.id.dummy_employee);
@@ -306,7 +312,6 @@ public class AddJob extends MenuMain
      * sets the value to a calendar object and converts
      * to millis for inserting to DB.
      * Displays the time in the relevant TextView.
-     *
      * @param view
      * @param hourOfDay
      * @param minute
@@ -327,7 +332,6 @@ public class AddJob extends MenuMain
 
     /**
      * Get the job status from the job status spinner
-     *
      * @return job status as a string
      */
     private String getJobStatus() {

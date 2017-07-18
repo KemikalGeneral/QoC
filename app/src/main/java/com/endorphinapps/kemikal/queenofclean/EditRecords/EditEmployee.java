@@ -2,6 +2,7 @@ package com.endorphinapps.kemikal.queenofclean.EditRecords;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,10 @@ public class EditEmployee extends MenuMain {
 
         //Find all views by ID
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Edit an Employee");
 
         //Instantiate a new instance of the DBHelper
         db = new DBHelper(this);

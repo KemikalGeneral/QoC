@@ -1,33 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_customers"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers">
 
+    <!--Empty List Message-->
     <TextView
         android:id="@+id/customers_empty_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:text="You haven't added any customers yet!" />
+        style="@style/text_field_wrap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="You haven't added any customers yet!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/customers_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <!--LinearLayout used so that the bottomNavigation bar-->
+    <!--doesn't cover the last item in the list-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <!--Top Tabs-->
+        <LinearLayout
+            android:id="@+id/tabs_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--Customers Tab-->
+            <TextView
+                android:id="@+id/customer_tab"
+                style="@style/text_field_tab_selected"
+                android:text="Customers" />
+
+            <!--TODO - Make this work-->
+            <!--Employees Tab-->
+            <TextView
+                android:id="@+id/employees_tab"
+                style="@style/text_field_tab_non_selected"
+                android:text="Employees" />
+        </LinearLayout>
+
+        <!--Customer List-->
+        <ListView
+            android:id="@+id/customers_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!--Bottom Navigation Bar-->
+        <include
+            android:id="@+id/bottom_nav"
+            layout="@layout/nav_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--FAB - to add a new entry-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:src="@android:drawable/ic_input_add"
-        android:layout_margin="@dimen/padding_16" />
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_add_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

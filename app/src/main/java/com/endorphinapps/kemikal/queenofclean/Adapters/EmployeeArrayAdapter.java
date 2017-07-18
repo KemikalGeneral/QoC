@@ -35,7 +35,7 @@ public class EmployeeArrayAdapter extends ArrayAdapter<Employee> {
 
         // Fetch and populate the FirstName field
         String employeeFullName = employee.getFirstName() + " " + employee.getLastName();
-        TextView employeeName = (TextView) convertView.findViewById(R.id.employee_full_name);
+        TextView employeeName = (TextView) convertView.findViewById(R.id.full_name);
         employeeName.setText(employeeFullName);
 
         // Onclick, send all details below to the DetailCustomer page
