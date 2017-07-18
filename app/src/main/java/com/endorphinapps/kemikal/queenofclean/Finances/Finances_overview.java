@@ -19,6 +19,8 @@ public class Finances_overview extends MenuMain
 
     private DBHelper db;
     private Finances finances;
+    private TextView tv_inTab;
+    private TextView tv_outTab;
     private TextView tv_totalAmountIn;
     private TextView tv_totalAmountOut;
     private TextView tv_totalAmountSum;
@@ -50,6 +52,24 @@ public class Finances_overview extends MenuMain
         db = new DBHelper(this);
         finances = new Finances(db);
 
+        // In Tab
+        tv_inTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Finances_overview.this, Finances_In.class));
+                finish();
+            }
+        });
+
+        // Out Tab
+        tv_outTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Finances_overview.this, Finances_out.class));
+                finish();
+            }
+        });
+
         // Display total amount in
         tv_totalAmountIn.setText("£");
         tv_totalAmountIn.append(String.format(Locale.getDefault(), "%.2f", finances.getTotalAmount_In()));
@@ -67,6 +87,8 @@ public class Finances_overview extends MenuMain
      * Find all views by their Id's
      */
     private void findViews() {
+        tv_inTab = (TextView) findViewById(R.id.inTab);
+        tv_outTab = (TextView) findViewById(R.id.outTab);
         tv_totalAmountIn = (TextView) findViewById(R.id.total_in_amount);
         tv_totalAmountOut = (TextView) findViewById(R.id.total_out_amount);
         tv_totalAmountSum = (TextView) findViewById(R.id.total_sum_amount);

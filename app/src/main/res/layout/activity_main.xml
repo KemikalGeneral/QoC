@@ -1,67 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.endorphinapps.kemikal.queenofclean.MainActivity">
 
-    <!--Customers-->
-    <Button
-        android:id="@+id/view_customers"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Customers" />
+        android:text="Queen of Clean"
+        android:textSize="@dimen/text_size_standard"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!--Employees-->
-    <Button
-        android:id="@+id/view_employees"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Employees" />
+    <include
+        layout="@layout/nav_bottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!--Jobs-->
-    <Button
-        android:id="@+id/view_job"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Jobs" />
-
-    <!--Finances-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-
-        <!--Finances - In-->
-        <Button
-            android:id="@+id/view_finances_in"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="In"/>
-
-        <!--Finances - Overview-->
-        <Button
-            android:id="@+id/view_finances"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Finances"/>
-
-        <!--Finances - Out-->
-        <Button
-            android:id="@+id/view_finances_out"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Out"/>
-    </LinearLayout>
-
-    <include layout="@layout/nav_bottom" />
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -19,6 +19,8 @@ import com.endorphinapps.kemikal.queenofclean.R;
 public class ViewCustomers extends MenuMain
         implements View.OnClickListener {
 
+    private TextView tv_employeesTab;
+
     private TextView tv_emptyList;
 
     private ListView lv_customersListView;
@@ -51,6 +53,15 @@ public class ViewCustomers extends MenuMain
         // Instantiate a new DBHelper class
         DBHelper db = new DBHelper(this);
 
+        // Employees Tab
+        tv_employeesTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ViewCustomers.this, ViewEmployees.class));
+                finish();
+            }
+        });
+
         // Populate and setup ListView
         arrayAdapter = new CustomerArrayAdapter(this);
         arrayAdapter.addAll(db.getAllCustomers());
@@ -80,6 +91,7 @@ public class ViewCustomers extends MenuMain
      * Find all views by ID
      */
     private void findViews() {
+        tv_employeesTab = (TextView) findViewById(R.id.employees_tab);
         tv_emptyList = (TextView) findViewById(R.id.customers_empty_list);
         lv_customersListView = (ListView) findViewById(R.id.customers_list_view);
         fab = (FloatingActionButton) findViewById(R.id.FAB);

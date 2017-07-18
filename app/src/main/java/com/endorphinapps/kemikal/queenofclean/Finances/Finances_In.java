@@ -22,6 +22,9 @@ public class Finances_In extends MenuMain
 
     private DBHelper db;
     private Finances finances;
+
+    private TextView tv_overviewTab;
+    private TextView tv_outTab;
     private ListView lv_listView;
     private TextView tv_totalAmountIn;
 
@@ -56,6 +59,24 @@ public class Finances_In extends MenuMain
         // Instantiate DB and Finance_logic classes
         db = new DBHelper(this);
         finances = new Finances(db);
+
+        // Overview Tab
+        tv_overviewTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Finances_In.this, Finances_overview.class));
+                finish();
+            }
+        });
+
+        // Out Tab
+        tv_outTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Finances_In.this, Finances_out.class));
+                finish();
+            }
+        });
 
         // Setup and display ListView
         // using the getJobsByDateRange method
@@ -101,6 +122,8 @@ public class Finances_In extends MenuMain
      * Find views by their Id's
      */
     private void findViews() {
+        tv_overviewTab = (TextView) findViewById(R.id.overviewTab);
+        tv_outTab = (TextView) findViewById(R.id.outTab);
         lv_listView = (ListView) findViewById(R.id.finances_in_listview);
         tv_totalAmountIn = (TextView) findViewById(R.id.total_in_amount);
         tv_dateBack = (TextView) findViewById(R.id.finance_calendar_button_back);
