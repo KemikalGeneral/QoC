@@ -18,6 +18,13 @@ public class MainActivity extends MenuMain
     private TextView tv_friday;
     private TextView tv_saturday;
     private TextView tv_sunday;
+    private TextView tv_mondayIndicator;
+    private TextView tv_tuesdayIndicator;
+    private TextView tv_wednesdayIndicator;
+    private TextView tv_thursdayIndicator;
+    private TextView tv_fridayIndicator;
+    private TextView tv_saturdayIndicator;
+    private TextView tv_sundayIndicator;
     private NavigationBottom navigationBottom;
 
     /**
@@ -40,6 +47,12 @@ public class MainActivity extends MenuMain
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Queen of Clean");
 
+        final DBHelper dbHelper = new DBHelper(this);
+        final SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(
+                dbHelper.getDatabaseName(), MODE_PRIVATE, null, null);
+
+        dbHelper.onCreate(sqLiteDatabase);
+
         // Set levels of day views
         tv_monday.getBackground().setLevel(10000);
         tv_tuesday.getBackground().setLevel(3000);
@@ -51,12 +64,6 @@ public class MainActivity extends MenuMain
 
 
 
-        final DBHelper dbHelper = new DBHelper(this);
-        final SQLiteDatabase sqLiteDatabase =
-                openOrCreateDatabase(
-                        dbHelper.getDatabaseName(), MODE_PRIVATE, null, null);
-
-        dbHelper.onCreate(sqLiteDatabase);
     }
 
     /**
@@ -70,6 +77,13 @@ public class MainActivity extends MenuMain
         tv_friday = (TextView) findViewById(R.id.friday);
         tv_saturday = (TextView) findViewById(R.id.saturday);
         tv_sunday = (TextView) findViewById(R.id.sunday);
+        tv_mondayIndicator = (TextView) findViewById(R.id.monday_indicator);
+        tv_tuesdayIndicator = (TextView) findViewById(R.id.tuesday_indicator);
+        tv_wednesdayIndicator = (TextView) findViewById(R.id.wednesday_indicator);
+        tv_thursdayIndicator = (TextView) findViewById(R.id.thursday_indicator);
+        tv_fridayIndicator = (TextView) findViewById(R.id.friday_indicator);
+        tv_saturdayIndicator = (TextView) findViewById(R.id.saturday_indicator);
+        tv_sundayIndicator = (TextView) findViewById(R.id.sunday_indicator);
     }
 
     /**

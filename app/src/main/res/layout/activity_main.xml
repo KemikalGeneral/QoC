@@ -7,66 +7,161 @@
     android:layout_height="match_parent"
     tools:context="com.endorphinapps.kemikal.queenofclean.MainActivity">
 
+    <!--Contains the main ConstraintLayout
+    and the BottomNavigation-->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:background="@color/colorAccent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/monday"
-            style="@style/day_progress"
-            android:text="Monday" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/tuesday"
-            style="@style/day_progress"
-            android:text="Tuesday" />
+            <!--Monday Progress-->
+            <TextView
+                android:id="@+id/monday"
+                style="@style/day_progress"
+                android:text="Monday"
+                app:layout_constraintBottom_toTopOf="@+id/tuesday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/wednesday"
-            style="@style/day_progress"
-            android:text="Wednesday" />
+            <!--Monday Progress Indicator-->
+            <TextView
+                android:id="@+id/monday_indicator"
+                style="@style/day_progress_indicator"
+                app:layout_constraintBottom_toTopOf="@+id/tuesday_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/thursday"
-            style="@style/day_progress"
-            android:text="Thursday" />
+            <!--Tuesday Progress-->
+            <TextView
+                android:id="@+id/tuesday"
+                style="@style/day_progress"
+                android:text="Tuesday"
+                app:layout_constraintBottom_toTopOf="@+id/wednesday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monday" />
 
-        <TextView
-            android:id="@+id/friday"
-            style="@style/day_progress"
-            android:text="Friday" />
+            <!--Tuesday Progress Indicator-->
+            <TextView
+                android:id="@+id/tuesday_indicator"
+                style="@style/day_progress_indicator"
+                app:layout_constraintBottom_toTopOf="@+id/wednesday_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monday_indicator" />
 
-        <TextView
-            android:id="@+id/saturday"
-            style="@style/day_progress"
-            android:text="Saturday" />
+            <!--Wednesday Progress-->
+            <TextView
+                android:id="@+id/wednesday"
+                style="@style/day_progress"
+                android:text="Wednesday"
+                app:layout_constraintBottom_toTopOf="@+id/thursday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tuesday" />
 
-        <TextView
-            android:id="@+id/sunday"
-            style="@style/day_progress"
-            android:text="Sunday" />
+            <!--Wednesday Progress Indicator-->
+            <TextView
+                android:id="@+id/wednesday_indicator"
+                style="@style/day_progress_indicator"
+                app:layout_constraintBottom_toTopOf="@+id/thursday_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tuesday_indicator" />
+
+            <!--Thursday Progress-->
+            <TextView
+                android:id="@+id/thursday"
+                style="@style/day_progress"
+                android:text="Thursday"
+                app:layout_constraintBottom_toTopOf="@+id/friday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wednesday" />
+
+            <!--Thursday Progress Indicator-->
+            <TextView
+                android:id="@+id/thursday_indicator"
+                style="@style/day_progress_indicator"
+                app:layout_constraintBottom_toTopOf="@+id/friday_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wednesday_indicator" />
+
+            <!--Friday Progress-->
+            <TextView
+                android:id="@+id/friday"
+                style="@style/day_progress"
+                android:text="Friday"
+                app:layout_constraintBottom_toTopOf="@+id/saturday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thursday" />
+
+            <!--Friday Progress Indicator-->
+            <TextView
+                android:id="@+id/friday_indicator"
+                style="@style/day_progress_indicator"
+                app:layout_constraintBottom_toTopOf="@+id/saturday_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thursday_indicator" />
+
+            <!--Saturday Progress-->
+            <TextView
+                android:id="@+id/saturday"
+                style="@style/day_progress"
+                android:text="Saturday"
+                app:layout_constraintBottom_toTopOf="@+id/sunday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/friday" />
+
+            <!--Saturday Progress Indicator-->
+            <TextView
+                android:id="@+id/saturday_indicator"
+                style="@style/day_progress_indicator"
+                app:layout_constraintBottom_toTopOf="@+id/sunday_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/friday_indicator" />
+
+            <!--Sunday Progress-->
+            <TextView
+                android:id="@+id/sunday"
+                style="@style/day_progress"
+                android:text="Sunday"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saturday" />
+
+            <!--Sunday Progress Indicator-->
+            <TextView
+                android:id="@+id/sunday_indicator"
+                style="@style/day_progress_indicator"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saturday_indicator" />
+        </android.support.constraint.ConstraintLayout>
 
         <include
             layout="@layout/navigation_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <!--<TextView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:gravity="center"-->
-    <!--android:text="Queen of Clean"-->
-    <!--android:textSize="@dimen/text_size_standard"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 </android.support.constraint.ConstraintLayout>
