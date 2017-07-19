@@ -1,29 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.endorphinapps.kemikal.queenofclean.MainActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Queen of Clean"
-        android:textSize="@dimen/text_size_standard"
-        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/colorAccent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <include
-        layout="@layout/navigation_bottom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:id="@+id/monday"
+            style="@style/day_progress"
+            android:text="Monday" />
+
+        <TextView
+            android:id="@+id/tuesday"
+            style="@style/day_progress"
+            android:text="Tuesday" />
+
+        <TextView
+            android:id="@+id/wednesday"
+            style="@style/day_progress"
+            android:text="Wednesday" />
+
+        <TextView
+            android:id="@+id/thursday"
+            style="@style/day_progress"
+            android:text="Thursday" />
+
+        <TextView
+            android:id="@+id/friday"
+            style="@style/day_progress"
+            android:text="Friday" />
+
+        <TextView
+            android:id="@+id/saturday"
+            style="@style/day_progress"
+            android:text="Saturday" />
+
+        <TextView
+            android:id="@+id/sunday"
+            style="@style/day_progress"
+            android:text="Sunday" />
+
+        <include
+            layout="@layout/navigation_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--<TextView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:gravity="center"-->
+    <!--android:text="Queen of Clean"-->
+    <!--android:textSize="@dimen/text_size_standard"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 </android.support.constraint.ConstraintLayout>

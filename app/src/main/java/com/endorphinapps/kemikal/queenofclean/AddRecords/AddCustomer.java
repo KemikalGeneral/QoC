@@ -33,6 +33,15 @@ public class AddCustomer extends MenuMain {
 
     private int counter = 0;
 
+    /**
+     * Go back to ViewCustomers on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, ViewCustomers.class));
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,8 +131,7 @@ public class AddCustomer extends MenuMain {
 
         Log.v("z! CustomerId: ", String.valueOf(customerId));
 
-        Intent intent = new Intent(AddCustomer.this, ViewCustomers.class);
-        startActivity(intent);
+        startActivity(new Intent(AddCustomer.this, ViewCustomers.class));
         finish();
     }
 }

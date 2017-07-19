@@ -15,6 +15,7 @@ import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DetailJob extends MenuMain {
 
@@ -121,16 +122,16 @@ public class DetailJob extends MenuMain {
             // Create 'description' TextView and populate it
             // with the jobItemDescription from the jobItem array
             // and add TextView to the row
-            description = new TextView(new ContextThemeWrapper(this, R.style.field_end));
+            description = new TextView(new ContextThemeWrapper(this, R.style.text_field_wrap));
             description.setText(jobItems.get(i).getDescription());
             jobItemRow.addView(description);
 
             // Create 'price' TextView and populate it
             // with the jobItemPrice from the jobItem array
             // and add TextView to the row
-            price = new TextView(new ContextThemeWrapper(this, R.style.field_start));
+            price = new TextView(new ContextThemeWrapper(this, R.style.text_field_wrap));
             price.setText("£");
-            price.append(String.format("%.2f", jobItems.get(i).getPrice()));
+            price.append(String.format(Locale.getDefault(), "%.2f", jobItems.get(i).getPrice()));
             jobItemRow.addView(price);
 
             // Add new row to the jobItems container
