@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
@@ -88,6 +90,117 @@ public class EditEmployee extends MenuMain {
         et_postcode = (EditText) findViewById(R.id.add_postcode);
         et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
         btn_applyChanges = (Button) findViewById(R.id.apply_changes);
+    }
+
+    public void checkBoxClick(View view) {
+        boolean isChecked = ((CheckBox) view).isChecked();
+
+        switch (view.getId()) {
+            case R.id.detail_availability_monday_AM:
+                if (isChecked) {
+                    Toast.makeText(this, "Monday AM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Monday AM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.detail_availability_monday_PM:
+                if (isChecked) {
+                    Toast.makeText(this, "Monday PM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Monday PM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.detail_availability_tuesday_AM:
+                if (isChecked) {
+                    Toast.makeText(this, "Tuesday AM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Tuesday AM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.detail_availability_tuesday_PM:
+                if (isChecked) {
+                    Toast.makeText(this, "Tuesday PM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Tuesday PM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.detail_availability_wednesday_AM:
+                if (isChecked) {
+                    Toast.makeText(this, "Wednesday AM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Wednesday AM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.detail_availability_wednesday_PM:
+                if (isChecked) {
+                    Toast.makeText(this, "Wednesday PM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Wednesday PM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.detail_availability_thursday_AM:
+                if (isChecked) {
+                    Toast.makeText(this, "Thursday AM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Thursday AM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.detail_availability_thursday_PM:
+                if (isChecked) {
+                    Toast.makeText(this, "Thursday PM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Thursday PM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.detail_availability_friday_AM:
+                if (isChecked) {
+                    Toast.makeText(this, "Friday AM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Friday AM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.detail_availability_friday_PM:
+                if (isChecked) {
+                    Toast.makeText(this, "Friday PM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Friday PM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.detail_availability_saturday_AM:
+                if (isChecked) {
+                    Toast.makeText(this, "Saturday AM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Saturday AM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.detail_availability_saturday_PM:
+                if (isChecked) {
+                    Toast.makeText(this, "Saturday PM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Saturday PM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.detail_availability_sunday_AM:
+                if (isChecked) {
+                    Toast.makeText(this, "Sunday AM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Sunday AM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.detail_availability_sunday_PM:
+                if (isChecked) {
+                    Toast.makeText(this, "Sunday PM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Sunday PM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 
     /**
