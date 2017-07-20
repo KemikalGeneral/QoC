@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
@@ -28,6 +27,35 @@ public class EditEmployee extends MenuMain {
     private EditText et_city;
     private EditText et_postcode;
     private EditText et_rateOfPay;
+    // Availability Checkboxes
+    private CheckBox ch_mondayAM;
+    private CheckBox ch_mondayPM;
+    private CheckBox ch_tuesdayAM;
+    private CheckBox ch_tuesdayPM;
+    private CheckBox ch_wednesdayAM;
+    private CheckBox ch_wednesdayPM;
+    private CheckBox ch_thursdayAM;
+    private CheckBox ch_thursdayPM;
+    private CheckBox ch_fridayAM;
+    private CheckBox ch_fridayPM;
+    private CheckBox ch_saturdayAM;
+    private CheckBox ch_saturdayPM;
+    private CheckBox ch_sundayAM;
+    private CheckBox ch_sundayPM;
+    private int mondayAM;
+    private int mondayPM;
+    private int tuesdayAM;
+    private int tuesdayPM;
+    private int wednesdayAM;
+    private int wednesdayPM;
+    private int thursdayAM;
+    private int thursdayPM;
+    private int fridayAM;
+    private int fridayPM;
+    private int saturdayAM;
+    private int saturdayPM;
+    private int sundayAM;
+    private int sundayPM;
 
     private Button btn_applyChanges;
     private DBHelper db;
@@ -66,6 +94,9 @@ public class EditEmployee extends MenuMain {
         et_postcode.setText(employee.getPostcode());
         et_rateOfPay.setText(String.valueOf(employee.getRateOfPay()));
 
+        // Populate employee work availability checkboxes
+        populateAvailabilityCheckboxes(employee);
+
         btn_applyChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,118 +121,153 @@ public class EditEmployee extends MenuMain {
         et_postcode = (EditText) findViewById(R.id.add_postcode);
         et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
         btn_applyChanges = (Button) findViewById(R.id.apply_changes);
+        // Checkboxes
+        ch_mondayAM = (CheckBox) findViewById(R.id.detail_availability_monday_AM);
+        ch_mondayPM = (CheckBox) findViewById(R.id.detail_availability_monday_PM);
+        ch_tuesdayAM = (CheckBox) findViewById(R.id.detail_availability_tuesday_AM);
+        ch_tuesdayPM = (CheckBox) findViewById(R.id.detail_availability_tuesday_PM);
+        ch_wednesdayAM = (CheckBox) findViewById(R.id.detail_availability_wednesday_AM);
+        ch_wednesdayPM = (CheckBox) findViewById(R.id.detail_availability_wednesday_PM);
+        ch_thursdayAM = (CheckBox) findViewById(R.id.detail_availability_thursday_AM);
+        ch_thursdayPM = (CheckBox) findViewById(R.id.detail_availability_thursday_PM);
+        ch_fridayAM = (CheckBox) findViewById(R.id.detail_availability_friday_AM);
+        ch_fridayPM = (CheckBox) findViewById(R.id.detail_availability_friday_PM);
+        ch_saturdayAM = (CheckBox) findViewById(R.id.detail_availability_saturday_AM);
+        ch_saturdayPM = (CheckBox) findViewById(R.id.detail_availability_saturday_PM);
+        ch_sundayAM = (CheckBox) findViewById(R.id.detail_availability_sunday_AM);
+        ch_sundayPM = (CheckBox) findViewById(R.id.detail_availability_sunday_PM);
     }
 
-    public void checkBoxClick(View view) {
-        boolean isChecked = ((CheckBox) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.detail_availability_monday_AM:
-                if (isChecked) {
-                    Toast.makeText(this, "Monday AM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Monday AM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.detail_availability_monday_PM:
-                if (isChecked) {
-                    Toast.makeText(this, "Monday PM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Monday PM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case R.id.detail_availability_tuesday_AM:
-                if (isChecked) {
-                    Toast.makeText(this, "Tuesday AM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Tuesday AM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.detail_availability_tuesday_PM:
-                if (isChecked) {
-                    Toast.makeText(this, "Tuesday PM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Tuesday PM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case R.id.detail_availability_wednesday_AM:
-                if (isChecked) {
-                    Toast.makeText(this, "Wednesday AM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Wednesday AM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.detail_availability_wednesday_PM:
-                if (isChecked) {
-                    Toast.makeText(this, "Wednesday PM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Wednesday PM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case R.id.detail_availability_thursday_AM:
-                if (isChecked) {
-                    Toast.makeText(this, "Thursday AM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Thursday AM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.detail_availability_thursday_PM:
-                if (isChecked) {
-                    Toast.makeText(this, "Thursday PM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Thursday PM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case R.id.detail_availability_friday_AM:
-                if (isChecked) {
-                    Toast.makeText(this, "Friday AM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Friday AM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.detail_availability_friday_PM:
-                if (isChecked) {
-                    Toast.makeText(this, "Friday PM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Friday PM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case R.id.detail_availability_saturday_AM:
-                if (isChecked) {
-                    Toast.makeText(this, "Saturday AM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Saturday AM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.detail_availability_saturday_PM:
-                if (isChecked) {
-                    Toast.makeText(this, "Saturday PM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Saturday PM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case R.id.detail_availability_sunday_AM:
-                if (isChecked) {
-                    Toast.makeText(this, "Sunday AM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Sunday AM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.detail_availability_sunday_PM:
-                if (isChecked) {
-                    Toast.makeText(this, "Sunday PM checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Sunday PM unChecked", Toast.LENGTH_SHORT).show();
-                }
-                break;
+    /**
+     * Populate the employee work availability checkboxes
+     * from the DB
+     *
+     * @param employee
+     */
+    private void populateAvailabilityCheckboxes(Employee employee) {
+        // Populate Availability Checkboxes
+        if (employee.getMondayAM() == 1) {
+            ch_mondayAM.setChecked(true);
+        }
+        if (employee.getMondayPM() == 1) {
+            ch_mondayPM.setChecked(true);
+        }
+        if (employee.getTuesdayAM() == 1) {
+            ch_tuesdayAM.setChecked(true);
+        }
+        if (employee.getTuesdayPM() == 1) {
+            ch_tuesdayPM.setChecked(true);
+        }
+        if (employee.getWednesdayAM() == 1) {
+            ch_wednesdayAM.setChecked(true);
+        }
+        if (employee.getWednesdayPM() == 1) {
+            ch_wednesdayPM.setChecked(true);
+        }
+        if (employee.getThursdayAM() == 1) {
+            ch_thursdayAM.setChecked(true);
+        }
+        if (employee.getThursdayPM() == 1) {
+            ch_thursdayPM.setChecked(true);
+        }
+        if (employee.getFridayAM() == 1) {
+            ch_fridayAM.setChecked(true);
+        }
+        if (employee.getFridayPM() == 1) {
+            ch_fridayPM.setChecked(true);
+        }
+        if (employee.getSaturdayAM() == 1) {
+            ch_saturdayAM.setChecked(true);
+        }
+        if (employee.getSaturdayPM() == 1) {
+            ch_saturdayPM.setChecked(true);
+        }
+        if (employee.getSundayAM() == 1) {
+            ch_sundayAM.setChecked(true);
+        }
+        if (employee.getSundayPM() == 1) {
+            ch_sundayPM.setChecked(true);
         }
     }
+
+    /**
+     * Get checkbox selections
+     *
+     * @param view
+     */
+    public void checkBoxClick(View view) {
+
+        if (ch_mondayAM.isChecked()) {
+            mondayAM = 1;
+        } else {
+            mondayAM = 0;
+        }
+        if (ch_mondayPM.isChecked()) {
+            mondayPM = 1;
+        } else {
+            mondayPM = 0;
+        }
+        if (ch_tuesdayAM.isChecked()) {
+            tuesdayAM = 1;
+        } else {
+            tuesdayPM = 0;
+        }
+        if (ch_tuesdayPM.isChecked()) {
+            tuesdayPM = 1;
+        } else {
+            tuesdayPM = 0;
+        }
+        if (ch_wednesdayAM.isChecked()) {
+            wednesdayAM = 1;
+        } else {
+            wednesdayAM = 0;
+        }
+        if (ch_wednesdayPM.isChecked()) {
+            wednesdayPM = 1;
+        } else {
+            wednesdayPM = 0;
+        }
+        if (ch_thursdayAM.isChecked()) {
+            thursdayAM = 1;
+        } else {
+            thursdayAM = 0;
+        }
+        if (ch_thursdayPM.isChecked()) {
+            thursdayPM = 1;
+        } else {
+            thursdayPM = 0;
+        }
+        if (ch_fridayAM.isChecked()) {
+            fridayAM = 1;
+        } else {
+            fridayAM = 0;
+        }
+        if (ch_fridayPM.isChecked()) {
+            fridayPM = 1;
+        } else {
+            fridayPM = 0;
+        }
+        if (ch_saturdayAM.isChecked()) {
+            saturdayAM = 1;
+        } else {
+            saturdayAM = 0;
+        }
+        if (ch_saturdayPM.isChecked()) {
+            saturdayPM = 1;
+        } else {
+            saturdayPM = 0;
+        }
+        if (ch_sundayAM.isChecked()) {
+            sundayAM = 1;
+        } else {
+            sundayAM = 0;
+        }
+        if (ch_sundayPM.isChecked()) {
+            sundayPM = 1;
+        } else {
+            sundayPM = 0;
+                }
+        }
 
     /**
      * Update the employee record.
@@ -212,6 +278,7 @@ public class EditEmployee extends MenuMain {
     private void updateEmployee(long employeeId) {
         // Get the address FK from the employee table
         long addressId = db.getAddressIdFromEmployeeId(employeeId);
+        long availabilityId = db.getAvailabilityFromEmployeeId(employeeId);
 
         // Update employee's address details
         db.updateAddress(
@@ -221,6 +288,18 @@ public class EditEmployee extends MenuMain {
                 et_town.getText().toString().trim(),
                 et_city.getText().toString().trim(),
                 et_postcode.getText().toString().trim()
+        );
+
+        // Update employee availability
+        db.updateAvailability(
+                availabilityId,
+                mondayAM, mondayPM,
+                tuesdayAM, tuesdayPM,
+                wednesdayAM, wednesdayPM,
+                thursdayAM, thursdayPM,
+                fridayAM, fridayPM,
+                saturdayAM, saturdayPM,
+                sundayAM, sundayPM
         );
 
         // Update employee's personal details
