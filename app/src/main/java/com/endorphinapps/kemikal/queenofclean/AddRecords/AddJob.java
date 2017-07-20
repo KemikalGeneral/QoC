@@ -72,6 +72,15 @@ public class AddJob extends MenuMain
     private TextView tv_dummyCustomer;
     private TextView tv_dummyEmployee;
 
+    /**
+     * Go back to ViewCustomers on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, ViewJobs.class));
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -512,8 +521,7 @@ public class AddJob extends MenuMain
         //Save all job attributes to the DB
         saveToDB(startDate, startTime, jobStatus, estimateJobTime, totalCostForJob, jobNotes, customerId, employeeId);
 
-        Intent intent = new Intent(AddJob.this, ViewJobs.class);
-        startActivity(intent);
+        startActivity(new Intent(AddJob.this, ViewJobs.class));
         finish();
     }
 

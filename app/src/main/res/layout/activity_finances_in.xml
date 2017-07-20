@@ -76,6 +76,6 @@
         android:layout_gravity="end"
         android:text="£1234.00"/>
 
-    <include layout="@layout/nav_bottom" />
+    <include layout="@layout/navigation_bottom" />
 
 </LinearLayout>
