@@ -2,17 +2,18 @@ package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.EditCustomer;
+import com.endorphinapps.kemikal.queenofclean.EditRecords.EditCustomer;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
-public class DetailCustomer extends AppCompatActivity {
+public class DetailCustomer extends MenuMain {
 
     private TextView tv_fullName;
     private TextView tv_homeNumber;
@@ -36,6 +37,10 @@ public class DetailCustomer extends AppCompatActivity {
 
         // Find all views by ID
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Customers");
 
         // Instantiate a new DBHelper class
         db = new DBHelper(this);
@@ -85,7 +90,7 @@ public class DetailCustomer extends AppCompatActivity {
      * Find all views by their ID's
      */
     private void findViews() {
-        tv_fullName = (TextView) findViewById(R.id.customer_full_name);
+        tv_fullName = (TextView) findViewById(R.id.full_name);
         tv_homeNumber = (TextView) findViewById(R.id.home_number);
         tv_mobileNumber = (TextView) findViewById(R.id.mobile_number);
         tv_eMailAddress = (TextView) findViewById(R.id.email_address);
@@ -95,7 +100,7 @@ public class DetailCustomer extends AppCompatActivity {
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
 
-        btn_edit = (Button) findViewById(R.id.edit_customer);
-        btn_delete = (Button) findViewById(R.id.delete_customer);
+        btn_edit = (Button) findViewById(R.id.btn_edit_customer);
+        btn_delete = (Button) findViewById(R.id.btn_delete_customer);
     }
 }

@@ -2,17 +2,18 @@ package com.endorphinapps.kemikal.queenofclean.AddRecords;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
-public class AddCustomer extends AppCompatActivity {
+public class AddCustomer extends MenuMain {
 
     private EditText et_firstName;
     private EditText et_lastName;
@@ -32,6 +33,15 @@ public class AddCustomer extends AppCompatActivity {
 
     private int counter = 0;
 
+    /**
+     * Go back to ViewCustomers on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, ViewCustomers.class));
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +49,10 @@ public class AddCustomer extends AppCompatActivity {
 
         //Find all views by ID
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Add a Customer");
 
         //Instantiate a new instance of the DBHelper
         db = new DBHelper(this);
@@ -87,7 +101,7 @@ public class AddCustomer extends AppCompatActivity {
         et_town = (EditText) findViewById(R.id.add_town);
         et_city = (EditText) findViewById(R.id.add_city);
         et_postcode = (EditText) findViewById(R.id.add_postcode);
-        btn_addNew = (Button) findViewById(R.id.add_submit);
+        btn_addNew = (Button) findViewById(R.id.btn_submit);
         btn_populate = (Button) findViewById(R.id.btn_populate);
     }
 
@@ -117,8 +131,7 @@ public class AddCustomer extends AppCompatActivity {
 
         Log.v("z! CustomerId: ", String.valueOf(customerId));
 
-        Intent intent = new Intent(AddCustomer.this, ViewCustomers.class);
-        startActivity(intent);
+        startActivity(new Intent(AddCustomer.this, ViewCustomers.class));
         finish();
     }
 }

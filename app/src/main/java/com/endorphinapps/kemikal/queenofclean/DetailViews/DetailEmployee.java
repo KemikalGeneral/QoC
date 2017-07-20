@@ -2,17 +2,18 @@ package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.EditEmployee;
+import com.endorphinapps.kemikal.queenofclean.EditRecords.EditEmployee;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
-public class DetailEmployee extends AppCompatActivity {
+public class DetailEmployee extends MenuMain {
 
     private TextView tv_fullName;
     private TextView tv_homeNumber;
@@ -37,6 +38,10 @@ public class DetailEmployee extends AppCompatActivity {
 
         // Find all views by Id
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Employees");
 
         // Instantiate a new DBHelper class
         db = new DBHelper(this);
@@ -89,7 +94,7 @@ public class DetailEmployee extends AppCompatActivity {
      * Find all views bt their Id's
      */
     private void findViews() {
-        tv_fullName = (TextView) findViewById(R.id.employee_full_name);
+        tv_fullName = (TextView) findViewById(R.id.full_name);
         tv_homeNumber = (TextView) findViewById(R.id.home_number);
         tv_mobileNumber = (TextView) findViewById(R.id.mobile_number);
         tv_eMailAddress = (TextView) findViewById(R.id.email_address);
@@ -100,7 +105,7 @@ public class DetailEmployee extends AppCompatActivity {
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
         tv_rateOfPay = (TextView) findViewById(R.id.rate_of_pay);
 
-        btn_edit = (Button) findViewById(R.id.edit_employee);
-        btn_delete = (Button) findViewById(R.id.delete_employee);
+        btn_edit = (Button) findViewById(R.id.btn_edit_employee);
+        btn_delete = (Button) findViewById(R.id.btn_delete_employee);
     }
 }

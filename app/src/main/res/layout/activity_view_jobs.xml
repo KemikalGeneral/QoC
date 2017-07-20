@@ -1,33 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_customers"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_jobs"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs">
 
+    <!--Empty List Message-->
     <TextView
         android:id="@+id/jobs_empty_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:text="You haven't added any jobs yet!" />
+        style="@style/text_field_wrap"
+        android:text="You haven't added any jobs yet!"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <ListView
-        android:id="@+id/jobs_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <!--LinearLayout used so that the bottomNavigation bar-->
+    <!--doesn't cover the last item in the list-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <!--Jobs List-->
+        <ListView
+            android:id="@+id/jobs_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Bottom Navigation Bar-->
+        <include
+            layout="@layout/navigation_bottom"
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </LinearLayout>
+
+    <!--FAB - to add a new entry-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:src="@android:drawable/ic_input_add"
-        android:layout_margin="@dimen/padding_16" />
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_add_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

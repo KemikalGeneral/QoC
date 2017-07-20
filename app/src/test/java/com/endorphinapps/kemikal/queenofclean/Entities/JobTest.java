@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class JobTest {
 
     private Job job = new Job(
-        1, 2, 3, 4, 5, "status", 6, 7, 8.8, "notes");
+            1, 2, 3, 4, 45, 5, "status", 6, 7, 8.8, "notes");
 
     @Test
     public void getId() throws Exception {

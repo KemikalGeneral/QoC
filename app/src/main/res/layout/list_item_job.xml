@@ -1,34 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <!--Customer Name-->
+    <TextView
+        android:id="@+id/full_name"
+        style="@style/text_field_wrap"
+        android:text="Customer Name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/full_name_customer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
+    <!--Job Address-->
     <TextView
         android:id="@+id/address_line_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_small"
+        android:text="Address Line 1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/full_name" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <!--TODO - Add-->
+    <!--Total Price-->
+    <TextView
+        android:id="@+id/total_price"
+        style="@style/text_field_wrap"
+        android:text="£1234.00"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/full_name_employee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</LinearLayout>
+    <!--TODO - Add-->
+    <!--Estimated Time-->
+    <TextView
+        android:id="@+id/estimated_time"
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_small"
+        android:text="10 hours"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/total_price" />
+
+    <!--TODO - Add-->
+    <!--Job Status-->
+    <TextView
+        android:id="@+id/job_status"
+        style="@style/text_field_wrap"
+        android:text="Status"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/estimated_time" />
+
+    <!--Employee Name-->
+    <TextView
+        android:id="@+id/full_name_employee"
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_small"
+        android:text="Employee Name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/job_status" />
+
+</android.support.constraint.ConstraintLayout>

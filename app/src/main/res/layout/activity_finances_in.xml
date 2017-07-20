@@ -6,29 +6,60 @@
     android:orientation="vertical"
     tools:context="com.endorphinapps.kemikal.queenofclean.Finances.Finances_In">
 
+    <!--Top Tabs-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--In Tab-->
+        <TextView
+            android:id="@+id/inTab"
+            style="@style/text_field_tab_selected"
+            android:layout_weight="1"
+            android:text="In" />
+
+        <!--Overview Tab-->
+        <TextView
+            android:id="@+id/overviewTab"
+            style="@style/text_field_tab_non_selected"
+            android:layout_weight="1"
+            android:text="Overview" />
+
+        <!--Out Tab-->
+        <TextView
+            android:id="@+id/outTab"
+            style="@style/text_field_tab_non_selected"
+            android:layout_weight="1"
+            android:text="Out" />
+    </LinearLayout>
+
+    <!--Date Selector-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <Button
+        <!--Back Button-->
+        <TextView
             android:id="@+id/finance_calendar_button_back"
+            style="@style/text_field_full"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/calendarButtonBack" />
 
+        <!--Date Range-->
         <TextView
             android:id="@+id/finance_date_range"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="dd/mm - DATE - dd/mm"
+            style="@style/text_field_full"
+            android:text="dd/mm/yy - dd/mm/yy"
             android:layout_weight="1"
             android:textAlignment="center" />
 
-        <Button
+        <!--Forward Button-->
+        <TextView
             android:id="@+id/finance_calendar_button_forward"
+            style="@style/text_field_full"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/calendarButtonForward" />
     </LinearLayout>
 
@@ -40,8 +71,11 @@
 
     <TextView
         android:id="@+id/total_in_amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/text_field_full"
+        android:layout_width="wrap_content"
+        android:layout_gravity="end"
         android:text="£1234.00"/>
+
+    <include layout="@layout/navigation_bottom" />
 
 </LinearLayout>

@@ -1,107 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_detail_job"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:padding="@dimen/padding_16"
     tools:context="com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob">
 
-    <TableLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/job_detail_container"
-        style="@style/container">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <!--Customer Details-->
-        <TableRow>
-            <TextView
-                style="@style/field_end"
-                android:text="Customer Name:" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_customer_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <!--Name Label-->
+            <TextView
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Customer Name:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Name-->
             <TextView
                 android:id="@+id/full_name_customer"
-                style="@style/field_start"/>
-        </TableRow>
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="First Last"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
 
         <!--Employee Details-->
-        <TableRow>
-            <TextView
-                style="@style/field_end"
-                android:text="Employee Name:" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_employee_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_customer_container">
 
+            <!--Name Label-->
+            <TextView
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Employee Name:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Name-->
             <TextView
                 android:id="@+id/full_name_employee"
-                style="@style/field_start"/>
-        </TableRow>
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="First Last"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
 
         <!--Start Date-->
-        <TableRow>
-            <TextView
-                style="@style/field_end"
-                android:text="Start Date:" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_start_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_employee_container">
 
+            <!--Start Date Label-->
+            <TextView
+                android:id="@+id/start_date_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Start Date:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Start Date-->
             <TextView
                 android:id="@+id/start_date"
-                style="@style/field_start"/>
-        </TableRow>
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="dd/mm/yy"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!--Start Time-->
-        <TableRow>
-
+            <!--Start Time Label-->
             <TextView
-                style="@style/field_end"
-                android:text="Start Time:" />
+                android:id="@+id/start_time_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Start Time:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/start_date_label" />
 
+            <!--Start Time-->
             <TextView
                 android:id="@+id/start_time"
-                style="@style/field_start" />
-        </TableRow>
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="hh:mm"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/start_date" />
+        </android.support.constraint.ConstraintLayout>
+
 
         <!--Status-->
-        <TableRow>
-            <TextView
-                style="@style/field_end"
-                android:text="Status:" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_status_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_start_container">
 
+            <!--Status Label-->
+            <TextView
+                android:id="@+id/status_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Status:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Status-->
             <TextView
                 android:id="@+id/status"
-                style="@style/field_start"/>
-        </TableRow>
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="[status]"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
 
         <!--Estimated Time-->
-        <TableRow>
-            <TextView
-                style="@style/field_end"
-                android:text="Estimated Time:" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_estimated_time_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_status_container">
 
+            <!--Time Label-->
+            <TextView
+                android:id="@+id/estimated_time_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Estimated Time:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Time-->
             <TextView
                 android:id="@+id/estimated_time"
-                style="@style/field_start"/>
-        </TableRow>
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="hh:mm"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
 
         <!--Total Price-->
-        <TableRow>
-            <TextView
-                style="@style/field_end"
-                android:text="Total Price:" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_total_price_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_estimated_time_container">
 
+            <!--Price Label-->
             <TextView
-                android:id="@id/job_total_price"
-                style="@style/field_start"/>
-        </TableRow>
+                android:id="@+id/total_price_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Total Price:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Price-->
+            <TextView
+                android:id="@+id/total_price"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="£1234.00"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
 
         <!--Notes-->
-        <TableRow>
-            <TextView
-                style="@style/field_end"
-                android:text="Notes:" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_notes_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_total_price_container">
 
+            <!--Notes Label-->
+            <TextView
+                android:id="@+id/notes_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Notes:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Notes-->
             <TextView
                 android:id="@+id/notes"
-                style="@style/field_start"/>
-        </TableRow>
-    </TableLayout>
-</LinearLayout>
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="This is a sample note"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/notes_label" />
+        </android.support.constraint.ConstraintLayout>
+
+        <!--TODO - Add Job items -->
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

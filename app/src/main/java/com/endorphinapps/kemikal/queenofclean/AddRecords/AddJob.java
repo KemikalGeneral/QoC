@@ -7,7 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.endorphinapps.kemikal.queenofclean.DateTime.TimePickerFragment;
 import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
@@ -37,14 +39,14 @@ import java.util.Calendar;
 
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
-public class AddJob extends AppCompatActivity
+public class AddJob extends MenuMain
         implements DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
 
     private DBHelper db;
 
     private Spinner sp_customerSpinner;
-    private LinearLayout ll_addressContainer;
+    private ConstraintLayout ll_addressContainer;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
     private TextView tv_town;
@@ -70,6 +72,15 @@ public class AddJob extends AppCompatActivity
     private TextView tv_dummyCustomer;
     private TextView tv_dummyEmployee;
 
+    /**
+     * Go back to ViewCustomers on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, ViewJobs.class));
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +88,10 @@ public class AddJob extends AppCompatActivity
 
         //Find all views by their Id's
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Add a Job");
 
         sp_customerSpinner.setVisibility(View.GONE);
         ll_addressContainer.setVisibility(View.GONE);
@@ -150,7 +165,7 @@ public class AddJob extends AppCompatActivity
      * Find all views by their ID's
      */
     private void findViews() {
-        ll_addressContainer = (LinearLayout) findViewById(R.id.add_job_customer_container);
+        ll_addressContainer = (ConstraintLayout) findViewById(R.id.add_job_customer_address_container);
         tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
         tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
         tv_town = (TextView) findViewById(R.id.address_town);
@@ -160,13 +175,13 @@ public class AddJob extends AppCompatActivity
         sp_employeeSpinner = (Spinner) findViewById(R.id.add_employee_spinner);
         tv_startDate = (TextView) findViewById(R.id.add_start_date);
         tv_startTime = (TextView) findViewById(R.id.add_start_time);
-        sp_statusSpinner = (Spinner) findViewById(R.id.add_status_spinner);
+        sp_statusSpinner = (Spinner) findViewById(R.id.add_job_status_spinner);
         ll_jobListContainer = (LinearLayout) findViewById(R.id.add_job_list_container);
         tv_addNewJobRow = (TextView) findViewById(R.id.add_job_item_row);
-        et_estimatedTime = (EditText) findViewById(R.id.add_estimated_time);
-        tv_jobTotalPrice = (TextView) findViewById(R.id.job_total_price);
+        et_estimatedTime = (EditText) findViewById(R.id.add_job_estimated_time);
+        tv_jobTotalPrice = (TextView) findViewById(R.id.add_job_total_price);
         et_notes = (EditText) findViewById(R.id.add_job_notes);
-        btn_JobSubmit = (Button) findViewById(R.id.add_submit);
+        btn_JobSubmit = (Button) findViewById(R.id.add_Job_btn_submit);
 
         tv_dummyCustomer = (TextView) findViewById(R.id.dummy_customer);
         tv_dummyEmployee = (TextView) findViewById(R.id.dummy_employee);
@@ -306,7 +321,6 @@ public class AddJob extends AppCompatActivity
      * sets the value to a calendar object and converts
      * to millis for inserting to DB.
      * Displays the time in the relevant TextView.
-     *
      * @param view
      * @param hourOfDay
      * @param minute
@@ -327,7 +341,6 @@ public class AddJob extends AppCompatActivity
 
     /**
      * Get the job status from the job status spinner
-     *
      * @return job status as a string
      */
     private String getJobStatus() {
@@ -508,8 +521,7 @@ public class AddJob extends AppCompatActivity
         //Save all job attributes to the DB
         saveToDB(startDate, startTime, jobStatus, estimateJobTime, totalCostForJob, jobNotes, customerId, employeeId);
 
-        Intent intent = new Intent(AddJob.this, ViewJobs.class);
-        startActivity(intent);
+        startActivity(new Intent(AddJob.this, ViewJobs.class));
         finish();
     }
 

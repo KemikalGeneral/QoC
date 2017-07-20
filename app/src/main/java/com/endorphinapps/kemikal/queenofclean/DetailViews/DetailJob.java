@@ -2,20 +2,22 @@ package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.view.ContextThemeWrapper;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class DetailJob extends AppCompatActivity {
+public class DetailJob extends MenuMain {
 
     private TextView tv_customerName;
     private TextView tv_employeeName;
@@ -25,7 +27,7 @@ public class DetailJob extends AppCompatActivity {
     private TextView tv_estimatedTime;
     private TextView tv_totalPrice;
     private TextView tv_notes;
-    private TableLayout tl_jobDetailContainer;
+    private ConstraintLayout tl_jobDetailContainer;
 
     private Intent intent;
 
@@ -38,6 +40,10 @@ public class DetailJob extends AppCompatActivity {
 
         // Find all views by ID's
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Jobs");
 
         // Populate all fields of the job from adapter intent
         setAllTextViews();
@@ -56,9 +62,9 @@ public class DetailJob extends AppCompatActivity {
         tv_startTime = (TextView) findViewById(R.id.start_time);
         tv_jobStatus = (TextView) findViewById(R.id.status);
         tv_estimatedTime = (TextView) findViewById(R.id.estimated_time);
-        tv_totalPrice = (TextView) findViewById(R.id.job_total_price);
+        tv_totalPrice = (TextView) findViewById(R.id.total_price);
         tv_notes = (TextView) findViewById(R.id.notes);
-        tl_jobDetailContainer = (TableLayout) findViewById(R.id.job_detail_container);
+        tl_jobDetailContainer = (ConstraintLayout) findViewById(R.id.job_detail_container);
     }
 
     /**
@@ -116,16 +122,16 @@ public class DetailJob extends AppCompatActivity {
             // Create 'description' TextView and populate it
             // with the jobItemDescription from the jobItem array
             // and add TextView to the row
-            description = new TextView(new ContextThemeWrapper(this, R.style.field_end));
+            description = new TextView(new ContextThemeWrapper(this, R.style.text_field_wrap));
             description.setText(jobItems.get(i).getDescription());
             jobItemRow.addView(description);
 
             // Create 'price' TextView and populate it
             // with the jobItemPrice from the jobItem array
             // and add TextView to the row
-            price = new TextView(new ContextThemeWrapper(this, R.style.field_start));
+            price = new TextView(new ContextThemeWrapper(this, R.style.text_field_wrap));
             price.setText("£");
-            price.append(String.format("%.2f", jobItems.get(i).getPrice()));
+            price.append(String.format(Locale.getDefault(), "%.2f", jobItems.get(i).getPrice()));
             jobItemRow.addView(price);
 
             // Add new row to the jobItems container

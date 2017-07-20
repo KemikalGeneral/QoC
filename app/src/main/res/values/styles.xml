@@ -2,49 +2,97 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Container-->
     <style name="container">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_standard</item>
-        <item name="android:layout_marginBottom">@dimen/padding_16</item>
-    </style>
-
-    <style name="field_start">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/padding_16</item>
-        <item name="android:textSize">@dimen/text_size_standard</item>
-    </style>
-
-    <style name="field_end">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/padding_16</item>
-        <item name="android:gravity">end</item>
-        <item name="android:textSize">@dimen/text_size_standard</item>
-    </style>
-
-    <style name="field_weight_1">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/container</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <!--Floating labels-->
+    <style name="text_input_wrapper">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--Text Field Full-->
+    <style name="text_field_full">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/padding_16</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
     </style>
 
-    <style name="submit_button">
+    <!--Text Field Wrap-->
+    <style name="text_field_wrap">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
-        <item name="android:layout_gravity">right</item>
     </style>
 
+    <!--Text Field Tab - Selected-->
+    <style name="text_field_tab_selected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:textSize">@dimen/text_size_standard</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 
+    <!--Text Field Tab - Non selected-->
+    <style name="text_field_tab_non_selected">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:textSize">@dimen/text_size_standard</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!--Buttons-->
+    <style name="button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_standard</item>
+        <item name="android:padding">@dimen/padding_16</item>
+    </style>
+
+    <!--Main Menu - Daily Progress-->
+    <style name="day_progress">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:background">@drawable/progress_clip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textColor">#32ffffff</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:letterSpacing">.5</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!--Main Menu - Daily Progress Indicator-->
+    <style name="day_progress_indicator">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:text">"10/10"</item>
+        <item name="android:textColor">#32ffffff</item>
+        <item name="android:textSize">@dimen/text_size_standard</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

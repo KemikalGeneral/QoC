@@ -2,17 +2,18 @@ package com.endorphinapps.kemikal.queenofclean.AddRecords;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
-public class AddEmployee extends AppCompatActivity {
+public class AddEmployee extends MenuMain {
 
     private EditText et_firstName;
     private EditText et_lastName;
@@ -33,6 +34,15 @@ public class AddEmployee extends AppCompatActivity {
 
     private int counter = 0;
 
+    /**
+     * Go back to ViewCustomers on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, ViewEmployees.class));
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +50,10 @@ public class AddEmployee extends AppCompatActivity {
 
         //Find all views by ID
         findViews();
+
+        // Set ActionBar title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Add an Employee");
 
         //Instantiate a new instance of the DBHelper
         db = new DBHelper(this);
@@ -90,7 +104,7 @@ public class AddEmployee extends AppCompatActivity {
         et_city = (EditText) findViewById(R.id.add_city);
         et_postcode = (EditText) findViewById(R.id.add_postcode);
         et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
-        btn_addNew = (Button) findViewById(R.id.add_submit);
+        btn_addNew = (Button) findViewById(R.id.btn_submit);
         btn_populate = (Button) findViewById(R.id.btn_populate);
     }
 

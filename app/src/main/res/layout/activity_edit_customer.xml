@@ -1,148 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_customer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.endorphinapps.kemikal.queenofclean.EditCustomer">
+    android:padding="@dimen/padding_16"
+    tools:context="com.endorphinapps.kemikal.queenofclean.EditRecords.EditCustomer">
 
-    <LinearLayout
-        style="@style/container"
-        android:orientation="vertical">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <!--First Name-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--Names-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_names_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_populate">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_first_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:hint="First Name" />
-        </android.support.design.widget.TextInputLayout>
+            <!--First Name-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_first_name_wrapper"
+                style="@style/text_input_wrapper"
+                android:hint="First Name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <!--Last Name-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_first_name"
+                    style="@style/text_field_full"
+                    android:inputType="textCapWords|textPersonName" />
+            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_last_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:hint="Last Name" />
-        </android.support.design.widget.TextInputLayout>
+            <!--Last Name-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_last_name_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_first_name_wrapper">
 
-        <!--Mobile Number-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_last_name"
+                    style="@style/text_field_full"
+                    android:hint="Last Name"
+                    android:inputType="textCapWords|textPersonName" />
+            </android.support.design.widget.TextInputLayout>
+        </android.support.constraint.ConstraintLayout>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_mobile_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:hint="Mobile Number" />
-        </android.support.design.widget.TextInputLayout>
 
-        <!--Home Number-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--Contact Details-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_contact_details_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_names_container">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_home_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:hint="Home Number" />
-        </android.support.design.widget.TextInputLayout>
+            <!--Mobile Number-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_mobile_number_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <!--eMail Address-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_mobile_number"
+                    style="@style/text_field_full"
+                    android:hint="Mobile Number"
+                    android:inputType="phone" />
+            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="eMail Address" />
-        </android.support.design.widget.TextInputLayout>
 
-        <!--Address Line 1-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <!--Home Number-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_home_number_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_mobile_number_wrapper">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_address_line_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="Address Line 1" />
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_home_number"
+                    style="@style/text_field_full"
+                    android:hint="Home Number"
+                    android:inputType="phone" />
+            </android.support.design.widget.TextInputLayout>
 
-        <!--Address Line 2-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_address_line_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="Address Line 2" />
-        </android.support.design.widget.TextInputLayout>
+            <!--eMail Address-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_email_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_home_number_wrapper">
 
-        <!--Address Town-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_email"
+                    style="@style/text_field_full"
+                    android:hint="eMail Address"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+        </android.support.constraint.ConstraintLayout>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_town"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="Town" />
-        </android.support.design.widget.TextInputLayout>
 
-        <!--Address City-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--Address-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/add_address_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_contact_details_container">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="City" />
-        </android.support.design.widget.TextInputLayout>
+            <!--Address Line 1-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_address_line_1_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <!--Address PostCode-->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_address_line_1"
+                    style="@style/text_field_full"
+                    android:hint="Address Line 1"
+                    android:inputType="textCapWords|textPostalAddress" />
+            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_postcode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="Postcode" />
-        </android.support.design.widget.TextInputLayout>
+            <!--Address Line 2-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_address_line_2_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_address_line_1_wrapper">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_address_line_2"
+                    style="@style/text_field_full"
+                    android:hint="Address Line 2"
+                    android:inputType="textCapWords|textPostalAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Address Town-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_town_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_address_line_2_wrapper">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_town"
+                    style="@style/text_field_full"
+                    android:hint="Town"
+                    android:inputType="textCapWords|textPostalAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Address City-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_city_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_town_wrapper">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_city"
+                    style="@style/text_field_full"
+                    android:hint="City"
+                    android:inputType="textCapWords|textPostalAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Address PostCode-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_postcode_wrapper"
+                style="@style/text_input_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_city_wrapper">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_postcode"
+                    style="@style/text_field_full"
+                    android:hint="Postcode"
+                    android:inputType="textCapCharacters|textPostalAddress" />
+            </android.support.design.widget.TextInputLayout>
+        </android.support.constraint.ConstraintLayout>
 
         <Button
             android:id="@+id/apply_changes"
-            style="@style/submit_button"
-            android:text="Apply Changes" />
+            style="@style/button"
+            android:text="Apply Changes"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_address_container" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>
