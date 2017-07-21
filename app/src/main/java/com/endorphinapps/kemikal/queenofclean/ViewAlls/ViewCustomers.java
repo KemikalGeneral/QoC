@@ -100,7 +100,6 @@ public class ViewCustomers extends MenuMain
     /**
      * BottomNavigation onClick method.
      * View is the icon clicked.
-     *
      * @param v
      */
     @Override

@@ -311,8 +311,7 @@ public class EditEmployee extends MenuMain {
                 Double.parseDouble(et_rateOfPay.getText().toString().trim())
         );
 
-        Intent intent = new Intent(EditEmployee.this, ViewEmployees.class);
-        startActivity(intent);
+        startActivity(new Intent(EditEmployee.this, ViewEmployees.class));
         finish();
     }
 }

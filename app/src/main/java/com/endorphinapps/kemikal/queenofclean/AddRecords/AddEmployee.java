@@ -277,8 +277,7 @@ public class AddEmployee extends MenuMain {
 
         Log.v("z! EmployeeId: ", String.valueOf(employeeId));
 
-        Intent intent = new Intent(AddEmployee.this, ViewEmployees.class);
-        startActivity(intent);
+        startActivity(new Intent(AddEmployee.this, ViewEmployees.class));
         finish();
     }
 }
