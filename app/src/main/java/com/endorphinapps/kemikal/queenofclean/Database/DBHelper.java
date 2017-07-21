@@ -711,7 +711,8 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
                         "FROM " + TABLE_EMPLOYEES + " e " +
-                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = e." + COLUMN_ADDRESS + ";",
+                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = e." + COLUMN_ADDRESS +
+                        " JOIN " + TABLE_AVAILABILITY + " av ON av." + COLUMN_AVAILABILITY_ID + " = e." + COLUMN_AVAILABILITY + ";",
                 null
         );
 
@@ -730,6 +731,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 employee.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
                 employee.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
                 employee.setRateOfPay(cursor.getDouble(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
+                // Availability
+                employee.setMondayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_AM)));
+                employee.setMondayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_PM)));
+                employee.setTuesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_AM)));
+                employee.setTuesdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_PM)));
+                employee.setWednesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_WEDNESDAY_AM)));
+                employee.setWednesdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_WEDNESDAY_PM)));
+                employee.setThursdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_THURSDAY_AM)));
+                employee.setThursdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_THURSDAY_PM)));
+                employee.setFridayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_FRIDAY_AM)));
+                employee.setFridayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_FRIDAY_PM)));
+                employee.setSaturdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_SATURDAY_AM)));
+                employee.setSaturdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_SATURDAY_PM)));
+                employee.setSundayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_SUNDAY_AM)));
+                employee.setSundayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_SUNDAY_PM)));
                 employees.add(employee);
             } while (cursor.moveToNext());
         }
