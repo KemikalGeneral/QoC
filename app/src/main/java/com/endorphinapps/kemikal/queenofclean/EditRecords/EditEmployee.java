@@ -100,6 +100,7 @@ public class EditEmployee extends MenuMain {
         btn_applyChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getCheckboxSelection();
                 updateEmployee(employeeId);
             }
         });
@@ -141,7 +142,6 @@ public class EditEmployee extends MenuMain {
     /**
      * Populate the employee work availability checkboxes
      * from the DB
-     *
      * @param employee
      */
     private void populateAvailabilityCheckboxes(Employee employee) {
@@ -192,10 +192,8 @@ public class EditEmployee extends MenuMain {
 
     /**
      * Get checkbox selections
-     *
-     * @param view
      */
-    public void checkBoxClick(View view) {
+    public void getCheckboxSelection() {
 
         if (ch_mondayAM.isChecked()) {
             mondayAM = 1;
