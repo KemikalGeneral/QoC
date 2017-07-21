@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditRecords.EditCustomer;
+import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
@@ -45,21 +46,42 @@ public class DetailCustomer extends MenuMain {
         // Instantiate a new DBHelper class
         db = new DBHelper(this);
 
-        // Get all details from Adapter Intent
+        // Get customer ID from Adapter Intent
         Intent intent = getIntent();
         final long customerId = intent.getLongExtra("EXTRAS_id", 0);
-        String fullName =
-                intent.getStringExtra("EXTRAS_firstName") + " " +
-                        intent.getStringExtra("EXTRAS_lastName");
+
+        // Get customer from the ID
+        Customer customer = db.getCustomerById(customerId);
+
+        // Populate customer detail fields
+        StringBuilder fullName = new StringBuilder();
+        fullName
+                .append(customer.getFirstName())
+                .append(" ")
+                .append(customer.getLastName());
         tv_fullName.setText(fullName);
-        tv_homeNumber.setText(intent.getStringExtra("EXTRAS_homeNumber"));
-        tv_mobileNumber.setText(intent.getStringExtra("EXTRAS_mobileNumber"));
-        tv_eMailAddress.setText(intent.getStringExtra("EXTRAS_emailAddress"));
-        tv_addressLine1.setText(intent.getStringExtra("EXTRAS_addressLine1"));
-        tv_addressLine2.setText(intent.getStringExtra("EXTRAS_addressLine2"));
-        tv_town.setText(intent.getStringExtra("EXTRAS_town"));
-        tv_city.setText(intent.getStringExtra("EXTRAS_city"));
-        tv_postcode.setText(intent.getStringExtra("EXTRAS_postcode"));
+        tv_homeNumber.setText(customer.getHomeNumber());
+        tv_mobileNumber.setText(customer.getMobileNumber());
+        tv_eMailAddress.setText(customer.getEmailAddress());
+        tv_addressLine1.setText(customer.getAddressLine1());
+        tv_addressLine2.setText(customer.getAddressLine2());
+        tv_town.setText(customer.getTown());
+        tv_city.setText(customer.getCity());
+        tv_postcode.setText(customer.getPostcode());
+
+
+//        String fullName =
+//                intent.getStringExtra("EXTRAS_firstName") + " " +
+//                        intent.getStringExtra("EXTRAS_lastName");
+//        tv_fullName.setText(fullName);
+//        tv_homeNumber.setText(intent.getStringExtra("EXTRAS_homeNumber"));
+//        tv_mobileNumber.setText(intent.getStringExtra("EXTRAS_mobileNumber"));
+//        tv_eMailAddress.setText(intent.getStringExtra("EXTRAS_emailAddress"));
+//        tv_addressLine1.setText(intent.getStringExtra("EXTRAS_addressLine1"));
+//        tv_addressLine2.setText(intent.getStringExtra("EXTRAS_addressLine2"));
+//        tv_town.setText(intent.getStringExtra("EXTRAS_town"));
+//        tv_city.setText(intent.getStringExtra("EXTRAS_city"));
+//        tv_postcode.setText(intent.getStringExtra("EXTRAS_postcode"));
 
         // On Edit button click, send the customer ID
         // in the intent and start the EditCustomer activity

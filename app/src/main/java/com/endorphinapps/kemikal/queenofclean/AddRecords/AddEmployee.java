@@ -6,7 +6,9 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
@@ -26,6 +28,21 @@ public class AddEmployee extends MenuMain {
     private EditText et_city;
     private EditText et_postcode;
     private EditText et_rateOfPay;
+    // Availability Checkboxes
+    private int mondayAM;
+    private int mondayPM;
+    private int tuesdayAM;
+    private int tuesdayPM;
+    private int wednesdayAM;
+    private int wednesdayPM;
+    private int thursdayAM;
+    private int thursdayPM;
+    private int fridayAM;
+    private int fridayPM;
+    private int saturdayAM;
+    private int saturdayPM;
+    private int sundayAM;
+    private int sundayPM;
 
     private Button btn_populate;
     private Button btn_addNew;
@@ -109,6 +126,118 @@ public class AddEmployee extends MenuMain {
     }
 
     /**
+     * Get availability checkbox selections
+     *
+     * @param view
+     */
+    public void checkBoxClick(View view) {
+        boolean isChecked = ((CheckBox) view).isChecked();
+
+        switch (view.getId()) {
+            case R.id.detail_availability_monday_AM:
+                if (isChecked) {
+                    mondayAM = 1;
+                } else {
+                    mondayAM = 0;
+                }
+                break;
+            case R.id.detail_availability_monday_PM:
+                if (isChecked) {
+                    mondayPM = 1;
+                } else {
+                    mondayPM = 0;
+                }
+                break;
+            case R.id.detail_availability_tuesday_AM:
+                if (isChecked) {
+                    tuesdayAM = 1;
+                } else {
+                    tuesdayPM = 0;
+                }
+                break;
+            case R.id.detail_availability_tuesday_PM:
+                if (isChecked) {
+                    tuesdayPM = 1;
+                } else {
+                    tuesdayPM = 0;
+                }
+                break;
+            case R.id.detail_availability_wednesday_AM:
+                if (isChecked) {
+                    wednesdayAM = 1;
+                } else {
+                    wednesdayAM = 0;
+                }
+                break;
+            case R.id.detail_availability_wednesday_PM:
+                if (isChecked) {
+                    wednesdayPM = 1;
+                } else {
+                    wednesdayPM = 0;
+                }
+                break;
+            case R.id.detail_availability_thursday_AM:
+                if (isChecked) {
+                    thursdayAM = 1;
+                } else {
+                    thursdayAM = 0;
+                }
+                break;
+            case R.id.detail_availability_thursday_PM:
+                if (isChecked) {
+                    thursdayPM = 1;
+                } else {
+                    thursdayPM = 0;
+                }
+                break;
+            case R.id.detail_availability_friday_AM:
+                if (isChecked) {
+                    fridayAM = 1;
+                } else {
+                    fridayAM = 0;
+                }
+                break;
+            case R.id.detail_availability_friday_PM:
+                if (isChecked) {
+                    fridayPM = 1;
+                } else {
+                    fridayPM = 0;
+                }
+                break;
+            case R.id.detail_availability_saturday_AM:
+                if (isChecked) {
+                    saturdayAM = 1;
+                } else {
+                    saturdayAM = 0;
+                }
+                break;
+            case R.id.detail_availability_saturday_PM:
+                if (isChecked) {
+                    saturdayPM = 1;
+                } else {
+                    saturdayPM = 0;
+                }
+                break;
+            case R.id.detail_availability_sunday_AM:
+                if (isChecked) {
+                    sundayAM = 1;
+                } else {
+                    sundayAM = 0;
+                }
+                break;
+            case R.id.detail_availability_sunday_PM:
+                if (isChecked) {
+                    sundayPM = 1;
+                    Toast.makeText(this, "Sunday PM checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    sundayPM = 0;
+                    Toast.makeText(this, "Sunday PM unChecked", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    /**
      * Add New Employee - separates address from entity
      * for insertion to the DB.
      * The address PK is caught as 'addressID' to be used
@@ -116,6 +245,7 @@ public class AddEmployee extends MenuMain {
      */
     private void addNewEmployee() {
 
+        // Insert address details
         long addressID = db.insertAddress(
                 et_addressLine1.getText().toString().trim(),
                 et_addressLine2.getText().toString().trim(),
@@ -123,6 +253,17 @@ public class AddEmployee extends MenuMain {
                 et_city.getText().toString().trim(),
                 et_postcode.getText().toString().trim());
 
+        // Insert work availability selections
+        long availabilityID = db.insertAvailability(
+                mondayAM, mondayPM,
+                tuesdayAM, tuesdayPM,
+                wednesdayAM, wednesdayPM,
+                thursdayAM, thursdayPM,
+                fridayAM, fridayPM,
+                saturdayAM, saturdayPM,
+                sundayAM, sundayPM);
+
+        // Insert employee details
         long employeeId = db.insertEmployee(
                 et_firstName.getText().toString().trim(),
                 et_lastName.getText().toString().trim(),
@@ -130,13 +271,13 @@ public class AddEmployee extends MenuMain {
                 et_mobileNumber.getText().toString().trim(),
                 et_eMail.getText().toString().trim(),
                 addressID,
-                Double.parseDouble(et_rateOfPay.getText().toString().trim())
+                Double.parseDouble(et_rateOfPay.getText().toString().trim()),
+                availabilityID
         );
 
         Log.v("z! EmployeeId: ", String.valueOf(employeeId));
 
-        Intent intent = new Intent(AddEmployee.this, ViewEmployees.class);
-        startActivity(intent);
+        startActivity(new Intent(AddEmployee.this, ViewEmployees.class));
         finish();
     }
 }

@@ -118,8 +118,7 @@ public class EditCustomer extends MenuMain {
                 et_eMail.getText().toString().trim()
         );
 
-        Intent intent = new Intent(EditCustomer.this, ViewCustomers.class);
-        startActivity(intent);
+        startActivity(new Intent(EditCustomer.this, ViewCustomers.class));
         finish();
     }
 }

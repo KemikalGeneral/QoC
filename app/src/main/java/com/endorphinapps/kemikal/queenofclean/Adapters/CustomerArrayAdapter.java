@@ -48,16 +48,16 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DetailCustomer.class);
                 intent.putExtra("EXTRAS_id", customer.getCustomerId());
-                intent.putExtra("EXTRAS_firstName", customer.getFirstName());
-                intent.putExtra("EXTRAS_lastName", customer.getLastName());
-                intent.putExtra("EXTRAS_homeNumber", customer.getHomeNumber());
-                intent.putExtra("EXTRAS_mobileNumber", customer.getMobileNumber());
-                intent.putExtra("EXTRAS_emailAddress", customer.getEmailAddress());
-                intent.putExtra("EXTRAS_addressLine1", customer.getAddressLine1());
-                intent.putExtra("EXTRAS_addressLine2", customer.getAddressLine2());
-                intent.putExtra("EXTRAS_town", customer.getTown());
-                intent.putExtra("EXTRAS_city", customer.getCity());
-                intent.putExtra("EXTRAS_postcode", customer.getPostcode());
+//                intent.putExtra("EXTRAS_firstName", customer.getFirstName());
+//                intent.putExtra("EXTRAS_lastName", customer.getLastName());
+//                intent.putExtra("EXTRAS_homeNumber", customer.getHomeNumber());
+//                intent.putExtra("EXTRAS_mobileNumber", customer.getMobileNumber());
+//                intent.putExtra("EXTRAS_emailAddress", customer.getEmailAddress());
+//                intent.putExtra("EXTRAS_addressLine1", customer.getAddressLine1());
+//                intent.putExtra("EXTRAS_addressLine2", customer.getAddressLine2());
+//                intent.putExtra("EXTRAS_town", customer.getTown());
+//                intent.putExtra("EXTRAS_city", customer.getCity());
+//                intent.putExtra("EXTRAS_postcode", customer.getPostcode());
                 getContext().startActivity(intent);
 //                ((Activity) getContext()).finish();
             }

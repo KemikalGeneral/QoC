@@ -68,8 +68,7 @@ public class ViewJobs extends MenuMain
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ViewJobs.this, AddJob.class);
-                startActivity(intent);
+                startActivity(new Intent(ViewJobs.this, AddJob.class));
                 finish();
             }
         });

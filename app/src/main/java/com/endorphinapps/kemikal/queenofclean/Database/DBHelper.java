@@ -22,6 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * Tables
      */
     private static final String TABLE_ADDRESSES = "addresses";
+    private static final String TABLE_AVAILABILITY = "availability";
     private static final String TABLE_CUSTOMERS = "customers";
     private static final String TABLE_EMPLOYEES = "employees";
     private static final String TABLE_JOBS = "jobs";
@@ -37,6 +38,22 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TOWN = "town";
     private static final String COLUMN_CITY = "city";
     private static final String COLUMN_POSTCODE = "postcode";
+    //Availability
+    private static final String COLUMN_AVAILABILITY_ID = "availability_id";
+    private static final String COLUMN_MONDAY_AM = "monday_am";
+    private static final String COLUMN_MONDAY_PM = "monday_pm";
+    private static final String COLUMN_TUESDAY_AM = "tuesday_am";
+    private static final String COLUMN_TUESDAY_PM = "tuesday_pm";
+    private static final String COLUMN_WEDNESDAY_AM = "wednesday_am";
+    private static final String COLUMN_WEDNESDAY_PM = "wednesday_pm";
+    private static final String COLUMN_THURSDAY_AM = "thursday_am";
+    private static final String COLUMN_THURSDAY_PM = "thursday_pm";
+    private static final String COLUMN_FRIDAY_AM = "friday_am";
+    private static final String COLUMN_FRIDAY_PM = "friday_pm";
+    private static final String COLUMN_SATURDAY_AM = "saturday_am";
+    private static final String COLUMN_SATURDAY_PM = "saturday_pm";
+    private static final String COLUMN_SUNDAY_AM = "sunday_am";
+    private static final String COLUMN_SUNDAY_PM = "sunday_pm";
     //Person
     private static final String COLUMN_FIRST_NAME = "firstName";
     private static final String COLUMN_LAST_NAME = "lastName";
@@ -49,6 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //Person - Employee
     private static final String COLUMN_EMPLOYEE_ID = "employee_id";
     private static final String COLUMN_RATE_OF_PAY = "rateOfPay";
+    private static final String COLUMN_AVAILABILITY = "availability";
     //Job Columns
     private static final String COLUMN_JOB_ID = "job_id";
     private static final String COLUMN_START_DATE = "startDate";
@@ -78,6 +96,24 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_CITY + " VARCHAR(50), " +
                     COLUMN_POSTCODE + " VARCHAR(7) NOT NULL);";
 
+    private static final String CREATE_AVAILABILITY_TABLE =
+            "CREATE TABLE IF NOT EXISTS " + TABLE_AVAILABILITY + "(" +
+                    COLUMN_AVAILABILITY_ID + " INTEGER PRIMARY KEY, " +
+                    COLUMN_MONDAY_AM + " INTEGER, " +
+                    COLUMN_MONDAY_PM + " INTEGER, " +
+                    COLUMN_TUESDAY_AM + " INTEGER, " +
+                    COLUMN_TUESDAY_PM + " INTEGER, " +
+                    COLUMN_WEDNESDAY_AM + " INTEGER, " +
+                    COLUMN_WEDNESDAY_PM + " INTEGER, " +
+                    COLUMN_THURSDAY_AM + " INTEGER, " +
+                    COLUMN_THURSDAY_PM + " INTEGER, " +
+                    COLUMN_FRIDAY_AM + " INTEGER, " +
+                    COLUMN_FRIDAY_PM + " INTEGER, " +
+                    COLUMN_SATURDAY_AM + " INTEGER, " +
+                    COLUMN_SATURDAY_PM + " INTEGER, " +
+                    COLUMN_SUNDAY_AM + " INTEGER, " +
+                    COLUMN_SUNDAY_PM + " INTEGER);";
+
     private static final String CREATE_CUSTOMERS_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_CUSTOMERS + "(" +
                     COLUMN_CUSTOMER_ID + " INTEGER PRIMARY KEY, " +
@@ -99,7 +135,10 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_EMAIL_ADDRESS + " VARCHAR(50), " +
                     COLUMN_RATE_OF_PAY + " REAL, " +
                     COLUMN_ADDRESS + " INTEGER NOT NULL, " +
-                        " FOREIGN KEY (" + COLUMN_ADDRESS + ") REFERENCES " + TABLE_ADDRESSES + " (" + COLUMN_EMPLOYEE_ID + "));";
+                    COLUMN_AVAILABILITY + " INTEGER NOT NULL, " +
+                    " FOREIGN KEY (" + COLUMN_ADDRESS + ") REFERENCES " + TABLE_ADDRESSES + " (" + COLUMN_EMPLOYEE_ID + ")," +
+                    " FOREIGN KEY (" + COLUMN_AVAILABILITY + ") REFERENCES " + TABLE_AVAILABILITY + " (" + COLUMN_AVAILABILITY_ID + "));";
+
 
     private static final String CREATE_JOBS_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_JOBS + "(" +
@@ -139,6 +178,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_ADDRESS_TABLE);
+        db.execSQL(CREATE_AVAILABILITY_TABLE);
         db.execSQL(CREATE_CUSTOMERS_TABLE);
         db.execSQL(CREATE_EMPLOYEES_TABLE);
         db.execSQL(CREATE_JOBS_TABLE);
@@ -154,14 +194,18 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADDRESSES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AVAILABILITY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EMPLOYEES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOBS);
         onCreate(db);
     }
 
+    //////////////////////////////////////////////////////////
+    //                                                                          ADDRESS
+    //////////////////////////////////////////////////////////
     /**
-     * Insert Address details passed from AddEmployee
+     * Insert Address details
      * @param line1
      * @param line2
      * @param town
@@ -189,7 +233,6 @@ public class DBHelper extends SQLiteOpenHelper {
      * Update the address of either the
      * customers or employees, using the PK, sought from
      * the FK of the respective table.
-     *
      * @param id
      * @param line1
      * @param line2
@@ -212,6 +255,197 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(TABLE_ADDRESSES, values, COLUMN_ADDRESS_ID + " = " + id, null);
         db.close();
     }
+
+    /**
+     * Get the address ID (FK in the customers table)
+     * from the customer ID, so that it can be used
+     * to update the address record.
+     * @param customerId
+     * @return addressID as a type long
+     */
+    public long getAddressIdFromCustomerId(long customerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        long addressId = 0;
+
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COLUMN_ADDRESS +
+                        " FROM " + TABLE_CUSTOMERS +
+                        " WHERE " + COLUMN_CUSTOMER_ID + " = " + customerId + ";",
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            addressId = cursor.getLong(cursor.getColumnIndex(COLUMN_ADDRESS));
+        }
+        cursor.close();
+        db.close();
+
+        return addressId;
+    }
+
+    /**
+     * Get the address ID (FK in the employee table)
+     * from the employee ID, so that it can be used
+     * to update the address record.
+     *
+     * @param employeeId
+     * @return addressID as a type long
+     */
+    public long getAddressIdFromEmployeeId(long employeeId) {
+        SQLiteDatabase db = getReadableDatabase();
+        long addressId = 0;
+
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COLUMN_ADDRESS +
+                        " FROM " + TABLE_EMPLOYEES +
+                        " WHERE " + COLUMN_EMPLOYEE_ID + " = " + employeeId + ";",
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            addressId = cursor.getLong(cursor.getColumnIndex(COLUMN_ADDRESS));
+        }
+        cursor.close();
+        db.close();
+
+        return addressId;
+    }
+
+    //////////////////////////////////////////////////////////
+    //                                                                   AVAILABILITY
+    //////////////////////////////////////////////////////////
+
+    /**
+     * Insert daily AM & PM availabilities for employees
+     * PK is a FK in Employees table
+     *
+     * @param mondayAM
+     * @param mondayPM
+     * @param tuesdayAM
+     * @param tuesdayPM
+     * @param wednesdayAM
+     * @param wednesdayPM
+     * @param thursdayAM
+     * @param thursdayPM
+     * @param fridayAM
+     * @param fridayPM
+     * @param saturdayAM
+     * @param saturdayPM
+     * @param sundayAM
+     * @param sundayPM
+     * @return availabilityID as a type long
+     */
+    public long insertAvailability(
+            int mondayAM, int mondayPM,
+            int tuesdayAM, int tuesdayPM,
+            int wednesdayAM, int wednesdayPM,
+            int thursdayAM, int thursdayPM,
+            int fridayAM, int fridayPM,
+            int saturdayAM, int saturdayPM,
+            int sundayAM, int sundayPM) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_MONDAY_AM, mondayAM);
+        values.put(COLUMN_MONDAY_PM, mondayPM);
+        values.put(COLUMN_TUESDAY_AM, tuesdayAM);
+        values.put(COLUMN_TUESDAY_PM, tuesdayPM);
+        values.put(COLUMN_WEDNESDAY_AM, wednesdayAM);
+        values.put(COLUMN_WEDNESDAY_PM, wednesdayPM);
+        values.put(COLUMN_THURSDAY_AM, thursdayAM);
+        values.put(COLUMN_THURSDAY_PM, thursdayPM);
+        values.put(COLUMN_FRIDAY_AM, fridayAM);
+        values.put(COLUMN_FRIDAY_PM, fridayPM);
+        values.put(COLUMN_SATURDAY_AM, saturdayAM);
+        values.put(COLUMN_SATURDAY_PM, saturdayPM);
+        values.put(COLUMN_SUNDAY_AM, sundayAM);
+        values.put(COLUMN_SUNDAY_PM, sundayPM);
+        long availabilityID = db.insert(TABLE_AVAILABILITY, null, values);
+        db.close();
+
+        return availabilityID;
+    }
+
+    /**
+     * Update the availability of the employees,
+     * using the PK, sought from
+     * the FK of the respective table.
+     * @param id
+     * @param mondayAM
+     * @param mondayPM
+     * @param tuesdayAM
+     * @param tuesdayPM
+     * @param wednesdayAM
+     * @param wednesdayPM
+     * @param thursdayAM
+     * @param thursdayPM
+     * @param fridayAM
+     * @param fridayPM
+     * @param saturdayAM
+     * @param saturdayPM
+     * @param sundayAM
+     * @param sundayPM
+     */
+    public void updateAvailability(long id,
+                                   int mondayAM, int mondayPM,
+                                   int tuesdayAM, int tuesdayPM,
+                                   int wednesdayAM, int wednesdayPM,
+                                   int thursdayAM, int thursdayPM,
+                                   int fridayAM, int fridayPM,
+                                   int saturdayAM, int saturdayPM,
+                                   int sundayAM, int sundayPM) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_MONDAY_AM, mondayAM);
+        values.put(COLUMN_MONDAY_PM, mondayPM);
+        values.put(COLUMN_TUESDAY_AM, tuesdayAM);
+        values.put(COLUMN_TUESDAY_PM, tuesdayPM);
+        values.put(COLUMN_WEDNESDAY_AM, wednesdayAM);
+        values.put(COLUMN_WEDNESDAY_PM, wednesdayPM);
+        values.put(COLUMN_THURSDAY_AM, thursdayAM);
+        values.put(COLUMN_THURSDAY_PM, thursdayPM);
+        values.put(COLUMN_FRIDAY_AM, fridayAM);
+        values.put(COLUMN_FRIDAY_PM, fridayPM);
+        values.put(COLUMN_SATURDAY_AM, saturdayAM);
+        values.put(COLUMN_SATURDAY_PM, saturdayPM);
+        values.put(COLUMN_SUNDAY_AM, sundayAM);
+        values.put(COLUMN_SUNDAY_PM, sundayPM);
+
+        db.update(TABLE_AVAILABILITY, values, COLUMN_AVAILABILITY_ID + " = " + id, null);
+        db.close();
+    }
+
+    /**
+     * Get the availability ID (FK in the employee table)
+     * from the employee ID, so that it can be used
+     * to update the availability record.
+     * @param employeeId
+     * @return availabilityID as a type long
+     */
+    public long getAvailabilityFromEmployeeId(long employeeId) {
+        SQLiteDatabase db = getReadableDatabase();
+        long availabilityId = 0;
+
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COLUMN_AVAILABILITY +
+                        " FROM " + TABLE_EMPLOYEES +
+                        " WHERE " + COLUMN_EMPLOYEE_ID + " = " + employeeId + ";",
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            availabilityId = cursor.getLong(cursor.getColumnIndex(COLUMN_AVAILABILITY));
+        }
+        cursor.close();
+        db.close();
+
+        return availabilityId;
+    }
+
+    //////////////////////////////////////////////////////////
+    //                                                                       CUSTOMER
+    //////////////////////////////////////////////////////////
 
     /**
      * Insert Customer details passed from AddCustomer
@@ -268,140 +502,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Delete the customer by the row ID
-     * @param customerId
-     */
-    public void deleteCustomerById(long customerId) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        db.delete(TABLE_CUSTOMERS, COLUMN_CUSTOMER_ID + " = " + customerId, null);
-        db.close();
-    }
-
-    /**
-     * Insert Employee details passed from AddEmployee
-     * @param firstName
-     * @param lastName
-     * @param homeNumber
-     * @param mobileNumber
-     * @param eMail
-     * @param address
-     * @param rateOfPay
-     * @return employeeId as a long
-     */
-    public long insertEmployee(String firstName, String lastName,
-                               String homeNumber, String mobileNumber,
-                               String eMail, long address, double rateOfPay) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_FIRST_NAME, firstName);
-        values.put(COLUMN_LAST_NAME, lastName);
-        values.put(COLUMN_HOME_NUMBER, homeNumber);
-        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
-        values.put(COLUMN_EMAIL_ADDRESS, eMail);
-        values.put(COLUMN_RATE_OF_PAY, rateOfPay);
-        System.out.println("DBHelper - insertEmployee - rateOfPay: " + rateOfPay);
-        values.put(COLUMN_ADDRESS, address);
-        long employeeId = db.insert(TABLE_EMPLOYEES, null, values);
-        db.close();
-
-        return employeeId;
-    }
-
-    /**
-     * Update the customer's details using the ID
-     * @param id
-     * @param firstName
-     * @param lastName
-     * @param homeNumber
-     * @param mobileNumber
-     * @param eMail
-     */
-    public void updateEmployee(long id, String firstName,
-                               String lastName, String homeNumber,
-                               String mobileNumber, String eMail,
-                               double rateOfPay) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_FIRST_NAME, firstName);
-        values.put(COLUMN_LAST_NAME, lastName);
-        values.put(COLUMN_HOME_NUMBER, homeNumber);
-        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
-        values.put(COLUMN_EMAIL_ADDRESS, eMail);
-        values.put(COLUMN_RATE_OF_PAY, rateOfPay);
-
-        db.update(TABLE_EMPLOYEES, values, COLUMN_EMPLOYEE_ID + " = " + id, null);
-        db.close();
-    }
-
-    /**
-     * Delete the employee by the row ID
-     * @param employeeId
-     */
-    public void deleteEmployeeById(long employeeId) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        db.delete(TABLE_EMPLOYEES, COLUMN_EMPLOYEE_ID + " = " + employeeId, null);
-        db.close();
-    }
-
-    /**
-     * Insert Job details passed from AddJob
-     * @param startDate
-     * @param status
-     * @param estimatedTime
-     * @param totalPrice
-     * @param notes
-     * @param customer
-     * @param employee
-     * @return jobId as a long
-     */
-    public long insertJob(long startDate, long startTime,
-                          String status, int estimatedTime, double totalPrice,
-                          String notes, long customer, long employee) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_START_DATE, startDate);
-        values.put(COLUMN_START_TIME, startTime);
-        values.put(COLUMN_STATUS, status);
-        values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
-        values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
-        values.put(COLUMN_NOTES, notes);
-        values.put(COLUMN_CUSTOMER, customer);
-        values.put(COLUMN_EMPLOYEE, employee);
-        long jobId = db.insert(TABLE_JOBS, null, values);
-        db.close();
-
-        return jobId;
-    }
-
-    /**
-     * Insert JobItem details
-     * @param job
-     * @param description
-     * @param price
-     */
-    public void insertJobItem(long job, String description, double price) {
-        SQLiteDatabase db =getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_JOB, job);
-        values.put(COLUMN_JOB_ITEM_DESCRIPTION, description);
-        values.put(COLUMN_JOB_ITEM_PRICE, price);
-        long id = db.insert(TABLE_JOB_ITEMS, null, values);
-
-        System.out.println("z! insert: " + id);
-        System.out.println("z! insert: " + job);
-        System.out.println("z! insert: " + description);
-        System.out.println("z! insert: " + price);
-
-        db.close();
-    }
-
-    /**
      * Get a single Customer by ID
      * @param id to identify the Customer (PK)
      * @return a Customer object
@@ -411,9 +511,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Customer customer = new Customer();
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
-                "FROM " + TABLE_CUSTOMERS + " c " +
-                "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = c." + COLUMN_ADDRESS + " " +
-                "WHERE c." + COLUMN_CUSTOMER_ID + " = " + id,
+                        "FROM " + TABLE_CUSTOMERS + " c " +
+                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = c." + COLUMN_ADDRESS + " " +
+                        "WHERE c." + COLUMN_CUSTOMER_ID + " = " + id,
                 null
         );
 
@@ -445,8 +545,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
-                "FROM " + TABLE_CUSTOMERS + " c " +
-                "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = c." + COLUMN_ADDRESS + ";",
+                        "FROM " + TABLE_CUSTOMERS + " c " +
+                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = c." + COLUMN_ADDRESS + ";",
                 null
         );
 
@@ -473,6 +573,84 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Delete the customer by the row ID
+     *
+     * @param customerId
+     */
+    public void deleteCustomerById(long customerId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(TABLE_CUSTOMERS, COLUMN_CUSTOMER_ID + " = " + customerId, null);
+        db.close();
+    }
+
+    //////////////////////////////////////////////////////////
+    //                                                                        EMPLOYEE
+    //////////////////////////////////////////////////////////
+
+    /**
+     * Insert Employee details passed from AddEmployee
+     *
+     * @param firstName
+     * @param lastName
+     * @param homeNumber
+     * @param mobileNumber
+     * @param eMail
+     * @param address
+     * @param rateOfPay
+     * @return employeeId as a long
+     */
+    public long insertEmployee(String firstName, String lastName,
+                               String homeNumber, String mobileNumber,
+                               String eMail, long address, double rateOfPay,
+                               long availability) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_FIRST_NAME, firstName);
+        values.put(COLUMN_LAST_NAME, lastName);
+        values.put(COLUMN_HOME_NUMBER, homeNumber);
+        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
+        values.put(COLUMN_EMAIL_ADDRESS, eMail);
+        values.put(COLUMN_RATE_OF_PAY, rateOfPay);
+        values.put(COLUMN_ADDRESS, address);
+        values.put(COLUMN_AVAILABILITY, availability);
+
+        long employeeId = db.insert(TABLE_EMPLOYEES, null, values);
+        db.close();
+
+        return employeeId;
+    }
+
+    /**
+     * Update the customer's details using the ID
+     *
+     * @param id
+     * @param firstName
+     * @param lastName
+     * @param homeNumber
+     * @param mobileNumber
+     * @param eMail
+     */
+    public void updateEmployee(long id, String firstName,
+                               String lastName, String homeNumber,
+                               String mobileNumber, String eMail,
+                               double rateOfPay) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_FIRST_NAME, firstName);
+        values.put(COLUMN_LAST_NAME, lastName);
+        values.put(COLUMN_HOME_NUMBER, homeNumber);
+        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
+        values.put(COLUMN_EMAIL_ADDRESS, eMail);
+        values.put(COLUMN_RATE_OF_PAY, rateOfPay);
+
+        db.update(TABLE_EMPLOYEES, values, COLUMN_EMPLOYEE_ID + " = " + id, null);
+        db.close();
+    }
+
+    /**
      * Get a single Employee by ID
      * @param id to identify the Employee(PK)
      * @return an Employee object
@@ -482,9 +660,10 @@ public class DBHelper extends SQLiteOpenHelper {
         Employee employee = new Employee();
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
-                "FROM " + TABLE_EMPLOYEES + " e " +
-                "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = e." + COLUMN_ADDRESS + " " +
-                "WHERE e." + COLUMN_EMPLOYEE_ID + " = " + id,
+                        "FROM " + TABLE_EMPLOYEES + " e " +
+                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = e." + COLUMN_ADDRESS + " " +
+                        "JOIN " + TABLE_AVAILABILITY + " av ON av." + COLUMN_AVAILABILITY_ID + " = e." + COLUMN_AVAILABILITY + " " +
+                        "WHERE e." + COLUMN_EMPLOYEE_ID + " = " + id,
                 null
         );
 
@@ -501,6 +680,20 @@ public class DBHelper extends SQLiteOpenHelper {
             employee.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
             employee.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
             employee.setRateOfPay(cursor.getDouble(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
+            employee.setMondayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_AM)));
+            employee.setMondayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_PM)));
+            employee.setTuesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_AM)));
+            employee.setTuesdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_PM)));
+            employee.setWednesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_WEDNESDAY_AM)));
+            employee.setWednesdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_WEDNESDAY_PM)));
+            employee.setThursdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_THURSDAY_AM)));
+            employee.setThursdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_THURSDAY_PM)));
+            employee.setFridayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_FRIDAY_AM)));
+            employee.setFridayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_FRIDAY_PM)));
+            employee.setSaturdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_SATURDAY_AM)));
+            employee.setSaturdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_SATURDAY_PM)));
+            employee.setSundayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_SUNDAY_AM)));
+            employee.setSundayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_SUNDAY_PM)));
         }
         cursor.close();
         db.close();
@@ -517,8 +710,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
-                "FROM " + TABLE_EMPLOYEES + " e " +
-                "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = e." + COLUMN_ADDRESS + ";",
+                        "FROM " + TABLE_EMPLOYEES + " e " +
+                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = e." + COLUMN_ADDRESS + ";",
                 null
         );
 
@@ -543,6 +736,78 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return employees;
+    }
+
+    /**
+     * Delete the employee by the row ID
+     *
+     * @param employeeId
+     */
+    public void deleteEmployeeById(long employeeId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(TABLE_EMPLOYEES, COLUMN_EMPLOYEE_ID + " = " + employeeId, null);
+        db.close();
+    }
+
+    //////////////////////////////////////////////////////////
+    //                                                                                    JOB
+    //////////////////////////////////////////////////////////
+
+    /**
+     * Insert Job details passed from AddJob
+     *
+     * @param startDate
+     * @param status
+     * @param estimatedTime
+     * @param totalPrice
+     * @param notes
+     * @param customer
+     * @param employee
+     * @return jobId as a long
+     */
+    public long insertJob(long startDate, long startTime,
+                          String status, int estimatedTime, double totalPrice,
+                          String notes, long customer, long employee) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_START_DATE, startDate);
+        values.put(COLUMN_START_TIME, startTime);
+        values.put(COLUMN_STATUS, status);
+        values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
+        values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
+        values.put(COLUMN_NOTES, notes);
+        values.put(COLUMN_CUSTOMER, customer);
+        values.put(COLUMN_EMPLOYEE, employee);
+        long jobId = db.insert(TABLE_JOBS, null, values);
+        db.close();
+
+        return jobId;
+    }
+
+    /**
+     * Insert JobItem details
+     *
+     * @param job
+     * @param description
+     * @param price
+     */
+    public void insertJobItem(long job, String description, double price) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_JOB, job);
+        values.put(COLUMN_JOB_ITEM_DESCRIPTION, description);
+        values.put(COLUMN_JOB_ITEM_PRICE, price);
+        long id = db.insert(TABLE_JOB_ITEMS, null, values);
+
+        System.out.println("z! insert: " + id);
+        System.out.println("z! insert: " + job);
+        System.out.println("z! insert: " + description);
+        System.out.println("z! insert: " + price);
+
+        db.close();
     }
 
     /**
@@ -660,6 +925,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return jobItems;
     }
 
+    //////////////////////////////////////////////////////////
+    //                                                                                 MISC.
+    //////////////////////////////////////////////////////////
     /**
      * Drop all tables
      */
@@ -679,59 +947,5 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public String getDatabaseName() {
         return DATABASE_NAME;
-    }
-
-    /**
-     * Get the address ID (FK in the customers table)
-     * from the customer ID, so that it can be used
-     * to update the address record.
-     * @param customerId
-     * @return addressID as a type long
-     */
-    public long getAddressIdFromCustomerId(long customerId) {
-        SQLiteDatabase db = getReadableDatabase();
-        long addressId = 0;
-
-        Cursor cursor = db.rawQuery(
-                "SELECT " + COLUMN_ADDRESS +
-                        " FROM " + TABLE_CUSTOMERS +
-                        " WHERE " + COLUMN_CUSTOMER_ID + " = " + customerId + ";",
-                null
-        );
-
-        if (cursor.moveToFirst()) {
-            addressId = cursor.getLong(cursor.getColumnIndex(COLUMN_ADDRESS));
-        }
-        cursor.close();
-        db.close();
-
-        return addressId;
-    }
-
-    /**
-     * Get the address ID (FK in the employee table)
-     * from the employee ID, so that it can be used
-     * to update the address record.
-     * @param employeeId
-     * @return addressID as a type long
-     */
-    public long getAddressIdFromEmployeeId(long employeeId) {
-        SQLiteDatabase db = getReadableDatabase();
-        long addressId = 0;
-
-        Cursor cursor = db.rawQuery(
-                "SELECT " + COLUMN_ADDRESS +
-                        " FROM " + TABLE_EMPLOYEES +
-                        " WHERE " + COLUMN_EMPLOYEE_ID + " = " + employeeId + ";",
-                null
-        );
-
-        if (cursor.moveToFirst()) {
-            addressId = cursor.getLong(cursor.getColumnIndex(COLUMN_ADDRESS));
-        }
-        cursor.close();
-        db.close();
-
-        return addressId;
     }
 }

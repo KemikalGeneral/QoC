@@ -12,23 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--Populate Button - For Testing-->
-        <Button
-            android:id="@+id/btn_populate"
-            style="@style/button"
-            android:text="Populate"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
         <!--Names-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_names_container"
             style="@style/container"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_populate">
+            app:layout_constraintTop_toTopOf="parent">
 
             <!--First Name-->
             <android.support.design.widget.TextInputLayout
@@ -227,15 +217,256 @@
             </android.support.design.widget.TextInputLayout>
         </android.support.constraint.ConstraintLayout>
 
+        <!--Work Availability-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/availability_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_pay_container">
+
+            <!--Day Label-->
+            <TextView
+                android:id="@+id/detail_availability_label_day"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="Day"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--PM Label-->
+            <TextView
+                android:id="@+id/detail_availability_label_PM"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="PM"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_day" />
+
+            <!--AM Label-->
+            <TextView
+                android:id="@+id/detail_availability_label_AM"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="AM"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintRight_toLeftOf="@id/detail_availability_label_PM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_day" />
+
+            <!--Monday-->
+            <TextView
+                android:id="@+id/detail_availability_label_monday"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="Monday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_availability_label_day" />
+
+            <!--Monday PM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_monday_PM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_monday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_PM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_PM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_monday" />
+
+            <!--Monday AM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_monday_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_monday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_AM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_AM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_monday" />
+
+            <!--Tuesday-->
+            <TextView
+                android:id="@+id/detail_availability_label_tuesday"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="Tuesday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_availability_label_monday" />
+
+            <!--Tuesday PM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_tuesday_PM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_tuesday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_PM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_PM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_tuesday" />
+
+            <!--Tuesday AM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_tuesday_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_tuesday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_AM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_AM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_tuesday" />
+
+            <!--Wednesday-->
+            <TextView
+                android:id="@+id/detail_availability_label_wednesday"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="Wednesday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_availability_label_tuesday" />
+
+            <!--Wednesday PM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_wednesday_PM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_wednesday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_PM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_PM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_wednesday" />
+
+            <!--Wednesday AM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_wednesday_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_wednesday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_AM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_AM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_wednesday" />
+
+            <!--Thursday-->
+            <TextView
+                android:id="@+id/detail_availability_label_thursday"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="Thursday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_availability_label_wednesday" />
+
+            <!--Thursday PM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_thursday_PM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_thursday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_PM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_PM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_thursday" />
+
+            <!--ThursdayAM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_thursday_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_thursday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_AM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_AM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_thursday" />
+
+            <!--Friday-->
+            <TextView
+                android:id="@+id/detail_availability_label_friday"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="Friday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_availability_label_thursday" />
+
+            <!--Friday PM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_friday_PM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_friday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_PM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_PM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_friday" />
+
+            <!--Friday AM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_friday_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_friday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_AM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_AM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_friday" />
+
+            <!--Saturday-->
+            <TextView
+                android:id="@+id/detail_availability_label_saturday"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="Saturday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_availability_label_friday" />
+
+            <!--Saturday PM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_saturday_PM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_saturday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_PM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_PM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_saturday" />
+
+            <!--Saturday AM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_saturday_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_saturday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_AM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_AM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_saturday" />
+
+            <!--Sunday-->
+            <TextView
+                android:id="@+id/detail_availability_label_sunday"
+                style="@style/text_field_wrap"
+                android:padding="@dimen/padding_16"
+                android:text="Sunday"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_availability_label_saturday" />
+
+            <!--Sunday PM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_sunday_PM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_sunday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_PM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_PM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_sunday" />
+
+            <!--Sunday AM Checkbox-->
+            <CheckBox
+                android:id="@+id/detail_availability_sunday_AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/detail_availability_label_sunday"
+                app:layout_constraintLeft_toLeftOf="@id/detail_availability_label_AM"
+                app:layout_constraintRight_toRightOf="@id/detail_availability_label_AM"
+                app:layout_constraintTop_toTopOf="@id/detail_availability_label_sunday" />
+        </android.support.constraint.ConstraintLayout>
+
 
         <!--Submit Button-->
         <Button
             android:id="@+id/apply_changes"
             style="@style/button"
             android:text="@string/submit"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_pay_container" />
+            app:layout_constraintTop_toBottomOf="@id/availability_container" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
