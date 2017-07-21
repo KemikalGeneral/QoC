@@ -934,6 +934,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void dropTables() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADDRESSES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AVAILABILITY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EMPLOYEES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_JOBS);

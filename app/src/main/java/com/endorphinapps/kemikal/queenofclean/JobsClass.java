@@ -17,6 +17,13 @@ public class JobsClass {
         this.db = db;
     }
 
+    /**
+     * Get all details of Jobs  between
+     * Monday and Sunday of the current week
+     *
+     * @param datePeriod
+     * @return Jobs as an ArrayList
+     */
     public ArrayList<Job> getJobsByDateRange(int datePeriod) {
         jobs = new ArrayList<>();
         long dateFrom;
@@ -34,7 +41,6 @@ public class JobsClass {
     /**
      * Calculate the start of the week (Monday 00:00)
      * for the selected datePeriod (in weeks)
-     *
      * @param datePeriod
      * @return dateFrom in milliseconds as a long
      */
@@ -56,7 +62,6 @@ public class JobsClass {
     /**
      * Calculate the end of the week (Sunday 23:59)
      * for the selected datePeriod (in weeks)
-     *
      * @param datePeriod
      * @return dateTo in milliseconds as a long
      */

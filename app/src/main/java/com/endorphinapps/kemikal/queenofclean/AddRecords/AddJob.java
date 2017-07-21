@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -219,6 +218,9 @@ public class AddJob extends MenuMain
                 tv_town.setText(customer.getTown());
                 tv_city.setText(customer.getCity());
                 tv_postcode.setText(customer.getPostcode());
+
+                System.out.println("z! AddJob - populateCustomerDetailsFromSpinnerSelection(): " +
+                        customer.getCustomerId() + "/" + customer.getFirstName() + " " + customer.getLastName());
             }
 
             @Override
@@ -254,6 +256,9 @@ public class AddJob extends MenuMain
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 employee = db.getEmployeeById(id + 1);
+
+                System.out.println("z! AddJob - populateEmployeeDetailsFromSpinnerSelection(): " +
+                        employee.getEmployeeId() + "/" + employee.getFirstName() + " " + employee.getLastName());
             }
 
             @Override
@@ -300,6 +305,8 @@ public class AddJob extends MenuMain
         // Display formatted date in the startDate TextView
         String date = DateFormat.getDateInstance().format(startDate);
         tv_startDate.setText(date);
+
+        System.out.println("z! AddJob - onDateSet(): " + date);
     }
 
     /**
@@ -337,6 +344,8 @@ public class AddJob extends MenuMain
         // Display formatted time in the startTime TextView
         String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime);
         tv_startTime.setText(time);
+
+        System.out.println("z! AddJob - onTimeSet(): " + time);
     }
 
     /**
@@ -345,7 +354,8 @@ public class AddJob extends MenuMain
      */
     private String getJobStatus() {
         String jobStatus = sp_statusSpinner.getSelectedItem().toString();
-        Log.v("z! JobStatus: ", jobStatus);
+
+        System.out.println("z! AddJob - getJobStatus(): " + jobStatus);
 
         return jobStatus;
     }
@@ -356,7 +366,6 @@ public class AddJob extends MenuMain
      * Adds a listener for the delete button to remove the current row
      */
     private void addJobRow() {
-
         //Create a new row container
         LinearLayout jobRowContainer = new LinearLayout(this);
 
@@ -438,9 +447,14 @@ public class AddJob extends MenuMain
                 price = Double.parseDouble(editText.getText().toString());
             }
             totalPriceOfJobItems += price;
-            Log.v("z! JobItems: ", description + " @ " + price);
+
+            System.out.println("z! AddJob - calculatePriceOfJobItems(): " +
+                    description + " @ " + price);
         }
-        Log.v("z! JobItemsTotal: ", String.valueOf(totalPriceOfJobItems));
+
+        System.out.println("z! AddJob - calculatePriceOfJobItems(): " +
+                String.valueOf(totalPriceOfJobItems));
+
         return totalPriceOfJobItems;
     }
 
@@ -454,7 +468,8 @@ public class AddJob extends MenuMain
         if (!et_estimatedTime.getText().toString().equals("")) {
             estimatedTime = Integer.valueOf(et_estimatedTime.getText().toString());
         }
-        Log.v("z! HoursWorked: ", String.valueOf(estimatedTime));
+        System.out.println("z! AddJob - getEstimatedTime(): " +
+                String.valueOf(estimatedTime));
 
         return estimatedTime;
     }
@@ -467,7 +482,9 @@ public class AddJob extends MenuMain
     private double calculatePayToEmployee() {
         double rateOfPay = employee.getRateOfPay();
         double employeePay = rateOfPay * getEstimatedTime();
-        Log.v("z! EmployeePay: ", String.valueOf(employeePay));
+
+        System.out.println("z! AddJob - calculatePayToEmployee(): " +
+                String.valueOf(employeePay));
 
         return employeePay;
     }
@@ -479,7 +496,9 @@ public class AddJob extends MenuMain
     @NonNull
     private String getJobNotes() {
         String jobNotes = et_notes.getText().toString();
-        Log.v("z! JobNotes: ", jobNotes);
+
+        System.out.println("z! AddJob - getJobNotes(): " +
+                jobNotes);
 
         return jobNotes;
     }
@@ -510,7 +529,8 @@ public class AddJob extends MenuMain
 
         //Total cost of job, (jobItems + employee pay)
         double totalCostForJob = priceOfJobItems + payToEmployee;
-        Log.v("z! totalCostForJob: ", String.valueOf(totalCostForJob));
+        System.out.println("z! AddJob - totalCostForJob: " +
+                String.valueOf(totalCostForJob));
 
         //Set TextView with the total cost for the job
         tv_jobTotalPrice.setText(String.valueOf(totalCostForJob));
@@ -532,7 +552,9 @@ public class AddJob extends MenuMain
      */
     private long getCustomerId() {
         long customerId = customer.getCustomerId();
-        Log.v("z! CustomerID: ", String.valueOf(customerId));
+
+        System.out.println("z! AddJob - getCustomerId(): " +
+                String.valueOf(customerId));
 
         return customerId;
     }
@@ -544,7 +566,9 @@ public class AddJob extends MenuMain
      */
     private long getEmployeeId() {
         long employeeId = employee.getEmployeeId();
-        Log.v("z! EmployeeId: ", String.valueOf(employeeId));
+
+        System.out.println("z! AddJob - getEmployeeId(): " +
+                String.valueOf(employeeId));
 
         return employeeId;
     }
@@ -568,6 +592,9 @@ public class AddJob extends MenuMain
         long jobId = db.insertJob(startDate, startTime,
                 jobStatus, estimateJobTime, totalCostForJob,
                 jobNotes, customerId, employeeId);
+
+        System.out.println("z! AddJob - saveToDB() - jobId: " +
+                jobId);
 
         // Save the jobItems separately as they require
         // the jobId as a FK

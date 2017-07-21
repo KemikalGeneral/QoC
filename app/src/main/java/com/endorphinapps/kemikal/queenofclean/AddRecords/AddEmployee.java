@@ -3,7 +3,6 @@ package com.endorphinapps.kemikal.queenofclean.AddRecords;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -127,7 +126,6 @@ public class AddEmployee extends MenuMain {
 
     /**
      * Get availability checkbox selections
-     *
      * @param view
      */
     public void checkBoxClick(View view) {
@@ -275,7 +273,9 @@ public class AddEmployee extends MenuMain {
                 availabilityID
         );
 
-        Log.v("z! EmployeeId: ", String.valueOf(employeeId));
+        System.out.println("z! AddEmployee - addressId: " + String.valueOf(addressID));
+        System.out.println("z! AddEmployee - availabilityId: " + String.valueOf(availabilityID));
+        System.out.println("z! AddEmployee - employeeId: " + String.valueOf(employeeId));
 
         startActivity(new Intent(AddEmployee.this, ViewEmployees.class));
         finish();
