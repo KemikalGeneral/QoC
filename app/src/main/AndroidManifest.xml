@@ -15,9 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddRecords.AddCustomer" />
-        <activity android:name=".AddRecords.AddEmployee" />
-        <activity android:name=".AddRecords.AddJob" />
+        <activity
+            android:name=".AddRecords.AddCustomer"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".AddRecords.AddEmployee"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".AddRecords.AddJob"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".ViewAlls.ViewCustomers" />
         <activity android:name=".ViewAlls.ViewEmployees" />
         <activity android:name=".ViewAlls.ViewJobs" />
@@ -27,9 +33,13 @@
         <activity android:name=".Finances.Finances_overview" />
         <activity android:name=".Finances.Finances_In" />
         <activity android:name=".Finances.Finances_out" />
-        <activity android:name=".EditRecords.EditCustomer" />
-        <activity android:name=".EditRecords.EditEmployee" />
-        <activity android:name=".MenuMain"></activity>
+        <activity
+            android:name=".EditRecords.EditCustomer"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".EditRecords.EditEmployee"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".MenuMain" />
     </application>
 
 </manifest>
