@@ -20,11 +20,11 @@ import com.endorphinapps.kemikal.queenofclean.R;
 import java.text.DateFormat;
 import java.util.Locale;
 
-public class JobArrayAdapter extends ArrayAdapter<Job> {
+public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
 
     private DBHelper db = new DBHelper(getContext());
 
-    public JobArrayAdapter(Context context) {
+    public DayJobsArrayAdapter(Context context) {
         super(context, 0);
     }
 
@@ -33,7 +33,7 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_job, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.day_view_list_item, parent, false);
         }
 
         final Job job = getItem(position);
@@ -86,10 +86,10 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
         TextView jobStatus = (TextView) convertView.findViewById(R.id.job_status);
         jobStatus.setText(job.getJobStatusEnum());
 
-        // Start Date
-        TextView startDate = (TextView) convertView.findViewById(R.id.job_start_date);
-        String startDateFormat = DateFormat.getDateInstance().format(job.getStartDate());
-        startDate.setText(startDateFormat);
+        // Start Time
+        TextView startTime = (TextView) convertView.findViewById(R.id.job_start_time);
+        String startDateFormat = DateFormat.getTimeInstance(DateFormat.SHORT).format(job.getStartTime());
+        startTime.setText(startDateFormat);
 
         // On click of listView item, send ID to the DetailView
         convertView.setOnClickListener(new View.OnClickListener() {
