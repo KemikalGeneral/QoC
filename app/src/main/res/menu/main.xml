@@ -3,11 +3,9 @@
 
     <item
         android:id="@+id/menu_main_drop_tables"
-        android:title="Drop Tables"
-        android:icon="@android:drawable/ic_delete" />
+        android:title="Drop Tables" />
 
     <item
         android:id="@+id/menu_main_about"
-        android:title="About this App"
-        android:icon="@android:drawable/ic_menu_help" />
+        android:title="About this App" />
 </menu>

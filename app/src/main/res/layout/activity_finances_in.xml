@@ -69,12 +69,13 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+    <!--Total In-->
     <TextView
         android:id="@+id/total_in_amount"
         style="@style/text_field_full"
-        android:layout_width="wrap_content"
-        android:layout_gravity="end"
-        android:text="£1234.00"/>
+        android:gravity="end"
+        android:text="£1234.00"
+        android:textColor="@color/colorAccent" />
 
     <include layout="@layout/navigation_bottom" />
 

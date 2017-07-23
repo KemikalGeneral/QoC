@@ -3,6 +3,7 @@ package com.endorphinapps.kemikal.queenofclean;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.DayJobsArrayAdapter;
@@ -11,12 +12,15 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 
 import java.util.ArrayList;
 
-public class DayView extends AppCompatActivity {
+public class DayView extends AppCompatActivity
+        implements View.OnClickListener {
 
     private DBHelper db;
     private DayJobsArrayAdapter dayJobsArrayAdapter;
     private ListView lv_dayList;
     private ArrayList<Job> jobs;
+
+    private NavigationBottom navigationBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,5 +75,17 @@ public class DayView extends AppCompatActivity {
      */
     private void findViews() {
         lv_dayList = (ListView) findViewById(R.id.day_view_listview);
+    }
+
+    /**
+     * BottomNavigation onClick method.
+     * View is the icon clicked.
+     *
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        navigationBottom = new NavigationBottom(this);
+        navigationBottom.onClick(v);
     }
 }

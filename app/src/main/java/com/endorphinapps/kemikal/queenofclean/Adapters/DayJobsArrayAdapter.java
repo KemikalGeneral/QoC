@@ -33,7 +33,7 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.day_view_list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_day_view, parent, false);
         }
 
         final Job job = getItem(position);
