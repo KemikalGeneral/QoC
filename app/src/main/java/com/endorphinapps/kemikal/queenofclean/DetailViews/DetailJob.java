@@ -13,7 +13,7 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
-import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;

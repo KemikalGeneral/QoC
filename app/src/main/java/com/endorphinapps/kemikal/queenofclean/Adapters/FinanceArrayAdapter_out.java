@@ -42,16 +42,19 @@ public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
         TextView employeeFirstLast = (TextView) convertView.findViewById(R.id.finances_employee);
         employeeFirstLast.setText(fullName);
 
+        //TODO - add job address
+
         // Fetch and display the date
         //TODO - change to endDate
         TextView startDate = (TextView) convertView.findViewById(R.id.finances_date);
         String date = DateFormat.getDateInstance().format(job.getStartDate());
         startDate.setText(date);
 
-        // Fetch and display the employee rate of pay
-        TextView rateOfPay = (TextView) convertView.findViewById(R.id.rate_of_pay);
-        rateOfPay.setText("£");
-        rateOfPay.setText(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
+        // Calculate the pay to employee for the job
+        TextView payForJob = (TextView) convertView.findViewById(R.id.finances_amount);
+        double pay = employee.getRateOfPay() * job.getEstimatedTime();
+        payForJob.setText("£");
+        payForJob.append(String.format(Locale.getDefault(), "%.2f", pay));
 
         // Fetch and display estimated time required
         //TODO - change to actual time taken
@@ -59,11 +62,12 @@ public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
         estimatedTime.setText(String.valueOf(job.getEstimatedTime()));
         estimatedTime.append(" hours @ ");
 
-        // Calculate the pay to employee for the job
-        TextView payForJob = (TextView) convertView.findViewById(R.id.finances_amount);
-        double pay = employee.getRateOfPay() * job.getEstimatedTime();
-        payForJob.setText("£");
-        payForJob.append(String.format(Locale.getDefault(), "%.2f", pay));
+        // Fetch and display the employee rate of pay
+        TextView rateOfPay = (TextView) convertView.findViewById(R.id.rate_of_pay);
+        rateOfPay.setText("£");
+        rateOfPay.setText(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
+
+        //TODO - add payment status
 
         return convertView;
     }

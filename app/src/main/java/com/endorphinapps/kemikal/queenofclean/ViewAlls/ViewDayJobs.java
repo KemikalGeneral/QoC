@@ -2,8 +2,7 @@ package com.endorphinapps.kemikal.queenofclean.ViewAlls;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,38 +10,30 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.endorphinapps.kemikal.queenofclean.Adapters.JobArrayAdapter;
-import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
+import com.endorphinapps.kemikal.queenofclean.Adapters.DayJobsArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
-import com.endorphinapps.kemikal.queenofclean.MainActivity;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Entities.Job;
+import com.endorphinapps.kemikal.queenofclean.JobsClass;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
-public class ViewJobs extends MenuMain
+import java.util.ArrayList;
+
+public class ViewDayJobs extends AppCompatActivity
         implements View.OnClickListener {
 
     private DBHelper db;
-    //    private long jobId;
+    private DayJobsArrayAdapter dayJobsArrayAdapter;
+    private ListView lv_dayList;
+    private ArrayList<Job> jobs;
     private TextView tv_emptyList;
-    private JobArrayAdapter arrayAdapter;
-    private ListView lv_jobsListView;
-    private FloatingActionButton fab;
     private NavigationBottom navigationBottom;
 
     /**
-     * Go back to the MainActivity on back press
-     */
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
-
-    /**
      * Create a context menu on a long press of the
-     * ViewJobs ListView item to change the job status
+     * ViewDayJobs ListView item to change the job status
+     *
      * @param menu
      * @param v
      * @param menuInfo
@@ -64,7 +55,6 @@ public class ViewJobs extends MenuMain
      * Action the item selected in the context menu
      * by calling changeJobStatus() and passing the JobId
      * and the amended status
-     *
      * @param item
      * @return true
      */
@@ -92,33 +82,60 @@ public class ViewJobs extends MenuMain
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_jobs);
+        setContentView(R.layout.activity_day_view);
 
-        // Find all views by ID
+        // Find views by  ID
         findViews();
 
-        // Set ActionBar title
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Jobs");
-
-        // Instantiate a new DBHelper class
+        // Instantiate new DBHelper and JobsClass classes
         db = new DBHelper(this);
+        JobsClass jobsClass = new JobsClass(db);
 
-        // Populate and setup ListView
-        arrayAdapter = new JobArrayAdapter(this);
-        arrayAdapter.addAll(db.getAllJobs());
-        lv_jobsListView.setAdapter(arrayAdapter);
+        // Filter Jobs by this week, and then days
+        jobsClass.getJobsByDateRange(0);
+        jobsClass.sortJobsByDayOfWeek();
+
+        // Get the day of the week from the (MainActivity) intent
+        // populate Jobs ArrayList with the relevant days jobs
+        Intent intent = getIntent();
+        String day = intent.getStringExtra("EXTRAS_day");
+        switch (day) {
+            case "monday":
+                jobs = jobsClass.getMondaysJobs();
+                break;
+            case "tuesday":
+                jobs = jobsClass.getTuesdaysJobs();
+                break;
+            case "wednesday":
+                jobs = jobsClass.getWednesdaysJobs();
+                break;
+            case "thursday":
+                jobs = jobsClass.getThursdaysJobs();
+                break;
+            case "friday":
+                jobs = jobsClass.getFridaysJobs();
+                break;
+            case "saturday":
+                jobs = jobsClass.getSaturdaysJobs();
+                break;
+            case "sunday":
+                jobs = jobsClass.getSundaysJobs();
+                break;
+        }
+        dayJobsArrayAdapter = new DayJobsArrayAdapter(this);
+        dayJobsArrayAdapter.addAll(jobs);
+        lv_dayList.setAdapter(dayJobsArrayAdapter);
 
         // Register for long clickable context menu
         // used to change the job status
-        registerForContextMenu(lv_jobsListView);
+        registerForContextMenu(lv_dayList);
 
         // Handle on listView item click and send job ID
         // so that it can be displayed in the DetailJob activity
-        lv_jobsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_dayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ViewJobs.this, DetailJob.class);
+                Intent intent = new Intent(ViewDayJobs.this, DetailJob.class);
                 intent.putExtra("EXTRAS_jobID", id + 1);
                 startActivity(intent);
             }
@@ -126,34 +143,25 @@ public class ViewJobs extends MenuMain
 
         // If there are no records, show the 'No Jobs'
         // message, if there are, hide the message
-        if (arrayAdapter.getCount() == 0) {
+        if (dayJobsArrayAdapter.getCount() == 0) {
             tv_emptyList.setVisibility(View.VISIBLE);
         } else {
             tv_emptyList.setVisibility(View.GONE);
         }
-
-        // FAB to add a new Job
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ViewJobs.this, AddJob.class));
-                finish();
-            }
-        });
     }
 
     /**
-     * Find all views by ID
+     * Find all views by their ID's
      */
     private void findViews() {
-        tv_emptyList = (TextView) findViewById(R.id.jobs_empty_list);
-        lv_jobsListView = (ListView) findViewById(R.id.jobs_list_view);
-        fab = (FloatingActionButton) findViewById(R.id.FAB);
+        lv_dayList = (ListView) findViewById(R.id.day_view_listview);
+        tv_emptyList = (TextView) findViewById(R.id.day_empty_list);
     }
 
     /**
      * BottomNavigation onClick method.
      * View is the icon clicked.
+     *
      * @param v
      */
     @Override

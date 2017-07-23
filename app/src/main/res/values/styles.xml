@@ -77,7 +77,7 @@
         <item name="android:background">@drawable/progress_clip</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingBottom">16dp</item>
-        <item name="android:textColor">#32ffffff</item>
+        <item name="android:textColor">#64ffffff</item>
         <item name="android:textSize">30sp</item>
         <item name="android:letterSpacing">.5</item>
         <item name="android:textAllCaps">true</item>
@@ -90,7 +90,7 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">24dp</item>
         <item name="android:text">"10/10"</item>
-        <item name="android:textColor">#32ffffff</item>
+        <item name="android:textColor">#64ffffff</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
         <item name="android:textStyle">bold</item>
     </style>

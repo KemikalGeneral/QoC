@@ -12,7 +12,7 @@ import com.endorphinapps.kemikal.queenofclean.Adapters.CustomerArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddCustomer;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
-import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
@@ -20,12 +20,9 @@ public class ViewCustomers extends MenuMain
         implements View.OnClickListener {
 
     private TextView tv_employeesTab;
-
     private TextView tv_emptyList;
-
     private ListView lv_customersListView;
     private CustomerArrayAdapter arrayAdapter;
-
     private FloatingActionButton fab;
     private NavigationBottom navigationBottom;
 
@@ -74,8 +71,6 @@ public class ViewCustomers extends MenuMain
         } else {
             tv_emptyList.setVisibility(View.GONE);
         }
-
-        System.out.println("Number of records in ViewCustomers: " + arrayAdapter.getCount());
 
         // FAB to add a new customer
         fab.setOnClickListener(new View.OnClickListener() {
