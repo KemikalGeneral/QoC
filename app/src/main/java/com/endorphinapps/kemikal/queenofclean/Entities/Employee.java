@@ -14,6 +14,21 @@ public class Employee {
     private String homeNumber;
     private String emailAddress;
     private double rateOfPay;
+    // Availability
+    private int mondayAM;
+    private int mondayPM;
+    private int tuesdayAM;
+    private int tuesdayPM;
+    private int wednesdayAM;
+    private int wednesdayPM;
+    private int thursdayAM;
+    private int thursdayPM;
+    private int fridayAM;
+    private int fridayPM;
+    private int saturdayAM;
+    private int saturdayPM;
+    private int sundayAM;
+    private int sundayPM;
 
     public Employee() {
     }
@@ -134,10 +149,122 @@ public class Employee {
         this.rateOfPay = rateOfPay;
     }
 
+    public int getMondayAM() {
+        return mondayAM;
+    }
+
+    public void setMondayAM(int mondayAM) {
+        this.mondayAM = mondayAM;
+    }
+
+    public int getMondayPM() {
+        return mondayPM;
+    }
+
+    public void setMondayPM(int mondayPM) {
+        this.mondayPM = mondayPM;
+    }
+
+    public int getTuesdayAM() {
+        return tuesdayAM;
+    }
+
+    public void setTuesdayAM(int tuesdayAM) {
+        this.tuesdayAM = tuesdayAM;
+    }
+
+    public int getTuesdayPM() {
+        return tuesdayPM;
+    }
+
+    public void setTuesdayPM(int tuesdayPM) {
+        this.tuesdayPM = tuesdayPM;
+    }
+
+    public int getWednesdayAM() {
+        return wednesdayAM;
+    }
+
+    public void setWednesdayAM(int wednesdayAM) {
+        this.wednesdayAM = wednesdayAM;
+    }
+
+    public int getWednesdayPM() {
+        return wednesdayPM;
+    }
+
+    public void setWednesdayPM(int wednesdayPM) {
+        this.wednesdayPM = wednesdayPM;
+    }
+
+    public int getThursdayAM() {
+        return thursdayAM;
+    }
+
+    public void setThursdayAM(int thursdayAM) {
+        this.thursdayAM = thursdayAM;
+    }
+
+    public int getThursdayPM() {
+        return thursdayPM;
+    }
+
+    public void setThursdayPM(int thursdayPM) {
+        this.thursdayPM = thursdayPM;
+    }
+
+    public int getFridayAM() {
+        return fridayAM;
+    }
+
+    public void setFridayAM(int fridayAM) {
+        this.fridayAM = fridayAM;
+    }
+
+    public int getFridayPM() {
+        return fridayPM;
+    }
+
+    public void setFridayPM(int fridayPM) {
+        this.fridayPM = fridayPM;
+    }
+
+    public int getSaturdayAM() {
+        return saturdayAM;
+    }
+
+    public void setSaturdayAM(int saturdayAM) {
+        this.saturdayAM = saturdayAM;
+    }
+
+    public int getSaturdayPM() {
+        return saturdayPM;
+    }
+
+    public void setSaturdayPM(int saturdayPM) {
+        this.saturdayPM = saturdayPM;
+    }
+
+    public int getSundayAM() {
+        return sundayAM;
+    }
+
+    public void setSundayAM(int sundayAM) {
+        this.sundayAM = sundayAM;
+    }
+
+    public int getSundayPM() {
+        return sundayPM;
+    }
+
+    public void setSundayPM(int sundayPM) {
+        this.sundayPM = sundayPM;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + employeeId +
+                "employeeId=" + employeeId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", addressLine1='" + addressLine1 + '\'' +
@@ -149,6 +276,20 @@ public class Employee {
                 ", homeNumber='" + homeNumber + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", rateOfPay=" + rateOfPay +
+                ", mondayAM=" + mondayAM +
+                ", mondayPM=" + mondayPM +
+                ", tuesdayAM=" + tuesdayAM +
+                ", tuesdayPM=" + tuesdayPM +
+                ", wednesdayAM=" + wednesdayAM +
+                ", wednesdayPM=" + wednesdayPM +
+                ", thursdayAM=" + thursdayAM +
+                ", thursdayPM=" + thursdayPM +
+                ", fridayAM=" + fridayAM +
+                ", fridayPM=" + fridayPM +
+                ", saturdayAM=" + saturdayAM +
+                ", saturdayPM=" + saturdayPM +
+                ", sundayAM=" + sundayAM +
+                ", sundayPM=" + sundayPM +
                 '}';
     }
 }

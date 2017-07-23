@@ -44,17 +44,17 @@ public class EmployeeArrayAdapter extends ArrayAdapter<Employee> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DetailEmployee.class);
                 intent.putExtra("EXTRAS_id", employee.getEmployeeId());
-                intent.putExtra("EXTRAS_firstName", employee.getFirstName());
-                intent.putExtra("EXTRAS_lastName", employee.getLastName());
-                intent.putExtra("EXTRAS_homeNumber", employee.getHomeNumber());
-                intent.putExtra("EXTRAS_mobileNumber", employee.getMobileNumber());
-                intent.putExtra("EXTRAS_emailAddress", employee.getEmailAddress());
-                intent.putExtra("EXTRAS_addressLine1", employee.getAddressLine1());
-                intent.putExtra("EXTRAS_addressLine2", employee.getAddressLine2());
-                intent.putExtra("EXTRAS_town", employee.getTown());
-                intent.putExtra("EXTRAS_city", employee.getCity());
-                intent.putExtra("EXTRAS_postcode", employee.getPostcode());
-                intent.putExtra("EXTRAS_rateOfPay", employee.getRateOfPay());
+//                intent.putExtra("EXTRAS_firstName", employee.getFirstName());
+//                intent.putExtra("EXTRAS_lastName", employee.getLastName());
+//                intent.putExtra("EXTRAS_homeNumber", employee.getHomeNumber());
+//                intent.putExtra("EXTRAS_mobileNumber", employee.getMobileNumber());
+//                intent.putExtra("EXTRAS_emailAddress", employee.getEmailAddress());
+//                intent.putExtra("EXTRAS_addressLine1", employee.getAddressLine1());
+//                intent.putExtra("EXTRAS_addressLine2", employee.getAddressLine2());
+//                intent.putExtra("EXTRAS_town", employee.getTown());
+//                intent.putExtra("EXTRAS_city", employee.getCity());
+//                intent.putExtra("EXTRAS_postcode", employee.getPostcode());
+//                intent.putExtra("EXTRAS_rateOfPay", employee.getRateOfPay());
                 getContext().startActivity(intent);
             }
         });

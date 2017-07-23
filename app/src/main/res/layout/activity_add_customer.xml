@@ -12,23 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--Populate Button - For Testing-->
-        <Button
-            android:id="@+id/btn_populate"
-            style="@style/button"
-            android:text="Populate"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
         <!--Names-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_names_container"
             style="@style/container"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_populate">
+            app:layout_constraintTop_toTopOf="parent">
 
             <!--First Name-->
             <android.support.design.widget.TextInputLayout
@@ -203,13 +193,19 @@
             </android.support.design.widget.TextInputLayout>
         </android.support.constraint.ConstraintLayout>
 
+        <!--Populate Button - For Testing-->
+        <Button
+            android:id="@+id/btn_populate"
+            style="@style/button"
+            android:text="Populate"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_address_container" />
 
         <!--Submit Button-->
         <Button
             android:id="@+id/btn_submit"
             style="@style/button"
             android:text="@string/submit"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_address_container" />
 

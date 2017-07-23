@@ -3,7 +3,6 @@ package com.endorphinapps.kemikal.queenofclean.AddRecords;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -129,7 +128,8 @@ public class AddCustomer extends MenuMain {
                 addressID
         );
 
-        Log.v("z! CustomerId: ", String.valueOf(customerId));
+        System.out.println("z! AddCustomer - addressId: " + String.valueOf(addressID));
+        System.out.println("z! AddCustomer - customerId: " + String.valueOf(customerId));
 
         startActivity(new Intent(AddCustomer.this, ViewCustomers.class));
         finish();
