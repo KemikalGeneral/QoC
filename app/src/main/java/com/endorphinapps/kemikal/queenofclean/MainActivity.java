@@ -11,6 +11,7 @@ import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewDayJobs;
 
 import java.util.ArrayList;
 
@@ -96,7 +97,7 @@ public class MainActivity extends MenuMain
         tv_monday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DayView.class);
+                Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "monday");
                 startActivity(intent);
             }
@@ -105,7 +106,7 @@ public class MainActivity extends MenuMain
         tv_tuesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DayView.class);
+                Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "tuesday");
                 startActivity(intent);
             }
@@ -114,7 +115,7 @@ public class MainActivity extends MenuMain
         tv_wednesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DayView.class);
+                Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "wednesday");
                 startActivity(intent);
             }
@@ -123,7 +124,7 @@ public class MainActivity extends MenuMain
         tv_thursday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DayView.class);
+                Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "thursday");
                 startActivity(intent);
             }
@@ -132,7 +133,7 @@ public class MainActivity extends MenuMain
         tv_friday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DayView.class);
+                Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "friday");
                 startActivity(intent);
             }
@@ -141,7 +142,7 @@ public class MainActivity extends MenuMain
         tv_saturday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DayView.class);
+                Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "saturday");
                 startActivity(intent);
             }
@@ -150,7 +151,7 @@ public class MainActivity extends MenuMain
         tv_sunday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DayView.class);
+                Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "sunday");
                 startActivity(intent);
             }

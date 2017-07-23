@@ -24,7 +24,7 @@ public class ViewJobs extends MenuMain
         implements View.OnClickListener {
 
     private DBHelper db;
-    private long jobId;
+    //    private long jobId;
     private TextView tv_emptyList;
     private JobArrayAdapter arrayAdapter;
     private ListView lv_jobsListView;
@@ -43,7 +43,6 @@ public class ViewJobs extends MenuMain
     /**
      * Create a context menu on a long press of the
      * ViewJobs ListView item to change the job status
-     *
      * @param menu
      * @param v
      * @param menuInfo
@@ -51,8 +50,6 @@ public class ViewJobs extends MenuMain
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.job_status, menu);
 
         // Set menu options
         menu.setHeaderTitle("Change Job Status to...");
@@ -123,7 +120,6 @@ public class ViewJobs extends MenuMain
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ViewJobs.this, DetailJob.class);
                 intent.putExtra("EXTRAS_jobID", id + 1);
-//                jobId = id + 1;
                 startActivity(intent);
             }
         });

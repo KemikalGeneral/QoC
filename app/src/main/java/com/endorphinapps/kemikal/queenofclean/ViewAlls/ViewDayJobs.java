@@ -1,19 +1,26 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.ViewAlls;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.DayJobsArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
+import com.endorphinapps.kemikal.queenofclean.JobsClass;
+import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
+import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.util.ArrayList;
 
-public class DayView extends AppCompatActivity
+public class ViewDayJobs extends AppCompatActivity
         implements View.OnClickListener {
 
     private DBHelper db;
@@ -22,6 +29,56 @@ public class DayView extends AppCompatActivity
     private ArrayList<Job> jobs;
     private TextView tv_emptyList;
     private NavigationBottom navigationBottom;
+
+    /**
+     * Create a context menu on a long press of the
+     * ViewDayJobs ListView item to change the job status
+     *
+     * @param menu
+     * @param v
+     * @param menuInfo
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        // Set menu options
+        menu.setHeaderTitle("Change Job Status to...");
+        menu.add(0, v.getId(), 0, "Unconfirmed");
+        menu.add(0, v.getId(), 0, "Pending");
+        menu.add(0, v.getId(), 0, "Current");
+        menu.add(0, v.getId(), 0, "Completed");
+        menu.add(0, v.getId(), 0, "Cancelled");
+    }
+
+    /**
+     * Action the item selected in the context menu
+     * by calling changeJobStatus() and passing the JobId
+     * and the amended status
+     *
+     * @param item
+     * @return true
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        if (item.getTitle().equals("Unconfirmed")) {
+            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+        } else if (item.getTitle().equals("Pending")) {
+            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+        } else if (item.getTitle().equals("Current")) {
+            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+        } else if (item.getTitle().equals("Completed")) {
+            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+        } else if (item.getTitle().equals("Cancelled")) {
+            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+        }
+        // Recreate the activity to apply changes
+        recreate();
+        return super.onContextItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +126,21 @@ public class DayView extends AppCompatActivity
         dayJobsArrayAdapter = new DayJobsArrayAdapter(this);
         dayJobsArrayAdapter.addAll(jobs);
         lv_dayList.setAdapter(dayJobsArrayAdapter);
+
+        // Register for long clickable context menu
+        // used to change the job status
+        registerForContextMenu(lv_dayList);
+
+        // Handle on listView item click and send job ID
+        // so that it can be displayed in the DetailJob activity
+        lv_dayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ViewDayJobs.this, DetailJob.class);
+                intent.putExtra("EXTRAS_jobID", id + 1);
+                startActivity(intent);
+            }
+        });
 
         // If there are no records, show the 'No Jobs'
         // message, if there are, hide the message

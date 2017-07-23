@@ -2,7 +2,6 @@ package com.endorphinapps.kemikal.queenofclean.Adapters;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
@@ -90,16 +88,6 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
         TextView startTime = (TextView) convertView.findViewById(R.id.job_start_time);
         String startDateFormat = DateFormat.getTimeInstance(DateFormat.SHORT).format(job.getStartTime());
         startTime.setText(startDateFormat);
-
-        // On click of listView item, send ID to the DetailView
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), DetailJob.class);
-                intent.putExtra("EXTRAS_jobID", job.getId());
-                getContext().startActivity(intent);
-            }
-        });
 
         return convertView;
     }
