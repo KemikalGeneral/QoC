@@ -772,7 +772,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Insert Job details passed from AddJob
-     *
      * @param startDate
      * @param status
      * @param estimatedTime
@@ -804,7 +803,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Insert JobItem details
-     *
      * @param job
      * @param description
      * @param price
@@ -887,6 +885,17 @@ public class DBHelper extends SQLiteOpenHelper {
             job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
             job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
         }
+
+        System.out.println("z! ---------- getJobById ----------");
+        System.out.println("z! job id: " + job.getId());
+        System.out.println("z! customer id: " + job.getCustomer());
+        System.out.println("z! employee id: " + job.getEmployee());
+        System.out.println("z! start date: " + job.getStartDate());
+        System.out.println("z! start time: " + job.getStartTime());
+        System.out.println("z! job status: " + job.getJobStatusEnum());
+        System.out.println("z! estimated time: " + job.getEstimatedTime());
+        System.out.println("z! total price: " + job.getTotalPrice());
+        System.out.println("z! notes: " + job.getNotes());
         cursor.close();
         db.close();
 
@@ -959,9 +968,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 jobItem.setPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_JOB_ITEM_PRICE)));
                 jobItems.add(jobItem);
 
-                System.out.println("z! --------------------------------");
-                System.out.println("z! id: " + jobItem.getJobItemId());
-                System.out.println("z! job: " + jobItem.getJob());
+                System.out.println("z! ---------- getJobItem ----------");
+                System.out.println("z! job item id: " + jobItem.getJobItemId());
+                System.out.println("z! job id: " + jobItem.getJob());
                 System.out.println("z! desc: " + jobItem.getDescription());
                 System.out.println("z! price: " + jobItem.getPrice());
 
@@ -996,5 +1005,16 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public String getDatabaseName() {
         return DATABASE_NAME;
+    }
+
+
+    public void changeJobStatus(long jobId, String status) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_STATUS, status);
+        db.update(TABLE_JOBS, values, COLUMN_JOB_ID + " = " + jobId, null);
+
+        db.close();
     }
 }

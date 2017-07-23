@@ -12,7 +12,7 @@ import com.endorphinapps.kemikal.queenofclean.Adapters.CustomerArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddCustomer;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
-import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
