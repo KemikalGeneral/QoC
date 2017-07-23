@@ -862,6 +862,38 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Get a single Job by ID
+     * @param id
+     * @return selected job
+     */
+    public Job getJobById(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Job job = new Job();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + TABLE_JOBS +
+                        " WHERE " + COLUMN_JOB_ID + " = " + id,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            job.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_ID)));
+            job.setCustomer(cursor.getInt(cursor.getColumnIndex(COLUMN_CUSTOMER)));
+            job.setEmployee(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE)));
+            job.setStartDate(cursor.getLong(cursor.getColumnIndex(COLUMN_START_DATE)));
+            job.setStartTime(cursor.getLong(cursor.getColumnIndex(COLUMN_START_TIME)));
+            job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
+            job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
+            job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
+            job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
+        }
+        cursor.close();
+        db.close();
+
+        return job;
+    }
+
+    /**
      * Select all jobs details between a date range.
      * The dates will be FROM the Monday of the present week
      * TO the Sunday of the present week.

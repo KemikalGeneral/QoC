@@ -69,20 +69,6 @@ public class DetailCustomer extends MenuMain {
         tv_city.setText(customer.getCity());
         tv_postcode.setText(customer.getPostcode());
 
-
-//        String fullName =
-//                intent.getStringExtra("EXTRAS_firstName") + " " +
-//                        intent.getStringExtra("EXTRAS_lastName");
-//        tv_fullName.setText(fullName);
-//        tv_homeNumber.setText(intent.getStringExtra("EXTRAS_homeNumber"));
-//        tv_mobileNumber.setText(intent.getStringExtra("EXTRAS_mobileNumber"));
-//        tv_eMailAddress.setText(intent.getStringExtra("EXTRAS_emailAddress"));
-//        tv_addressLine1.setText(intent.getStringExtra("EXTRAS_addressLine1"));
-//        tv_addressLine2.setText(intent.getStringExtra("EXTRAS_addressLine2"));
-//        tv_town.setText(intent.getStringExtra("EXTRAS_town"));
-//        tv_city.setText(intent.getStringExtra("EXTRAS_city"));
-//        tv_postcode.setText(intent.getStringExtra("EXTRAS_postcode"));
-
         // On Edit button click, send the customer ID
         // in the intent and start the EditCustomer activity
         btn_edit.setOnClickListener(new View.OnClickListener() {

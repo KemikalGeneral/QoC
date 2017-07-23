@@ -9,6 +9,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
+import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
+import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
 import com.endorphinapps.kemikal.queenofclean.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
@@ -19,6 +22,10 @@ import java.util.Locale;
 
 public class DetailJob extends MenuMain {
 
+    private DBHelper db;
+    private Job job;
+    private Customer customer;
+    private Employee employee;
     private TextView tv_customerName;
     private TextView tv_employeeName;
     private TextView tv_startDate;
@@ -29,14 +36,10 @@ public class DetailJob extends MenuMain {
     private TextView tv_notes;
     private ConstraintLayout tl_jobDetailContainer;
 
-    private Intent intent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_job);
-
-        intent = getIntent();
 
         // Find all views by ID's
         findViews();
@@ -45,7 +48,15 @@ public class DetailJob extends MenuMain {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Jobs");
 
-        // Populate all fields of the job from adapter intent
+        // Instantiate a new DBHelper class
+        db = new DBHelper(this);
+
+        // Get current Job from ID
+        Intent intent = getIntent();
+        long jobId = intent.getLongExtra("EXTRAS_jobID", 0);
+        job = db.getJobById(jobId);
+
+        // Populate all fields of the job
         setAllTextViews();
 
         // Display all job items
@@ -68,30 +79,28 @@ public class DetailJob extends MenuMain {
     }
 
     /**
-     * Set all text fields with the details from the intent,
-     * sent from the jobArrayAdapter
+     * Set all text fields with the details from the DB,
+     * using the ID from the Adapter  Intent
      */
     private void setAllTextViews() {
-        Intent intent = getIntent();
+        customer = db.getCustomerById(job.getCustomer());
+        employee = db.getEmployeeById(job.getEmployee());
         // Get date as a long and format to locale
         String date = DateFormat.getDateInstance()
-                .format(intent.getLongExtra("EXTRAS_startDate", 0));
+                .format(job.getStartDate());
         // Get time as a long and format to hh:mm
         String time = DateFormat.getTimeInstance(DateFormat.SHORT)
-                .format(intent.getLongExtra("EXTRAS_startTime", 0));
-        // Get string value of estimated time
-        int estimatedTime = intent.getIntExtra("EXTRAS_estimatedTime", 0);
-
-        tv_customerName.setText(intent.getStringExtra("EXTRAS_customer_full_name"));
-        tv_employeeName.setText(intent.getStringExtra("EXTRAS_employee_full_name"));
+                .format(job.getStartTime());
+        // Set TextViews
+        tv_customerName.setText(customer.getFirstName() + " " + customer.getLastName());
+        tv_employeeName.setText(employee.getFirstName() + " " + employee.getLastName());
         tv_startDate.setText(date);
         tv_startTime.setText(time);
-        tv_jobStatus.setText(intent.getStringExtra("EXTRAS_status"));
-        tv_estimatedTime.setText(String.valueOf(estimatedTime));
-        double totalPrice = intent.getDoubleExtra("EXTRAS_totalPrice", 0.0);
+        tv_jobStatus.setText(job.getJobStatusEnum());
+        tv_estimatedTime.setText(String.valueOf(job.getEstimatedTime()));
         tv_totalPrice.setText("£");
-        tv_totalPrice.append(String.format("%.2f", totalPrice));
-        tv_notes.setText(intent.getStringExtra("EXTRAS_notes"));
+        tv_totalPrice.append(String.format(Locale.getDefault(), "%.2f", job.getTotalPrice()));
+        tv_notes.setText(job.getNotes());
     }
 
     /**
@@ -99,10 +108,9 @@ public class DetailJob extends MenuMain {
      */
     private void displayJobItems() {
         ArrayList<JobItem> jobItems;
-        DBHelper db = new DBHelper(this);
 
-        // Ge the Job ID
-        long id = intent.getIntExtra("EXTRAS_id", 0);
+        // Get the Job ID
+        long id = job.getId();
 
         // Populate jobItems according to the job in the DB
         jobItems = db.getJobItems(id);

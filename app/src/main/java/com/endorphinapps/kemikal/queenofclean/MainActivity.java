@@ -1,5 +1,6 @@
 package com.endorphinapps.kemikal.queenofclean;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -10,7 +11,6 @@ import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends MenuMain
@@ -20,14 +20,6 @@ public class MainActivity extends MenuMain
     private JobsClass jobsClass;
     // Total number of jobs for this week
     private ArrayList<Job> jobs;
-    // Daily Jobs Lists
-    private ArrayList<Job> mondaysJobs = new ArrayList<>();
-    private ArrayList<Job> tuesdaysJobs = new ArrayList<>();
-    private ArrayList<Job> wednesdaysJobs = new ArrayList<>();
-    private ArrayList<Job> thursdaysJobs = new ArrayList<>();
-    private ArrayList<Job> fridaysJobs = new ArrayList<>();
-    private ArrayList<Job> saturdaysJobs = new ArrayList<>();
-    private ArrayList<Job> sundaysJobs = new ArrayList<>();
     // Daily Employee Availabilities
     private ArrayList<Employee> allEmployees = new ArrayList<>();
     private ArrayList<Employee> mondaysAvailability = new ArrayList<>();
@@ -89,7 +81,7 @@ public class MainActivity extends MenuMain
         jobs = jobsClass.getJobsByDateRange(0);
 
         // Sort this weeks jobs into their own daily lists
-        sortJobsByDayOfWeek();
+        jobsClass.sortJobsByDayOfWeek();
 
         // Populate each day array with the employee availabilities
         getDailyAvailabilities();
@@ -99,6 +91,69 @@ public class MainActivity extends MenuMain
 
         // Set levels of the daily progress bars
         setLevelsOfDailyProgressBars();
+
+        tv_monday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DayView.class);
+                intent.putExtra("EXTRAS_day", "monday");
+                startActivity(intent);
+            }
+        });
+
+        tv_tuesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DayView.class);
+                intent.putExtra("EXTRAS_day", "tuesday");
+                startActivity(intent);
+            }
+        });
+
+        tv_wednesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DayView.class);
+                intent.putExtra("EXTRAS_day", "wednesday");
+                startActivity(intent);
+            }
+        });
+
+        tv_thursday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DayView.class);
+                intent.putExtra("EXTRAS_day", "thursday");
+                startActivity(intent);
+            }
+        });
+
+        tv_friday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DayView.class);
+                intent.putExtra("EXTRAS_day", "friday");
+                startActivity(intent);
+            }
+        });
+
+        tv_saturday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DayView.class);
+                intent.putExtra("EXTRAS_day", "saturday");
+                startActivity(intent);
+            }
+        });
+
+        tv_sunday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DayView.class);
+                intent.putExtra("EXTRAS_day", "sunday");
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -133,55 +188,8 @@ public class MainActivity extends MenuMain
     }
 
     /**
-     * Iterates through this weeks jobs and sorts them
-     * in to individual daily lists
-     */
-    private void sortJobsByDayOfWeek() {
-        int arraySize = jobs.size();
-
-        // Create a SimpleDateFormat'd date
-        // that show the day of the week as a String
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-        long startDate;
-        String day;
-
-        // Loop through all the jobs for this week
-        // and sort them in to their own daily lists
-        for (int i = 0; i < arraySize; i++) {
-            // Get the startDate of the current job
-            startDate = jobs.get(i).getStartDate();
-            day = sdf.format(startDate);
-
-            switch (day) {
-                case "Monday":
-                    mondaysJobs.add(jobs.get(i));
-                    break;
-                case "Tuesday":
-                    tuesdaysJobs.add(jobs.get(i));
-                    break;
-                case "Wednesday":
-                    wednesdaysJobs.add(jobs.get(i));
-                    break;
-                case "Thursday":
-                    thursdaysJobs.add(jobs.get(i));
-                    break;
-                case "Friday":
-                    fridaysJobs.add(jobs.get(i));
-                    break;
-                case "Saturday":
-                    saturdaysJobs.add(jobs.get(i));
-                    break;
-                case "Sunday":
-                    sundaysJobs.add(jobs.get(i));
-                    break;
-            }
-        }
-    }
-
-    /**
      * Calculate the levels (for use in the progress bars)
      * jobs / availability * 10,000
-     *
      * @param dailyJobsList
      * @param employeeAvailability
      * @return level as an int (up to 10,000)
@@ -202,7 +210,6 @@ public class MainActivity extends MenuMain
     /**
      * Build daily jobs indicator
      * e.g. 5/10 - > jobs booked / employees available
-     *
      * @param dailyJobsList
      * @param employeeAvailability
      * @return dailyJobIndicator as a String
@@ -222,26 +229,26 @@ public class MainActivity extends MenuMain
      * Display daily indicators with the calculated figures
      */
     private void displayDailyIndicators() {
-        tv_mondayIndicator.setText(buildDailyIndicator(mondaysJobs, mondaysAvailability));
-        tv_tuesdayIndicator.setText(buildDailyIndicator(tuesdaysJobs, tuesdaysAvailability));
-        tv_wednesdayIndicator.setText(buildDailyIndicator(wednesdaysJobs, wednesdaysAvailability));
-        tv_thursdayIndicator.setText(buildDailyIndicator(thursdaysJobs, thursdaysAvailability));
-        tv_fridayIndicator.setText(buildDailyIndicator(fridaysJobs, fridaysAvailability));
-        tv_saturdayIndicator.setText(buildDailyIndicator(saturdaysJobs, saturdaysAvailability));
-        tv_sundayIndicator.setText(buildDailyIndicator(sundaysJobs, sundaysAvailability));
+        tv_mondayIndicator.setText(buildDailyIndicator(jobsClass.getMondaysJobs(), mondaysAvailability));
+        tv_tuesdayIndicator.setText(buildDailyIndicator(jobsClass.getTuesdaysJobs(), tuesdaysAvailability));
+        tv_wednesdayIndicator.setText(buildDailyIndicator(jobsClass.getWednesdaysJobs(), wednesdaysAvailability));
+        tv_thursdayIndicator.setText(buildDailyIndicator(jobsClass.getThursdaysJobs(), thursdaysAvailability));
+        tv_fridayIndicator.setText(buildDailyIndicator(jobsClass.getFridaysJobs(), fridaysAvailability));
+        tv_saturdayIndicator.setText(buildDailyIndicator(jobsClass.getSaturdaysJobs(), saturdaysAvailability));
+        tv_sundayIndicator.setText(buildDailyIndicator(jobsClass.getSundaysJobs(), sundaysAvailability));
     }
 
     /**
      * Set the levels of the daily progress bars
      */
     private void setLevelsOfDailyProgressBars() {
-        tv_monday.getBackground().setLevel(calculateLevel(mondaysJobs, mondaysAvailability));
-        tv_tuesday.getBackground().setLevel(calculateLevel(tuesdaysJobs, tuesdaysAvailability));
-        tv_wednesday.getBackground().setLevel(calculateLevel(wednesdaysJobs, wednesdaysAvailability));
-        tv_thursday.getBackground().setLevel(calculateLevel(thursdaysJobs, thursdaysAvailability));
-        tv_friday.getBackground().setLevel(calculateLevel(fridaysJobs, fridaysAvailability));
-        tv_saturday.getBackground().setLevel(calculateLevel(saturdaysJobs, saturdaysAvailability));
-        tv_sunday.getBackground().setLevel(calculateLevel(sundaysJobs, sundaysAvailability));
+        tv_monday.getBackground().setLevel(calculateLevel(jobsClass.getMondaysJobs(), mondaysAvailability));
+        tv_tuesday.getBackground().setLevel(calculateLevel(jobsClass.getTuesdaysJobs(), tuesdaysAvailability));
+        tv_wednesday.getBackground().setLevel(calculateLevel(jobsClass.getWednesdaysJobs(), wednesdaysAvailability));
+        tv_thursday.getBackground().setLevel(calculateLevel(jobsClass.getThursdaysJobs(), thursdaysAvailability));
+        tv_friday.getBackground().setLevel(calculateLevel(jobsClass.getFridaysJobs(), fridaysAvailability));
+        tv_saturday.getBackground().setLevel(calculateLevel(jobsClass.getSaturdaysJobs(), saturdaysAvailability));
+        tv_sunday.getBackground().setLevel(calculateLevel(jobsClass.getSundaysJobs(), sundaysAvailability));
     }
 
     /**

@@ -2,7 +2,7 @@ package com.endorphinapps.kemikal.queenofclean.Entities;
 
 public class Job {
 
-    private int id;
+    private long id;
     private long customer;
     private long employee;
     private long startDate;
@@ -16,7 +16,7 @@ public class Job {
 
     public Job() {}
 
-    public Job(int id, long customer, long employee,
+    public Job(long id, long customer, long employee,
                long startDate, long startTime, long endDate,
                String jobStatusEnum, int estimatedTime,
                int actualTime, double totalPrice, String notes) {
@@ -33,11 +33,11 @@ public class Job {
         this.notes = notes;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
