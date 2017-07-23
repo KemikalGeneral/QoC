@@ -55,7 +55,6 @@ public class ViewDayJobs extends AppCompatActivity
      * Action the item selected in the context menu
      * by calling changeJobStatus() and passing the JobId
      * and the amended status
-     *
      * @param item
      * @return true
      */

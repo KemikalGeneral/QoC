@@ -3,12 +3,17 @@ package com.endorphinapps.kemikal.queenofclean.Finances;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_out;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
@@ -26,7 +31,6 @@ public class Finances_out extends MenuMain
     private TextView tv_totalAmountOut;
     private TextView tv_inTab;
     private TextView tv_overviewTab;
-
     private TextView tv_dateBack;
     private TextView tv_dateRange;
     private TextView tv_dateFWD;
@@ -41,6 +45,47 @@ public class Finances_out extends MenuMain
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    /**
+     * Create a context menu on a long press of the
+     * Finance_Out ListView item to change the payment status
+     *
+     * @param menu
+     * @param v
+     * @param menuInfo
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        // Set menu options
+        menu.setHeaderTitle("Change payment status to...");
+        menu.add(0, v.getId(), 0, "UnPaid");
+        menu.add(0, v.getId(), 0, "Paid");
+    }
+
+    /**
+     * Action the item selected in the context menu
+     * by calling ??? and passing the ???
+     * and the amended status
+     *
+     * @param item
+     * @return true
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        if (item.getTitle().equals("UnPaid")) {
+            Toast.makeText(this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+        } else if (item.getTitle().equals("Paid")) {
+            Toast.makeText(this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+        }
+        // Recreate the activity to apply changes
+        recreate();
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -82,6 +127,10 @@ public class Finances_out extends MenuMain
         // Monday - Sunday of current week
         getJobsAndSetupListView();
 
+        // Register for long clickable context menu
+        // used to change the payment status
+        registerForContextMenu(lv_listView);
+
         // Cycle through Jobs and total pay to employees.
         // Display to TextView
         displayTotalToTextView();
@@ -113,6 +162,15 @@ public class Finances_out extends MenuMain
                 getJobsAndSetupListView();
                 displayTotalToTextView();
                 displayDateRange();
+            }
+        });
+
+        lv_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Finances_out.this, DetailJob.class);
+                intent.putExtra("EXTRAS_jobID", id + 1);
+                startActivity(intent);
             }
         });
     }
