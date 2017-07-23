@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.R;
@@ -35,6 +36,7 @@ public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
 
         Job job = getItem(position);
         Employee employee = db.getEmployeeById(job.getEmployee());
+        Customer customer = db.getCustomerById(job.getCustomer());
 
         // Fetch, concatenate and display
         // employee first and last names
@@ -42,7 +44,9 @@ public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
         TextView employeeFirstLast = (TextView) convertView.findViewById(R.id.finances_employee);
         employeeFirstLast.setText(fullName);
 
-        //TODO - add job address
+        // Fetch and display the customer's address
+        TextView customerAddress = (TextView) convertView.findViewById(R.id.finances_address);
+        customerAddress.setText(customer.getAddressLine1());
 
         // Fetch and display the date
         //TODO - change to endDate
@@ -67,7 +71,9 @@ public class FinanceArrayAdapter_out extends ArrayAdapter<Job> {
         rateOfPay.setText("£");
         rateOfPay.setText(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
 
-        //TODO - add payment status
+        //TODO - swap for payment status
+        TextView jobStatus = (TextView) convertView.findViewById(R.id.payment_status);
+        jobStatus.setText(job.getJobStatusEnum());
 
         return convertView;
     }
