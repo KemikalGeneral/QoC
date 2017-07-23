@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.endorphinapps.kemikal.queenofclean.DayView">
 
+    <!--Empty List Message-->
+    <TextView
+        android:id="@+id/day_empty_list"
+        style="@style/text_field_wrap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="There are no jobs on for today!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <include
         android:id="@+id/bottom_nav"
         layout="@layout/navigation_bottom"

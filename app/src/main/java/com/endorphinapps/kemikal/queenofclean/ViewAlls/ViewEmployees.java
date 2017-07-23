@@ -21,10 +21,8 @@ public class ViewEmployees extends MenuMain
 
     private TextView tv_customersTab;
     private TextView tv_emptyList;
-
     private ListView lv_employeesListView;
     private EmployeeArrayAdapter arrayAdapter;
-
     private FloatingActionButton fab;
     private NavigationBottom navigationBottom;
 

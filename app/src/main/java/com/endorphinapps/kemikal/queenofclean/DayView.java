@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.DayJobsArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
@@ -19,7 +20,7 @@ public class DayView extends AppCompatActivity
     private DayJobsArrayAdapter dayJobsArrayAdapter;
     private ListView lv_dayList;
     private ArrayList<Job> jobs;
-
+    private TextView tv_emptyList;
     private NavigationBottom navigationBottom;
 
     @Override
@@ -68,6 +69,14 @@ public class DayView extends AppCompatActivity
         dayJobsArrayAdapter = new DayJobsArrayAdapter(this);
         dayJobsArrayAdapter.addAll(jobs);
         lv_dayList.setAdapter(dayJobsArrayAdapter);
+
+        // If there are no records, show the 'No Jobs'
+        // message, if there are, hide the message
+        if (dayJobsArrayAdapter.getCount() == 0) {
+            tv_emptyList.setVisibility(View.VISIBLE);
+        } else {
+            tv_emptyList.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -75,6 +84,7 @@ public class DayView extends AppCompatActivity
      */
     private void findViews() {
         lv_dayList = (ListView) findViewById(R.id.day_view_listview);
+        tv_emptyList = (TextView) findViewById(R.id.day_empty_list);
     }
 
     /**

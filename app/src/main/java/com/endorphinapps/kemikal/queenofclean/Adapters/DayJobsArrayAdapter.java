@@ -53,8 +53,8 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
         TextView customerAddress = (TextView) convertView.findViewById(R.id.address_line_1);
         customerAddress.setText(customer.getAddressLine1());
 
-        /**
-         * Employee details
+        /*
+          Employee details
          */
         //Get Employee from DB by ID
         final Employee employee = db.getEmployeeById(job.getEmployee());
@@ -64,8 +64,8 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
         TextView employeeFirstLast = (TextView) convertView.findViewById(R.id.full_name_employee);
         employeeFirstLast.setText(employeeFullName);
 
-        /**
-         * Job details
+        /*
+          Job details
          */
         // Price
         TextView totalPrice = (TextView) convertView.findViewById(R.id.total_price);
