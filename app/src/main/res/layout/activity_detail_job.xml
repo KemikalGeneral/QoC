@@ -225,5 +225,19 @@
         </android.support.constraint.ConstraintLayout>
 
         <!--TODO - Add Job items -->
+
+        <Button
+            android:id="@+id/btn_edit_job"
+            style="@style/button"
+            android:text="Edit"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_notes_container" />
+
+        <Button
+            android:id="@+id/btn_delete_job"
+            style="@style/button"
+            android:text="Delete"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_edit_job" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

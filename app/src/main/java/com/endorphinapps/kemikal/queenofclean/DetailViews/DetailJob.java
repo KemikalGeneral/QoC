@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.view.ContextThemeWrapper;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -26,6 +29,8 @@ public class DetailJob extends MenuMain {
     private Job job;
     private Customer customer;
     private Employee employee;
+    private Button btnEdit;
+    private Button btnDelete;
     private TextView tv_customerName;
     private TextView tv_employeeName;
     private TextView tv_startDate;
@@ -53,7 +58,7 @@ public class DetailJob extends MenuMain {
 
         // Get current Job from ID
         Intent intent = getIntent();
-        long jobId = intent.getLongExtra("EXTRAS_jobID", 0);
+        final long jobId = intent.getLongExtra("EXTRAS_jobID", 0);
         job = db.getJobById(jobId);
 
         // Populate all fields of the job
@@ -61,12 +66,35 @@ public class DetailJob extends MenuMain {
 
         // Display all job items
         displayJobItems();
+
+        //TODO - create edit activity
+//        btnEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent editIntent = new Intent(DetailJob.this, EditJob.class);
+//                editIntent.putExtra("EXTRAS_id", jobId);
+//                startActivity(editIntent);
+//                finish();
+//            }
+//        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteJobById(jobId);
+                Intent deleteIntent = new Intent(DetailJob.this, ViewJobs.class);
+                startActivity(deleteIntent);
+                finish();
+            }
+        });
     }
 
     /**
      * Find all views by ID
      */
     private void findViews() {
+        btnEdit = (Button) findViewById(R.id.btn_edit_job);
+        btnDelete = (Button) findViewById(R.id.btn_delete_job);
         tv_customerName = (TextView) findViewById(R.id.full_name_customer);
         tv_employeeName = (TextView) findViewById(R.id.full_name_employee);
         tv_startDate = (TextView) findViewById(R.id.start_date);

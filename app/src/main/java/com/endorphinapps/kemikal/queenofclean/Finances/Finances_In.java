@@ -6,14 +6,12 @@ import android.support.v7.app.ActionBar;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_in;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
@@ -27,6 +25,7 @@ public class Finances_In extends MenuMain
 
     private DBHelper db;
     private Finances finances;
+    private FinanceArrayAdapter_in financeArrayAdapter_in;
     private TextView tv_overviewTab;
     private TextView tv_outTab;
     private ListView lv_listView;
@@ -75,13 +74,12 @@ public class Finances_In extends MenuMain
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info =
-                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        long jobId = financeArrayAdapter_in.getJobId();
 
         if (item.getTitle().equals("UnPaid")) {
-            Toast.makeText(this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "ID/" + jobId, Toast.LENGTH_SHORT).show();
         } else if (item.getTitle().equals("Paid")) {
-            Toast.makeText(this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "ID/" + jobId, Toast.LENGTH_SHORT).show();
         }
         // Recreate the activity to apply changes
         recreate();
@@ -164,15 +162,6 @@ public class Finances_In extends MenuMain
                 displayDateRange();
             }
         });
-
-        lv_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(Finances_In.this, DetailJob.class);
-                intent.putExtra("EXTRAS_jobID", id + 1);
-                startActivity(intent);
-            }
-        });
     }
 
     /**
@@ -196,8 +185,7 @@ public class Finances_In extends MenuMain
      * the weeks.
      */
     private void getJobsAndSetupListView() {
-        FinanceArrayAdapter_in financeArrayAdapter_in =
-                new FinanceArrayAdapter_in(this);
+        financeArrayAdapter_in = new FinanceArrayAdapter_in(this);
         financeArrayAdapter_in.addAll(finances.getJobsByDateRange(datePeriod));
         lv_listView.setAdapter(financeArrayAdapter_in);
     }

@@ -6,13 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.DayJobsArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.JobsClass;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
@@ -60,19 +58,19 @@ public class ViewDayJobs extends AppCompatActivity
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info =
-                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        long jobId = dayJobsArrayAdapter.getJobId();
 
         if (item.getTitle().equals("Unconfirmed")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
         } else if (item.getTitle().equals("Pending")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
         } else if (item.getTitle().equals("Current")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
         } else if (item.getTitle().equals("Completed")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
         } else if (item.getTitle().equals("Cancelled")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
         }
         // Recreate the activity to apply changes
         recreate();
@@ -129,17 +127,6 @@ public class ViewDayJobs extends AppCompatActivity
         // Register for long clickable context menu
         // used to change the job status
         registerForContextMenu(lv_dayList);
-
-        // Handle on listView item click and send job ID
-        // so that it can be displayed in the DetailJob activity
-        lv_dayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ViewDayJobs.this, DetailJob.class);
-                intent.putExtra("EXTRAS_jobID", id + 1);
-                startActivity(intent);
-            }
-        });
 
         // If there are no records, show the 'No Jobs'
         // message, if there are, hide the message

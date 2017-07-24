@@ -2,6 +2,7 @@ package com.endorphinapps.kemikal.queenofclean.Adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
@@ -22,6 +24,7 @@ import java.util.Locale;
 public class JobArrayAdapter extends ArrayAdapter<Job> {
 
     private DBHelper db = new DBHelper(getContext());
+    private long jobId;
 
     public JobArrayAdapter(Context context) {
         super(context, 0);
@@ -93,6 +96,37 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
         String startDateFormat = DateFormat.getDateInstance().format(job.getStartDate());
         startDate.setText(startDateFormat);
 
+        // Handle on listView item click and send job ID
+        // so that it can be displayed in the DetailJob activity
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), DetailJob.class);
+                intent.putExtra("EXTRAS_jobID", job.getId());
+                System.out.println("z! JobsArrayAdapter - onClick - jobID: " + job.getId());
+                getContext().startActivity(intent);
+            }
+        });
+
+        // Handle on listView item long click and send job ID
+        // so that it can be used for the ListView contextMenu
+        // Returns false to avoid conflicts with the context menu
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setJobId(job.getId());
+                return false;
+            }
+        });
+
         return convertView;
+    }
+
+    public long getJobId() {
+        return jobId;
+    }
+
+    private void setJobId(long jobId) {
+        this.jobId = jobId;
     }
 }

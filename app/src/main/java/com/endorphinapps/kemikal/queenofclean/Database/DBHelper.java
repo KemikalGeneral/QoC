@@ -982,6 +982,18 @@ public class DBHelper extends SQLiteOpenHelper {
         return jobItems;
     }
 
+    /**
+     * Delete a job by ID
+     *
+     * @param jobId
+     */
+    public void deleteJobById(long jobId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(TABLE_JOBS, COLUMN_JOB_ID + " = " + jobId, null);
+        db.close();
+    }
+
     //////////////////////////////////////////////////////////
     //                                                                                 MISC.
     //////////////////////////////////////////////////////////
