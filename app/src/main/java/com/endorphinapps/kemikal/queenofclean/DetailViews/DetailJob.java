@@ -11,6 +11,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.EditRecords.EditJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
@@ -68,15 +69,15 @@ public class DetailJob extends MenuMain {
         displayJobItems();
 
         //TODO - create edit activity
-//        btnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent editIntent = new Intent(DetailJob.this, EditJob.class);
-//                editIntent.putExtra("EXTRAS_id", jobId);
-//                startActivity(editIntent);
-//                finish();
-//            }
-//        });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editIntent = new Intent(DetailJob.this, EditJob.class);
+                editIntent.putExtra("EXTRAS_id", jobId);
+                startActivity(editIntent);
+                finish();
+            }
+        });
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +142,7 @@ public class DetailJob extends MenuMain {
         long id = job.getId();
 
         // Populate jobItems according to the job in the DB
-        jobItems = db.getJobItems(id);
+        jobItems = db.getJobItemsByJobId(id);
 
         // Create TextViews for descriptions and prices
         TextView description;
