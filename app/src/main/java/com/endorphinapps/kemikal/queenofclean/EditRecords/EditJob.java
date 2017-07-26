@@ -131,31 +131,32 @@ public class EditJob extends MenuMain
         // Pick a date for the start of the job, using a datePicker
         // Returned in onDateSet
         createAndReturnDatePicker();
-        // Set to current job's start date
+        // Populate the startDate with the current job's start date
         populateCurrentStartDate();
 
         // Pick a time for the start of the job, using a timePicker
         // Returned in onTimeSet
         createAndReturnTimePicker();
-        // Set to current job's start time
+        // Populate startTime with the current job's start time
         populateCurrentStartTime();
 
         // Populate JobStatus spinner with values from Enum class
-        sp_statusSpinner.setAdapter(new ArrayAdapter<JobStatus>(this, R.layout.spinner_list_item, JobStatus.values()));
-        // Set to current job's status
+        sp_statusSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_list_item, JobStatus.values()));
+        // Populate jobStatus with the current job's status
         int position = JobStatus.valueOf(job.getJobStatusEnum()).ordinal();
         sp_statusSpinner.setSelection(position);
 
-        // Set estimatedTime to current job's time
+        // Populate estimatedTime with the current job's time
         et_estimatedTime.setText(String.valueOf(job.getEstimatedTime()));
 
-        // Populate Total Price with current job's price
+        // Populate Total Price with the current job's price
         tv_jobTotalPrice.setText("£");
         tv_jobTotalPrice.append(String.format(Locale.getDefault(), "%.2f", job.getTotalPrice()));
 
-        // Set jonNotes to current job's notes
+        // Populate jobNotes with the current job's notes
         et_notes.setText(job.getNotes());
 
+        // Populate jobItems with the current job's items
         populateJobRow();
 
         //Calls addJobRow() to add a new row layout
@@ -173,8 +174,6 @@ public class EditJob extends MenuMain
                 onSubmit();
             }
         });
-
-        //TODO - Time and Date are reset on submit. JobItems calculate properly, but don't amend in the display
     }
 
     /**
@@ -213,11 +212,14 @@ public class EditJob extends MenuMain
     private void getCustomersAndPopulateSpinner() {
         final ArrayList<Customer> customers = db.getAllCustomers();
         ArrayList<String> customerNames = new ArrayList<>();
+
         String fullName;
-        for (int i = 0; i < customers.size(); i++) {
+        int arraySize = customers.size();
+        for (int i = 0; i < arraySize; i++) {
             fullName = customers.get(i).getFirstName() + " " + customers.get(i).getLastName();
             customerNames.add(fullName);
         }
+
         ArrayAdapter<String> customerSpinnerAdapter = new ArrayAdapter<>(
                 this, R.layout.spinner_list_item, customerNames);
         sp_customerSpinner.setAdapter(customerSpinnerAdapter);
@@ -226,7 +228,8 @@ public class EditJob extends MenuMain
         // to see if the current name matches.
         // Set index as position
         String currentCustomerFullName = customer.getFirstName() + " " + customer.getLastName();
-        for (int i = 0; i < customerNames.size(); i++) {
+        int arraySize2 = customerNames.size();
+        for (int i = 0; i < arraySize2; i++) {
             if (currentCustomerFullName.equals(customerNames.get(i))) {
                 sp_customerSpinner.setSelection(i);
             }
@@ -269,11 +272,14 @@ public class EditJob extends MenuMain
     private void getEmployeesAndPopulateSpinner() {
         final ArrayList<Employee> employees = db.getAllEmployees();
         ArrayList<String> employeeNames = new ArrayList<>();
+
         String fullName;
-        for (int i = 0; i < employees.size(); i++) {
+        int arraySize = employees.size();
+        for (int i = 0; i < arraySize; i++) {
             fullName = employees.get(i).getFirstName() + " " + employees.get(i).getLastName();
             employeeNames.add(fullName);
         }
+
         ArrayAdapter<String> employeeSpinnerAdapter = new ArrayAdapter<>(
                 this, R.layout.spinner_list_item, employeeNames);
         sp_employeeSpinner.setAdapter(employeeSpinnerAdapter);
@@ -282,7 +288,8 @@ public class EditJob extends MenuMain
         // to see if the current name matches.
         // Set index as position
         String currentEmployeeFullName = employee.getFirstName() + " " + employee.getLastName();
-        for (int i = 0; i < employeeNames.size(); i++) {
+        int arraySize2 = employeeNames.size();
+        for (int i = 0; i < arraySize2; i++) {
             if (currentEmployeeFullName.equals(employeeNames.get(i))) {
                 sp_employeeSpinner.setSelection(i);
             }
@@ -403,7 +410,6 @@ public class EditJob extends MenuMain
      * sets the value to a calendar object and converts
      * to millis for inserting to DB.
      * Displays the time in the relevant TextView.
-     *
      * @param view
      * @param hourOfDay
      * @param minute
@@ -426,7 +432,6 @@ public class EditJob extends MenuMain
 
     /**
      * Get the job status from the job status spinner
-     *
      * @return job status as a string
      */
     private String getJobStatus() {
@@ -451,7 +456,8 @@ public class EditJob extends MenuMain
         // Iterate through the list of jobsItems and create
         // and populate the description and price fields
         // of each JobItem
-        for (int i = 0; i < jobItems.size(); i++) {
+        int arraySize = jobItems.size();
+        for (int i = 0; i < arraySize; i++) {
 
             //Create a new row container
             LinearLayout jobRowContainer = new LinearLayout(this);
@@ -550,7 +556,6 @@ public class EditJob extends MenuMain
 
     /**
      * Removes the current row (LinearLayout)
-     *
      * @param delete
      */
     private void removeJobRow(ImageButton delete) {
@@ -571,7 +576,8 @@ public class EditJob extends MenuMain
         double price;
 
         //Get the values from the description and price fields
-        for (int i = 0; i < ll_jobListContainer.getChildCount(); i++) {
+        int arraySize = ll_jobListContainer.getChildCount();
+        for (int i = 0; i < arraySize; i++) {
             currentRow = (LinearLayout) ll_jobListContainer.getChildAt(i);
 
             //Get the text from the Description field
@@ -690,7 +696,6 @@ public class EditJob extends MenuMain
 
     /**
      * Get the ID of the customer
-     *
      * @return ID as a long
      */
     private long getCustomerId() {
@@ -704,7 +709,6 @@ public class EditJob extends MenuMain
 
     /**
      * Get the ID of the customer
-     *
      * @return ID as a long
      */
     private long getEmployeeId() {
@@ -720,7 +724,6 @@ public class EditJob extends MenuMain
      * Save all details of Job to DB.
      * Save the JobItems separately as they require the
      * id returned from the saved Job as a FK
-     *
      * @param startDate
      * @param jobStatus
      * @param estimateJobTime
@@ -748,7 +751,6 @@ public class EditJob extends MenuMain
     /**
      * Save the jobItems to the DB using the
      * id returned from saving the Job
-     *
      * @param jobId
      */
     private void saveJobItemsToDB(long jobId) {
@@ -758,7 +760,8 @@ public class EditJob extends MenuMain
         double price;
 
         //Get the values from the description and price fields
-        for (int i = 0; i < ll_jobListContainer.getChildCount(); i++) {
+        int arraySize = ll_jobListContainer.getChildCount();
+        for (int i = 0; i < arraySize; i++) {
             currentRow = (LinearLayout) ll_jobListContainer.getChildAt(i);
 
             //Get the text from the Description field
@@ -773,6 +776,7 @@ public class EditJob extends MenuMain
             if (!editText.getText().toString().equals("")) {
                 price = Double.parseDouble(editText.getText().toString());
             }
+
             // Save to DB
             long jobItemId = db.getJobItemsIdByJobId(jobId);
             db.updateJobItem(jobItemId, jobId, description, price);

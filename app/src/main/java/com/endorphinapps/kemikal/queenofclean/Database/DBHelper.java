@@ -876,6 +876,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_JOB_ITEM_PRICE, price);
         long id = db.update(TABLE_JOB_ITEMS, values, COLUMN_JOB_ITEM_ID + " = " + jobItemId, null);
 
+        System.out.println("z! ----- updateJobItem -----");
         System.out.println("z! insert: " + id);
         System.out.println("z! insert: " + job);
         System.out.println("z! insert: " + description);
