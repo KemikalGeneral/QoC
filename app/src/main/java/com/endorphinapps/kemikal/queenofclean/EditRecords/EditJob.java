@@ -108,26 +108,8 @@ public class EditJob extends MenuMain
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Edit a Job");
 
-//        sp_customerSpinner.setVisibility(View.GONE);
-//        ll_addressContainer.setVisibility(View.GONE);
-//        sp_employeeSpinner.setVisibility(View.GONE);
-
-//        tv_dummyCustomer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
         tv_dummyCustomer.setVisibility(View.GONE);
-//                sp_customerSpinner.setVisibility(View.VISIBLE);
-//                ll_addressContainer.setVisibility(View.VISIBLE);
-//            }
-//        });
-
-//        tv_dummyEmployee.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
         tv_dummyEmployee.setVisibility(View.GONE);
-//                sp_employeeSpinner.setVisibility(View.VISIBLE);
-//            }
-//        });
 
         // Populate customers ArrayList and spinner with
         // customer details from the DB.
@@ -150,15 +132,13 @@ public class EditJob extends MenuMain
         // Returned in onDateSet
         createAndReturnDatePicker();
         // Set to current job's start date
-        String currentStartDate = DateFormat.getDateInstance().format(job.getStartDate());
-        tv_startDate.setText(currentStartDate);
+        populateCurrentStartDate();
 
         // Pick a time for the start of the job, using a timePicker
         // Returned in onTimeSet
         createAndReturnTimePicker();
         // Set to current job's start time
-        String currentStartTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(job.getStartTime());
-        tv_startTime.setText(currentStartTime);
+        populateCurrentStartTime();
 
         // Populate JobStatus spinner with values from Enum class
         sp_statusSpinner.setAdapter(new ArrayAdapter<JobStatus>(this, R.layout.spinner_list_item, JobStatus.values()));
@@ -344,11 +324,27 @@ public class EditJob extends MenuMain
     }
 
     /**
+     * Populate the startDate with the current job's startDate
+     * and display it in the tv_startDate TextView
+     */
+    public void populateCurrentStartDate() {
+        // Get current startDate
+        startDate = job.getStartDate();
+
+        // Format date to dd:month:yyyy
+        String date = DateFormat.getDateInstance().format(startDate);
+
+        // Display current start date in TextView
+        tv_startDate.setText(date);
+
+        System.out.println("z! AddJob - populateCurrentStartDate(): " + date);
+    }
+
+    /**
      * onDateSet returns the date chosen from the datePicker,
      * sets values to a calendar object and converts
      * to millis for inserting into DB
      * Displays the date in the relevant TextView.
-     *
      * @param view
      * @param year
      * @param month
@@ -383,6 +379,23 @@ public class EditJob extends MenuMain
                 dialogFragment.show(getFragmentManager(), "timePicker");
             }
         });
+    }
+
+    /**
+     * Populate the startTime with the current job's startTime
+     * and display it in the tv_startTime TextView
+     */
+    public void populateCurrentStartTime() {
+        // Get current startTime
+        startTime = job.getStartTime();
+
+        // Format time to hh:mm
+        String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime);
+
+        // Display in TextView
+        tv_startTime.setText(time);
+
+        System.out.println("z! AddJob - populateCurrentStartTime(): " + time);
     }
 
     /**
