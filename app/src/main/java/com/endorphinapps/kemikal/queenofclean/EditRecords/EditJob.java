@@ -732,11 +732,16 @@ public class EditJob extends MenuMain
      * @param customerId
      * @param employeeId
      */
-    private void saveToDB(long id, long startDate, long startTime,
-                          String jobStatus, int estimateJobTime,
-                          double totalCostForJob, String jobNotes,
-                          long customerId, long employeeId) {
-        long jobId = db.updateJob(id, startDate, startTime,
+    private void saveToDB(long id,
+                          long startDate,
+                          long startTime,
+                          String jobStatus,
+                          int estimateJobTime,
+                          double totalCostForJob,
+                          String jobNotes,
+                          long customerId,
+                          long employeeId) {
+        db.updateJob(id, startDate, startTime,
                 jobStatus, estimateJobTime, totalCostForJob,
                 jobNotes, customerId, employeeId);
 
@@ -759,8 +764,14 @@ public class EditJob extends MenuMain
         String description;
         double price;
 
-        //Get the values from the description and price fields
+
+        // Check how many job items there are in the activity.
         int arraySize = ll_jobListContainer.getChildCount();
+        // Get a list of jobItem id's for this Job
+        ArrayList<JobItem> jobItemIds = db.getJobItemsIdsByJobId(jobId);
+        // Create a counter for the number of updates
+        int counter = 0;
+        // Get the values from the description and price fields.
         for (int i = 0; i < arraySize; i++) {
             currentRow = (LinearLayout) ll_jobListContainer.getChildAt(i);
 
@@ -778,10 +789,17 @@ public class EditJob extends MenuMain
             }
 
             // Save to DB
-            long jobItemId = db.getJobItemsIdByJobId(jobId);
-            db.updateJobItem(jobItemId, jobId, description, price);
+            // Increment the counter. If the counter is less than
+            // the existing number of jobItems, then they should be updated.
+            // It the counter is more, then the extra should be inserted as new.
+            counter++;
+            if (counter <= jobItemIds.size()) {
+                long jobItemId = jobItemIds.get(i).getJobItemId();
+                db.updateJobItem(jobItemId, description, price);
+            } else {
+                db.insertJobItem(jobId, description, price);
+            }
         }
-
     }
 
 }

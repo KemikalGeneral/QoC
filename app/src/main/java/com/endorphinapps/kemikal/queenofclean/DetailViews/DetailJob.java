@@ -71,7 +71,7 @@ public class DetailJob extends MenuMain {
         // Display all job items
         displayJobItems();
 
-        //TODO - create edit activity
+        // Go to the EditJob activity
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,10 +82,12 @@ public class DetailJob extends MenuMain {
             }
         });
 
+        // Delete the job, and the jobItems with the jobId
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 db.deleteJobById(jobId);
+                db.deleteJobItemByJobId(jobId);
                 Intent deleteIntent = new Intent(DetailJob.this, ViewJobs.class);
                 startActivity(deleteIntent);
                 finish();
