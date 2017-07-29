@@ -893,7 +893,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
-                "FROM " + TABLE_JOBS + ";"
+                        "FROM " + TABLE_JOBS +
+                        " ORDER BY " + COLUMN_START_DATE + ";"
                 ,null
         );
 
@@ -977,7 +978,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "SELECT * " +
                 "FROM " + TABLE_JOBS +
                 " WHERE " + COLUMN_START_DATE + " >= " + from +
-                " AND " + COLUMN_START_DATE + " <= " + to + ";",
+                        " AND " + COLUMN_START_DATE + " <= " + to +
+                        " ORDER BY " + COLUMN_START_DATE + ";",
                 null
         );
 
