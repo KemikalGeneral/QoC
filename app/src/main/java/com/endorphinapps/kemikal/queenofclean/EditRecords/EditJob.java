@@ -499,6 +499,7 @@ public class EditJob extends MenuMain
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    db.deleteJobItemByJobId(jobId);
                     removeJobRow(delete);
                 }
             });
@@ -690,6 +691,7 @@ public class EditJob extends MenuMain
         //Save all job attributes to the DB
         saveToDB(jobId, startDate, startTime, jobStatus, estimateJobTime, totalCostForJob, jobNotes, customerId, employeeId);
 
+        // Go back to the all jobs ListView
         startActivity(new Intent(EditJob.this, ViewJobs.class));
         finish();
     }
@@ -724,7 +726,9 @@ public class EditJob extends MenuMain
      * Save all details of Job to DB.
      * Save the JobItems separately as they require the
      * id returned from the saved Job as a FK
+     * @param id
      * @param startDate
+     * @param startTime
      * @param jobStatus
      * @param estimateJobTime
      * @param totalCostForJob
@@ -732,21 +736,16 @@ public class EditJob extends MenuMain
      * @param customerId
      * @param employeeId
      */
-    private void saveToDB(long id,
-                          long startDate,
-                          long startTime,
-                          String jobStatus,
-                          int estimateJobTime,
-                          double totalCostForJob,
-                          String jobNotes,
-                          long customerId,
+    private void saveToDB(long id, long startDate,
+                          long startTime, String jobStatus,
+                          int estimateJobTime, double totalCostForJob,
+                          String jobNotes, long customerId,
                           long employeeId) {
         db.updateJob(id, startDate, startTime,
                 jobStatus, estimateJobTime, totalCostForJob,
                 jobNotes, customerId, employeeId);
 
-        System.out.println("z! AddJob - saveToDB() - jobId: " +
-                jobId);
+        System.out.println("z! EditJob - saveToDB() - jobId: " + id);
 
         // Save the jobItems separately as they require
         // the jobId as a FK
@@ -763,7 +762,6 @@ public class EditJob extends MenuMain
         EditText editText;
         String description;
         double price;
-
 
         // Check how many job items there are in the activity.
         int arraySize = ll_jobListContainer.getChildCount();
