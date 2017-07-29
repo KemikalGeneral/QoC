@@ -193,6 +193,7 @@
             </android.support.design.widget.TextInputLayout>
         </android.support.constraint.ConstraintLayout>
 
+        <!--Submit-->
         <Button
             android:id="@+id/apply_changes"
             style="@style/button"

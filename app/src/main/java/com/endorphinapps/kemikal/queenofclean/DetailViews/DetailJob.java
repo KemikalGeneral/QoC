@@ -4,21 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.view.ContextThemeWrapper;
-import android.widget.TableRow;
+import android.text.InputType;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.EditRecords.EditJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
+import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
 public class DetailJob extends MenuMain {
 
@@ -26,6 +33,8 @@ public class DetailJob extends MenuMain {
     private Job job;
     private Customer customer;
     private Employee employee;
+    private Button btnEdit;
+    private Button btnDelete;
     private TextView tv_customerName;
     private TextView tv_employeeName;
     private TextView tv_startDate;
@@ -53,7 +62,7 @@ public class DetailJob extends MenuMain {
 
         // Get current Job from ID
         Intent intent = getIntent();
-        long jobId = intent.getLongExtra("EXTRAS_jobID", 0);
+        final long jobId = intent.getLongExtra("EXTRAS_jobID", 0);
         job = db.getJobById(jobId);
 
         // Populate all fields of the job
@@ -61,12 +70,37 @@ public class DetailJob extends MenuMain {
 
         // Display all job items
         displayJobItems();
+
+        // Go to the EditJob activity
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editIntent = new Intent(DetailJob.this, EditJob.class);
+                editIntent.putExtra("EXTRAS_id", jobId);
+                startActivity(editIntent);
+                finish();
+            }
+        });
+
+        // Delete the job, and the jobItems with the jobId
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.deleteJobById(jobId);
+                db.deleteJobItemByJobId(jobId);
+                Intent deleteIntent = new Intent(DetailJob.this, ViewJobs.class);
+                startActivity(deleteIntent);
+                finish();
+            }
+        });
     }
 
     /**
      * Find all views by ID
      */
     private void findViews() {
+        btnEdit = (Button) findViewById(R.id.btn_edit_job);
+        btnDelete = (Button) findViewById(R.id.btn_delete_job);
         tv_customerName = (TextView) findViewById(R.id.full_name_customer);
         tv_employeeName = (TextView) findViewById(R.id.full_name_employee);
         tv_startDate = (TextView) findViewById(R.id.start_date);
@@ -107,43 +141,49 @@ public class DetailJob extends MenuMain {
      * Create views for, and display all job items.
      */
     private void displayJobItems() {
+        // Create a list of JobItems, using the current JobId
         ArrayList<JobItem> jobItems;
+        jobItems = db.getJobItemsByJobId(job.getId());
 
-        // Get the Job ID
-        long id = job.getId();
+        // Iterate through the list of jobsItems and create
+        // and populate the description and price fields
+        // of each JobItem
+        int arraySize = jobItems.size();
+        for (int i = 0; i < arraySize; i++) {
 
-        // Populate jobItems according to the job in the DB
-        jobItems = db.getJobItems(id);
+            //Create a new row container
+            LinearLayout jobRowContainer = new LinearLayout(this);
 
-        // Create TextViews for descriptions and prices
-        TextView description;
-        TextView price;
-        int length = jobItems.size();
-
-        // Loop through JobItems array,
-        // instantiating new TextViews for the
-        // descriptions and prices
-        for (int i = 0; i < length; i++) {
-            // Layout for each item row containing two TextViews
-            TableRow jobItemRow = new TableRow(this);
-
-            // Create 'description' TextView and populate it
-            // with the jobItemDescription from the jobItem array
-            // and add TextView to the row
-            description = new TextView(new ContextThemeWrapper(this, R.style.text_field_wrap));
+            //Create a new EditText for the Description
+            TextView description = new TextView(this);
+            description.setId(R.id.add_item_description);
+            // Set current description
             description.setText(jobItems.get(i).getDescription());
-            jobItemRow.addView(description);
+            description.setTextSize(18);
+            description.setPadding(0, 16, 0, 16);
+            description.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    1.0f
+            ));
 
-            // Create 'price' TextView and populate it
-            // with the jobItemPrice from the jobItem array
-            // and add TextView to the row
-            price = new TextView(new ContextThemeWrapper(this, R.style.text_field_wrap));
+            //Create an EditText for the Price
+            //Will only accept a decimal number
+            TextView price = new TextView(this);
+            price.setId(R.id.add_item_price);
+            price.setInputType(InputType.TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL);
+            // Ser current price, formatted to two decimal places
             price.setText("£");
             price.append(String.format(Locale.getDefault(), "%.2f", jobItems.get(i).getPrice()));
-            jobItemRow.addView(price);
+            price.setTextSize(18);
 
-            // Add new row to the jobItems container
-            tl_jobDetailContainer.addView(jobItemRow);
+            //Add Description and Price to the row container
+            jobRowContainer.addView(description);
+            jobRowContainer.addView(price);
+
+            //Add the Row Container to the Jobs List Container
+            LinearLayout v = (LinearLayout) findViewById(R.id.detail_test_item_row);
+            v.addView(jobRowContainer);
         }
     }
 }

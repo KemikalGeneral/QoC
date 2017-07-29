@@ -140,6 +140,25 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
+        <!--Job Items-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/detail_job_item_row_container"
+            style="@style/container"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_status_container">
+
+            <LinearLayout
+                android:id="@+id/detail_test_item_row"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
 
         <!--Estimated Time-->
         <android.support.constraint.ConstraintLayout
@@ -147,7 +166,7 @@
             style="@style/container"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_status_container">
+            app:layout_constraintTop_toBottomOf="@id/detail_job_item_row_container">
 
             <!--Time Label-->
             <TextView
@@ -224,6 +243,18 @@
                 app:layout_constraintTop_toBottomOf="@id/notes_label" />
         </android.support.constraint.ConstraintLayout>
 
-        <!--TODO - Add Job items -->
+        <Button
+            android:id="@+id/btn_edit_job"
+            style="@style/button"
+            android:text="Edit"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_notes_container" />
+
+        <Button
+            android:id="@+id/btn_delete_job"
+            style="@style/button"
+            android:text="Delete"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_edit_job" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

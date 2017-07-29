@@ -6,14 +6,12 @@ import android.support.v7.app.ActionBar;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_out;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
@@ -27,6 +25,7 @@ public class Finances_out extends MenuMain
 
     private DBHelper db;
     private Finances finances;
+    private FinanceArrayAdapter_out financeArrayAdapter_out;
     private ListView lv_listView;
     private TextView tv_totalAmountOut;
     private TextView tv_inTab;
@@ -50,7 +49,6 @@ public class Finances_out extends MenuMain
     /**
      * Create a context menu on a long press of the
      * Finance_Out ListView item to change the payment status
-     *
      * @param menu
      * @param v
      * @param menuInfo
@@ -69,19 +67,17 @@ public class Finances_out extends MenuMain
      * Action the item selected in the context menu
      * by calling ??? and passing the ???
      * and the amended status
-     *
      * @param item
      * @return true
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info =
-                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        long jobId = financeArrayAdapter_out.getJobId();
 
         if (item.getTitle().equals("UnPaid")) {
-            Toast.makeText(this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "ID/" + jobId, Toast.LENGTH_SHORT).show();
         } else if (item.getTitle().equals("Paid")) {
-            Toast.makeText(this, "" + item.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "ID/" + jobId + item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         // Recreate the activity to apply changes
         recreate();
@@ -164,15 +160,6 @@ public class Finances_out extends MenuMain
                 displayDateRange();
             }
         });
-
-        lv_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(Finances_out.this, DetailJob.class);
-                intent.putExtra("EXTRAS_jobID", id + 1);
-                startActivity(intent);
-            }
-        });
     }
 
     /**
@@ -196,7 +183,7 @@ public class Finances_out extends MenuMain
      * the weeks.
      */
     private void getJobsAndSetupListView() {
-        FinanceArrayAdapter_out financeArrayAdapter_out =
+        financeArrayAdapter_out =
                 new FinanceArrayAdapter_out(this);
         financeArrayAdapter_out.addAll(finances.getJobsByDateRange(datePeriod));
         lv_listView.setAdapter(financeArrayAdapter_out);
@@ -231,7 +218,6 @@ public class Finances_out extends MenuMain
     /**
      * BottomNavigation onClick method.
      * View is the icon clicked.
-     *
      * @param v
      */
     @Override

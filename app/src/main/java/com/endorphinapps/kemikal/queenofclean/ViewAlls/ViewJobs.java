@@ -7,14 +7,12 @@ import android.support.v7.app.ActionBar;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.JobArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
@@ -24,7 +22,6 @@ public class ViewJobs extends MenuMain
         implements View.OnClickListener {
 
     private DBHelper db;
-    //    private long jobId;
     private TextView tv_emptyList;
     private JobArrayAdapter arrayAdapter;
     private ListView lv_jobsListView;
@@ -64,25 +61,28 @@ public class ViewJobs extends MenuMain
      * Action the item selected in the context menu
      * by calling changeJobStatus() and passing the JobId
      * and the amended status
-     *
      * @param item
      * @return true
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info =
-                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        long jobId = arrayAdapter.getJobId();
 
         if (item.getTitle().equals("Unconfirmed")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         } else if (item.getTitle().equals("Pending")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         } else if (item.getTitle().equals("Current")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         } else if (item.getTitle().equals("Completed")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         } else if (item.getTitle().equals("Cancelled")) {
-            db.changeJobStatus(info.id + 1, item.getTitle().toString());
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         }
         // Recreate the activity to apply changes
         recreate();
@@ -112,17 +112,6 @@ public class ViewJobs extends MenuMain
         // Register for long clickable context menu
         // used to change the job status
         registerForContextMenu(lv_jobsListView);
-
-        // Handle on listView item click and send job ID
-        // so that it can be displayed in the DetailJob activity
-        lv_jobsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ViewJobs.this, DetailJob.class);
-                intent.putExtra("EXTRAS_jobID", id + 1);
-                startActivity(intent);
-            }
-        });
 
         // If there are no records, show the 'No Jobs'
         // message, if there are, hide the message

@@ -1,6 +1,7 @@
 package com.endorphinapps.kemikal.queenofclean.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.R;
@@ -20,6 +22,7 @@ import java.util.Locale;
 public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
 
     private DBHelper db = new DBHelper(getContext());
+    private long jobId;
 
     public FinanceArrayAdapter_in(Context context) {
         super(context, 0);
@@ -32,7 +35,7 @@ public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_finances_in, parent, false);
         }
 
-        Job job = getItem(position);
+        final Job job = getItem(position);
 
         // Get job-customer details to provide the name
         long customerId = job.getCustomer();
@@ -62,6 +65,37 @@ public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
         TextView status = (TextView) convertView.findViewById(R.id.finances_status);
         status.setText(job.getJobStatusEnum());
 
+        // Handle on listView item click and send job ID
+        // so that it can be displayed in the DetailJob activity
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), DetailJob.class);
+                intent.putExtra("EXTRAS_jobID", job.getId());
+                System.out.println("z! FinanceArrayAdapter_in - onClick - jobId: " + job.getId());
+                getContext().startActivity(intent);
+            }
+        });
+
+        // Handle on listView item long click and send job ID
+        // so that it can be used for the ListView contextMenu
+        // Returns false to avoid conflicts with the context menu
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setJobId(job.getId());
+                return false;
+            }
+        });
+
         return convertView;
+    }
+
+    public long getJobId() {
+        return jobId;
+    }
+
+    private void setJobId(long jobId) {
+        this.jobId = jobId;
     }
 }
