@@ -36,6 +36,11 @@ public class DetailJob extends MenuMain {
     private Button btnEdit;
     private Button btnDelete;
     private TextView tv_customerName;
+    private TextView tv_addressLine1;
+    private TextView tv_addressLine2;
+    private TextView tv_town;
+    private TextView tv_city;
+    private TextView tv_postcode;
     private TextView tv_employeeName;
     private TextView tv_startDate;
     private TextView tv_startTime;
@@ -102,6 +107,11 @@ public class DetailJob extends MenuMain {
         btnEdit = (Button) findViewById(R.id.btn_edit_job);
         btnDelete = (Button) findViewById(R.id.btn_delete_job);
         tv_customerName = (TextView) findViewById(R.id.full_name_customer);
+        tv_addressLine1 = (TextView) findViewById(R.id.detail_Job_address_1);
+        tv_addressLine2 = (TextView) findViewById(R.id.detail_Job_address_2);
+        tv_town = (TextView) findViewById(R.id.detail_Job_address_town);
+        tv_city = (TextView) findViewById(R.id.detail_Job_address_city);
+        tv_postcode = (TextView) findViewById(R.id.detail_Job_address_postcode);
         tv_employeeName = (TextView) findViewById(R.id.full_name_employee);
         tv_startDate = (TextView) findViewById(R.id.start_date);
         tv_startTime = (TextView) findViewById(R.id.start_time);
@@ -127,6 +137,11 @@ public class DetailJob extends MenuMain {
                 .format(job.getStartTime());
         // Set TextViews
         tv_customerName.setText(customer.getFirstName() + " " + customer.getLastName());
+        tv_addressLine1.setText(customer.getAddressLine1());
+        tv_addressLine2.setText(customer.getAddressLine2());
+        tv_town.setText(customer.getTown());
+        tv_city.setText(customer.getCity());
+        tv_postcode.setText(customer.getPostcode());
         tv_employeeName.setText(employee.getFirstName() + " " + employee.getLastName());
         tv_startDate.setText(date);
         tv_startTime.setText(time);
