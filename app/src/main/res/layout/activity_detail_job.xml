@@ -23,6 +23,7 @@
 
             <!--Name Label-->
             <TextView
+                android:id="@+id/full_name_customer_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Customer Name:"
@@ -34,9 +35,63 @@
                 android:id="@+id/full_name_customer"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="First Last"
+                android:text="[First Last]"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Address Label-->
+            <TextView
+                android:id="@+id/detail_Job_address_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Job Address:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/full_name_customer_label" />
+
+            <!--Address Line 1-->
+            <TextView
+                android:id="@+id/detail_Job_address_1"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="[Address Line 1]"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/full_name_customer" />
+
+            <!--Address Line 2-->
+            <TextView
+                android:id="@+id/detail_Job_address_2"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="[Address Line 2]"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_Job_address_1" />
+
+            <!--Address Town-->
+            <TextView
+                android:id="@+id/detail_Job_address_town"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="[Town]"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_Job_address_2" />
+
+            <!--Address City-->
+            <TextView
+                android:id="@+id/detail_Job_address_city"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="[City]"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_Job_address_town" />
+
+            <!--Address Postcode-->
+            <TextView
+                android:id="@+id/detail_Job_address_postcode"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="[Postcode]"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_Job_address_city" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -61,7 +116,7 @@
                 android:id="@+id/full_name_employee"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="First Last"
+                android:text="[First Last]"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
@@ -89,7 +144,7 @@
                 android:id="@+id/start_date"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="dd/mm/yy"
+                android:text="[dd/mm/yy]"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,7 +162,7 @@
                 android:id="@+id/start_time"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="hh:mm"
+                android:text="[hh:mm]"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/start_date" />
         </android.support.constraint.ConstraintLayout>
@@ -182,7 +237,7 @@
                 android:id="@+id/estimated_time"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="hh:mm"
+                android:text="[hh:mm]"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
@@ -210,7 +265,7 @@
                 android:id="@+id/total_price"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="£1234.00"
+                android:text="[£1234.00]"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
@@ -238,7 +293,7 @@
                 android:id="@+id/notes"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="This is a sample note"
+                android:text="[This is a sample note]"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/notes_label" />
         </android.support.constraint.ConstraintLayout>
