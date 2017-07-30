@@ -3,6 +3,7 @@ package com.endorphinapps.kemikal.queenofclean.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,6 +87,18 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
         // Status
         TextView jobStatus = (TextView) convertView.findViewById(R.id.job_status);
         jobStatus.setText(job.getJobStatusEnum());
+        // Set status text colour accordingly
+        if (job.getJobStatusEnum().equals("Unconfirmed")) {
+            jobStatus.setTextColor(Color.LTGRAY);
+        } else if (job.getJobStatusEnum().equals("Pending")) {
+            jobStatus.setTextColor(Color.DKGRAY);
+        } else if (job.getJobStatusEnum().equals("Current")) {
+            jobStatus.setTextColor(Color.MAGENTA);
+        } else if (job.getJobStatusEnum().equals("Completed")) {
+            jobStatus.setTextColor(Color.GREEN);
+        } else if (job.getJobStatusEnum().equals("Cancelled")) {
+            jobStatus.setTextColor(Color.RED);
+        }
 
         // Start Time
         TextView startTime = (TextView) convertView.findViewById(R.id.job_start_time);

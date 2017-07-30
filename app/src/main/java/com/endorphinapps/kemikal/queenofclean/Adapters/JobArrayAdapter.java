@@ -87,8 +87,17 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
         // Status
         TextView jobStatus = (TextView) convertView.findViewById(R.id.job_status);
         jobStatus.setText(job.getJobStatusEnum());
-        if (job.getJobStatusEnum().equals("Completed")) {
+        // Set status text colour accordingly
+        if (job.getJobStatusEnum().equals("Unconfirmed")) {
+            jobStatus.setTextColor(Color.LTGRAY);
+        } else if (job.getJobStatusEnum().equals("Pending")) {
+            jobStatus.setTextColor(Color.DKGRAY);
+        } else if (job.getJobStatusEnum().equals("Current")) {
+            jobStatus.setTextColor(Color.MAGENTA);
+        } else if (job.getJobStatusEnum().equals("Completed")) {
             jobStatus.setTextColor(Color.GREEN);
+        } else if (job.getJobStatusEnum().equals("Cancelled")) {
+            jobStatus.setTextColor(Color.RED);
         }
 
         // Start Date
