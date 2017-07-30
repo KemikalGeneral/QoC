@@ -25,6 +25,10 @@ public class Finances_overview extends MenuMain
     private TextView tv_totalAmountOut;
     private TextView tv_totalAmountSum;
 
+    private TextView tv_totalAnnualAmountIn;
+    private TextView tv_totalAnnualAmountOut;
+    private TextView tv_totalAnnualAmountSum;
+
     private NavigationBottom navigationBottom;
 
     /**
@@ -81,6 +85,20 @@ public class Finances_overview extends MenuMain
         // Display total amount sum to 2 decimal places
         tv_totalAmountSum.setText("£");
         tv_totalAmountSum.append(String.format(Locale.getDefault(), "%.2f", finances.getTotalAmount_sum()));
+
+        ///////////////////////////////////////////////////////
+
+        // Display annual total amount in
+        tv_totalAnnualAmountIn.setText("£");
+        tv_totalAnnualAmountIn.append(String.format(Locale.getDefault(), "%.2f", finances.getAnnualTotalAmount_In()));
+
+        // Display annual total amount out
+        tv_totalAnnualAmountOut.setText("£");
+        tv_totalAnnualAmountOut.append(String.format(Locale.getDefault(), "%.2f", finances.getAnnualTotalAmount_out()));
+
+        // Display annual total amount sum to 2 decimal places
+        tv_totalAnnualAmountSum.setText("£");
+        tv_totalAnnualAmountSum.append(String.format(Locale.getDefault(), "%.2f", finances.getAnnualTotalAmount_Sum()));
     }
 
     /**
@@ -89,9 +107,14 @@ public class Finances_overview extends MenuMain
     private void findViews() {
         tv_inTab = (TextView) findViewById(R.id.inTab);
         tv_outTab = (TextView) findViewById(R.id.outTab);
+
         tv_totalAmountIn = (TextView) findViewById(R.id.total_in_amount);
         tv_totalAmountOut = (TextView) findViewById(R.id.total_out_amount);
         tv_totalAmountSum = (TextView) findViewById(R.id.total_sum_amount);
+
+        tv_totalAnnualAmountIn = (TextView) findViewById(R.id.total_in_amount_year);
+        tv_totalAnnualAmountOut = (TextView) findViewById(R.id.total_out_amount_year);
+        tv_totalAnnualAmountSum = (TextView) findViewById(R.id.total_sum_amount_year);
     }
 
     /**
