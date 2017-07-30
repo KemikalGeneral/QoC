@@ -12,7 +12,7 @@ import com.endorphinapps.kemikal.queenofclean.Adapters.EmployeeArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddEmployee;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
-import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
@@ -21,10 +21,8 @@ public class ViewEmployees extends MenuMain
 
     private TextView tv_customersTab;
     private TextView tv_emptyList;
-
     private ListView lv_employeesListView;
     private EmployeeArrayAdapter arrayAdapter;
-
     private FloatingActionButton fab;
     private NavigationBottom navigationBottom;
 

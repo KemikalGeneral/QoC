@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "queenOfKleen.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     /**
      * Tables
@@ -72,7 +72,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_START_DATE = "startDate";
     private static final String COLUMN_START_TIME = "startTime";
     private static final String COLUMN_END_DATE = "endDate";
-    private static final String COLUMN_STATUS = "status";
+    private static final String COLUMN_JOB_STATUS = "jobStatus";
+    private static final String COLUMN_CUSTOMER_PAYMENT_STATUS = "customerPaymentStatus";
+    private static final String COLUMN_EMPLOYEE_PAYMENT_STATUS = "employeePaymentStatus";
     private static final String COLUMN_ESTIMATED_TIME = "estimatedTime";
     private static final String COLUMN_TOTAL_JOB_COST = "totalJobCost";
     private static final String COLUMN_NOTES = "notes";
@@ -146,7 +148,9 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_START_DATE + " INTEGER NOT NULL, " +
                     COLUMN_START_TIME + " INTEGER NOT NULL, " +
                     COLUMN_END_DATE + " INTEGER, " +
-                    COLUMN_STATUS + " VARCHAR(50) NOT NULL, " +
+                    COLUMN_JOB_STATUS + " VARCHAR(50) NOT NULL, " +
+                    COLUMN_CUSTOMER_PAYMENT_STATUS + " VARCHAR(50), " +
+                    COLUMN_EMPLOYEE_PAYMENT_STATUS + " VARCHAR(50), " +
                     COLUMN_ESTIMATED_TIME + " INTEGER NOT NULL, " +
                     COLUMN_TOTAL_JOB_COST + " REAL NOT NULL, " +
                     COLUMN_NOTES + " TEXT, " +
@@ -202,7 +206,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //////////////////////////////////////////////////////////
-    //                                                                          ADDRESS
+    //      ADDRESS
     //////////////////////////////////////////////////////////
     /**
      * Insert Address details
@@ -227,33 +231,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
         return addressID;
-    }
-
-    /**
-     * Update the address of either the
-     * customers or employees, using the PK, sought from
-     * the FK of the respective table.
-     * @param id
-     * @param line1
-     * @param line2
-     * @param town
-     * @param city
-     * @param postcode
-     */
-    public void updateAddress(long id, String line1,
-                              String line2, String town, String city,
-                              String postcode) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_ADDRESS_LINE_1, line1);
-        values.put(COLUMN_ADDRESS_LINE_2, line2);
-        values.put(COLUMN_TOWN, town);
-        values.put(COLUMN_CITY, city);
-        values.put(COLUMN_POSTCODE, postcode);
-
-        db.update(TABLE_ADDRESSES, values, COLUMN_ADDRESS_ID + " = " + id, null);
-        db.close();
     }
 
     /**
@@ -311,10 +288,38 @@ public class DBHelper extends SQLiteOpenHelper {
         return addressId;
     }
 
-    //////////////////////////////////////////////////////////
-    //                                                                   AVAILABILITY
-    //////////////////////////////////////////////////////////
+    /**
+     * Update the address of either the
+     * customers or employees, using the PK, sought from
+     * the FK of the respective table.
+     *
+     * @param id
+     * @param line1
+     * @param line2
+     * @param town
+     * @param city
+     * @param postcode
+     */
+    public void updateAddress(long id, String line1,
+                              String line2, String town, String city,
+                              String postcode) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
 
+        values.put(COLUMN_ADDRESS_LINE_1, line1);
+        values.put(COLUMN_ADDRESS_LINE_2, line2);
+        values.put(COLUMN_TOWN, town);
+        values.put(COLUMN_CITY, city);
+        values.put(COLUMN_POSTCODE, postcode);
+
+        db.update(TABLE_ADDRESSES, values, COLUMN_ADDRESS_ID + " = " + id, null);
+        db.close();
+    }
+
+
+    //////////////////////////////////////////////////////////
+    //      AVAILABILITY
+    //////////////////////////////////////////////////////////
     /**
      * Insert daily AM & PM availabilities for employees
      * PK is a FK in Employees table
@@ -367,6 +372,34 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Get the availability ID (FK in the employee table)
+     * from the employee ID, so that it can be used
+     * to update the availability record.
+     *
+     * @param employeeId
+     * @return availabilityID as a type long
+     */
+    public long getAvailabilityFromEmployeeId(long employeeId) {
+        SQLiteDatabase db = getReadableDatabase();
+        long availabilityId = 0;
+
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COLUMN_AVAILABILITY +
+                        " FROM " + TABLE_EMPLOYEES +
+                        " WHERE " + COLUMN_EMPLOYEE_ID + " = " + employeeId + ";",
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            availabilityId = cursor.getLong(cursor.getColumnIndex(COLUMN_AVAILABILITY));
+        }
+        cursor.close();
+        db.close();
+
+        return availabilityId;
+    }
+
+    /**
      * Update the availability of the employees,
      * using the PK, sought from
      * the FK of the respective table.
@@ -416,37 +449,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    /**
-     * Get the availability ID (FK in the employee table)
-     * from the employee ID, so that it can be used
-     * to update the availability record.
-     * @param employeeId
-     * @return availabilityID as a type long
-     */
-    public long getAvailabilityFromEmployeeId(long employeeId) {
-        SQLiteDatabase db = getReadableDatabase();
-        long availabilityId = 0;
-
-        Cursor cursor = db.rawQuery(
-                "SELECT " + COLUMN_AVAILABILITY +
-                        " FROM " + TABLE_EMPLOYEES +
-                        " WHERE " + COLUMN_EMPLOYEE_ID + " = " + employeeId + ";",
-                null
-        );
-
-        if (cursor.moveToFirst()) {
-            availabilityId = cursor.getLong(cursor.getColumnIndex(COLUMN_AVAILABILITY));
-        }
-        cursor.close();
-        db.close();
-
-        return availabilityId;
-    }
 
     //////////////////////////////////////////////////////////
-    //                                                                       CUSTOMER
+    //      CUSTOMER
     //////////////////////////////////////////////////////////
-
     /**
      * Insert Customer details passed from AddCustomer
      * @param firstName
@@ -474,65 +480,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
         return customerId;
-    }
-
-    /**
-     * Update the customer's details using the ID
-     * @param id
-     * @param firstName
-     * @param lastName
-     * @param homeNumber
-     * @param mobileNumber
-     * @param eMail
-     */
-    public void updateCustomer(long id, String firstName,
-                               String lastName, String homeNumber,
-                               String mobileNumber, String eMail) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_FIRST_NAME, firstName);
-        values.put(COLUMN_LAST_NAME, lastName);
-        values.put(COLUMN_HOME_NUMBER, homeNumber);
-        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
-        values.put(COLUMN_EMAIL_ADDRESS, eMail);
-
-        db.update(TABLE_CUSTOMERS, values, COLUMN_CUSTOMER_ID + " = " + id, null);
-        db.close();
-    }
-
-    /**
-     * Get a single Customer by ID
-     * @param id to identify the Customer (PK)
-     * @return a Customer object
-     */
-    public Customer getCustomerById(long id) {
-        SQLiteDatabase db = getReadableDatabase();
-        Customer customer = new Customer();
-        Cursor cursor = db.rawQuery(
-                "SELECT * " +
-                        "FROM " + TABLE_CUSTOMERS + " c " +
-                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = c." + COLUMN_ADDRESS + " " +
-                        "WHERE c." + COLUMN_CUSTOMER_ID + " = " + id,
-                null
-        );
-
-        if (cursor.moveToFirst()) {
-            customer.setCustomerId(cursor.getInt(cursor.getColumnIndex(COLUMN_CUSTOMER_ID)));
-            customer.setFirstName(cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME)));
-            customer.setLastName(cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME)));
-            customer.setMobileNumber(cursor.getString(cursor.getColumnIndex(COLUMN_MOBILE_NUMBER)));
-            customer.setHomeNumber(cursor.getString(cursor.getColumnIndex(COLUMN_HOME_NUMBER)));
-            customer.setEmailAddress(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
-            customer.setAddressLine1(cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS_LINE_1)));
-            customer.setAddressLine2(cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS_LINE_2)));
-            customer.setTown(cursor.getString(cursor.getColumnIndex(COLUMN_TOWN)));
-            customer.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
-            customer.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
-        }
-        cursor.close();
-        db.close();
-        return customer;
     }
 
     /**
@@ -573,6 +520,65 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Get a single Customer by ID
+     * @param id to identify the Customer (PK)
+     * @return a Customer object
+     */
+    public Customer getCustomerById(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Customer customer = new Customer();
+        Cursor cursor = db.rawQuery(
+                "SELECT * " +
+                        "FROM " + TABLE_CUSTOMERS + " c " +
+                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = c." + COLUMN_ADDRESS + " " +
+                        "WHERE c." + COLUMN_CUSTOMER_ID + " = " + id,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            customer.setCustomerId(cursor.getInt(cursor.getColumnIndex(COLUMN_CUSTOMER_ID)));
+            customer.setFirstName(cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME)));
+            customer.setLastName(cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME)));
+            customer.setMobileNumber(cursor.getString(cursor.getColumnIndex(COLUMN_MOBILE_NUMBER)));
+            customer.setHomeNumber(cursor.getString(cursor.getColumnIndex(COLUMN_HOME_NUMBER)));
+            customer.setEmailAddress(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
+            customer.setAddressLine1(cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS_LINE_1)));
+            customer.setAddressLine2(cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS_LINE_2)));
+            customer.setTown(cursor.getString(cursor.getColumnIndex(COLUMN_TOWN)));
+            customer.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
+            customer.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
+        }
+        cursor.close();
+        db.close();
+        return customer;
+    }
+
+    /**
+     * Update the customer's details using the ID
+     * @param id
+     * @param firstName
+     * @param lastName
+     * @param homeNumber
+     * @param mobileNumber
+     * @param eMail
+     */
+    public void updateCustomer(long id, String firstName,
+                               String lastName, String homeNumber,
+                               String mobileNumber, String eMail) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_FIRST_NAME, firstName);
+        values.put(COLUMN_LAST_NAME, lastName);
+        values.put(COLUMN_HOME_NUMBER, homeNumber);
+        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
+        values.put(COLUMN_EMAIL_ADDRESS, eMail);
+
+        db.update(TABLE_CUSTOMERS, values, COLUMN_CUSTOMER_ID + " = " + id, null);
+        db.close();
+    }
+
+    /**
      * Delete the customer by the row ID
      *
      * @param customerId
@@ -584,10 +590,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //////////////////////////////////////////////////////////
-    //                                                                        EMPLOYEE
-    //////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////
+    //      EMPLOYEE
+    //////////////////////////////////////////////////////////
     /**
      * Insert Employee details passed from AddEmployee
      *
@@ -620,84 +626,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
         return employeeId;
-    }
-
-    /**
-     * Update the customer's details using the ID
-     *
-     * @param id
-     * @param firstName
-     * @param lastName
-     * @param homeNumber
-     * @param mobileNumber
-     * @param eMail
-     */
-    public void updateEmployee(long id, String firstName,
-                               String lastName, String homeNumber,
-                               String mobileNumber, String eMail,
-                               double rateOfPay) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_FIRST_NAME, firstName);
-        values.put(COLUMN_LAST_NAME, lastName);
-        values.put(COLUMN_HOME_NUMBER, homeNumber);
-        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
-        values.put(COLUMN_EMAIL_ADDRESS, eMail);
-        values.put(COLUMN_RATE_OF_PAY, rateOfPay);
-
-        db.update(TABLE_EMPLOYEES, values, COLUMN_EMPLOYEE_ID + " = " + id, null);
-        db.close();
-    }
-
-    /**
-     * Get a single Employee by ID
-     * @param id to identify the Employee(PK)
-     * @return an Employee object
-     */
-    public Employee getEmployeeById(long id) {
-        SQLiteDatabase db = getReadableDatabase();
-        Employee employee = new Employee();
-        Cursor cursor = db.rawQuery(
-                "SELECT * " +
-                        "FROM " + TABLE_EMPLOYEES + " e " +
-                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = e." + COLUMN_ADDRESS + " " +
-                        "JOIN " + TABLE_AVAILABILITY + " av ON av." + COLUMN_AVAILABILITY_ID + " = e." + COLUMN_AVAILABILITY + " " +
-                        "WHERE e." + COLUMN_EMPLOYEE_ID + " = " + id,
-                null
-        );
-
-        if (cursor.moveToFirst()) {
-            employee.setEmployeeId(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE_ID)));
-            employee.setFirstName(cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME)));
-            employee.setLastName(cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME)));
-            employee.setMobileNumber(cursor.getString(cursor.getColumnIndex(COLUMN_MOBILE_NUMBER)));
-            employee.setHomeNumber(cursor.getString(cursor.getColumnIndex(COLUMN_HOME_NUMBER)));
-            employee.setEmailAddress(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
-            employee.setAddressLine1(cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS_LINE_1)));
-            employee.setAddressLine2(cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS_LINE_2)));
-            employee.setTown(cursor.getString(cursor.getColumnIndex(COLUMN_TOWN)));
-            employee.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
-            employee.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
-            employee.setRateOfPay(cursor.getDouble(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
-            employee.setMondayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_AM)));
-            employee.setMondayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_PM)));
-            employee.setTuesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_AM)));
-            employee.setTuesdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_PM)));
-            employee.setWednesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_WEDNESDAY_AM)));
-            employee.setWednesdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_WEDNESDAY_PM)));
-            employee.setThursdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_THURSDAY_AM)));
-            employee.setThursdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_THURSDAY_PM)));
-            employee.setFridayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_FRIDAY_AM)));
-            employee.setFridayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_FRIDAY_PM)));
-            employee.setSaturdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_SATURDAY_AM)));
-            employee.setSaturdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_SATURDAY_PM)));
-            employee.setSundayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_SUNDAY_AM)));
-            employee.setSundayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_SUNDAY_PM)));
-        }
-        cursor.close();
-        db.close();
-        return employee;
     }
 
     /**
@@ -755,8 +683,84 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Get a single Employee by ID
+     * @param id to identify the Employee(PK)
+     * @return an Employee object
+     */
+    public Employee getEmployeeById(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Employee employee = new Employee();
+        Cursor cursor = db.rawQuery(
+                "SELECT * " +
+                        "FROM " + TABLE_EMPLOYEES + " e " +
+                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = e." + COLUMN_ADDRESS + " " +
+                        "JOIN " + TABLE_AVAILABILITY + " av ON av." + COLUMN_AVAILABILITY_ID + " = e." + COLUMN_AVAILABILITY + " " +
+                        "WHERE e." + COLUMN_EMPLOYEE_ID + " = " + id,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            employee.setEmployeeId(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE_ID)));
+            employee.setFirstName(cursor.getString(cursor.getColumnIndex(COLUMN_FIRST_NAME)));
+            employee.setLastName(cursor.getString(cursor.getColumnIndex(COLUMN_LAST_NAME)));
+            employee.setMobileNumber(cursor.getString(cursor.getColumnIndex(COLUMN_MOBILE_NUMBER)));
+            employee.setHomeNumber(cursor.getString(cursor.getColumnIndex(COLUMN_HOME_NUMBER)));
+            employee.setEmailAddress(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL_ADDRESS)));
+            employee.setAddressLine1(cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS_LINE_1)));
+            employee.setAddressLine2(cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS_LINE_2)));
+            employee.setTown(cursor.getString(cursor.getColumnIndex(COLUMN_TOWN)));
+            employee.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
+            employee.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
+            employee.setRateOfPay(cursor.getDouble(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
+            employee.setMondayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_AM)));
+            employee.setMondayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_PM)));
+            employee.setTuesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_AM)));
+            employee.setTuesdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_PM)));
+            employee.setWednesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_WEDNESDAY_AM)));
+            employee.setWednesdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_WEDNESDAY_PM)));
+            employee.setThursdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_THURSDAY_AM)));
+            employee.setThursdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_THURSDAY_PM)));
+            employee.setFridayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_FRIDAY_AM)));
+            employee.setFridayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_FRIDAY_PM)));
+            employee.setSaturdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_SATURDAY_AM)));
+            employee.setSaturdayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_SATURDAY_PM)));
+            employee.setSundayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_SUNDAY_AM)));
+            employee.setSundayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_SUNDAY_PM)));
+        }
+        cursor.close();
+        db.close();
+        return employee;
+    }
+
+    /**
+     * Update the customer's details using the ID
+     * @param id
+     * @param firstName
+     * @param lastName
+     * @param homeNumber
+     * @param mobileNumber
+     * @param eMail
+     */
+    public void updateEmployee(long id, String firstName,
+                               String lastName, String homeNumber,
+                               String mobileNumber, String eMail,
+                               double rateOfPay) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_FIRST_NAME, firstName);
+        values.put(COLUMN_LAST_NAME, lastName);
+        values.put(COLUMN_HOME_NUMBER, homeNumber);
+        values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
+        values.put(COLUMN_EMAIL_ADDRESS, eMail);
+        values.put(COLUMN_RATE_OF_PAY, rateOfPay);
+
+        db.update(TABLE_EMPLOYEES, values, COLUMN_EMPLOYEE_ID + " = " + id, null);
+        db.close();
+    }
+
+    /**
      * Delete the employee by the row ID
-     *
      * @param employeeId
      */
     public void deleteEmployeeById(long employeeId) {
@@ -766,15 +770,15 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //////////////////////////////////////////////////////////
-    //                                                                                    JOB
-    //////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////
+    //      JOB
+    //////////////////////////////////////////////////////////
     /**
      * Insert Job details passed from AddJob
-     *
      * @param startDate
-     * @param status
+     * @param jobStatus
+     * @param customerPaymentStatus
      * @param estimatedTime
      * @param totalPrice
      * @param notes
@@ -783,14 +787,18 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return jobId as a long
      */
     public long insertJob(long startDate, long startTime,
-                          String status, int estimatedTime, double totalPrice,
-                          String notes, long customer, long employee) {
+                          String jobStatus, String customerPaymentStatus,
+                          String employeePaymentStatus, int estimatedTime,
+                          double totalPrice, String notes, long customer,
+                          long employee) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_START_DATE, startDate);
         values.put(COLUMN_START_TIME, startTime);
-        values.put(COLUMN_STATUS, status);
+        values.put(COLUMN_JOB_STATUS, jobStatus);
+        values.put(COLUMN_CUSTOMER_PAYMENT_STATUS, customerPaymentStatus);
+        values.put(COLUMN_EMPLOYEE_PAYMENT_STATUS, employeePaymentStatus);
         values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
         values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
         values.put(COLUMN_NOTES, notes);
@@ -803,31 +811,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Insert JobItem details
-     *
-     * @param job
-     * @param description
-     * @param price
-     */
-    public void insertJobItem(long job, String description, double price) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(COLUMN_JOB, job);
-        values.put(COLUMN_JOB_ITEM_DESCRIPTION, description);
-        values.put(COLUMN_JOB_ITEM_PRICE, price);
-        long id = db.insert(TABLE_JOB_ITEMS, null, values);
-
-        System.out.println("z! insert: " + id);
-        System.out.println("z! insert: " + job);
-        System.out.println("z! insert: " + description);
-        System.out.println("z! insert: " + price);
-
-        db.close();
-    }
-
-    /**
      * Select all details of all Jobs
+     *
      * @return list of Jobs
      */
     public ArrayList<Job> getAllJobs() {
@@ -836,8 +821,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
-                "FROM " + TABLE_JOBS + ";"
-                ,null
+                        "FROM " + TABLE_JOBS +
+                        " ORDER BY " + COLUMN_START_DATE + ";"
+                , null
         );
 
         if (cursor.moveToFirst()) {
@@ -848,7 +834,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 job.setEmployee(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE)));
                 job.setStartDate(cursor.getLong(cursor.getColumnIndex(COLUMN_START_DATE)));
                 job.setStartTime(cursor.getLong(cursor.getColumnIndex(COLUMN_START_TIME)));
-                job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
+                job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_STATUS)));
+                job.setCustomerPaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_PAYMENT_STATUS)));
+                job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
                 job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
                 job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
                 job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
@@ -863,6 +851,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Get a single Job by ID
+     *
      * @param id
      * @return selected job
      */
@@ -882,11 +871,26 @@ public class DBHelper extends SQLiteOpenHelper {
             job.setEmployee(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE)));
             job.setStartDate(cursor.getLong(cursor.getColumnIndex(COLUMN_START_DATE)));
             job.setStartTime(cursor.getLong(cursor.getColumnIndex(COLUMN_START_TIME)));
-            job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
+            job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_STATUS)));
+            job.setCustomerPaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_PAYMENT_STATUS)));
+            job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
             job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
             job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
             job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
         }
+
+        System.out.println("z! ---------- getJobById ----------");
+        System.out.println("z! job id: " + job.getId());
+        System.out.println("z! customer id: " + job.getCustomer());
+        System.out.println("z! employee id: " + job.getEmployee());
+        System.out.println("z! start date: " + job.getStartDate());
+        System.out.println("z! start time: " + job.getStartTime());
+        System.out.println("z! job status: " + job.getJobStatusEnum());
+        System.out.println("z! customer payment status: " + job.getCustomerPaymentStatusEnum());
+        System.out.println("z! employee payment status: " + job.getEmployeePaymentStatusEnum());
+        System.out.println("z! estimated time: " + job.getEstimatedTime());
+        System.out.println("z! total price: " + job.getTotalPrice());
+        System.out.println("z! notes: " + job.getNotes());
         cursor.close();
         db.close();
 
@@ -897,6 +901,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * Select all jobs details between a date range.
      * The dates will be FROM the Monday of the present week
      * TO the Sunday of the present week.
+     *
      * @param from
      * @param to
      * @return All details of Jobs as an ArrayList
@@ -907,21 +912,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
-                "FROM " + TABLE_JOBS +
-                " WHERE " + COLUMN_START_DATE + " >= " + from +
-                " AND " + COLUMN_START_DATE + " <= " + to + ";",
+                        "FROM " + TABLE_JOBS +
+                        " WHERE " + COLUMN_START_DATE + " >= " + from +
+                        " AND " + COLUMN_START_DATE + " <= " + to +
+                        " ORDER BY " + COLUMN_START_DATE + ";",
                 null
         );
 
         if (cursor.moveToFirst()) {
-            do{
+            do {
                 Job job = new Job();
                 job.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_ID)));
                 job.setCustomer(cursor.getInt(cursor.getColumnIndex(COLUMN_CUSTOMER)));
                 job.setEmployee(cursor.getInt(cursor.getColumnIndex(COLUMN_EMPLOYEE)));
                 job.setStartDate(cursor.getLong(cursor.getColumnIndex(COLUMN_START_DATE)));
                 job.setStartTime(cursor.getLong(cursor.getColumnIndex(COLUMN_START_TIME)));
-                job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
+                job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_STATUS)));
+                job.setCustomerPaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_PAYMENT_STATUS)));
+                job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
                 job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
                 job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
                 job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
@@ -935,33 +943,160 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Update Job details passed from EditJob
+     *
+     * @param jobId
+     * @param startDate
+     * @param jobStatus
+     * @param customerPaymentStatus
+     * @param estimatedTime
+     * @param totalPrice
+     * @param notes
+     * @param customer
+     * @param employee
+     * @return jobId as a long
+     */
+    public void updateJob(long jobId, long startDate,
+                          long startTime, String jobStatus, String customerPaymentStatus,
+                          String employeePaymentStatus, int estimatedTime,
+                          double totalPrice, String notes, long customer,
+                          long employee) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_START_DATE, startDate);
+        values.put(COLUMN_START_TIME, startTime);
+        values.put(COLUMN_JOB_STATUS, jobStatus);
+        values.put(COLUMN_CUSTOMER_PAYMENT_STATUS, customerPaymentStatus);
+        values.put(COLUMN_EMPLOYEE_PAYMENT_STATUS, employeePaymentStatus);
+        values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
+        values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
+        values.put(COLUMN_NOTES, notes);
+        values.put(COLUMN_CUSTOMER, customer);
+        values.put(COLUMN_EMPLOYEE, employee);
+        db.update(TABLE_JOBS, values, COLUMN_JOB_ID + " = " + jobId, null);
+        db.close();
+    }
+
+    /**
+     * Changes the JobStatus to the new status passed in
+     * along with the rowID
+     *
+     * @param jobId
+     * @param status
+     */
+    public void changeJobStatus(long jobId, String status) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_JOB_STATUS, status);
+        db.update(TABLE_JOBS, values, COLUMN_JOB_ID + " = " + jobId, null);
+
+        db.close();
+    }
+
+    /**
+     * Changes the CustomerPaymentStatus to the new status passed in
+     * along with the rowID
+     *
+     * @param jobId
+     * @param status
+     */
+    public void changeCustomerPaymentStatus(long jobId, String status) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_CUSTOMER_PAYMENT_STATUS, status);
+        db.update(TABLE_JOBS, values, COLUMN_JOB_ID + " = " + jobId, null);
+
+        db.close();
+    }
+
+    /**
+     * Changes the EmployeePaymentStatus to the new status passed in
+     * along with the rowID
+     *
+     * @param jobId
+     * @param status
+     */
+    public void changeEmployeePaymentStatus(long jobId, String status) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_EMPLOYEE_PAYMENT_STATUS, status);
+        db.update(TABLE_JOBS, values, COLUMN_JOB_ID + " = " + jobId, null);
+
+        db.close();
+    }
+
+    /**
+     * Delete a job by ID
+     *
+     * @param jobId
+     */
+    public void deleteJobById(long jobId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(TABLE_JOBS, COLUMN_JOB_ID + " = " + jobId, null);
+        db.close();
+    }
+
+
+    //////////////////////////////////////////////////////////
+    //      JOB ITEMS
+    //////////////////////////////////////////////////////////
+    /**
+     * Insert JobItem details
+     * @param job
+     * @param description
+     * @param price
+     */
+    public void insertJobItem(long job, String description, double price) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_JOB, job);
+        values.put(COLUMN_JOB_ITEM_DESCRIPTION, description);
+        values.put(COLUMN_JOB_ITEM_PRICE, price);
+        long id = db.insert(TABLE_JOB_ITEMS, null, values);
+
+        System.out.println("z! ---------- insertJobItem ----------");
+        System.out.println("z! jobItemId: " + id);
+        System.out.println("z! jobId: " + job);
+        System.out.println("z! description: " + description);
+        System.out.println("z! price: " + price);
+
+        db.close();
+    }
+
+    /**
      * Select details of jobItems by Job ID
-     * @param id
+     * @param jobId
      * @return jobItems as arrayList
      */
-    public ArrayList<JobItem> getJobItems(long id) {
+    public ArrayList<JobItem> getJobItemsByJobId(long jobId) {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<JobItem> jobItems = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
                 "FROM " + TABLE_JOB_ITEMS +
-                " WHERE " + COLUMN_JOB + " = " + id
+                        " WHERE " + COLUMN_JOB + " = " + jobId
                 , null
         );
 
         if (cursor.moveToFirst()) {
             do{
                 JobItem jobItem = new JobItem();
-                jobItem.setJobItemId(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB_ITEM_ID)));
+                jobItem.setJobItemId(cursor.getLong(cursor.getColumnIndex(COLUMN_JOB_ITEM_ID)));
                 jobItem.setJob(cursor.getInt(cursor.getColumnIndex(COLUMN_JOB)));
                 jobItem.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_ITEM_DESCRIPTION)));
                 jobItem.setPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_JOB_ITEM_PRICE)));
                 jobItems.add(jobItem);
 
-                System.out.println("z! --------------------------------");
-                System.out.println("z! id: " + jobItem.getJobItemId());
-                System.out.println("z! job: " + jobItem.getJob());
+                System.out.println("z! ---------- getJobItem ----------");
+                System.out.println("z! job item id: " + jobItem.getJobItemId());
+                System.out.println("z! job id: " + jobItem.getJob());
                 System.out.println("z! desc: " + jobItem.getDescription());
                 System.out.println("z! price: " + jobItem.getPrice());
 
@@ -973,8 +1108,76 @@ public class DBHelper extends SQLiteOpenHelper {
         return jobItems;
     }
 
+    /**
+     * Get a list of the jobItem ID's, by their job ID
+     * @param jobId
+     * @return jobItemId as a type long
+     */
+    public ArrayList<JobItem> getJobItemsIdsByJobId(long jobId) {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<JobItem> jobItemIds = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT " + COLUMN_JOB_ITEM_ID +
+                        " FROM " + TABLE_JOB_ITEMS +
+                        " WHERE " + COLUMN_JOB + " = " + jobId,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                JobItem jobItem = new JobItem();
+                jobItem.setJobItemId(cursor.getLong(cursor.getColumnIndex(COLUMN_JOB_ITEM_ID)));
+                jobItemIds.add(jobItem);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return jobItemIds;
+    }
+
+    /**
+     * Update JobItem details
+     * @param jobItemId
+     * @param description
+     * @param price
+     */
+    public void updateJobItem(
+            long jobItemId,
+            String description,
+            double price) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_JOB_ITEM_DESCRIPTION, description);
+        values.put(COLUMN_JOB_ITEM_PRICE, price);
+        db.update(TABLE_JOB_ITEMS, values, COLUMN_JOB_ITEM_ID + " = " + jobItemId, null);
+
+        System.out.println("z! ----- updateJobItem -----");
+        System.out.println("z! jobItemId: " + jobItemId);
+        System.out.println("z! description: " + description);
+        System.out.println("z! price: " + price);
+
+        db.close();
+    }
+
+    /**
+     * Delete all jobItems that contain the jobId
+     * @param jobId
+     */
+    public void deleteJobItemByJobId(long jobId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(TABLE_JOB_ITEMS, COLUMN_JOB + " = " + jobId, null);
+        db.close();
+    }
+
+
     //////////////////////////////////////////////////////////
-    //                                                                                 MISC.
+    //      MISC.
     //////////////////////////////////////////////////////////
     /**
      * Drop all tables

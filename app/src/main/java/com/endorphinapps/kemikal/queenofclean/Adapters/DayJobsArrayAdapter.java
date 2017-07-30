@@ -3,6 +3,7 @@ package com.endorphinapps.kemikal.queenofclean.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import java.util.Locale;
 public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
 
     private DBHelper db = new DBHelper(getContext());
+    private long jobId;
 
     public DayJobsArrayAdapter(Context context) {
         super(context, 0);
@@ -53,8 +55,8 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
         TextView customerAddress = (TextView) convertView.findViewById(R.id.address_line_1);
         customerAddress.setText(customer.getAddressLine1());
 
-        /**
-         * Employee details
+        /*
+          Employee details
          */
         //Get Employee from DB by ID
         final Employee employee = db.getEmployeeById(job.getEmployee());
@@ -64,8 +66,8 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
         TextView employeeFirstLast = (TextView) convertView.findViewById(R.id.full_name_employee);
         employeeFirstLast.setText(employeeFullName);
 
-        /**
-         * Job details
+        /*
+          Job details
          */
         // Price
         TextView totalPrice = (TextView) convertView.findViewById(R.id.total_price);
@@ -85,22 +87,55 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
         // Status
         TextView jobStatus = (TextView) convertView.findViewById(R.id.job_status);
         jobStatus.setText(job.getJobStatusEnum());
+        // Set status text colour accordingly
+        if (job.getJobStatusEnum().equals("Unconfirmed")) {
+            jobStatus.setTextColor(Color.LTGRAY);
+        } else if (job.getJobStatusEnum().equals("Pending")) {
+            jobStatus.setTextColor(Color.DKGRAY);
+        } else if (job.getJobStatusEnum().equals("Current")) {
+            jobStatus.setTextColor(Color.MAGENTA);
+        } else if (job.getJobStatusEnum().equals("Completed")) {
+            jobStatus.setTextColor(Color.GREEN);
+        } else if (job.getJobStatusEnum().equals("Cancelled")) {
+            jobStatus.setTextColor(Color.RED);
+        }
 
         // Start Time
         TextView startTime = (TextView) convertView.findViewById(R.id.job_start_time);
         String startDateFormat = DateFormat.getTimeInstance(DateFormat.SHORT).format(job.getStartTime());
         startTime.setText(startDateFormat);
 
-        // On click of listView item, send ID to the DetailView
+        // Handle on listView item click and send job ID
+        // so that it can be displayed in the DetailJob activity
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DetailJob.class);
                 intent.putExtra("EXTRAS_jobID", job.getId());
+                System.out.println("z! DayJobsArrayAdapter - onClick - jobId: " + jobId);
                 getContext().startActivity(intent);
             }
         });
 
+        // Handle on listView item long click and send job ID
+        // so that it can be used for the ListView contextMenu
+        // Returns false to avoid conflicts with the context menu
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setJobId(job.getId());
+                return false;
+            }
+        });
+
         return convertView;
+    }
+
+    public long getJobId() {
+        return jobId;
+    }
+
+    private void setJobId(long jobId) {
+        this.jobId = jobId;
     }
 }

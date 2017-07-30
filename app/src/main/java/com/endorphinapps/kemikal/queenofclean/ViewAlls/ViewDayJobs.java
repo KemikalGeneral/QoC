@@ -1,26 +1,81 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.ViewAlls;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.DayJobsArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
+import com.endorphinapps.kemikal.queenofclean.JobsClass;
+import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
+import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.util.ArrayList;
 
-public class DayView extends AppCompatActivity
+public class ViewDayJobs extends AppCompatActivity
         implements View.OnClickListener {
 
     private DBHelper db;
     private DayJobsArrayAdapter dayJobsArrayAdapter;
     private ListView lv_dayList;
     private ArrayList<Job> jobs;
-
+    private TextView tv_emptyList;
     private NavigationBottom navigationBottom;
+
+    /**
+     * Create a context menu on a long press of the
+     * ViewDayJobs ListView item to change the job status
+     *
+     * @param menu
+     * @param v
+     * @param menuInfo
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        // Set menu options
+        menu.setHeaderTitle("Change Job Status to...");
+        menu.add(0, v.getId(), 0, "Unconfirmed");
+        menu.add(0, v.getId(), 0, "Pending");
+        menu.add(0, v.getId(), 0, "Current");
+        menu.add(0, v.getId(), 0, "Completed");
+        menu.add(0, v.getId(), 0, "Cancelled");
+    }
+
+    /**
+     * Action the item selected in the context menu
+     * by calling changeJobStatus() and passing the JobId
+     * and the amended status
+     * @param item
+     * @return true
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        long jobId = dayJobsArrayAdapter.getJobId();
+
+        if (item.getTitle().equals("Unconfirmed")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+        } else if (item.getTitle().equals("Pending")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+        } else if (item.getTitle().equals("Current")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+        } else if (item.getTitle().equals("Completed")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+        } else if (item.getTitle().equals("Cancelled")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+        }
+        // Recreate the activity to apply changes
+        recreate();
+        return super.onContextItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +123,18 @@ public class DayView extends AppCompatActivity
         dayJobsArrayAdapter = new DayJobsArrayAdapter(this);
         dayJobsArrayAdapter.addAll(jobs);
         lv_dayList.setAdapter(dayJobsArrayAdapter);
+
+        // Register for long clickable context menu
+        // used to change the job status
+        registerForContextMenu(lv_dayList);
+
+        // If there are no records, show the 'No Jobs'
+        // message, if there are, hide the message
+        if (dayJobsArrayAdapter.getCount() == 0) {
+            tv_emptyList.setVisibility(View.VISIBLE);
+        } else {
+            tv_emptyList.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -75,6 +142,7 @@ public class DayView extends AppCompatActivity
      */
     private void findViews() {
         lv_dayList = (ListView) findViewById(R.id.day_view_listview);
+        tv_emptyList = (TextView) findViewById(R.id.day_empty_list);
     }
 
     /**

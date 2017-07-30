@@ -1,10 +1,9 @@
-package com.endorphinapps.kemikal.queenofclean.AddRecords;
+package com.endorphinapps.kemikal.queenofclean.EditRecords;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -17,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,6 +30,8 @@ import com.endorphinapps.kemikal.queenofclean.ENUMs.EmployeePaymentStatus;
 import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
+import com.endorphinapps.kemikal.queenofclean.Entities.Job;
+import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
@@ -37,10 +39,11 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
-public class AddJob extends MenuMain
+public class EditJob extends MenuMain
         implements DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
 
@@ -67,13 +70,17 @@ public class AddJob extends MenuMain
     private EditText et_estimatedTime;
     private TextView tv_jobTotalPrice;
     private EditText et_notes;
-    private Button btn_JobSubmit;
+    private Button btn_edit;
 
     private Customer customer;
     private Employee employee;
+    private Job job;
 
     private TextView tv_dummyCustomer;
     private TextView tv_dummyEmployee;
+
+    private long jobId;
+    private Intent intent;
 
     /**
      * Go back to ViewCustomers on back press
@@ -87,41 +94,30 @@ public class AddJob extends MenuMain
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_job);
+        setContentView(R.layout.activity_edit_job);
+
+        // Instantiate a new instance of the DBHelper
+        db = new DBHelper(this);
+
+        intent = getIntent();
+        jobId = intent.getLongExtra("EXTRAS_id", 0);
+        job = db.getJobById(jobId);
+        customer = db.getCustomerById(job.getCustomer());
+        employee = db.getEmployeeById(job.getEmployee());
 
         //Find all views by their Id's
         findViews();
 
         // Set ActionBar title
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Add a Job");
+        actionBar.setTitle("Edit a Job");
 
-        sp_customerSpinner.setVisibility(View.GONE);
-        ll_addressContainer.setVisibility(View.GONE);
-        sp_employeeSpinner.setVisibility(View.GONE);
-
-        tv_dummyCustomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tv_dummyCustomer.setVisibility(View.GONE);
-                sp_customerSpinner.setVisibility(View.VISIBLE);
-                ll_addressContainer.setVisibility(View.VISIBLE);
-            }
-        });
-
-        tv_dummyEmployee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tv_dummyEmployee.setVisibility(View.GONE);
-                sp_employeeSpinner.setVisibility(View.VISIBLE);
-            }
-        });
-
-        // Instantiate a new instance of the DBHelper
-        db = new DBHelper(this);
+        tv_dummyCustomer.setVisibility(View.GONE);
+        tv_dummyEmployee.setVisibility(View.GONE);
 
         // Populate customers ArrayList and spinner with
         // customer details from the DB.
+        // Set spinner to current customer
         getCustomersAndPopulateSpinner();
         // On button click, populate the customer's
         // address fields from the spinner selection
@@ -129,6 +125,7 @@ public class AddJob extends MenuMain
 
         // Populate employees ArrayList and spinner with
         // employee details from the DB.
+        // Set spinner to current employee
         getEmployeesAndPopulateSpinner();
         // On button click, select the employee for the job
         populateEmployeeDetailsFromSpinnerSelection();
@@ -136,16 +133,45 @@ public class AddJob extends MenuMain
         // Pick a date for the start of the job, using a datePicker
         // Returned in onDateSet
         createAndReturnDatePicker();
+        // Populate the startDate with the current job's start date
+        populateCurrentStartDate();
 
         // Pick a time for the start of the job, using a timePicker
         // Returned in onTimeSet
         createAndReturnTimePicker();
+        // Populate startTime with the current job's start time
+        populateCurrentStartTime();
 
-        // Populate JobStatus, CustomerPaymentStatus & EmployeePaymentStatus
-        // spinners with values from Enum classes
+        // Populate JobStatus spinner with values from Enum class
         sp_jobStatusSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_list_item, JobStatus.values()));
+        // Populate jobStatus with the current job's status
+        int jobStatusPosition = JobStatus.valueOf(job.getJobStatusEnum()).ordinal();
+        sp_jobStatusSpinner.setSelection(jobStatusPosition);
+
+        // Populate CustomerPaymentStatus spinner with values from Enum class
         sp_customerPaymentStatusSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_list_item, CustomerPaymentStatus.values()));
+        // Populate paymentStatus with the current job's status
+        int customerPaymentStatusPosition = CustomerPaymentStatus.valueOf(job.getCustomerPaymentStatusEnum()).ordinal();
+        sp_customerPaymentStatusSpinner.setSelection(customerPaymentStatusPosition);
+
+        // Populate EmployeePaymentStatus spinner with values from Enum class
         sp_employeePaymentStatusSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_list_item, EmployeePaymentStatus.values()));
+        // Populate paymentStatus with the current job's status
+        int employeePaymentStatusPosition = EmployeePaymentStatus.valueOf(job.getEmployeePaymentStatusEnum()).ordinal();
+        sp_employeePaymentStatusSpinner.setSelection(employeePaymentStatusPosition);
+
+        // Populate estimatedTime with the current job's time
+        et_estimatedTime.setText(String.valueOf(job.getEstimatedTime()));
+
+        // Populate Total Price with the current job's price
+        tv_jobTotalPrice.setText("£");
+        tv_jobTotalPrice.append(String.format(Locale.getDefault(), "%.2f", job.getTotalPrice()));
+
+        // Populate jobNotes with the current job's notes
+        et_notes.setText(job.getNotes());
+
+        // Populate jobItems with the current job's items
+        populateJobRow();
 
         //Calls addJobRow() to add a new row layout
         tv_addNewJobRow.setOnClickListener(new View.OnClickListener() {
@@ -156,13 +182,12 @@ public class AddJob extends MenuMain
         });
 
         // Get the values of the Description and Price, for each row
-        btn_JobSubmit.setOnClickListener(new View.OnClickListener() {
+        btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onSubmit();
             }
         });
-
     }
 
     /**
@@ -187,7 +212,7 @@ public class AddJob extends MenuMain
         et_estimatedTime = (EditText) findViewById(R.id.add_job_estimated_time);
         tv_jobTotalPrice = (TextView) findViewById(R.id.add_job_total_price);
         et_notes = (EditText) findViewById(R.id.add_job_notes);
-        btn_JobSubmit = (Button) findViewById(R.id.add_Job_btn_submit);
+        btn_edit = (Button) findViewById(R.id.apply_changes);
 
         tv_dummyCustomer = (TextView) findViewById(R.id.dummy_customer);
         tv_dummyEmployee = (TextView) findViewById(R.id.dummy_employee);
@@ -197,18 +222,34 @@ public class AddJob extends MenuMain
      * Populate 'customers' ArrayList with all customer details from the DB.
      * Loop through and populate the 'customerNames' ArrayList with the first and last names of the customers.
      * Set-up customer adapter.
+     * Iterate through the list of customers and check a match to the current name
+     * set spinner to current customer
      */
     private void getCustomersAndPopulateSpinner() {
         final ArrayList<Customer> customers = db.getAllCustomers();
         ArrayList<String> customerNames = new ArrayList<>();
+
         String fullName;
-        for (int i = 0; i < customers.size(); i++) {
+        int arraySize = customers.size();
+        for (int i = 0; i < arraySize; i++) {
             fullName = customers.get(i).getFirstName() + " " + customers.get(i).getLastName();
             customerNames.add(fullName);
         }
+
         ArrayAdapter<String> customerSpinnerAdapter = new ArrayAdapter<>(
                 this, R.layout.spinner_list_item, customerNames);
         sp_customerSpinner.setAdapter(customerSpinnerAdapter);
+
+        // Iterate through the list of customers and check
+        // to see if the current name matches.
+        // Set index as position
+        String currentCustomerFullName = customer.getFirstName() + " " + customer.getLastName();
+        int arraySize2 = customerNames.size();
+        for (int i = 0; i < arraySize2; i++) {
+            if (currentCustomerFullName.equals(customerNames.get(i))) {
+                sp_customerSpinner.setSelection(i);
+            }
+        }
     }
 
     /**
@@ -241,18 +282,34 @@ public class AddJob extends MenuMain
      * Populate 'employees' ArrayList with all employee details from the DB.
      * Loop through and populate the 'employeeNames' ArrayList with the first and last names of the employees.
      * Set-up employee adapter.
+     * Iterate through the list of employees and check a match to the current name
+     * set spinner to current employee
      */
     private void getEmployeesAndPopulateSpinner() {
         final ArrayList<Employee> employees = db.getAllEmployees();
-        ArrayList<String> employeeName = new ArrayList<>();
+        ArrayList<String> employeeNames = new ArrayList<>();
+
         String fullName;
-        for (int i = 0; i < employees.size(); i++) {
+        int arraySize = employees.size();
+        for (int i = 0; i < arraySize; i++) {
             fullName = employees.get(i).getFirstName() + " " + employees.get(i).getLastName();
-            employeeName.add(fullName);
+            employeeNames.add(fullName);
         }
+
         ArrayAdapter<String> employeeSpinnerAdapter = new ArrayAdapter<>(
-                this, R.layout.spinner_list_item, employeeName);
+                this, R.layout.spinner_list_item, employeeNames);
         sp_employeeSpinner.setAdapter(employeeSpinnerAdapter);
+
+        // Iterate through the list of employees and check
+        // to see if the current name matches.
+        // Set index as position
+        String currentEmployeeFullName = employee.getFirstName() + " " + employee.getLastName();
+        int arraySize2 = employeeNames.size();
+        for (int i = 0; i < arraySize2; i++) {
+            if (currentEmployeeFullName.equals(employeeNames.get(i))) {
+                sp_employeeSpinner.setSelection(i);
+            }
+        }
     }
 
     /**
@@ -287,6 +344,23 @@ public class AddJob extends MenuMain
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         });
+    }
+
+    /**
+     * Populate the startDate with the current job's startDate
+     * and display it in the tv_startDate TextView
+     */
+    public void populateCurrentStartDate() {
+        // Get current startDate
+        startDate = job.getStartDate();
+
+        // Format date to dd:month:yyyy
+        String date = DateFormat.getDateInstance().format(startDate);
+
+        // Display current start date in TextView
+        tv_startDate.setText(date);
+
+        System.out.println("z! AddJob - populateCurrentStartDate(): " + date);
     }
 
     /**
@@ -331,6 +405,23 @@ public class AddJob extends MenuMain
     }
 
     /**
+     * Populate the startTime with the current job's startTime
+     * and display it in the tv_startTime TextView
+     */
+    public void populateCurrentStartTime() {
+        // Get current startTime
+        startTime = job.getStartTime();
+
+        // Format time to hh:mm
+        String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime);
+
+        // Display in TextView
+        tv_startTime.setText(time);
+
+        System.out.println("z! AddJob - populateCurrentStartTime(): " + time);
+    }
+
+    /**
      * onTimeSet returns the time chosen from the timePicker,
      * sets the value to a calendar object and converts
      * to millis for inserting to DB.
@@ -362,7 +453,7 @@ public class AddJob extends MenuMain
     private String getJobStatus() {
         String jobStatus = sp_jobStatusSpinner.getSelectedItem().toString();
 
-        System.out.println("z! AddJob - getJobStatus(): " + jobStatus);
+        System.out.println("z! EditJob - getJobStatus(): " + jobStatus);
 
         return jobStatus;
     }
@@ -370,12 +461,12 @@ public class AddJob extends MenuMain
     /**
      * Get the customer payment status from the
      * customer payment status spinner
-     * @return payment status as a string
+     * @return customer payment status as a string
      */
     private String getCustomerPaymentStatus() {
         String paymentStatus = sp_customerPaymentStatusSpinner.getSelectedItem().toString();
 
-        System.out.println("z! AddJob - getCustomerPaymentStatus(): " + paymentStatus);
+        System.out.println("z! EditJob - getCustomerJobStatus(): " + paymentStatus);
 
         return paymentStatus;
     }
@@ -384,14 +475,78 @@ public class AddJob extends MenuMain
      * Get the employee payment status from the
      * employee payment status spinner
      *
-     * @return payment status as a string
+     * @return employee payment status as a string
      */
     private String getEmployeePaymentStatus() {
         String paymentStatus = sp_employeePaymentStatusSpinner.getSelectedItem().toString();
 
-        System.out.println("z! AddJob - getEmployeePaymentStatus(): " + paymentStatus);
+        System.out.println("z! EditJob - getEmployeeJobStatus(): " + paymentStatus);
 
         return paymentStatus;
+    }
+
+    /**
+     * Creates a new LinearLayout as row container
+     * Populates the row with the current JobItem's
+     * description and price as EditText fields
+     * Adds a listener for the delete button to remove the current row
+     */
+    private void populateJobRow() {
+        // Create a list of JobItems, using the current JobId
+        ArrayList<JobItem> jobItems;
+        jobItems = db.getJobItemsByJobId(job.getId());
+
+        // Iterate through the list of jobsItems and create
+        // and populate the description and price fields
+        // of each JobItem
+        int arraySize = jobItems.size();
+        for (int i = 0; i < arraySize; i++) {
+
+            //Create a new row container
+            LinearLayout jobRowContainer = new LinearLayout(this);
+
+            //Create a new EditText for the Description
+            EditText description = new EditText(this);
+            description.setId(R.id.add_item_description);
+            // Set current description
+            description.setText(jobItems.get(i).getDescription());
+            description.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    1.0f
+            ));
+
+            //Create an EditText for the Price
+            //Will only accept a decimal number
+            EditText price = new EditText(this);
+            price.setId(R.id.add_item_price);
+            price.setInputType(InputType.TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL);
+            // Ser current price, formatted to two decimal places
+            price.setText(String.format(Locale.getDefault(), "%.2f", jobItems.get(i).getPrice()));
+
+            //Create a new button to delete the row
+            final ImageButton delete = new ImageButton(this);
+            delete.setBackground(getDrawable(R.drawable.ic_clear_black_24dp));
+
+            //Add Description, Price and Delete to the row container
+            jobRowContainer.addView(description);
+            jobRowContainer.addView(price);
+            jobRowContainer.addView(delete);
+
+            //Add the Row Container to the Jobs List Container
+            ll_jobListContainer.addView(jobRowContainer);
+
+            //Delete the current row
+            //This is set here to avoid a nullPointer on activity load.
+            //The listener starts when row is added
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    db.deleteJobItemByJobId(jobId);
+                    removeJobRow(delete);
+                }
+            });
+        }
     }
 
     /**
@@ -404,7 +559,7 @@ public class AddJob extends MenuMain
         LinearLayout jobRowContainer = new LinearLayout(this);
 
         //Create a new EditText for the Description
-        final EditText description = new EditText(this);
+        EditText description = new EditText(this);
         description.setId(R.id.add_item_description);
         description.setHint("Description...");
         description.setLayoutParams(new LinearLayout.LayoutParams(
@@ -415,15 +570,14 @@ public class AddJob extends MenuMain
 
         //Create an EditText for the Price
         //Will only accept a decimal number
-        final EditText price = new EditText(this);
+        EditText price = new EditText(this);
         price.setId(R.id.add_item_price);
         price.setInputType(InputType.TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL);
         price.setHint("00.00");
 
         //Create a new button to delete the row
-        final Button delete = new Button(this);
-        delete.setBackgroundColor(Color.RED);
-        delete.setText("X");
+        final ImageButton delete = new ImageButton(this);
+        delete.setBackground(getDrawable(R.drawable.ic_clear_black_24dp));
 
         //Add Description, Price and Delete to the row container
         jobRowContainer.addView(description);
@@ -448,13 +602,14 @@ public class AddJob extends MenuMain
      * Removes the current row (LinearLayout)
      * @param delete
      */
-    private void removeJobRow(Button delete) {
+    private void removeJobRow(ImageButton delete) {
         LinearLayout currentRow = (LinearLayout) delete.getParent();
         ((ViewGroup) currentRow.getParent()).removeView(currentRow);
     }
 
     /**
      * Calculate the price of all the entered job items
+     *
      * @return total price as a double
      */
     private double calculatePriceOfJobItems() {
@@ -465,7 +620,8 @@ public class AddJob extends MenuMain
         double price;
 
         //Get the values from the description and price fields
-        for (int i = 0; i < ll_jobListContainer.getChildCount(); i++) {
+        int arraySize = ll_jobListContainer.getChildCount();
+        for (int i = 0; i < arraySize; i++) {
             currentRow = (LinearLayout) ll_jobListContainer.getChildAt(i);
 
             //Get the text from the Description field
@@ -494,6 +650,7 @@ public class AddJob extends MenuMain
 
     /**
      * Get the estimated time needed for the employee pay
+     *
      * @return estimatedTime as an int
      */
     private int getEstimatedTime() {
@@ -511,6 +668,7 @@ public class AddJob extends MenuMain
     /**
      * Calculate the total pay for the employee,
      * by multiplying the rate of pay by hours worked
+     *
      * @return total pay to employee as a double
      */
     private double calculatePayToEmployee() {
@@ -525,6 +683,7 @@ public class AddJob extends MenuMain
 
     /**
      * Get any job notes entered
+     *
      * @return job notes as a string
      */
     @NonNull
@@ -579,17 +738,18 @@ public class AddJob extends MenuMain
         String jobNotes = getJobNotes();
 
         //Save all job attributes to the DB
-        saveToDB(startDate, startTime, jobStatus, customerPaymentStatus,
-                employeePaymentStatus, estimateJobTime,
-                totalCostForJob, jobNotes, customerId, employeeId);
+        saveToDB(jobId, startDate, startTime, jobStatus,
+                customerPaymentStatus, employeePaymentStatus,
+                estimateJobTime, totalCostForJob, jobNotes,
+                customerId, employeeId);
 
-        startActivity(new Intent(AddJob.this, ViewJobs.class));
+        // Go back to the all jobs ListView
+        startActivity(new Intent(EditJob.this, ViewJobs.class));
         finish();
     }
 
     /**
      * Get the ID of the customer
-     *
      * @return ID as a long
      */
     private long getCustomerId() {
@@ -603,7 +763,6 @@ public class AddJob extends MenuMain
 
     /**
      * Get the ID of the customer
-     *
      * @return ID as a long
      */
     private long getEmployeeId() {
@@ -619,7 +778,9 @@ public class AddJob extends MenuMain
      * Save all details of Job to DB.
      * Save the JobItems separately as they require the
      * id returned from the saved Job as a FK
+     * @param id
      * @param startDate
+     * @param startTime
      * @param jobStatus
      * @param estimateJobTime
      * @param totalCostForJob
@@ -627,18 +788,17 @@ public class AddJob extends MenuMain
      * @param customerId
      * @param employeeId
      */
-    private void saveToDB(long startDate, long startTime,
-                          String jobStatus, String customerPaymentStatus,
+    private void saveToDB(long id, long startDate,
+                          long startTime, String jobStatus, String customerPaymentStatus,
                           String employeePaymentStatus, int estimateJobTime,
                           double totalCostForJob, String jobNotes,
                           long customerId, long employeeId) {
-        long jobId = db.insertJob(startDate, startTime,
+        db.updateJob(id, startDate, startTime,
                 jobStatus, customerPaymentStatus, employeePaymentStatus,
                 estimateJobTime, totalCostForJob, jobNotes,
                 customerId, employeeId);
 
-        System.out.println("z! AddJob - saveToDB() - jobId: " +
-                jobId);
+        System.out.println("z! EditJob - saveToDB() - jobId: " + id);
 
         // Save the jobItems separately as they require
         // the jobId as a FK
@@ -656,8 +816,14 @@ public class AddJob extends MenuMain
         String description;
         double price;
 
-        //Get the values from the description and price fields
-        for (int i = 0; i < ll_jobListContainer.getChildCount(); i++) {
+        // Check how many job items there are in the activity.
+        int arraySize = ll_jobListContainer.getChildCount();
+        // Get a list of jobItem id's for this Job
+        ArrayList<JobItem> jobItemIds = db.getJobItemsIdsByJobId(jobId);
+        // Create a counter for the number of updates
+        int counter = 0;
+        // Get the values from the description and price fields.
+        for (int i = 0; i < arraySize; i++) {
             currentRow = (LinearLayout) ll_jobListContainer.getChildAt(i);
 
             //Get the text from the Description field
@@ -672,10 +838,19 @@ public class AddJob extends MenuMain
             if (!editText.getText().toString().equals("")) {
                 price = Double.parseDouble(editText.getText().toString());
             }
-            // Save to DB
-            db.insertJobItem(jobId, description, price);
-        }
 
+            // Save to DB
+            // Increment the counter. If the counter is less than
+            // the existing number of jobItems, then they should be updated.
+            // It the counter is more, then the extra should be inserted as new.
+            counter++;
+            if (counter <= jobItemIds.size()) {
+                long jobItemId = jobItemIds.get(i).getJobItemId();
+                db.updateJobItem(jobItemId, description, price);
+            } else {
+                db.insertJobItem(jobId, description, price);
+            }
+        }
     }
 
 }

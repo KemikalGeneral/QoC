@@ -9,6 +9,8 @@ public class Job {
     private long startTime;
     private long endDate;
     private String jobStatusEnum;
+    private String customerPaymentStatusEnum;
+    private String employeePaymentStatusEnum;
     private int estimatedTime;
     private int actualTime;
     private double totalPrice;
@@ -18,7 +20,8 @@ public class Job {
 
     public Job(long id, long customer, long employee,
                long startDate, long startTime, long endDate,
-               String jobStatusEnum, int estimatedTime,
+               String jobStatusEnum, String customerPaymentStatusEnum,
+               String employeePaymentStatusEnum, int estimatedTime,
                int actualTime, double totalPrice, String notes) {
         this.id = id;
         this.customer = customer;
@@ -27,6 +30,8 @@ public class Job {
         this.startTime = startTime;
         this.endDate = endDate;
         this.jobStatusEnum = jobStatusEnum;
+        this.customerPaymentStatusEnum = customerPaymentStatusEnum;
+        this.employeePaymentStatusEnum = employeePaymentStatusEnum;
         this.estimatedTime = estimatedTime;
         this.actualTime = actualTime;
         this.totalPrice = totalPrice;
@@ -89,6 +94,22 @@ public class Job {
         this.jobStatusEnum = jobStatusEnum;
     }
 
+    public String getCustomerPaymentStatusEnum() {
+        return customerPaymentStatusEnum;
+    }
+
+    public void setCustomerPaymentStatusEnum(String customerPaymentStatusEnum) {
+        this.customerPaymentStatusEnum = customerPaymentStatusEnum;
+    }
+
+    public String getEmployeePaymentStatusEnum() {
+        return employeePaymentStatusEnum;
+    }
+
+    public void setEmployeePaymentStatusEnum(String employeePaymentStatusEnum) {
+        this.employeePaymentStatusEnum = employeePaymentStatusEnum;
+    }
+
     public int getEstimatedTime() {
         return estimatedTime;
     }
@@ -128,8 +149,11 @@ public class Job {
                 ", customer=" + customer +
                 ", employee=" + employee +
                 ", startDate=" + startDate +
+                ", startTime=" + startTime +
                 ", endDate=" + endDate +
-                ", jobStatusEnum=" + jobStatusEnum +
+                ", jobStatusEnum='" + jobStatusEnum + '\'' +
+                ", customerPaymentStatusEnum='" + customerPaymentStatusEnum + '\'' +
+                ", employeePaymentStatusEnum='" + employeePaymentStatusEnum + '\'' +
                 ", estimatedTime=" + estimatedTime +
                 ", actualTime=" + actualTime +
                 ", totalPrice=" + totalPrice +

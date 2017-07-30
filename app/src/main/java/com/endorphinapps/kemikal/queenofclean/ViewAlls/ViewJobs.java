@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,18 +14,17 @@ import com.endorphinapps.kemikal.queenofclean.Adapters.JobArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
-import com.endorphinapps.kemikal.queenofclean.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 public class ViewJobs extends MenuMain
         implements View.OnClickListener {
 
+    private DBHelper db;
     private TextView tv_emptyList;
-
-    private ListView lv_jobsListView;
     private JobArrayAdapter arrayAdapter;
-
+    private ListView lv_jobsListView;
     private FloatingActionButton fab;
     private NavigationBottom navigationBottom;
 
@@ -34,6 +35,58 @@ public class ViewJobs extends MenuMain
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    /**
+     * Create a context menu on a long press of the
+     * ViewJobs ListView item to change the job status
+     * @param menu
+     * @param v
+     * @param menuInfo
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        // Set menu options
+        menu.setHeaderTitle("Change Job Status to...");
+        menu.add(0, v.getId(), 0, "Unconfirmed");
+        menu.add(0, v.getId(), 0, "Pending");
+        menu.add(0, v.getId(), 0, "Current");
+        menu.add(0, v.getId(), 0, "Completed");
+        menu.add(0, v.getId(), 0, "Cancelled");
+    }
+
+    /**
+     * Action the item selected in the context menu
+     * by calling changeJobStatus() and passing the JobId
+     * and the amended status
+     * @param item
+     * @return true
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        long jobId = arrayAdapter.getJobId();
+
+        if (item.getTitle().equals("Unconfirmed")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
+        } else if (item.getTitle().equals("Pending")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
+        } else if (item.getTitle().equals("Current")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
+        } else if (item.getTitle().equals("Completed")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
+        } else if (item.getTitle().equals("Cancelled")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
+            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
+        }
+        // Recreate the activity to apply changes
+        recreate();
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -49,12 +102,16 @@ public class ViewJobs extends MenuMain
         actionBar.setTitle("Jobs");
 
         // Instantiate a new DBHelper class
-        DBHelper db = new DBHelper(this);
+        db = new DBHelper(this);
 
         // Populate and setup ListView
         arrayAdapter = new JobArrayAdapter(this);
         arrayAdapter.addAll(db.getAllJobs());
         lv_jobsListView.setAdapter(arrayAdapter);
+
+        // Register for long clickable context menu
+        // used to change the job status
+        registerForContextMenu(lv_jobsListView);
 
         // If there are no records, show the 'No Jobs'
         // message, if there are, hide the message
@@ -86,7 +143,6 @@ public class ViewJobs extends MenuMain
     /**
      * BottomNavigation onClick method.
      * View is the icon clicked.
-     *
      * @param v
      */
     @Override
