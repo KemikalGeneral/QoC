@@ -25,6 +25,8 @@ import android.widget.TimePicker;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.DateTime.DatePickerFragment;
 import com.endorphinapps.kemikal.queenofclean.DateTime.TimePickerFragment;
+import com.endorphinapps.kemikal.queenofclean.ENUMs.CustomerPaymentStatus;
+import com.endorphinapps.kemikal.queenofclean.ENUMs.EmployeePaymentStatus;
 import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
@@ -57,7 +59,9 @@ public class AddJob extends MenuMain
     private TextView tv_startTime;
     private long startDate;
     private long startTime;
-    private Spinner sp_statusSpinner;
+    private Spinner sp_jobStatusSpinner;
+    private Spinner sp_customerPaymentStatusSpinner;
+    private Spinner sp_employeePaymentStatusSpinner;
     private LinearLayout ll_jobListContainer;
     private TextView tv_addNewJobRow;
     private EditText et_estimatedTime;
@@ -119,7 +123,6 @@ public class AddJob extends MenuMain
         // Populate customers ArrayList and spinner with
         // customer details from the DB.
         getCustomersAndPopulateSpinner();
-
         // On button click, populate the customer's
         // address fields from the spinner selection
         populateCustomerDetailsFromSpinnerSelection();
@@ -127,7 +130,6 @@ public class AddJob extends MenuMain
         // Populate employees ArrayList and spinner with
         // employee details from the DB.
         getEmployeesAndPopulateSpinner();
-
         // On button click, select the employee for the job
         populateEmployeeDetailsFromSpinnerSelection();
 
@@ -139,8 +141,11 @@ public class AddJob extends MenuMain
         // Returned in onTimeSet
         createAndReturnTimePicker();
 
-        // Populate JobStatus spinner with values from Enum class
-        sp_statusSpinner.setAdapter(new ArrayAdapter<JobStatus>(this, R.layout.spinner_list_item, JobStatus.values()));
+        // Populate JobStatus, CustomerPaymentStatus & EmployeePaymentStatus
+        // spinners with values from Enum classes
+        sp_jobStatusSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_list_item, JobStatus.values()));
+        sp_customerPaymentStatusSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_list_item, CustomerPaymentStatus.values()));
+        sp_employeePaymentStatusSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_list_item, EmployeePaymentStatus.values()));
 
         //Calls addJobRow() to add a new row layout
         tv_addNewJobRow.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +179,9 @@ public class AddJob extends MenuMain
         sp_employeeSpinner = (Spinner) findViewById(R.id.add_employee_spinner);
         tv_startDate = (TextView) findViewById(R.id.add_start_date);
         tv_startTime = (TextView) findViewById(R.id.add_start_time);
-        sp_statusSpinner = (Spinner) findViewById(R.id.add_job_status_spinner);
+        sp_jobStatusSpinner = (Spinner) findViewById(R.id.add_job_status_spinner);
+        sp_customerPaymentStatusSpinner = (Spinner) findViewById(R.id.add_customer_payment_status_spinner);
+        sp_employeePaymentStatusSpinner = (Spinner) findViewById(R.id.add_employee_payment_status_spinner);
         ll_jobListContainer = (LinearLayout) findViewById(R.id.add_job_list_container);
         tv_addNewJobRow = (TextView) findViewById(R.id.add_job_item_row);
         et_estimatedTime = (EditText) findViewById(R.id.add_job_estimated_time);
@@ -353,11 +360,38 @@ public class AddJob extends MenuMain
      * @return job status as a string
      */
     private String getJobStatus() {
-        String jobStatus = sp_statusSpinner.getSelectedItem().toString();
+        String jobStatus = sp_jobStatusSpinner.getSelectedItem().toString();
 
         System.out.println("z! AddJob - getJobStatus(): " + jobStatus);
 
         return jobStatus;
+    }
+
+    /**
+     * Get the customer payment status from the
+     * customer payment status spinner
+     * @return payment status as a string
+     */
+    private String getCustomerPaymentStatus() {
+        String paymentStatus = sp_customerPaymentStatusSpinner.getSelectedItem().toString();
+
+        System.out.println("z! AddJob - getCustomerPaymentStatus(): " + paymentStatus);
+
+        return paymentStatus;
+    }
+
+    /**
+     * Get the employee payment status from the
+     * employee payment status spinner
+     *
+     * @return payment status as a string
+     */
+    private String getEmployeePaymentStatus() {
+        String paymentStatus = sp_employeePaymentStatusSpinner.getSelectedItem().toString();
+
+        System.out.println("z! AddJob - getEmployeePaymentStatus(): " + paymentStatus);
+
+        return paymentStatus;
     }
 
     /**
@@ -518,6 +552,12 @@ public class AddJob extends MenuMain
         //Get job status
         String jobStatus = getJobStatus();
 
+        // Get customer payment status
+        String customerPaymentStatus = getCustomerPaymentStatus();
+
+        // Get employee payment status
+        String employeePaymentStatus = getEmployeePaymentStatus();
+
         //Calculate price of job items
         double priceOfJobItems = calculatePriceOfJobItems();
 
@@ -539,7 +579,9 @@ public class AddJob extends MenuMain
         String jobNotes = getJobNotes();
 
         //Save all job attributes to the DB
-        saveToDB(startDate, startTime, jobStatus, estimateJobTime, totalCostForJob, jobNotes, customerId, employeeId);
+        saveToDB(startDate, startTime, jobStatus, customerPaymentStatus,
+                employeePaymentStatus, estimateJobTime,
+                totalCostForJob, jobNotes, customerId, employeeId);
 
         startActivity(new Intent(AddJob.this, ViewJobs.class));
         finish();
@@ -586,12 +628,14 @@ public class AddJob extends MenuMain
      * @param employeeId
      */
     private void saveToDB(long startDate, long startTime,
-                          String jobStatus, int estimateJobTime,
+                          String jobStatus, String customerPaymentStatus,
+                          String employeePaymentStatus, int estimateJobTime,
                           double totalCostForJob, String jobNotes,
                           long customerId, long employeeId) {
         long jobId = db.insertJob(startDate, startTime,
-                jobStatus, estimateJobTime, totalCostForJob,
-                jobNotes, customerId, employeeId);
+                jobStatus, customerPaymentStatus, employeePaymentStatus,
+                estimateJobTime, totalCostForJob, jobNotes,
+                customerId, employeeId);
 
         System.out.println("z! AddJob - saveToDB() - jobId: " +
                 jobId);

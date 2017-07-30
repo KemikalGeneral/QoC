@@ -140,7 +140,7 @@
         </android.support.constraint.ConstraintLayout>
 
 
-        <!--Job Status-->
+        <!--Job & Payment Status-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_status_spinner_container"
             style="@style/container"
@@ -155,6 +155,22 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/add_customer_payment_status_spinner"
+                style="@style/text_field_full"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner" />
+
+            <Spinner
+                android:id="@+id/add_employee_payment_status_spinner"
+                style="@style/text_field_full"
+                android:padding="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_customer_payment_status_spinner" />
         </android.support.constraint.ConstraintLayout>
 
 
