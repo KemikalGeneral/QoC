@@ -75,9 +75,13 @@ public class Finances_out extends MenuMain
         long jobId = financeArrayAdapter_out.getJobId();
 
         if (item.getTitle().equals("UnPaid")) {
+            db.changeEmployeePaymentStatus(jobId, item.getTitle().toString());
+            System.out.println("z! Finances_out - onContextItemSelected - UnPaid - jobId: " + jobId);
             Toast.makeText(this, "ID/" + jobId, Toast.LENGTH_SHORT).show();
         } else if (item.getTitle().equals("Paid")) {
-            Toast.makeText(this, "ID/" + jobId + item.getTitle(), Toast.LENGTH_SHORT).show();
+            db.changeEmployeePaymentStatus(jobId, item.getTitle().toString());
+            System.out.println("z! Finances_out - onContextItemSelected - Paid - jobId: " + jobId);
+            Toast.makeText(this, "ID/" + jobId, Toast.LENGTH_SHORT).show();
         }
         // Recreate the activity to apply changes
         recreate();

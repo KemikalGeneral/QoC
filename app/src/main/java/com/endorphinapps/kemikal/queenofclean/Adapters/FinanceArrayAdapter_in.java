@@ -63,11 +63,11 @@ public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
 
         // Fetch and display status
         TextView status = (TextView) convertView.findViewById(R.id.finances_status);
-        status.setText(job.getJobStatusEnum());
+        status.setText(job.getCustomerPaymentStatusEnum());
         // Set status text colour accordingly
-        if (job.getJobStatusEnum().equals("UnPaid")) {
+        if (job.getCustomerPaymentStatusEnum().equals("UnPaid")) {
             status.setTextColor(Color.RED);
-        } else if (job.getJobStatusEnum().equals("Paid")) {
+        } else if (job.getCustomerPaymentStatusEnum().equals("Paid")) {
             status.setTextColor(Color.GREEN);
         }
 

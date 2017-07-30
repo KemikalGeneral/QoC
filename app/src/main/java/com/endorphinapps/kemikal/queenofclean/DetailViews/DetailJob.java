@@ -45,6 +45,8 @@ public class DetailJob extends MenuMain {
     private TextView tv_startDate;
     private TextView tv_startTime;
     private TextView tv_jobStatus;
+    private TextView tv_customerPaymentStatus;
+    private TextView tv_employeePaymentStatus;
     private TextView tv_estimatedTime;
     private TextView tv_totalPrice;
     private TextView tv_notes;
@@ -115,7 +117,9 @@ public class DetailJob extends MenuMain {
         tv_employeeName = (TextView) findViewById(R.id.full_name_employee);
         tv_startDate = (TextView) findViewById(R.id.start_date);
         tv_startTime = (TextView) findViewById(R.id.start_time);
-        tv_jobStatus = (TextView) findViewById(R.id.status);
+        tv_jobStatus = (TextView) findViewById(R.id.job_status);
+        tv_customerPaymentStatus = (TextView) findViewById(R.id.customer_payment_status);
+        tv_employeePaymentStatus = (TextView) findViewById(R.id.employee_payment_status);
         tv_estimatedTime = (TextView) findViewById(R.id.estimated_time);
         tv_totalPrice = (TextView) findViewById(R.id.total_price);
         tv_notes = (TextView) findViewById(R.id.notes);
@@ -146,6 +150,8 @@ public class DetailJob extends MenuMain {
         tv_startDate.setText(date);
         tv_startTime.setText(time);
         tv_jobStatus.setText(job.getJobStatusEnum());
+        tv_customerPaymentStatus.setText(job.getCustomerPaymentStatusEnum());
+        tv_employeePaymentStatus.setText(job.getEmployeePaymentStatusEnum());
         tv_estimatedTime.setText(String.valueOf(job.getEstimatedTime()));
         tv_totalPrice.setText("£");
         tv_totalPrice.append(String.format(Locale.getDefault(), "%.2f", job.getTotalPrice()));

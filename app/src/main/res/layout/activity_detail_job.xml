@@ -176,23 +176,59 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_start_container">
 
-            <!--Status Label-->
+            <!--Job Status Label-->
             <TextView
-                android:id="@+id/status_label"
+                android:id="@+id/job_status_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="Status:"
+                android:text="Job Status:"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--Status-->
+            <!--Job Status-->
             <TextView
-                android:id="@+id/status"
+                android:id="@+id/job_status"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="[status]"
+                android:text="[job status]"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Customer Payment Status Label-->
+            <TextView
+                android:id="@+id/customer_payment_status_status_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Customer Payment Status:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/job_status_label" />
+
+            <!--Customer Payment Status-->
+            <TextView
+                android:id="@+id/customer_payment_status"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="[payment status]"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/job_status" />
+
+            <!--Employee Payment Status Label-->
+            <TextView
+                android:id="@+id/employee_payment_status_status_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Employee Payment Status:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customer_payment_status_status_label" />
+
+            <!--Employee Payment Status-->
+            <TextView
+                android:id="@+id/employee_payment_status"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="[payment status]"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customer_payment_status" />
         </android.support.constraint.ConstraintLayout>
 
         <!--Job Items-->
