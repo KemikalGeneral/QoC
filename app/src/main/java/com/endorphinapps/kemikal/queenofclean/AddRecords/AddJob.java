@@ -18,9 +18,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.DateTime.DatePickerFragment;
@@ -46,6 +48,7 @@ public class AddJob extends MenuMain
 
     private DBHelper db;
 
+    private ScrollView sv_pageContainer;
     private Spinner sp_customerSpinner;
     private ConstraintLayout ll_addressContainer;
     private TextView tv_addressLine1;
@@ -159,16 +162,53 @@ public class AddJob extends MenuMain
         btn_JobSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSubmit();
+                // Validate against NullPointerExceptions
+                if (isValidated()) {
+                    onSubmit();
+                }
             }
         });
+    }
 
+    /**
+     * Validate against NullPointerExceptions.
+     * Customer cannot be null.
+     * Employee cannot be null.
+     * StartDate cannot be null.
+     *
+     * @return true if valid
+     */
+    public boolean isValidated() {
+
+        // Check Customer
+        if (getCustomerId() == -1) {
+            Toast.makeText(this, "You must select a Customer!", Toast.LENGTH_SHORT).show();
+            sv_pageContainer.smoothScrollTo(0, tv_dummyCustomer.getTop());
+            return false;
+        }
+
+        // Check Employee
+        if (getEmployeeId() == -1) {
+            Toast.makeText(this, "You must select an Employee!", Toast.LENGTH_SHORT).show();
+            sv_pageContainer.smoothScrollTo(0, tv_dummyEmployee.getTop());
+            return false;
+        }
+
+        // Check Start Date
+        if (startDate == 0) {
+            Toast.makeText(this, "You must select a Start Date!", Toast.LENGTH_SHORT).show();
+            sv_pageContainer.smoothScrollTo(0, tv_startDate.getTop());
+            return false;
+        }
+
+        return true;
     }
 
     /**
      * Find all views by their ID's
      */
     private void findViews() {
+        sv_pageContainer = (ScrollView) findViewById(R.id.add_job_page_container);
         ll_addressContainer = (ConstraintLayout) findViewById(R.id.add_job_customer_address_container);
         tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
         tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
@@ -294,6 +334,7 @@ public class AddJob extends MenuMain
      * sets values to a calendar object and converts
      * to millis for inserting into DB
      * Displays the date in the relevant TextView.
+     *
      * @param view
      * @param year
      * @param month
@@ -335,6 +376,7 @@ public class AddJob extends MenuMain
      * sets the value to a calendar object and converts
      * to millis for inserting to DB.
      * Displays the time in the relevant TextView.
+     *
      * @param view
      * @param hourOfDay
      * @param minute
@@ -357,6 +399,7 @@ public class AddJob extends MenuMain
 
     /**
      * Get the job status from the job status spinner
+     *
      * @return job status as a string
      */
     private String getJobStatus() {
@@ -370,6 +413,7 @@ public class AddJob extends MenuMain
     /**
      * Get the customer payment status from the
      * customer payment status spinner
+     *
      * @return payment status as a string
      */
     private String getCustomerPaymentStatus() {
@@ -446,6 +490,7 @@ public class AddJob extends MenuMain
 
     /**
      * Removes the current row (LinearLayout)
+     *
      * @param delete
      */
     private void removeJobRow(Button delete) {
@@ -455,6 +500,7 @@ public class AddJob extends MenuMain
 
     /**
      * Calculate the price of all the entered job items
+     *
      * @return total price as a double
      */
     private double calculatePriceOfJobItems() {
@@ -494,6 +540,7 @@ public class AddJob extends MenuMain
 
     /**
      * Get the estimated time needed for the employee pay
+     *
      * @return estimatedTime as an int
      */
     private int getEstimatedTime() {
@@ -511,20 +558,29 @@ public class AddJob extends MenuMain
     /**
      * Calculate the total pay for the employee,
      * by multiplying the rate of pay by hours worked
+     *
      * @return total pay to employee as a double
      */
     private double calculatePayToEmployee() {
-        double rateOfPay = employee.getRateOfPay();
-        double employeePay = rateOfPay * getEstimatedTime();
+        double rateOfPay = 0;
 
+        try {
+            rateOfPay = employee.getRateOfPay();
+
+        } catch (NullPointerException e) {
+            System.out.println("AddJob - calculatePayToEmployee NPE: " + e);
+        }
+
+        double employeePay = rateOfPay * getEstimatedTime();
         System.out.println("z! AddJob - calculatePayToEmployee(): " +
                 String.valueOf(employeePay));
-
         return employeePay;
+
     }
 
     /**
      * Get any job notes entered
+     *
      * @return job notes as a string
      */
     @NonNull
@@ -593,25 +649,38 @@ public class AddJob extends MenuMain
      * @return ID as a long
      */
     private long getCustomerId() {
-        long customerId = customer.getCustomerId();
+        long customerId = 0;
+        try {
+            customerId = customer.getCustomerId();
 
-        System.out.println("z! AddJob - getCustomerId(): " +
-                String.valueOf(customerId));
+            System.out.println("z! AddJob - getCustomerId(): " +
+                    String.valueOf(customerId));
 
+        } catch (NullPointerException e) {
+            System.out.println("AddJob - getCustomerId NPE: " + e);
+            return -1;
+        }
         return customerId;
     }
 
     /**
-     * Get the ID of the customer
+     * Get the ID of the employee
      *
      * @return ID as a long
      */
     private long getEmployeeId() {
-        long employeeId = employee.getEmployeeId();
+        long employeeId = 0;
 
-        System.out.println("z! AddJob - getEmployeeId(): " +
-                String.valueOf(employeeId));
+        try {
+            employeeId = employee.getEmployeeId();
 
+            System.out.println("z! AddJob - getEmployeeId(): " +
+                    String.valueOf(employeeId));
+
+        } catch (NullPointerException e) {
+            System.out.println("AddJob - getEmployeeId NPE: " + e);
+            return -1;
+        }
         return employeeId;
     }
 
@@ -619,6 +688,7 @@ public class AddJob extends MenuMain
      * Save all details of Job to DB.
      * Save the JobItems separately as they require the
      * id returned from the saved Job as a FK
+     *
      * @param startDate
      * @param jobStatus
      * @param estimateJobTime
@@ -648,6 +718,7 @@ public class AddJob extends MenuMain
     /**
      * Save the jobItems to the DB using the
      * id returned from saving the Job
+     *
      * @param jobId
      */
     private void saveJobItemsToDB(long jobId) {

@@ -65,7 +65,11 @@ public class EditCustomer extends MenuMain {
         btn_applyChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateCustomer(customerId);
+                // Validate fields on form.
+                // Update DB if they all pass
+                if (isValidated()) {
+                    updateCustomer(customerId);
+                }
             }
         });
     }
@@ -86,6 +90,62 @@ public class EditCustomer extends MenuMain {
         et_postcode = (EditText) findViewById(R.id.add_postcode);
 
         btn_applyChanges = (Button) findViewById(R.id.apply_changes);
+    }
+
+    /**
+     * Validates the essential details so that they cannot be null
+     * Full Name cannot be null.
+     * Last Name cannot be null.
+     * Mobile Number cannot be null, and must have 11 digits.
+     * Address Line 1 cannot be null.
+     * Town cannot be null.
+     * Postcode cannot be null.
+     *
+     * @return false if any fields fail, true if they're all ok
+     */
+    private boolean isValidated() {
+
+        // First Name
+        if (et_firstName.getText().toString().trim().equals("")) {
+            et_firstName.setError("Your customer must have a first name!");
+            return false;
+        }
+
+        // Last Name
+        if (et_lastName.getText().toString().trim().equals("")) {
+            et_lastName.setError("Your customer must have a last name!");
+            return false;
+        }
+
+        // Mobile Number
+        if (et_mobileNumber.getText().toString().trim().equals("")) {
+            et_mobileNumber.setError("Your customer must have a mobile number!");
+            return false;
+        } else if (et_mobileNumber.getText().toString().trim().length() != 11) {
+            et_mobileNumber.setError("Mobile number should contain 11 numbers!");
+            return false;
+        }
+
+        // Address Line 1
+        if (et_addressLine1.getText().toString().trim().equals("")) {
+            et_addressLine1.setError("Your customer's address must have a street name!");
+            return false;
+        }
+
+        // Town
+        if (et_town.getText().toString().trim().equals("")) {
+            et_town.setError("Your customer's address must have a town!");
+            return false;
+        }
+
+        // Postcode
+        if (et_postcode.getText().toString().trim().equals("")) {
+            et_postcode.setError("Your customer's address must have a postcode!");
+            return false;
+        }
+
+        // Return true if all fields pass validation
+        return true;
     }
 
     /**
