@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add_job"
+    android:id="@+id/add_job_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/padding_16"
@@ -148,27 +148,57 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_date_time_container">
 
+            <!--Job Status Label-->
+            <TextView
+                android:id="@+id/add_job_status_spinner_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Job Status:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Job Status-->
             <Spinner
                 android:id="@+id/add_job_status_spinner"
                 style="@style/text_field_full"
+                android:layout_width="wrap_content"
                 android:padding="0dp"
-                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!--Customer Payment Status Label-->
+            <TextView
+                android:id="@+id/add_customer_payment_status_spinner_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Customer Payment Status:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner_label" />
+
+            <!--Customer Payment Status-->
             <Spinner
                 android:id="@+id/add_customer_payment_status_spinner"
                 style="@style/text_field_full"
+                android:layout_width="wrap_content"
                 android:padding="0dp"
-                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner" />
 
+            <!--Employee Payment Status Label-->
+            <TextView
+                android:id="@+id/add_employee_payment_status_spinner_label"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Employee Payment Status:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_customer_payment_status_spinner_label" />
+
+            <!--Employee Payment Status-->
             <Spinner
                 android:id="@+id/add_employee_payment_status_spinner"
                 style="@style/text_field_full"
+                android:layout_width="wrap_content"
                 android:padding="0dp"
-                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/add_customer_payment_status_spinner" />
         </android.support.constraint.ConstraintLayout>
@@ -185,9 +215,9 @@
             <TextView
                 android:id="@+id/add_job_item_row"
                 style="@style/text_field_full"
-                android:hint="Add a Job Item..."
+                android:layout_width="wrap_content"
+                android:hint="Click to Add a Job Item..."
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
@@ -205,6 +235,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_estimated_time_container"
             style="@style/container"
+            android:focusableInTouchMode="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_items_container">
@@ -248,7 +279,7 @@
                 android:id="@+id/add_job_total_price"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:hint="00.00"
+                android:hint="£0.00"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>

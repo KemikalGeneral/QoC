@@ -100,7 +100,11 @@ public class AddEmployee extends MenuMain {
         btn_addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewEmployee();
+                // Validate fields on form.
+                // Add to DB if they all pass
+                if (isValidated()) {
+                    addNewEmployee();
+                }
             }
         });
     }
@@ -122,6 +126,69 @@ public class AddEmployee extends MenuMain {
         et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
         btn_addNew = (Button) findViewById(R.id.btn_submit);
         btn_populate = (Button) findViewById(R.id.btn_populate);
+    }
+
+    /**
+     * Validates the essential details so that they cannot be null
+     * Full Name cannot be null.
+     * Last Name cannot be null.
+     * Mobile Number cannot be null, and must have 11 digits.
+     * Address Line 1 cannot be null.
+     * Town cannot be null.
+     * Postcode cannot be null.
+     * RateOfPay cannot be null.
+     *
+     * @return false if any fields fail, true if they're all ok
+     */
+    private boolean isValidated() {
+
+        // First Name
+        if (et_firstName.getText().toString().trim().equals("")) {
+            et_firstName.setError("Your employee must have a first name!");
+            return false;
+        }
+
+        // Last Name
+        if (et_lastName.getText().toString().trim().equals("")) {
+            et_lastName.setError("Your employee must have a last name!");
+            return false;
+        }
+
+        // Mobile Number
+        if (et_mobileNumber.getText().toString().trim().equals("")) {
+            et_mobileNumber.setError("Your employee must have a mobile number!");
+            return false;
+        } else if (et_mobileNumber.getText().length() != 11) {
+            et_mobileNumber.setError("Mobile number should contain 11 numbers!");
+            return false;
+        }
+
+        // Address Line 1
+        if (et_addressLine1.getText().toString().trim().equals("")) {
+            et_addressLine1.setError("Your employee's address must have a street name!");
+            return false;
+        }
+
+        // Town
+        if (et_town.getText().toString().trim().equals("")) {
+            et_town.setError("Your employee's address must have a town!");
+            return false;
+        }
+
+        // Postcode
+        if (et_postcode.getText().toString().trim().equals("")) {
+            et_postcode.setError("Your employee's address must have a postcode!");
+            return false;
+        }
+
+        // Rate of Pay
+        if (et_rateOfPay.getText().toString().trim().equals("")) {
+            et_rateOfPay.setError("Your employee needs to be paid!");
+            return false;
+        }
+
+        // Return true if all fields pass validation
+        return true;
     }
 
     /**

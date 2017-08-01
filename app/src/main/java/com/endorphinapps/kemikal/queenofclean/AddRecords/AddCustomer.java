@@ -81,7 +81,11 @@ public class AddCustomer extends MenuMain {
         btn_addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewCustomer();
+                // Validate fields on form.
+                // Add to DB if they all pass
+                if (isValidated()) {
+                    addNewCustomer();
+                }
             }
         });
     }
@@ -90,6 +94,8 @@ public class AddCustomer extends MenuMain {
      * Find all views by id
      */
     private void findViews() {
+        btn_addNew = (Button) findViewById(R.id.btn_submit);
+        btn_populate = (Button) findViewById(R.id.btn_populate);
         et_firstName = (EditText) findViewById(R.id.add_first_name);
         et_lastName = (EditText) findViewById(R.id.add_last_name);
         et_mobileNumber = (EditText) findViewById(R.id.add_mobile_number);
@@ -100,8 +106,61 @@ public class AddCustomer extends MenuMain {
         et_town = (EditText) findViewById(R.id.add_town);
         et_city = (EditText) findViewById(R.id.add_city);
         et_postcode = (EditText) findViewById(R.id.add_postcode);
-        btn_addNew = (Button) findViewById(R.id.btn_submit);
-        btn_populate = (Button) findViewById(R.id.btn_populate);
+    }
+
+    /**
+     * Validates the essential details so that they cannot be null
+     * Full Name cannot be null.
+     * Last Name cannot be null.
+     * Mobile Number cannot be null, and must have 11 digits.
+     * Address Line 1 cannot be null.
+     * Town cannot be null.
+     * Postcode cannot be null.
+     * @return false if any fields fail, true if they're all ok
+     */
+    private boolean isValidated() {
+
+        // First Name
+        if (et_firstName.getText().toString().trim().equals("")) {
+            et_firstName.setError("Your customer must have a first name!");
+            return false;
+        }
+
+        // Last Name
+        if (et_lastName.getText().toString().trim().equals("")) {
+            et_lastName.setError("Your customer must have a last name!");
+            return false;
+        }
+
+        // Mobile Number
+        if (et_mobileNumber.getText().toString().trim().equals("")) {
+            et_mobileNumber.setError("Your customer must have a mobile number!");
+            return false;
+        } else if (et_mobileNumber.getText().toString().trim().length() != 11) {
+            et_mobileNumber.setError("Mobile number should contain 11 numbers!");
+            return false;
+        }
+
+        // Address Line 1
+        if (et_addressLine1.getText().toString().trim().equals("")) {
+            et_addressLine1.setError("Your customer's address must have a street name!");
+            return false;
+        }
+
+        // Town
+        if (et_town.getText().toString().trim().equals("")) {
+            et_town.setError("Your customer's address must have a town!");
+            return false;
+        }
+
+        // Postcode
+        if (et_postcode.getText().toString().trim().equals("")) {
+            et_postcode.setError("Your customer's address must have a postcode!");
+            return false;
+        }
+
+        // Return true if all fields pass validation
+        return true;
     }
 
     /**
@@ -111,7 +170,7 @@ public class AddCustomer extends MenuMain {
      * as the FK in the entity table
      */
     private void addNewCustomer() {
-
+        // Add address details
         int addressID = (int) db.insertAddress(
                 et_addressLine1.getText().toString().trim(),
                 et_addressLine2.getText().toString().trim(),
@@ -119,6 +178,7 @@ public class AddCustomer extends MenuMain {
                 et_city.getText().toString().trim(),
                 et_postcode.getText().toString().trim());
 
+        // Add customer details
         int customerId = (int) db.insertCustomer(
                 et_firstName.getText().toString().trim(),
                 et_lastName.getText().toString().trim(),
