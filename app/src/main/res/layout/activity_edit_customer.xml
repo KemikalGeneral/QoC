@@ -15,7 +15,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_names_container"
             style="@style/containerPink"
-            android:elevation="12dp"
             android:focusableInTouchMode="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -68,7 +67,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_contact_details_container"
             style="@style/containerGrey"
-            android:elevation="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_names_container">
@@ -155,7 +153,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_address_container"
             style="@style/containerPink"
-            android:elevation="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_contact_details_container">

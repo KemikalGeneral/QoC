@@ -16,7 +16,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_customer_container"
             style="@style/containerPink"
-            android:elevation="32dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -102,7 +101,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_employee_container"
             style="@style/containerGrey"
-            android:elevation="28dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_customer_container">
@@ -132,7 +130,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_start_container"
             style="@style/containerPink"
-            android:elevation="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_employee_container">
@@ -182,7 +179,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_status_container"
             style="@style/containerGrey"
-            android:elevation="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_start_container">
@@ -246,7 +242,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_job_item_row_container"
             style="@style/containerPink"
-            android:elevation="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_status_container">
@@ -283,7 +278,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_estimated_time_container"
             style="@style/containerGrey"
-            android:elevation="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_job_item_row_container">
@@ -314,7 +308,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_total_price_container"
             style="@style/containerPink"
-            android:elevation="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_estimated_time_container">
@@ -345,7 +338,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_notes_container"
             style="@style/containerGrey"
-            android:elevation="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_total_price_container">

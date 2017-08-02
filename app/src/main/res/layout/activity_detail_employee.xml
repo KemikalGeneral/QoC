@@ -15,7 +15,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_name_container"
             style="@style/containerPink"
-            android:elevation="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -45,7 +44,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_contact_details_container"
             style="@style/containerGrey"
-            android:elevation="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_name_container">
@@ -113,7 +111,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_address_container"
             style="@style/containerPink"
-            android:elevation="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_contact_details_container">
@@ -179,7 +176,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_availability_container"
             style="@style/containerGrey"
-            android:elevation="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_address_container">
@@ -436,7 +432,6 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_pay_container"
             style="@style/containerPink"
-            android:elevation="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_availability_container">
