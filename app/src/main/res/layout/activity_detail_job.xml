@@ -5,7 +5,6 @@
     android:id="@+id/activity_detail_job"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_16"
     tools:context="com.endorphinapps.kemikal.queenofclean.DetailViews.DetailJob">
 
     <android.support.constraint.ConstraintLayout
@@ -16,37 +15,31 @@
         <!--Customer Details-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_customer_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="32dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <!--Name Label-->
-            <TextView
-                android:id="@+id/full_name_customer_label"
-                style="@style/text_field_full"
-                android:layout_width="wrap_content"
-                android:text="Customer Name:"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <!--Name-->
             <TextView
                 android:id="@+id/full_name_customer"
                 style="@style/text_field_full"
+                android:layout_marginLeft="40dp"
                 android:layout_width="wrap_content"
                 android:text="[First Last]"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--Address Label-->
+            <!--Person Icon-->
             <TextView
-                android:id="@+id/detail_Job_address_label"
-                style="@style/text_field_full"
-                android:layout_width="wrap_content"
-                android:text="Job Address:"
+                android:id="@+id/full_name_customer_label"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_person"
+                android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/full_name_customer_label" />
+                app:layout_constraintTop_toTopOf="@id/full_name_customer"
+                app:layout_constraintBottom_toBottomOf="@id/full_name_customer" />
 
             <!--Address Line 1-->
             <TextView
@@ -54,8 +47,18 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[Address Line 1]"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
                 app:layout_constraintTop_toBottomOf="@id/full_name_customer" />
+
+            <!--Address Label-->
+            <TextView
+                android:id="@+id/detail_Job_address_label"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_address"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/detail_Job_address_1"
+                app:layout_constraintBottom_toBottomOf="@id/detail_Job_address_1" />
 
             <!--Address Line 2-->
             <TextView
@@ -63,7 +66,7 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[Address Line 2]"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
                 app:layout_constraintTop_toBottomOf="@id/detail_Job_address_1" />
 
             <!--Address Town-->
@@ -72,7 +75,7 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[Town]"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
                 app:layout_constraintTop_toBottomOf="@id/detail_Job_address_2" />
 
             <!--Address City-->
@@ -81,7 +84,7 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[City]"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
                 app:layout_constraintTop_toBottomOf="@id/detail_Job_address_town" />
 
             <!--Address Postcode-->
@@ -90,7 +93,7 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[Postcode]"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
                 app:layout_constraintTop_toBottomOf="@id/detail_Job_address_city" />
         </android.support.constraint.ConstraintLayout>
 
@@ -98,7 +101,8 @@
         <!--Employee Details-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_employee_container"
-            style="@style/container"
+            style="@style/containerGrey"
+            android:elevation="28dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_customer_container">
@@ -125,7 +129,8 @@
         <!--Start Date-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_start_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_employee_container">
@@ -171,7 +176,8 @@
         <!--Status-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_status_container"
-            style="@style/container"
+            style="@style/containerGrey"
+            android:elevation="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_start_container">
@@ -234,7 +240,8 @@
         <!--Job Items-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_job_item_row_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_status_container">
@@ -254,7 +261,8 @@
         <!--Estimated Time-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_estimated_time_container"
-            style="@style/container"
+            style="@style/containerGrey"
+            android:elevation="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_job_item_row_container">
@@ -282,7 +290,8 @@
         <!--Total Price-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_total_price_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_estimated_time_container">
@@ -310,7 +319,8 @@
         <!--Notes-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_notes_container"
-            style="@style/container"
+            style="@style/containerGrey"
+            android:elevation="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_total_price_container">
@@ -338,6 +348,7 @@
             android:id="@+id/btn_edit_job"
             style="@style/button"
             android:text="Edit"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_notes_container" />
 
@@ -345,6 +356,8 @@
             android:id="@+id/btn_delete_job"
             style="@style/button"
             android:text="Delete"
+            android:background="@color/red"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_edit_job" />
     </android.support.constraint.ConstraintLayout>

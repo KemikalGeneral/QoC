@@ -5,7 +5,6 @@
     android:id="@+id/activity_add_customer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_16"
     tools:context="com.endorphinapps.kemikal.queenofclean.EditRecords.EditCustomer">
 
     <android.support.constraint.ConstraintLayout
@@ -15,7 +14,8 @@
         <!--Names-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_names_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_populate">
@@ -55,7 +55,8 @@
         <!--Contact Details-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_contact_details_container"
-            style="@style/container"
+            style="@style/containerGrey"
+            android:elevation="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_names_container">
@@ -112,7 +113,8 @@
         <!--Address-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_address_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_contact_details_container">

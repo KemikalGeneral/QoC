@@ -526,7 +526,7 @@ public class EditJob extends MenuMain
 
             //Create a new button to delete the row
             final ImageButton delete = new ImageButton(this);
-            delete.setBackground(getDrawable(R.drawable.ic_clear_black_24dp));
+            delete.setBackground(getDrawable(R.drawable.ic_clear_24dp));
 
             //Add Description, Price and Delete to the row container
             jobRowContainer.addView(description);
@@ -577,7 +577,7 @@ public class EditJob extends MenuMain
 
         //Create a new button to delete the row
         final ImageButton delete = new ImageButton(this);
-        delete.setBackground(getDrawable(R.drawable.ic_clear_black_24dp));
+        delete.setBackground(getDrawable(R.drawable.ic_clear_24dp));
 
         //Add Description, Price and Delete to the row container
         jobRowContainer.addView(description);

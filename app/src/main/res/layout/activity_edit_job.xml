@@ -5,7 +5,6 @@
     android:id="@+id/add_job_page_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_16"
     tools:context="com.endorphinapps.kemikal.queenofclean.EditRecords.EditJob">
 
     <android.support.constraint.ConstraintLayout
@@ -15,7 +14,8 @@
         <!--Customer Section-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_customer_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="28dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -91,7 +91,7 @@
         <!--Employee Section-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_employee_container"
-            style="@style/container"
+            style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_customer_container">
@@ -117,7 +117,8 @@
         <!--Date-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_date_time_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_employee_container">
@@ -143,7 +144,8 @@
         <!--Job & Payment Statuses-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_status_spinner_container"
-            style="@style/container"
+            style="@style/containerGrey"
+            android:elevation="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_date_time_container">
@@ -180,7 +182,8 @@
         <!--Job Items-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_items_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner_container">
@@ -207,7 +210,8 @@
         <!--Estimated Time-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_estimated_time_container"
-            style="@style/container"
+            style="@style/containerGrey"
+            android:elevation="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_items_container">
@@ -234,7 +238,8 @@
         <!--Total Job Price-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_total_price_container"
-            style="@style/container"
+            style="@style/containerPink"
+            android:elevation="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_estimated_time_container">
@@ -260,7 +265,8 @@
         <!--Notes-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_notes_container"
-            style="@style/container"
+            style="@style/containerGrey"
+            android:elevation="4dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_total_price_container">
@@ -285,7 +291,7 @@
         <!--Submit-->
         <Button
             android:id="@+id/apply_changes"
-            style="@style/text_field_full"
+            style="@style/button"
             android:text="Apply Changes"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
