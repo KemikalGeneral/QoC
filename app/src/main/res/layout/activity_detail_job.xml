@@ -379,5 +379,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_edit_job" />
+
+        <Button
+            android:id="@+id/btn_sms_job"
+            style="@style/button"
+            android:text="Send to Employee"
+            android:background="#0077ff"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_delete_job" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

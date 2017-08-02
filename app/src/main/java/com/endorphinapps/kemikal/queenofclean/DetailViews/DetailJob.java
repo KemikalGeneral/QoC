@@ -1,9 +1,15 @@
 package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.telephony.SmsManager;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +39,9 @@ public class DetailJob extends MenuMain {
     private Job job;
     private Customer customer;
     private Employee employee;
-    private Button btnEdit;
-    private Button btnDelete;
+    private Button btn_edit;
+    private Button btn_delete;
+    private Button btn_sms;
     private TextView tv_customerName;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
@@ -51,6 +58,9 @@ public class DetailJob extends MenuMain {
     private TextView tv_totalPrice;
     private TextView tv_notes;
     private ConstraintLayout tl_jobDetailContainer;
+
+    private String phoneNumber;
+    private StringBuilder message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +89,7 @@ public class DetailJob extends MenuMain {
         displayJobItems();
 
         // Go to the EditJob activity
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editIntent = new Intent(DetailJob.this, EditJob.class);
@@ -90,7 +100,7 @@ public class DetailJob extends MenuMain {
         });
 
         // Delete the job, and the jobItems with the jobId
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 db.deleteJobById(jobId);
@@ -100,14 +110,23 @@ public class DetailJob extends MenuMain {
                 finish();
             }
         });
+
+        btn_sms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Send SMS after permissions are granted
+                checkPermissionsForSMS();
+            }
+        });
     }
 
     /**
      * Find all views by ID
      */
     private void findViews() {
-        btnEdit = (Button) findViewById(R.id.btn_edit_job);
-        btnDelete = (Button) findViewById(R.id.btn_delete_job);
+        btn_edit = (Button) findViewById(R.id.btn_edit_job);
+        btn_delete = (Button) findViewById(R.id.btn_delete_job);
+        btn_sms = (Button) findViewById(R.id.btn_sms_job);
         tv_customerName = (TextView) findViewById(R.id.full_name_customer);
         tv_addressLine1 = (TextView) findViewById(R.id.detail_Job_address_1);
         tv_addressLine2 = (TextView) findViewById(R.id.detail_Job_address_2);
@@ -206,5 +225,58 @@ public class DetailJob extends MenuMain {
             LinearLayout v = (LinearLayout) findViewById(R.id.detail_test_item_row);
             v.addView(jobRowContainer);
         }
+    }
+
+    /**
+     * Check permissions for sending an SMS
+     */
+    private void checkPermissionsForSMS() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 0);
+        } else {
+            sendSMS();
+        }
+    }
+
+    /**
+     * Call to sendSMS() if the permissions are granted
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    sendSMS();
+                } else {
+                    System.out.println("DetailJob - Message  NOT sent to");
+                }
+        }
+    }
+
+    /**
+     * Get the mobile number of the Employee, build a message and send it off
+     */
+    private void sendSMS() {
+        phoneNumber = employee.getMobileNumber();
+        message = new StringBuilder();
+        // Get date as a long and format to locale
+        String date = DateFormat.getDateInstance().format(job.getStartDate());
+        String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(job.getStartTime());
+        message
+                .append("Hi ")
+                .append(employee.getFirstName() + ", ")
+                .append("On ")
+                .append(date + " ")
+                .append("@ ")
+                .append(time + " ")
+                .append("there's a job at ")
+                .append(customer.getAddressLine1() + ", " + customer.getTown() + "");
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNumber, null, message.toString(), null, null);
     }
 }
