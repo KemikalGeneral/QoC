@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
@@ -293,10 +292,8 @@ public class AddEmployee extends MenuMain {
             case R.id.detail_availability_sunday_PM:
                 if (isChecked) {
                     sundayPM = 1;
-                    Toast.makeText(this, "Sunday PM checked", Toast.LENGTH_SHORT).show();
                 } else {
                     sundayPM = 0;
-                    Toast.makeText(this, "Sunday PM unChecked", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

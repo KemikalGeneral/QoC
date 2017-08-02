@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.endorphinapps.kemikal.queenofclean.Finances.Finances_overview">
 
     <!--Top Tabs-->
@@ -41,8 +42,7 @@
     <!--Weekly Finances-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/finances_week_container"
-        style="@style/container"
-        android:layout_margin="@dimen/padding_16"
+        style="@style/containerPink"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabs_container">
@@ -115,11 +115,10 @@
     <!--Annual Finances-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/finances_year_container"
-        style="@style/container"
-        android:layout_margin="@dimen/padding_16"
+        style="@style/containerPink"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/finances_week_container">
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav">
 
         <!--Year Label-->
         <TextView
@@ -187,6 +186,7 @@
 
     <!--Bottom Navigation-->
     <include
+        android:id="@+id/bottom_nav"
         layout="@layout/navigation_bottom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

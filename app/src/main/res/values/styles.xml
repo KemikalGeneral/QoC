@@ -7,13 +7,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!--Container-->
-    <style name="container">
+    <!--Containers-->
+    <style name="containerPink">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/container</item>
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    <style name="containerGrey">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <!--Floating labels-->
@@ -62,10 +68,11 @@
 
     <!--Buttons-->
     <style name="button">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
         <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:background">@color/green</item>
     </style>
 
     <!--Main Menu - Daily Progress-->
@@ -93,6 +100,11 @@
         <item name="android:textColor">#64ffffff</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="detail_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

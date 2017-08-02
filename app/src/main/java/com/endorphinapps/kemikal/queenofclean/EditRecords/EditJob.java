@@ -526,7 +526,7 @@ public class EditJob extends MenuMain
 
             //Create a new button to delete the row
             final ImageButton delete = new ImageButton(this);
-            delete.setBackground(getDrawable(R.drawable.ic_clear_black_24dp));
+            delete.setBackground(getDrawable(R.drawable.ic_clear_24dp));
 
             //Add Description, Price and Delete to the row container
             jobRowContainer.addView(description);
@@ -573,11 +573,11 @@ public class EditJob extends MenuMain
         EditText price = new EditText(this);
         price.setId(R.id.add_item_price);
         price.setInputType(InputType.TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL);
-        price.setHint("00.00");
+        price.setHint("£0.00");
 
         //Create a new button to delete the row
         final ImageButton delete = new ImageButton(this);
-        delete.setBackground(getDrawable(R.drawable.ic_clear_black_24dp));
+        delete.setBackground(getDrawable(R.drawable.ic_clear_24dp));
 
         //Add Description, Price and Delete to the row container
         jobRowContainer.addView(description);

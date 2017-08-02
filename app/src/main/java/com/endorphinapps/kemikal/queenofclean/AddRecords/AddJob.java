@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -17,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -462,12 +462,11 @@ public class AddJob extends MenuMain
         final EditText price = new EditText(this);
         price.setId(R.id.add_item_price);
         price.setInputType(InputType.TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL);
-        price.setHint("00.00");
+        price.setHint("£0.00");
 
         //Create a new button to delete the row
-        final Button delete = new Button(this);
-        delete.setBackgroundColor(Color.RED);
-        delete.setText("X");
+        final ImageButton delete = new ImageButton(this);
+        delete.setBackground(getDrawable(R.drawable.ic_clear_24dp));
 
         //Add Description, Price and Delete to the row container
         jobRowContainer.addView(description);
@@ -493,7 +492,7 @@ public class AddJob extends MenuMain
      *
      * @param delete
      */
-    private void removeJobRow(Button delete) {
+    private void removeJobRow(ImageButton delete) {
         LinearLayout currentRow = (LinearLayout) delete.getParent();
         ((ViewGroup) currentRow.getParent()).removeView(currentRow);
     }
