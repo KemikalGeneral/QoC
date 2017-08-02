@@ -192,7 +192,7 @@
         </android.support.constraint.ConstraintLayout>
 
 
-        <!--Job & Payment Status-->
+        <!--Job & Payment Statuses-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/add_job_status_spinner_container"
             style="@style/containerGrey"
@@ -224,7 +224,7 @@
                 android:id="@+id/add_customer_payment_status_spinner_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="Customer Payment Status:"
+                android:text="Customer Paid:"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner_label" />
 
@@ -242,7 +242,7 @@
                 android:id="@+id/add_employee_payment_status_spinner_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="Employee Payment Status:"
+                android:text="Employee Paid:"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/add_customer_payment_status_spinner_label" />
 
@@ -271,7 +271,7 @@
                 style="@style/text_field_full"
                 android:layout_marginLeft="40dp"
                 android:layout_width="wrap_content"
-                android:hint="Click to Add a Job Item..."
+                android:hint="Click to Add a Task..."
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -378,24 +378,28 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_job_total_price_container">
 
-            <EditText
-                android:id="@+id/add_job_notes"
-                style="@style/text_field_full"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/add_job_notes_wrapper"
+                style="@style/text_input_wrapper"
                 android:layout_marginLeft="40dp"
-                android:gravity="top"
-                android:hint="Add Notes..."
-                android:lines="5"
-                android:inputType="textCapSentences|textMultiLine"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/add_job_notes"
+                    style="@style/text_field_full"
+                    android:gravity="top"
+                    android:hint="Add Notes..."
+                    android:lines="5" />
+            </android.support.design.widget.TextInputLayout>
 
             <ImageView
                 style="@style/detail_icon"
                 android:background="@drawable/ic_notes"
                 android:backgroundTint="@color/colorAccent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_job_notes" />
+                app:layout_constraintTop_toTopOf="@id/add_job_notes_wrapper" />
         </android.support.constraint.ConstraintLayout>
 
 

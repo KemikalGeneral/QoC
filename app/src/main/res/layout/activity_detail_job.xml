@@ -254,7 +254,7 @@
             <TextView
                 android:id="@+id/detail_job_item_label"
                 style="@style/text_field_full"
-                android:text="Job Extras..."
+                android:text="Job Tasks..."
                 android:layout_marginLeft="40dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
