@@ -25,12 +25,12 @@ public class AddCustomer extends MenuMain {
     private EditText et_city;
     private EditText et_postcode;
 
-    private Button btn_populate;
+    //    private Button btn_populate;
     private Button btn_addNew;
 
     private DBHelper db;
 
-    private int counter = 0;
+//    private int counter = 0;
 
     /**
      * Go back to ViewCustomers on back press
@@ -57,25 +57,25 @@ public class AddCustomer extends MenuMain {
         db = new DBHelper(this);
 
         //Populate form for testing
-        btn_populate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < 10; i++) {
-                    counter++;
-                    et_firstName.setText("Customer" + counter);
-                    et_lastName.setText("last" + counter);
-                    et_mobileNumber.setText("07511750244");
-                    et_homeNumber.setText("02920485612");
-                    et_eMail.setText("e@mail.com");
-                    et_addressLine1.setText(counter + " My Street");
-                    et_addressLine2.setText("No Road");
-                    et_town.setText("Pengam Green");
-                    et_city.setText("Cardiff");
-                    et_postcode.setText("CF242HH");
-                    addNewCustomer();
-                }
-            }
-        });
+//        btn_populate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                for (int i = 0; i < 10; i++) {
+//                    counter++;
+//                    et_firstName.setText("Customer" + counter);
+//                    et_lastName.setText("last" + counter);
+//                    et_mobileNumber.setText("07511750244");
+//                    et_homeNumber.setText("02920485612");
+//                    et_eMail.setText("e@mail.com");
+//                    et_addressLine1.setText(counter + " My Street");
+//                    et_addressLine2.setText("No Road");
+//                    et_town.setText("Pengam Green");
+//                    et_city.setText("Cardiff");
+//                    et_postcode.setText("CF242HH");
+//                    addNewCustomer();
+//                }
+//            }
+//        });
 
         //Add new Customer
         btn_addNew.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +95,7 @@ public class AddCustomer extends MenuMain {
      */
     private void findViews() {
         btn_addNew = (Button) findViewById(R.id.btn_submit);
-        btn_populate = (Button) findViewById(R.id.btn_populate);
+//        btn_populate = (Button) findViewById(R.id.btn_populate);
         et_firstName = (EditText) findViewById(R.id.add_first_name);
         et_lastName = (EditText) findViewById(R.id.add_last_name);
         et_mobileNumber = (EditText) findViewById(R.id.add_mobile_number);

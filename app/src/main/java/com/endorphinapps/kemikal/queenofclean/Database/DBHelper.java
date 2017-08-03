@@ -915,7 +915,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         "FROM " + TABLE_JOBS +
                         " WHERE " + COLUMN_START_DATE + " >= " + from +
                         " AND " + COLUMN_START_DATE + " <= " + to +
-                        " ORDER BY " + COLUMN_START_DATE + ";",
+                        " ORDER BY " + COLUMN_START_TIME + ";",
                 null
         );
 

@@ -1,9 +1,16 @@
 package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
+import android.Manifest;
+import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.telephony.SmsManager;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.endorphinapps.kemikal.queenofclean.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditRecords.EditJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
@@ -27,14 +35,16 @@ import java.util.Locale;
 
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
-public class DetailJob extends MenuMain {
+public class DetailJob extends MenuMain implements ConfirmationDialog.ConfirmationDialogListener {
 
     private DBHelper db;
     private Job job;
+    private long jobId;
     private Customer customer;
     private Employee employee;
-    private Button btnEdit;
-    private Button btnDelete;
+    private Button btn_edit;
+    private Button btn_delete;
+    private Button btn_sms;
     private TextView tv_customerName;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
@@ -51,6 +61,9 @@ public class DetailJob extends MenuMain {
     private TextView tv_totalPrice;
     private TextView tv_notes;
     private ConstraintLayout tl_jobDetailContainer;
+
+    private String phoneNumber;
+    private StringBuilder message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +82,7 @@ public class DetailJob extends MenuMain {
 
         // Get current Job from ID
         Intent intent = getIntent();
-        final long jobId = intent.getLongExtra("EXTRAS_jobID", 0);
+        jobId = intent.getLongExtra("EXTRAS_jobID", 0);
         job = db.getJobById(jobId);
 
         // Populate all fields of the job
@@ -79,7 +92,7 @@ public class DetailJob extends MenuMain {
         displayJobItems();
 
         // Go to the EditJob activity
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editIntent = new Intent(DetailJob.this, EditJob.class);
@@ -90,14 +103,19 @@ public class DetailJob extends MenuMain {
         });
 
         // Delete the job, and the jobItems with the jobId
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.deleteJobById(jobId);
-                db.deleteJobItemByJobId(jobId);
-                Intent deleteIntent = new Intent(DetailJob.this, ViewJobs.class);
-                startActivity(deleteIntent);
-                finish();
+                // Show confirmation dialog yes/no to delete
+                showConfirmationDialog();
+            }
+        });
+
+        btn_sms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Send SMS after permissions are granted
+                checkPermissionsForSMS();
             }
         });
     }
@@ -106,8 +124,9 @@ public class DetailJob extends MenuMain {
      * Find all views by ID
      */
     private void findViews() {
-        btnEdit = (Button) findViewById(R.id.btn_edit_job);
-        btnDelete = (Button) findViewById(R.id.btn_delete_job);
+        btn_edit = (Button) findViewById(R.id.btn_edit_job);
+        btn_delete = (Button) findViewById(R.id.btn_delete_job);
+        btn_sms = (Button) findViewById(R.id.btn_sms_job);
         tv_customerName = (TextView) findViewById(R.id.full_name_customer);
         tv_addressLine1 = (TextView) findViewById(R.id.detail_Job_address_1);
         tv_addressLine2 = (TextView) findViewById(R.id.detail_Job_address_2);
@@ -153,6 +172,12 @@ public class DetailJob extends MenuMain {
         tv_customerPaymentStatus.setText(job.getCustomerPaymentStatusEnum());
         tv_employeePaymentStatus.setText(job.getEmployeePaymentStatusEnum());
         tv_estimatedTime.setText(String.valueOf(job.getEstimatedTime()));
+        if (job.getEstimatedTime() == 1) {
+            tv_estimatedTime.append(" hour");
+        } else {
+            tv_estimatedTime.append(" hours");
+        }
+
         tv_totalPrice.setText("£");
         tv_totalPrice.append(String.format(Locale.getDefault(), "%.2f", job.getTotalPrice()));
         tv_notes.setText(job.getNotes());
@@ -206,5 +231,91 @@ public class DetailJob extends MenuMain {
             LinearLayout v = (LinearLayout) findViewById(R.id.detail_test_item_row);
             v.addView(jobRowContainer);
         }
+    }
+
+    /**
+     * Check permissions for sending an SMS
+     */
+    private void checkPermissionsForSMS() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 0);
+        } else {
+            sendSMS();
+        }
+    }
+
+    /**
+     * Call to sendSMS() if the permissions are granted
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    sendSMS();
+                } else {
+                    System.out.println("DetailJob - Message  NOT sent to");
+                }
+        }
+    }
+
+    /**
+     * Get the mobile number of the Employee, build a message and send it off
+     */
+    private void sendSMS() {
+        phoneNumber = employee.getMobileNumber();
+        message = new StringBuilder();
+        // Get date as a long and format to locale
+        String date = DateFormat.getDateInstance().format(job.getStartDate());
+        String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(job.getStartTime());
+        message
+                .append("Hi ")
+                .append(employee.getFirstName() + ", ")
+                .append("On ")
+                .append(date + " ")
+                .append("@ ")
+                .append(time + " ")
+                .append("there's a job at ")
+                .append(customer.getAddressLine1() + ", " + customer.getTown() + "");
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNumber, null, message.toString(), null, null);
+    }
+
+    /**
+     * Instantiate an show new ConfirmationDialog class and pass through the dialog message
+     */
+    private void showConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.setMessage("Delete this Job?");
+        confirmationDialog.show(getFragmentManager(), "deleteJob");
+    }
+
+    /**
+     * On positive click, remove the Customer by ID and start the ViewJobs activity
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogPositiveClick(DialogFragment dialogFragment) {
+        db.deleteJobById(jobId);
+        db.deleteJobItemByJobId(jobId);
+        Intent deleteIntent = new Intent(DetailJob.this, ViewJobs.class);
+        startActivity(deleteIntent);
+        finish();
+    }
+
+    /**
+     * On negative click, dismiss dialog and do nothing
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogNegativeClick(DialogFragment dialogFragment) {
+
     }
 }
