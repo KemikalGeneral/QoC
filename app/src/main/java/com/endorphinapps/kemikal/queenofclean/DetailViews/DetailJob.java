@@ -172,6 +172,12 @@ public class DetailJob extends MenuMain {
         tv_customerPaymentStatus.setText(job.getCustomerPaymentStatusEnum());
         tv_employeePaymentStatus.setText(job.getEmployeePaymentStatusEnum());
         tv_estimatedTime.setText(String.valueOf(job.getEstimatedTime()));
+        if (job.getEstimatedTime() == 1) {
+            tv_estimatedTime.append(" hour");
+        } else {
+            tv_estimatedTime.append(" hours");
+        }
+
         tv_totalPrice.setText("£");
         tv_totalPrice.append(String.format(Locale.getDefault(), "%.2f", job.getTotalPrice()));
         tv_notes.setText(job.getNotes());
