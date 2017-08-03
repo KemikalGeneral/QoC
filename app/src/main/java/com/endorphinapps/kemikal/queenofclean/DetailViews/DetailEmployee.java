@@ -1,5 +1,6 @@
 package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.endorphinapps.kemikal.queenofclean.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditRecords.EditEmployee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
@@ -17,7 +19,8 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
 import java.util.Locale;
 
-public class DetailEmployee extends MenuMain {
+public class DetailEmployee extends MenuMain
+        implements ConfirmationDialog.ConfirmationDialogListener {
 
     private TextView tv_fullName;
     private TextView tv_homeNumber;
@@ -48,6 +51,8 @@ public class DetailEmployee extends MenuMain {
     private Button btn_edit;
     private Button btn_delete;
 
+    private long employeeId;
+
     private DBHelper db;
 
     @Override
@@ -67,7 +72,7 @@ public class DetailEmployee extends MenuMain {
 
         // Get employee ID from Adapter Intent
         Intent intent = getIntent();
-        final long employeeId = intent.getLongExtra("EXTRAS_id", 0);
+        employeeId = intent.getLongExtra("EXTRAS_id", 0);
 
         // Get employee from the ID
         Employee employee = db.getEmployeeById(employeeId);
@@ -110,10 +115,8 @@ public class DetailEmployee extends MenuMain {
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.deleteEmployeeById(employeeId);
-                Intent deleteIntent = new Intent(DetailEmployee.this, ViewEmployees.class);
-                startActivity(deleteIntent);
-                finish();
+                // Show confirmation dialog yes/no to delete
+                showConfirmationDialog();
             }
         });
     }
@@ -204,5 +207,37 @@ public class DetailEmployee extends MenuMain {
         if (employee.getSundayPM() == 1) {
             sundayPM.setChecked(true);
         }
+    }
+
+    /**
+     * Instantiate an show new ConfirmationDialog class and pass through the dialog message
+     */
+    private void showConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.setMessage("Delete this Employee?");
+        confirmationDialog.show(getFragmentManager(), "deleteEmployee");
+    }
+
+    /**
+     * On positive click, remove the Customer by ID and start the ViewEmployees activity
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogPositiveClick(DialogFragment dialogFragment) {
+        db.deleteEmployeeById(employeeId);
+        Intent deleteIntent = new Intent(DetailEmployee.this, ViewEmployees.class);
+        startActivity(deleteIntent);
+        finish();
+    }
+
+    /**
+     * On negative click, dismiss dialog and do nothing
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogNegativeClick(DialogFragment dialogFragment) {
+
     }
 }

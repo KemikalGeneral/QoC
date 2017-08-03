@@ -1,6 +1,7 @@
 package com.endorphinapps.kemikal.queenofclean.DetailViews;
 
 import android.Manifest;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.endorphinapps.kemikal.queenofclean.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditRecords.EditJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
@@ -33,10 +35,11 @@ import java.util.Locale;
 
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
-public class DetailJob extends MenuMain {
+public class DetailJob extends MenuMain implements ConfirmationDialog.ConfirmationDialogListener {
 
     private DBHelper db;
     private Job job;
+    private long jobId;
     private Customer customer;
     private Employee employee;
     private Button btn_edit;
@@ -79,7 +82,7 @@ public class DetailJob extends MenuMain {
 
         // Get current Job from ID
         Intent intent = getIntent();
-        final long jobId = intent.getLongExtra("EXTRAS_jobID", 0);
+        jobId = intent.getLongExtra("EXTRAS_jobID", 0);
         job = db.getJobById(jobId);
 
         // Populate all fields of the job
@@ -103,11 +106,8 @@ public class DetailJob extends MenuMain {
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.deleteJobById(jobId);
-                db.deleteJobItemByJobId(jobId);
-                Intent deleteIntent = new Intent(DetailJob.this, ViewJobs.class);
-                startActivity(deleteIntent);
-                finish();
+                // Show confirmation dialog yes/no to delete
+                showConfirmationDialog();
             }
         });
 
@@ -284,5 +284,38 @@ public class DetailJob extends MenuMain {
                 .append(customer.getAddressLine1() + ", " + customer.getTown() + "");
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, message.toString(), null, null);
+    }
+
+    /**
+     * Instantiate an show new ConfirmationDialog class and pass through the dialog message
+     */
+    private void showConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.setMessage("Delete this Job?");
+        confirmationDialog.show(getFragmentManager(), "deleteJob");
+    }
+
+    /**
+     * On positive click, remove the Customer by ID and start the ViewJobs activity
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogPositiveClick(DialogFragment dialogFragment) {
+        db.deleteJobById(jobId);
+        db.deleteJobItemByJobId(jobId);
+        Intent deleteIntent = new Intent(DetailJob.this, ViewJobs.class);
+        startActivity(deleteIntent);
+        finish();
+    }
+
+    /**
+     * On negative click, dismiss dialog and do nothing
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogNegativeClick(DialogFragment dialogFragment) {
+
     }
 }

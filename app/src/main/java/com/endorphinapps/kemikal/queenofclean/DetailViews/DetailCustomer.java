@@ -119,8 +119,8 @@ public class DetailCustomer extends MenuMain
      */
     private void showConfirmationDialog() {
         ConfirmationDialog confirmationDialog = new ConfirmationDialog();
-        confirmationDialog.setMessage("Are you sure?");
-        confirmationDialog.show(getFragmentManager(), "delete");
+        confirmationDialog.setMessage("Delete this Customer?");
+        confirmationDialog.show(getFragmentManager(), "deleteCustomer");
     }
 
     /**
