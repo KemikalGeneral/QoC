@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
@@ -15,6 +17,7 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
 public class AddEmployee extends MenuMain {
 
+    private ScrollView sv_pageContainer;
     private EditText et_firstName;
     private EditText et_lastName;
     private EditText et_mobileNumber;
@@ -112,6 +115,7 @@ public class AddEmployee extends MenuMain {
      * Find all views by id
      */
     private void findViews() {
+        sv_pageContainer = (ScrollView) findViewById(R.id.activity_add_employee);
         et_firstName = (EditText) findViewById(R.id.add_first_name);
         et_lastName = (EditText) findViewById(R.id.add_last_name);
         et_mobileNumber = (EditText) findViewById(R.id.add_mobile_number);
@@ -143,52 +147,50 @@ public class AddEmployee extends MenuMain {
 
         // First Name
         if (et_firstName.getText().toString().trim().equals("")) {
-            et_firstName.setError("Your employee must have a first name!");
+            sv_pageContainer.smoothScrollTo(0, et_firstName.getTop());
+            Toast.makeText(this, "You must enter a First Name!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Last Name
         if (et_lastName.getText().toString().trim().equals("")) {
-            et_lastName.setError("Your employee must have a last name!");
-            return false;
-        }
-
-        // Mobile Number
-        if (et_mobileNumber.getText().toString().trim().equals("")) {
-            et_mobileNumber.setError("Your employee must have a mobile number!");
-            return false;
-        } else if (et_mobileNumber.getText().length() != 11) {
-            et_mobileNumber.setError("Mobile number should contain 11 numbers!");
+            sv_pageContainer.smoothScrollTo(0, et_lastName.getTop());
+            Toast.makeText(this, "You must enter a Last Name!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Address Line 1
         if (et_addressLine1.getText().toString().trim().equals("")) {
-            et_addressLine1.setError("Your employee's address must have a street name!");
+            sv_pageContainer.smoothScrollTo(0, et_addressLine1.getTop());
+            Toast.makeText(this, "You must enter an Address!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Town
         if (et_town.getText().toString().trim().equals("")) {
-            et_town.setError("Your employee's address must have a town!");
+            sv_pageContainer.smoothScrollTo(0, et_town.getTop());
+            Toast.makeText(this, "You must enter a Town!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Postcode
         if (et_postcode.getText().toString().trim().equals("")) {
-            et_postcode.setError("Your employee's address must have a postcode!");
+            sv_pageContainer.smoothScrollTo(0, et_postcode.getTop());
+            Toast.makeText(this, "You must enter a Postcode!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Rate of Pay
         if (et_rateOfPay.getText().toString().trim().equals("")) {
-            et_rateOfPay.setError("Your employee needs to be paid!");
+            sv_pageContainer.smoothScrollTo(0, et_rateOfPay.getTop());
+            Toast.makeText(this, "Your employee needs to be Paid!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Return true if all fields pass validation
         return true;
     }
+
 
     /**
      * Get availability checkbox selections
