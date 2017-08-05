@@ -109,7 +109,7 @@ class Finances {
         long employeeId;
         Employee employee;
         double rateOfPay;
-        int hours;
+        double hours;
         double employeePayForJob;
 
         for (int i = 0; i < arrayLength; i++) {
@@ -243,7 +243,7 @@ class Finances {
         long employeeId;
         Employee employee;
         double rateOfPay;
-        int hours;
+        double hours;
         double employeePayForJob;
 
         for (int i = 0; i < arrayLength; i++) {

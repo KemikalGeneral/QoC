@@ -556,11 +556,11 @@ public class AddJob extends MenuMain
      *
      * @return estimatedTime as an int
      */
-    private int getEstimatedTime() {
-        int estimatedTime = 0;
+    private double getEstimatedTime() {
+        double estimatedTime = 0;
 
         if (!et_estimatedTime.getText().toString().equals("")) {
-            estimatedTime = Integer.valueOf(et_estimatedTime.getText().toString());
+            estimatedTime = Double.valueOf(et_estimatedTime.getText().toString());
         }
         System.out.println("z! AddJob - getEstimatedTime(): " +
                 String.valueOf(estimatedTime));
@@ -631,7 +631,7 @@ public class AddJob extends MenuMain
         double priceOfJobItems = calculatePriceOfJobItems();
 
         //Get estimated employee time required
-        int estimateJobTime = getEstimatedTime();
+        double estimateJobTime = getEstimatedTime();
 
         //Calculate pay to employee
         double payToEmployee = calculatePayToEmployee();
@@ -712,7 +712,7 @@ public class AddJob extends MenuMain
      */
     private void saveToDB(long startDate, long startTime,
                           String jobStatus, String customerPaymentStatus,
-                          String employeePaymentStatus, int estimateJobTime,
+                          String employeePaymentStatus, double estimateJobTime,
                           double totalCostForJob, String jobNotes,
                           long customerId, long employeeId) {
         long jobId = db.insertJob(startDate, startTime,
