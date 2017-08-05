@@ -31,6 +31,7 @@
 
             <!--Person Icon-->
             <ImageView
+                android:id="@+id/icon_dummy_customer"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_person"
                 android:backgroundTint="@color/colorPrimary"
@@ -46,6 +47,16 @@
                 app:layout_constraintLeft_toLeftOf="@id/dummy_customer"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Person Icon-->
+            <ImageView
+                android:id="@+id/icon_customer_spinner"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_person"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/add_customer_spinner"
+                app:layout_constraintBottom_toBottomOf="@id/add_customer_spinner" />
 
 
             <android.support.constraint.ConstraintLayout
@@ -127,6 +138,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/icon_dummy_employee"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_person"
                 android:backgroundTint="@color/colorAccent"
@@ -142,6 +154,15 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon_employee_spinner"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_person"
+                android:backgroundTint="@color/colorAccent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/add_employee_spinner"
+                app:layout_constraintBottom_toBottomOf="@id/add_employee_spinner" />
         </android.support.constraint.ConstraintLayout>
 
 
