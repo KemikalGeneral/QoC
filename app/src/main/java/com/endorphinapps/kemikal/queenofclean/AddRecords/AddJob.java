@@ -178,6 +178,58 @@ public class AddJob extends MenuMain
                 }
             }
         });
+
+        // Get Intent (day of week) from day selection in ViewDayJobs
+        // If a day is present, call the method to populate the startDate
+        Intent intent = getIntent();
+        if (intent.hasExtra("addJobDay")) {
+            populateSelectedStartDate(intent);
+        }
+    }
+
+    /**
+     * Take the day of the week from the Intent sent from ViewDayJobs
+     * and use it to populate the startDate day of the current week
+     *
+     * @param intent
+     */
+    private void populateSelectedStartDate(Intent intent) {
+        // Get the day from the intent
+        String day = intent.getStringExtra("addJobDay");
+
+        // Create a calendar object and set it to the current week
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.WEEK_OF_YEAR, -1);
+
+        switch (day) {
+            case "monday":
+                calendar.add(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                break;
+            case "tuesday":
+                calendar.add(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                break;
+            case "wednesday":
+                calendar.add(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                break;
+            case "thursday":
+                calendar.add(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                break;
+            case "friday":
+                calendar.add(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                break;
+            case "saturday":
+                calendar.add(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                break;
+            case "sunday":
+                calendar.add(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                break;
+        }
+        // Set and format the startDate
+        startDate = calendar.getTimeInMillis();
+        String date = DateFormat.getDateInstance().format(startDate);
+
+        // Populate the startDate TextView
+        tv_startDate.setText(date);
     }
 
     /**

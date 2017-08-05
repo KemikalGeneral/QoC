@@ -2,6 +2,7 @@ package com.endorphinapps.kemikal.queenofclean.ViewAlls;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.DayJobsArrayAdapter;
+import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.JobsClass;
@@ -26,6 +28,7 @@ public class ViewDayJobs extends AppCompatActivity
     private ListView lv_dayList;
     private ArrayList<Job> jobs;
     private TextView tv_emptyList;
+    private FloatingActionButton fab;
     private NavigationBottom navigationBottom;
 
     /**
@@ -96,7 +99,7 @@ public class ViewDayJobs extends AppCompatActivity
         // Get the day of the week from the (MainActivity) intent
         // populate Jobs ArrayList with the relevant days jobs
         Intent intent = getIntent();
-        String day = intent.getStringExtra("EXTRAS_day");
+        final String day = intent.getStringExtra("EXTRAS_day");
         switch (day) {
             case "monday":
                 jobs = jobsClass.getMondaysJobs();
@@ -135,6 +138,18 @@ public class ViewDayJobs extends AppCompatActivity
         } else {
             tv_emptyList.setVisibility(View.GONE);
         }
+
+        // On FAB click, start the AddJob activity passing the day of the week
+        // which will be used to add a job for that day
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ViewDayJobs.this, AddJob.class);
+                intent1.putExtra("addJobDay", day);
+                startActivity(intent1);
+                finish();
+            }
+        });
     }
 
     /**
@@ -143,6 +158,7 @@ public class ViewDayJobs extends AppCompatActivity
     private void findViews() {
         lv_dayList = (ListView) findViewById(R.id.day_view_listview);
         tv_emptyList = (TextView) findViewById(R.id.day_empty_list);
+        fab = (FloatingActionButton) findViewById(R.id.FAB);
     }
 
     /**
