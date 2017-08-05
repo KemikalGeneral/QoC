@@ -14,6 +14,8 @@ import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
+import java.util.Locale;
+
 public class EditEmployee extends MenuMain {
 
     private EditText et_firstName;
@@ -92,7 +94,7 @@ public class EditEmployee extends MenuMain {
         et_town.setText(employee.getTown());
         et_city.setText(employee.getCity());
         et_postcode.setText(employee.getPostcode());
-        et_rateOfPay.setText(String.valueOf(employee.getRateOfPay()));
+        et_rateOfPay.setText(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
 
         // Populate employee work availability checkboxes
         populateAvailabilityCheckboxes(employee);

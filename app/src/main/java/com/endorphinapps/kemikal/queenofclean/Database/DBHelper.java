@@ -151,7 +151,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_JOB_STATUS + " VARCHAR(50) NOT NULL, " +
                     COLUMN_CUSTOMER_PAYMENT_STATUS + " VARCHAR(50), " +
                     COLUMN_EMPLOYEE_PAYMENT_STATUS + " VARCHAR(50), " +
-                    COLUMN_ESTIMATED_TIME + " INTEGER NOT NULL, " +
+                    COLUMN_ESTIMATED_TIME + " REAL NOT NULL, " +
                     COLUMN_TOTAL_JOB_COST + " REAL NOT NULL, " +
                     COLUMN_NOTES + " TEXT, " +
                     COLUMN_CUSTOMER + " INTEGER NOT NULL, " +
@@ -788,7 +788,7 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public long insertJob(long startDate, long startTime,
                           String jobStatus, String customerPaymentStatus,
-                          String employeePaymentStatus, int estimatedTime,
+                          String employeePaymentStatus, double estimatedTime,
                           double totalPrice, String notes, long customer,
                           long employee) {
         SQLiteDatabase db = getWritableDatabase();
@@ -837,7 +837,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_STATUS)));
                 job.setCustomerPaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_PAYMENT_STATUS)));
                 job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
-                job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
+                job.setEstimatedTime(cursor.getDouble(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
                 job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
                 job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
                 jobs.add(job);
@@ -874,7 +874,7 @@ public class DBHelper extends SQLiteOpenHelper {
             job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_STATUS)));
             job.setCustomerPaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_PAYMENT_STATUS)));
             job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
-            job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
+            job.setEstimatedTime(cursor.getDouble(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
             job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
             job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
         }
@@ -930,7 +930,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 job.setJobStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_STATUS)));
                 job.setCustomerPaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_CUSTOMER_PAYMENT_STATUS)));
                 job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
-                job.setEstimatedTime(cursor.getInt(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
+                job.setEstimatedTime(cursor.getDouble(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
                 job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
                 job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
                 jobs.add(job);
@@ -958,7 +958,7 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public void updateJob(long jobId, long startDate,
                           long startTime, String jobStatus, String customerPaymentStatus,
-                          String employeePaymentStatus, int estimatedTime,
+                          String employeePaymentStatus, double estimatedTime,
                           double totalPrice, String notes, long customer,
                           long employee) {
         SQLiteDatabase db = getWritableDatabase();
@@ -974,6 +974,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NOTES, notes);
         values.put(COLUMN_CUSTOMER, customer);
         values.put(COLUMN_EMPLOYEE, employee);
+
         db.update(TABLE_JOBS, values, COLUMN_JOB_ID + " = " + jobId, null);
         db.close();
     }

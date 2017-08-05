@@ -76,7 +76,7 @@ public class JobArrayAdapter extends ArrayAdapter<Job> {
 
         // Estimated Time
         TextView estimatedTime = (TextView) convertView.findViewById(R.id.estimated_time);
-        int time = job.getEstimatedTime();
+        double time = job.getEstimatedTime();
         estimatedTime.setText(String.valueOf(time));
         if (time == 1) {
             estimatedTime.append(" hour");
