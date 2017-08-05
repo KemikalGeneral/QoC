@@ -5,7 +5,6 @@
     android:id="@+id/activity_person_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_16"
     tools:context="com.endorphinapps.kemikal.queenofclean.DetailViews.DetailCustomer">
 
     <android.support.constraint.ConstraintLayout
@@ -15,45 +14,46 @@
         <!--Name-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_name_container"
-            style="@style/container"
+            style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <!--Name Label-->
-            <TextView
-                style="@style/text_field_full"
-                android:layout_width="wrap_content"
-                android:text="Name:"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <!--Name-->
             <TextView
                 android:id="@+id/full_name"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="40dp"
                 android:text="FirstName LastName"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon_person"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_person"
+                android:backgroundTint="@color/colorPrimary"
+
+                app:layout_constraintBottom_toBottomOf="@id/full_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/full_name" />
         </android.support.constraint.ConstraintLayout>
 
         <!--Contact Details-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_contact_details_container"
-            style="@style/container"
+            style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_name_container">
 
-            <!--Home Number Label-->
-            <TextView
-                android:id="@+id/home_number_label"
-                style="@style/text_field_full"
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
                 android:layout_width="wrap_content"
-                android:text="@string/home_number"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="40dp" />
 
             <!--Home Number-->
             <TextView
@@ -61,17 +61,19 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="02920123456"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/guideline"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--Mobile Number Label-->
-            <TextView
-                android:id="@+id/mobile_number_label"
-                style="@style/text_field_full"
-                android:layout_width="wrap_content"
-                android:text="@string/mobile_number"
+            <!--Home Number Label-->
+            <ImageView
+                android:id="@+id/home_number_label"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_phone_home"
+                android:backgroundTint="@color/colorAccent"
+
+                app:layout_constraintBottom_toBottomOf="@id/home_number"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_number_label" />
+                app:layout_constraintTop_toTopOf="@id/home_number" />
 
             <!--Mobile Number-->
             <TextView
@@ -79,17 +81,19 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="07890123456"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/home_number" />
 
-            <!--Email Label-->
+            <!--Mobile Number Label-->
             <TextView
-                android:id="@+id/email_address_label"
-                style="@style/text_field_full"
-                android:layout_width="wrap_content"
-                android:text="@string/email_address"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mobile_number_label" />
+                android:id="@+id/mobile_number_label"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_phone_mobile"
+                android:backgroundTint="@color/colorAccent"
+
+                app:layout_constraintBottom_toBottomOf="@id/mobile_number"
+                app:layout_constraintLeft_toLeftOf="@id/home_number_label"
+                app:layout_constraintTop_toTopOf="@id/mobile_number" />
 
             <!--Email-->
             <TextView
@@ -97,25 +101,28 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="e@mail.com"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/mobile_number" />
+
+            <!--Email Label-->
+            <TextView
+                android:id="@+id/email_address_label"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_email"
+                android:backgroundTint="@color/colorAccent"
+
+                app:layout_constraintBottom_toBottomOf="@id/email_address"
+                app:layout_constraintLeft_toLeftOf="@id/home_number_label"
+                app:layout_constraintTop_toTopOf="@id/email_address" />
         </android.support.constraint.ConstraintLayout>
 
         <!--Address-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/detail_address_container"
-            style="@style/container"
+            style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_contact_details_container">
-
-            <!--Label-->
-            <TextView
-                style="@style/text_field_full"
-                android:layout_width="wrap_content"
-                android:text="@string/address"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <!--Address Line 1-->
             <TextView
@@ -123,8 +130,19 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="1 My Street"
-                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/address_label"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_address"
+                android:backgroundTint="@color/colorPrimary"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/address_line_1"
+                app:layout_constraintBottom_toBottomOf="@id/address_line_1" />
 
             <!--Address Line 2-->
             <TextView
@@ -132,7 +150,7 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="My Area"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1"
                 app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
             <!--Town-->
@@ -141,7 +159,7 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="My Town"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1"
                 app:layout_constraintTop_toBottomOf="@+id/address_line_2" />
 
             <!--City-->
@@ -150,7 +168,7 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="My City"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1"
                 app:layout_constraintTop_toBottomOf="@+id/address_town" />
 
             <!--Postcode-->
@@ -159,7 +177,7 @@
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="CF123AB"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1"
                 app:layout_constraintTop_toBottomOf="@+id/address_city" />
         </android.support.constraint.ConstraintLayout>
 
@@ -167,13 +185,16 @@
             android:id="@+id/btn_edit_customer"
             style="@style/button"
             android:text="Edit"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_address_container" />
 
         <Button
             android:id="@+id/btn_delete_customer"
             style="@style/button"
+            android:background="@color/red"
             android:text="Delete"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_edit_customer" />
     </android.support.constraint.ConstraintLayout>

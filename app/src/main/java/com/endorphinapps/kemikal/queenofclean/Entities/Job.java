@@ -11,7 +11,7 @@ public class Job {
     private String jobStatusEnum;
     private String customerPaymentStatusEnum;
     private String employeePaymentStatusEnum;
-    private int estimatedTime;
+    private double estimatedTime;
     private int actualTime;
     private double totalPrice;
     private String notes;
@@ -21,7 +21,7 @@ public class Job {
     public Job(long id, long customer, long employee,
                long startDate, long startTime, long endDate,
                String jobStatusEnum, String customerPaymentStatusEnum,
-               String employeePaymentStatusEnum, int estimatedTime,
+               String employeePaymentStatusEnum, double estimatedTime,
                int actualTime, double totalPrice, String notes) {
         this.id = id;
         this.customer = customer;
@@ -110,11 +110,11 @@ public class Job {
         this.employeePaymentStatusEnum = employeePaymentStatusEnum;
     }
 
-    public int getEstimatedTime() {
+    public double getEstimatedTime() {
         return estimatedTime;
     }
 
-    public void setEstimatedTime(int estimatedTime) {
+    public void setEstimatedTime(double estimatedTime) {
         this.estimatedTime = estimatedTime;
     }
 

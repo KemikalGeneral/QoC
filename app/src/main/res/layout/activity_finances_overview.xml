@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.endorphinapps.kemikal.queenofclean.Finances.Finances_overview">
 
     <!--Top Tabs-->
@@ -38,63 +39,154 @@
             android:text="Out" />
     </LinearLayout>
 
-
-    <!--Total In-->
-    <TextView
-        android:id="@+id/total_in_amount_label"
-        style="@style/text_field_wrap"
-        android:padding="@dimen/padding_16"
-        android:text="Total In"
+    <!--Weekly Finances-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/finances_week_container"
+        style="@style/containerPink"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabs_container" />
-
-    <TextView
-        android:id="@+id/total_in_amount"
-        style="@style/text_field_wrap"
-        android:padding="@dimen/padding_16"
-        android:text="£1234.00"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/total_in_amount_label" />
+        app:layout_constraintTop_toBottomOf="@+id/tabs_container">
+
+        <!--Week Label-->
+        <TextView
+            android:id="@+id/finances_week_label"
+            style="@style/text_field_full"
+            android:layout_width="wrap_content"
+            android:text="This Week So Far"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <!--Total In-->
+        <TextView
+            android:id="@+id/total_in_amount_label"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="Total In"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/finances_week_label" />
+
+        <TextView
+            android:id="@+id/total_in_amount"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="£1234.00"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/total_in_amount_label" />
 
 
-    <!--Total Out-->
-    <TextView
-        android:id="@+id/total_out_amount_label"
-        style="@style/text_field_wrap"
-        android:padding="@dimen/padding_16"
-        android:text="Total Out"
+        <!--Total Out-->
+        <TextView
+            android:id="@+id/total_out_amount_label"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="Total Out"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total_in_amount_label" />
+
+        <TextView
+            android:id="@+id/total_out_amount"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="£1234.00"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/total_out_amount_label" />
+
+
+        <!--Total Sum-->
+        <TextView
+            android:id="@+id/total_sum_amount_label"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="Total Sum"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total_out_amount_label" />
+
+        <TextView
+            android:id="@+id/total_sum_amount"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="£1234.00"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/total_sum_amount_label" />
+    </android.support.constraint.ConstraintLayout>
+
+
+    <!--Annual Finances-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/finances_year_container"
+        style="@style/containerPink"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total_in_amount_label" />
-
-    <TextView
-        android:id="@+id/total_out_amount"
-        style="@style/text_field_wrap"
-        android:padding="@dimen/padding_16"
-        android:text="£1234.00"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/total_out_amount_label" />
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav">
+
+        <!--Year Label-->
+        <TextView
+            android:id="@+id/finances_year_label"
+            style="@style/text_field_full"
+            android:layout_width="wrap_content"
+            android:text="This Year So Far"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <!--Total In-->
+        <TextView
+            android:id="@+id/total_in_amount_year_label"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="Total In"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/finances_year_label" />
+
+        <TextView
+            android:id="@+id/total_in_amount_year"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="£1234.00"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/total_in_amount_year_label" />
 
 
-    <!--Total Sum-->
-    <TextView
-        android:id="@+id/total_sum_amount_label"
-        style="@style/text_field_wrap"
-        android:padding="@dimen/padding_16"
-        android:text="Total Sum"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total_out_amount_label" />
+        <!--Total Out-->
+        <TextView
+            android:id="@+id/total_out_amount_year_label"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="Total Out"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total_in_amount_year_label" />
 
-    <TextView
-        android:id="@+id/total_sum_amount"
-        style="@style/text_field_wrap"
-        android:padding="@dimen/padding_16"
-        android:text="£1234.00"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/total_sum_amount_label" />
+        <TextView
+            android:id="@+id/total_out_amount_year"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="£1234.00"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/total_out_amount_year_label" />
 
+
+        <!--Total Sum-->
+        <TextView
+            android:id="@+id/total_sum_amount_year_label"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="Total Sum"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total_out_amount_year_label" />
+
+        <TextView
+            android:id="@+id/total_sum_amount_year"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_8"
+            android:text="£1234.00"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/total_sum_amount_year_label" />
+    </android.support.constraint.ConstraintLayout>
 
     <!--Bottom Navigation-->
     <include
+        android:id="@+id/bottom_nav"
         layout="@layout/navigation_bottom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

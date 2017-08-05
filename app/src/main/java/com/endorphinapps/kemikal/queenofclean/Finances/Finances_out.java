@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_out;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
@@ -77,11 +76,9 @@ public class Finances_out extends MenuMain
         if (item.getTitle().equals("UnPaid")) {
             db.changeEmployeePaymentStatus(jobId, item.getTitle().toString());
             System.out.println("z! Finances_out - onContextItemSelected - UnPaid - jobId: " + jobId);
-            Toast.makeText(this, "ID/" + jobId, Toast.LENGTH_SHORT).show();
         } else if (item.getTitle().equals("Paid")) {
             db.changeEmployeePaymentStatus(jobId, item.getTitle().toString());
             System.out.println("z! Finances_out - onContextItemSelected - Paid - jobId: " + jobId);
-            Toast.makeText(this, "ID/" + jobId, Toast.LENGTH_SHORT).show();
         }
         // Recreate the activity to apply changes
         recreate();

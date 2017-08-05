@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
@@ -16,6 +17,7 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
 public class AddEmployee extends MenuMain {
 
+    private ScrollView sv_pageContainer;
     private EditText et_firstName;
     private EditText et_lastName;
     private EditText et_mobileNumber;
@@ -43,7 +45,7 @@ public class AddEmployee extends MenuMain {
     private int sundayAM;
     private int sundayPM;
 
-    private Button btn_populate;
+    //    private Button btn_populate;
     private Button btn_addNew;
 
     private DBHelper db;
@@ -75,32 +77,36 @@ public class AddEmployee extends MenuMain {
         db = new DBHelper(this);
 
         //Populate form for testing
-        btn_populate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < 10; i++) {
-                    counter++;
-                    et_firstName.setText("Employee" + counter);
-                    et_lastName.setText("last" + counter);
-                    et_mobileNumber.setText("07511750244");
-                    et_homeNumber.setText("02920485612");
-                    et_eMail.setText("e@mail.com");
-                    et_addressLine1.setText(counter + " My Street");
-                    et_addressLine2.setText("No Road");
-                    et_town.setText("Pengam Green");
-                    et_city.setText("Cardiff");
-                    et_postcode.setText("CF242HH");
-                    et_rateOfPay.setText(counter + "0.50");
-                    addNewEmployee();
-                }
-            }
-        });
+//        btn_populate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                for (int i = 0; i < 10; i++) {
+//                    counter++;
+//                    et_firstName.setText("Employee" + counter);
+//                    et_lastName.setText("last" + counter);
+//                    et_mobileNumber.setText("07511750244");
+//                    et_homeNumber.setText("02920485612");
+//                    et_eMail.setText("e@mail.com");
+//                    et_addressLine1.setText(counter + " My Street");
+//                    et_addressLine2.setText("No Road");
+//                    et_town.setText("Pengam Green");
+//                    et_city.setText("Cardiff");
+//                    et_postcode.setText("CF242HH");
+//                    et_rateOfPay.setText(counter + "0.50");
+//                    addNewEmployee();
+//                }
+//            }
+//        });
 
         //Add new Employee
         btn_addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewEmployee();
+                // Validate fields on form.
+                // Add to DB if they all pass
+                if (isValidated()) {
+                    addNewEmployee();
+                }
             }
         });
     }
@@ -109,6 +115,7 @@ public class AddEmployee extends MenuMain {
      * Find all views by id
      */
     private void findViews() {
+        sv_pageContainer = (ScrollView) findViewById(R.id.activity_add_employee);
         et_firstName = (EditText) findViewById(R.id.add_first_name);
         et_lastName = (EditText) findViewById(R.id.add_last_name);
         et_mobileNumber = (EditText) findViewById(R.id.add_mobile_number);
@@ -121,8 +128,69 @@ public class AddEmployee extends MenuMain {
         et_postcode = (EditText) findViewById(R.id.add_postcode);
         et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
         btn_addNew = (Button) findViewById(R.id.btn_submit);
-        btn_populate = (Button) findViewById(R.id.btn_populate);
+//        btn_populate = (Button) findViewById(R.id.btn_populate);
     }
+
+    /**
+     * Validates the essential details so that they cannot be null
+     * Full Name cannot be null.
+     * Last Name cannot be null.
+     * Mobile Number cannot be null, and must have 11 digits.
+     * Address Line 1 cannot be null.
+     * Town cannot be null.
+     * Postcode cannot be null.
+     * RateOfPay cannot be null.
+     *
+     * @return false if any fields fail, true if they're all ok
+     */
+    private boolean isValidated() {
+
+        // First Name
+        if (et_firstName.getText().toString().trim().equals("")) {
+            sv_pageContainer.smoothScrollTo(0, et_firstName.getTop());
+            Toast.makeText(this, "You must enter a First Name!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Last Name
+        if (et_lastName.getText().toString().trim().equals("")) {
+            sv_pageContainer.smoothScrollTo(0, et_lastName.getTop());
+            Toast.makeText(this, "You must enter a Last Name!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Address Line 1
+        if (et_addressLine1.getText().toString().trim().equals("")) {
+            sv_pageContainer.smoothScrollTo(0, et_addressLine1.getTop());
+            Toast.makeText(this, "You must enter an Address!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Town
+        if (et_town.getText().toString().trim().equals("")) {
+            sv_pageContainer.smoothScrollTo(0, et_town.getTop());
+            Toast.makeText(this, "You must enter a Town!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Postcode
+        if (et_postcode.getText().toString().trim().equals("")) {
+            sv_pageContainer.smoothScrollTo(0, et_postcode.getTop());
+            Toast.makeText(this, "You must enter a Postcode!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Rate of Pay
+        if (et_rateOfPay.getText().toString().trim().equals("")) {
+            sv_pageContainer.smoothScrollTo(0, et_rateOfPay.getTop());
+            Toast.makeText(this, "Your employee needs to be Paid!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Return true if all fields pass validation
+        return true;
+    }
+
 
     /**
      * Get availability checkbox selections
@@ -226,10 +294,8 @@ public class AddEmployee extends MenuMain {
             case R.id.detail_availability_sunday_PM:
                 if (isChecked) {
                     sundayPM = 1;
-                    Toast.makeText(this, "Sunday PM checked", Toast.LENGTH_SHORT).show();
                 } else {
                     sundayPM = 0;
-                    Toast.makeText(this, "Sunday PM unChecked", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
