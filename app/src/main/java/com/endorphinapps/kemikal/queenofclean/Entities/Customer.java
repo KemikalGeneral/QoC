@@ -13,6 +13,7 @@ public class Customer {
     private String mobileNumber;
     private String homeNumber;
     private String emailAddress;
+    private String notes;
 
     public Customer() {
     }
@@ -21,7 +22,8 @@ public class Customer {
                     String lastName, String addressLine1,
                     String addressLine2, String town, String city,
                     String postcode, String mobileNumber,
-                    String homeNumber, String emailAddress) {
+                    String homeNumber, String emailAddress,
+                    String notes) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,6 +35,7 @@ public class Customer {
         this.mobileNumber = mobileNumber;
         this.homeNumber = homeNumber;
         this.emailAddress = emailAddress;
+        this.notes = notes;
     }
 
     public long getCustomerId() {
@@ -123,6 +126,14 @@ public class Customer {
         this.emailAddress = emailAddress;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -137,6 +148,7 @@ public class Customer {
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", homeNumber='" + homeNumber + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", notes='" + notes + '\'' +
                 '}';
     }
 }

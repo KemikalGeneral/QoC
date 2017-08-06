@@ -14,7 +14,7 @@
 
         <!--Customer Section-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_job_customer_container"
+            android:id="@+id/customer_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -40,7 +40,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/dummy_customer" />
 
             <Spinner
-                android:id="@+id/add_customer_spinner"
+                android:id="@+id/customer_spinner"
                 style="@style/text_field_full"
                 android:padding="0dp"
                 android:layout_marginLeft="40dp"
@@ -55,17 +55,17 @@
                 android:background="@drawable/ic_person"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_customer_spinner"
-                app:layout_constraintBottom_toBottomOf="@id/add_customer_spinner" />
+                app:layout_constraintTop_toTopOf="@id/customer_spinner"
+                app:layout_constraintBottom_toBottomOf="@id/customer_spinner" />
 
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/add_job_customer_address_container"
+                android:id="@+id/customer_address_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_customer_spinner">
+                app:layout_constraintTop_toBottomOf="@id/customer_spinner">
 
                 <TextView
                     android:id="@+id/address_line_1"
@@ -122,11 +122,11 @@
 
         <!--Employee Section-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_job_employee_container"
+            android:id="@+id/employee_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_customer_container">
+            app:layout_constraintTop_toBottomOf="@id/customer_container">
 
             <TextView
                 android:id="@+id/dummy_employee"
@@ -147,7 +147,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/dummy_employee" />
 
             <Spinner
-                android:id="@+id/add_employee_spinner"
+                android:id="@+id/employee_spinner"
                 style="@style/text_field_full"
                 android:layout_marginLeft="40dp"
                 android:padding="0dp"
@@ -161,21 +161,21 @@
                 android:background="@drawable/ic_person"
                 android:backgroundTint="@color/colorAccent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_employee_spinner"
-                app:layout_constraintBottom_toBottomOf="@id/add_employee_spinner" />
+                app:layout_constraintTop_toTopOf="@id/employee_spinner"
+                app:layout_constraintBottom_toBottomOf="@id/employee_spinner" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Date-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_job_date_time_container"
+            android:id="@+id/date_time_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_employee_container">
+            app:layout_constraintTop_toBottomOf="@id/employee_container">
 
             <TextView
-                android:id="@+id/add_start_date"
+                android:id="@+id/start_date"
                 style="@style/text_field_full"
                 android:layout_marginLeft="40dp"
                 android:text="Select a Start Date..."
@@ -188,39 +188,39 @@
                 android:background="@drawable/ic_date"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_start_date"
-                app:layout_constraintBottom_toBottomOf="@id/add_start_date" />
+                app:layout_constraintTop_toTopOf="@id/start_date"
+                app:layout_constraintBottom_toBottomOf="@id/start_date" />
 
             <TextView
-                android:id="@+id/add_start_time"
+                android:id="@+id/start_time"
                 style="@style/text_field_full"
                 android:layout_marginLeft="40dp"
                 android:text="Select a Start Time..."
-                app:layout_constraintLeft_toLeftOf="@id/add_start_date"
+                app:layout_constraintLeft_toLeftOf="@id/start_date"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_start_date" />
+                app:layout_constraintTop_toBottomOf="@id/start_date" />
 
             <ImageView
                 style="@style/detail_icon"
                 android:background="@drawable/ic_time"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_start_time"
-                app:layout_constraintBottom_toBottomOf="@id/add_start_time" />
+                app:layout_constraintTop_toTopOf="@id/start_time"
+                app:layout_constraintBottom_toBottomOf="@id/start_time" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Job & Payment Statuses-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_job_status_spinner_container"
+            android:id="@+id/status_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_date_time_container">
+            app:layout_constraintTop_toBottomOf="@id/date_time_container">
 
             <!--Job Status Label-->
             <TextView
-                android:id="@+id/add_job_status_spinner_label"
+                android:id="@+id/job_status_spinner_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Job Status:"
@@ -229,7 +229,7 @@
 
             <!--Job Status-->
             <Spinner
-                android:id="@+id/add_job_status_spinner"
+                android:id="@+id/job_status_spinner"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:padding="0dp"
@@ -238,52 +238,52 @@
 
             <!--Customer Payment Status Label-->
             <TextView
-                android:id="@+id/add_customer_payment_status_spinner_label"
+                android:id="@+id/customer_payment_status_spinner_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Customer Paid:"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner_label" />
+                app:layout_constraintTop_toBottomOf="@id/job_status_spinner_label" />
 
             <!--Customer Payment Status-->
             <Spinner
-                android:id="@+id/add_customer_payment_status_spinner"
+                android:id="@+id/customer_payment_status_spinner"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:padding="0dp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner" />
+                app:layout_constraintTop_toBottomOf="@id/job_status_spinner" />
 
             <!--Employee Payment Status Label-->
             <TextView
-                android:id="@+id/add_employee_payment_status_spinner_label"
+                android:id="@+id/employee_payment_status_spinner_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Employee Paid:"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_customer_payment_status_spinner_label" />
+                app:layout_constraintTop_toBottomOf="@id/customer_payment_status_spinner_label" />
 
             <!--Employee Payment Status-->
             <Spinner
-                android:id="@+id/add_employee_payment_status_spinner"
+                android:id="@+id/employee_payment_status_spinner"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:padding="0dp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_customer_payment_status_spinner" />
+                app:layout_constraintTop_toBottomOf="@id/customer_payment_status_spinner" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Job Items-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_job_items_container"
+            android:id="@+id/job_items_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_status_spinner_container">
+            app:layout_constraintTop_toBottomOf="@id/status_container">
 
             <TextView
-                android:id="@+id/add_job_item_row"
+                android:id="@+id/job_item_row"
                 style="@style/text_field_full"
                 android:layout_marginLeft="40dp"
                 android:layout_width="wrap_content"
@@ -296,30 +296,30 @@
                 android:background="@drawable/ic_add"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_job_item_row"
-                app:layout_constraintBottom_toBottomOf="@id/add_job_item_row" />
+                app:layout_constraintTop_toTopOf="@id/job_item_row"
+                app:layout_constraintBottom_toBottomOf="@id/job_item_row" />
 
             <LinearLayout
-                android:id="@+id/add_job_list_container"
+                android:id="@+id/job_list_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_job_item_row" />
+                app:layout_constraintTop_toBottomOf="@id/job_item_row" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Estimated Time-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_job_estimated_time_container"
+            android:id="@+id/estimated_time_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_items_container">
+            app:layout_constraintTop_toBottomOf="@id/job_items_container">
 
             <TextView
-                android:id="@+id/add_job_estimated_time_label"
+                android:id="@+id/estimated_time_label"
                 style="@style/text_field_full"
                 android:layout_marginLeft="40dp"
                 android:layout_width="wrap_content"
@@ -333,11 +333,11 @@
                 android:background="@drawable/ic_time"
                 android:backgroundTint="@color/colorAccent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_job_estimated_time_label"
-                app:layout_constraintBottom_toBottomOf="@id/add_job_estimated_time_label" />
+                app:layout_constraintTop_toTopOf="@id/estimated_time_label"
+                app:layout_constraintBottom_toBottomOf="@id/estimated_time_label" />
 
             <EditText
-                android:id="@+id/add_job_estimated_time"
+                android:id="@+id/estimated_time"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:hint="0.0"
@@ -349,14 +349,14 @@
 
         <!--Total Job Price-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_job_total_price_container"
+            android:id="@+id/total_price_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_estimated_time_container">
+            app:layout_constraintTop_toBottomOf="@id/estimated_time_container">
 
             <TextView
-                android:id="@+id/add_job_total_price_label"
+                android:id="@+id/total_price_label"
                 style="@style/text_field_full"
                 android:layout_marginLeft="40dp"
                 android:layout_width="wrap_content"
@@ -370,11 +370,11 @@
                 android:background="@drawable/ic_money"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_job_total_price_label"
-                app:layout_constraintBottom_toBottomOf="@id/add_job_total_price_label" />
+                app:layout_constraintTop_toTopOf="@id/total_price_label"
+                app:layout_constraintBottom_toBottomOf="@id/total_price_label" />
 
             <TextView
-                android:id="@+id/add_job_total_price"
+                android:id="@+id/total_price"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:hint="£0.00"
@@ -385,14 +385,14 @@
 
         <!--Notes-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_job_notes_container"
+            android:id="@+id/notes_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_total_price_container">
+            app:layout_constraintTop_toBottomOf="@id/total_price_container">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_job_notes_wrapper"
+                android:id="@+id/notes_wrapper"
                 style="@style/text_input_wrapper"
                 android:layout_marginLeft="40dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -400,11 +400,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_job_notes"
+                    android:id="@+id/notes"
                     style="@style/text_field_full"
                     android:gravity="top"
                     android:hint="Add Notes..."
-                    android:lines="5" />
+                    android:lines="5"
+                    android:inputType="textCapSentences" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageView
@@ -412,7 +413,7 @@
                 android:background="@drawable/ic_notes"
                 android:backgroundTint="@color/colorAccent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_job_notes_wrapper" />
+                app:layout_constraintTop_toTopOf="@id/notes_wrapper" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -423,7 +424,7 @@
             android:text="@string/submit"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_job_notes_container" />
+            app:layout_constraintTop_toBottomOf="@id/notes_container" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

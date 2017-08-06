@@ -18,6 +18,8 @@ import java.util.Locale;
 
 public class EditEmployee extends MenuMain {
 
+    private DBHelper db;
+
     private EditText et_firstName;
     private EditText et_lastName;
     private EditText et_mobileNumber;
@@ -29,6 +31,7 @@ public class EditEmployee extends MenuMain {
     private EditText et_city;
     private EditText et_postcode;
     private EditText et_rateOfPay;
+    private EditText et_notes;
     // Availability Checkboxes
     private CheckBox ch_mondayAM;
     private CheckBox ch_mondayPM;
@@ -60,7 +63,6 @@ public class EditEmployee extends MenuMain {
     private int sundayPM;
 
     private Button btn_applyChanges;
-    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class EditEmployee extends MenuMain {
         et_city.setText(employee.getCity());
         et_postcode.setText(employee.getPostcode());
         et_rateOfPay.setText(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
+        et_notes.setText(employee.getNotes());
 
         // Populate employee work availability checkboxes
         populateAvailabilityCheckboxes(employee);
@@ -116,18 +119,18 @@ public class EditEmployee extends MenuMain {
      * Find all views by id
      */
     private void findViews() {
-        et_firstName = (EditText) findViewById(R.id.add_first_name);
-        et_lastName = (EditText) findViewById(R.id.add_last_name);
-        et_mobileNumber = (EditText) findViewById(R.id.add_mobile_number);
-        et_homeNumber = (EditText) findViewById(R.id.add_home_number);
-        et_eMail = (EditText) findViewById(R.id.add_email);
-        et_addressLine1 = (EditText) findViewById(R.id.add_address_line_1);
-        et_addressLine2 = (EditText) findViewById(R.id.add_address_line_2);
-        et_town = (EditText) findViewById(R.id.add_town);
-        et_city = (EditText) findViewById(R.id.add_city);
-        et_postcode = (EditText) findViewById(R.id.add_postcode);
-        et_rateOfPay = (EditText) findViewById(R.id.add_rate_of_pay);
-        btn_applyChanges = (Button) findViewById(R.id.apply_changes);
+        et_firstName = (EditText) findViewById(R.id.first_name);
+        et_lastName = (EditText) findViewById(R.id.last_name);
+        et_mobileNumber = (EditText) findViewById(R.id.mobile_number);
+        et_homeNumber = (EditText) findViewById(R.id.home_number);
+        et_eMail = (EditText) findViewById(R.id.email);
+        et_addressLine1 = (EditText) findViewById(R.id.address_line_1);
+        et_addressLine2 = (EditText) findViewById(R.id.address_line_2);
+        et_town = (EditText) findViewById(R.id.town);
+        et_city = (EditText) findViewById(R.id.city);
+        et_postcode = (EditText) findViewById(R.id.postcode);
+        et_rateOfPay = (EditText) findViewById(R.id.rate_of_pay);
+        et_notes = (EditText) findViewById(R.id.notes);
         // Checkboxes
         ch_mondayAM = (CheckBox) findViewById(R.id.detail_availability_monday_AM);
         ch_mondayPM = (CheckBox) findViewById(R.id.detail_availability_monday_PM);
@@ -143,6 +146,7 @@ public class EditEmployee extends MenuMain {
         ch_saturdayPM = (CheckBox) findViewById(R.id.detail_availability_saturday_PM);
         ch_sundayAM = (CheckBox) findViewById(R.id.detail_availability_sunday_AM);
         ch_sundayPM = (CheckBox) findViewById(R.id.detail_availability_sunday_PM);
+        btn_applyChanges = (Button) findViewById(R.id.apply_changes);
     }
 
     /**
@@ -377,7 +381,8 @@ public class EditEmployee extends MenuMain {
                 et_homeNumber.getText().toString().trim(),
                 et_mobileNumber.getText().toString().trim(),
                 et_eMail.getText().toString().trim(),
-                Double.parseDouble(et_rateOfPay.getText().toString().trim())
+                Double.parseDouble(et_rateOfPay.getText().toString().trim()),
+                et_notes.getText().toString().trim()
         );
 
         startActivity(new Intent(EditEmployee.this, ViewEmployees.class));

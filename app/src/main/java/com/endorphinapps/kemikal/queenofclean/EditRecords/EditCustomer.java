@@ -15,6 +15,8 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
 public class EditCustomer extends MenuMain {
 
+    private DBHelper db;
+
     private EditText et_firstName;
     private EditText et_lastName;
     private EditText et_mobileNumber;
@@ -25,9 +27,9 @@ public class EditCustomer extends MenuMain {
     private EditText et_town;
     private EditText et_city;
     private EditText et_postcode;
+    private EditText et_notes;
 
     private Button btn_applyChanges;
-    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class EditCustomer extends MenuMain {
         et_town.setText(customer.getTown());
         et_city.setText(customer.getCity());
         et_postcode.setText(customer.getPostcode());
+        et_notes.setText(customer.getNotes());
 
         btn_applyChanges.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,16 +81,17 @@ public class EditCustomer extends MenuMain {
      * Find all views by their ID's
      */
     private void findViews() {
-        et_firstName = (EditText) findViewById(R.id.add_first_name);
-        et_lastName = (EditText) findViewById(R.id.add_last_name);
-        et_mobileNumber = (EditText) findViewById(R.id.add_mobile_number);
-        et_homeNumber = (EditText) findViewById(R.id.add_home_number);
-        et_eMail = (EditText) findViewById(R.id.add_email);
-        et_addressLine1 = (EditText) findViewById(R.id.add_address_line_1);
-        et_addressLine2 = (EditText) findViewById(R.id.add_address_line_2);
-        et_town = (EditText) findViewById(R.id.add_town);
-        et_city = (EditText) findViewById(R.id.add_city);
-        et_postcode = (EditText) findViewById(R.id.add_postcode);
+        et_firstName = (EditText) findViewById(R.id.first_name);
+        et_lastName = (EditText) findViewById(R.id.last_name);
+        et_mobileNumber = (EditText) findViewById(R.id.mobile_number);
+        et_homeNumber = (EditText) findViewById(R.id.home_number);
+        et_eMail = (EditText) findViewById(R.id.email);
+        et_addressLine1 = (EditText) findViewById(R.id.address_line_1);
+        et_addressLine2 = (EditText) findViewById(R.id.address_line_2);
+        et_town = (EditText) findViewById(R.id.town);
+        et_city = (EditText) findViewById(R.id.city);
+        et_postcode = (EditText) findViewById(R.id.postcode);
+        et_notes = (EditText) findViewById(R.id.notes);
 
         btn_applyChanges = (Button) findViewById(R.id.apply_changes);
     }
@@ -175,7 +179,8 @@ public class EditCustomer extends MenuMain {
                 et_lastName.getText().toString().trim(),
                 et_homeNumber.getText().toString().trim(),
                 et_mobileNumber.getText().toString().trim(),
-                et_eMail.getText().toString().trim()
+                et_eMail.getText().toString().trim(),
+                et_notes.getText().toString().trim()
         );
 
         startActivity(new Intent(EditCustomer.this, ViewCustomers.class));

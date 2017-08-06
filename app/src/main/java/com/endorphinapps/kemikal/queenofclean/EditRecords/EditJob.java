@@ -195,24 +195,24 @@ public class EditJob extends MenuMain
      * Find all views by their ID's
      */
     private void findViews() {
-        ll_addressContainer = (ConstraintLayout) findViewById(R.id.add_job_customer_address_container);
+        ll_addressContainer = (ConstraintLayout) findViewById(R.id.customer_address_container);
         tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
         tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
         tv_town = (TextView) findViewById(R.id.address_town);
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
-        sp_customerSpinner = (Spinner) findViewById(R.id.add_customer_spinner);
-        sp_employeeSpinner = (Spinner) findViewById(R.id.add_employee_spinner);
-        tv_startDate = (TextView) findViewById(R.id.add_start_date);
-        tv_startTime = (TextView) findViewById(R.id.add_start_time);
-        sp_jobStatusSpinner = (Spinner) findViewById(R.id.add_job_status_spinner);
-        sp_customerPaymentStatusSpinner = (Spinner) findViewById(R.id.add_customer_payment_status_spinner);
-        sp_employeePaymentStatusSpinner = (Spinner) findViewById(R.id.add_employee_payment_status_spinner);
-        ll_jobListContainer = (LinearLayout) findViewById(R.id.add_job_list_container);
-        tv_addNewJobRow = (TextView) findViewById(R.id.add_job_item_row);
-        et_estimatedTime = (EditText) findViewById(R.id.add_job_estimated_time);
-        tv_jobTotalPrice = (TextView) findViewById(R.id.add_job_total_price);
-        et_notes = (EditText) findViewById(R.id.add_job_notes);
+        sp_customerSpinner = (Spinner) findViewById(R.id.customer_spinner);
+        sp_employeeSpinner = (Spinner) findViewById(R.id.employee_spinner);
+        tv_startDate = (TextView) findViewById(R.id.start_date);
+        tv_startTime = (TextView) findViewById(R.id.start_time);
+        sp_jobStatusSpinner = (Spinner) findViewById(R.id.job_status_spinner);
+        sp_customerPaymentStatusSpinner = (Spinner) findViewById(R.id.customer_payment_status_spinner);
+        sp_employeePaymentStatusSpinner = (Spinner) findViewById(R.id.employee_payment_status_spinner);
+        ll_jobListContainer = (LinearLayout) findViewById(R.id.job_list_container);
+        tv_addNewJobRow = (TextView) findViewById(R.id.job_item_row);
+        et_estimatedTime = (EditText) findViewById(R.id.estimated_time);
+        tv_jobTotalPrice = (TextView) findViewById(R.id.total_price);
+        et_notes = (EditText) findViewById(R.id.notes);
         btn_edit = (Button) findViewById(R.id.apply_changes);
 
         tv_dummyCustomer = (TextView) findViewById(R.id.dummy_customer);

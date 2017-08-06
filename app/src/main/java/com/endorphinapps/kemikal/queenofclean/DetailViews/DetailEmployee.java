@@ -22,6 +22,9 @@ import java.util.Locale;
 public class DetailEmployee extends MenuMain
         implements ConfirmationDialog.ConfirmationDialogListener {
 
+    private DBHelper db;
+    private long employeeId;
+
     private TextView tv_fullName;
     private TextView tv_homeNumber;
     private TextView tv_mobileNumber;
@@ -32,6 +35,7 @@ public class DetailEmployee extends MenuMain
     private TextView tv_city;
     private TextView tv_postcode;
     private TextView tv_rateOfPay;
+    private TextView tv_notes;
     // Availability Checkboxes
     private CheckBox mondayAM;
     private CheckBox mondayPM;
@@ -50,10 +54,6 @@ public class DetailEmployee extends MenuMain
 
     private Button btn_edit;
     private Button btn_delete;
-
-    private long employeeId;
-
-    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +94,7 @@ public class DetailEmployee extends MenuMain
         tv_postcode.setText(employee.getPostcode());
         tv_rateOfPay.setText("£");
         tv_rateOfPay.append(String.format(Locale.getDefault(), "%.2f", employee.getRateOfPay()));
+        tv_notes.setText(employee.getNotes());
 
         // Populate employee work availability checkboxes
         populateAvailabilityCheckboxes(employee);
@@ -135,6 +136,7 @@ public class DetailEmployee extends MenuMain
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
         tv_rateOfPay = (TextView) findViewById(R.id.rate_of_pay);
+        tv_notes = (TextView) findViewById(R.id.notes);
 
         mondayAM = (CheckBox) findViewById(R.id.detail_availability_monday_AM);
         mondayPM = (CheckBox) findViewById(R.id.detail_availability_monday_PM);
