@@ -18,13 +18,14 @@ class Finances {
 
     Finances(DBHelper db) {
         this.db = db;
-        this. jobs = getJobsByDateRange(datePeriod);
+        this.jobs = getJobsByDateRange(datePeriod);
         this.annualFinances = getJobsByFinancialYear(year);
     }
 
     /**
      * Get all details of Jobs  between
      * Monday and Sunday of the current week
+     *
      * @return Jobs as an ArrayList
      */
     ArrayList<Job> getJobsByDateRange(int datePeriod) {
@@ -47,6 +48,7 @@ class Finances {
     /**
      * Calculate the start of the week (Monday 00:00)
      * for the selected datePeriod (in weeks)
+     *
      * @param datePeriod
      * @return dateFrom in milliseconds as a long
      */
@@ -66,6 +68,7 @@ class Finances {
     /**
      * Calculate the end of the week (Sunday 23:59)
      * for the selected datePeriod (in weeks)
+     *
      * @param datePeriod
      * @return dateTo in milliseconds as a long
      */
@@ -84,7 +87,9 @@ class Finances {
 
     /**
      * Cycle through the Jobs and calculate the
-     * totalAmount of income for the current week
+     * totalAmount of income for the current week.
+     * DO NOT calculate 'Unconfirmed', 'Cancelled' or 'Quote' statuses.
+     *
      * @return totalAmount as a double
      */
     double getTotalAmount_In() {
@@ -92,7 +97,13 @@ class Finances {
         int arrayLength = jobs.size();
 
         for (int i = 0; i < arrayLength; i++) {
-            totalAmount += jobs.get(i).getTotalPrice();
+            // Don't include the following statuses in the calculations
+            if (jobs.get(i).getJobStatusEnum().equals("Unconfirmed")
+                    || jobs.get(i).getJobStatusEnum().equals("Cancelled")
+                    || jobs.get(i).getJobStatusEnum().equals("Quote")) {
+            } else {
+                totalAmount += jobs.get(i).getTotalPrice();
+            }
         }
 
         return totalAmount;
@@ -100,7 +111,9 @@ class Finances {
 
     /**
      * Cycle through the Jobs and calculate the
-     * totalAmount of outgoings for the current week
+     * totalAmount of outgoings for the current week.
+     * DO NOT calculate 'Unconfirmed', 'Cancelled' or 'Quote' statuses.
+     *
      * @return totalAmount as a double
      */
     double getTotalAmount_out() {
@@ -113,21 +126,27 @@ class Finances {
         double employeePayForJob;
 
         for (int i = 0; i < arrayLength; i++) {
-            // Get job-employee by Id
-            employeeId = jobs.get(i).getEmployee();
-            employee = db.getEmployeeById(employeeId);
+            // Don't include the following statuses in the calculations
+            if (jobs.get(i).getJobStatusEnum().equals("Unconfirmed")
+                    || jobs.get(i).getJobStatusEnum().equals("Cancelled")
+                    || jobs.get(i).getJobStatusEnum().equals("Quote")) {
+            } else {
+                // Get job-employee by Id
+                employeeId = jobs.get(i).getEmployee();
+                employee = db.getEmployeeById(employeeId);
 
-            // Get employee rateOfPay and
-            // hours worked per job
-            rateOfPay = employee.getRateOfPay();
-            hours = jobs.get(i).getEstimatedTime();
+                // Get employee rateOfPay and
+                // hours worked per job
+                rateOfPay = employee.getRateOfPay();
+                hours = jobs.get(i).getEstimatedTime();
 
-            // Calculate employee pay for current job
-            employeePayForJob = rateOfPay * hours;
+                // Calculate employee pay for current job
+                employeePayForJob = rateOfPay * hours;
 
-            // Calculate total amount of pay to employees
-            // for current week, Monday to Sunday
-            totalAmount += employeePayForJob;
+                // Calculate total amount of pay to employees
+                // for current week, Monday to Sunday
+                totalAmount += employeePayForJob;
+            }
         }
 
         return totalAmount;
@@ -135,6 +154,7 @@ class Finances {
 
     /**
      * Calculate the total sum (in - out)
+     *
      * @return sum as a double
      */
     double getTotalAmount_sum() {

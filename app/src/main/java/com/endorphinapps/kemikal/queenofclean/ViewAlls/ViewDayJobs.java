@@ -51,6 +51,7 @@ public class ViewDayJobs extends AppCompatActivity
         menu.add(0, v.getId(), 0, "Current");
         menu.add(0, v.getId(), 0, "Completed");
         menu.add(0, v.getId(), 0, "Cancelled");
+        menu.add(0, v.getId(), 0, "Quote");
     }
 
     /**
@@ -75,7 +76,11 @@ public class ViewDayJobs extends AppCompatActivity
             db.changeJobStatus(jobId, item.getTitle().toString());
         } else if (item.getTitle().equals("Cancelled")) {
             db.changeJobStatus(jobId, item.getTitle().toString());
+        } else if (item.getTitle().equals("Quote")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
         }
+        System.out.println("z! ViewDayJobs - onContextItemSelected - jobId:" + jobId + " - " + item.getTitle().toString());
+
         // Recreate the activity to apply changes
         recreate();
         return super.onContextItemSelected(item);

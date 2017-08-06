@@ -5,5 +5,6 @@ public enum JobStatus {
     Pending,
     Current,
     Completed,
-    Canceled
+    Canceled,
+    Quote
 }

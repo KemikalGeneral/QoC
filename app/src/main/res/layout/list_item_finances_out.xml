@@ -52,7 +52,7 @@
     <!--TODO - Add status and change methods-->
     <!--Payment Status-->
     <TextView
-        android:id="@+id/customer_payment_status"
+        android:id="@+id/payment_status"
         style="@style/text_field_wrap"
         android:text="Status"
         app:layout_constraintRight_toRightOf="parent"
@@ -64,6 +64,16 @@
         style="@style/text_field_wrap"
         android:text="dd/mm/yyyy"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/customer_payment_status" />
+        app:layout_constraintBottom_toBottomOf="@id/payment_status" />
+
+    <!--Job Status-->
+    <TextView
+        android:id="@+id/job_status"
+        style="@style/text_field_wrap"
+        android:layout_marginRight="16dp"
+        android:text="[job status]"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintRight_toLeftOf="@id/payment_status"
+        app:layout_constraintBottom_toBottomOf="@id/payment_status" />
 
 </android.support.constraint.ConstraintLayout>

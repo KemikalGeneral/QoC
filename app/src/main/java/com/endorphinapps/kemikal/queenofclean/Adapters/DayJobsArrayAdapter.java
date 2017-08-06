@@ -98,6 +98,8 @@ public class DayJobsArrayAdapter extends ArrayAdapter<Job> {
             jobStatus.setTextColor(Color.GREEN);
         } else if (job.getJobStatusEnum().equals("Cancelled")) {
             jobStatus.setTextColor(Color.RED);
+        } else if (job.getJobStatusEnum().equals("Quote")) {
+            jobStatus.setTextColor(Color.LTGRAY);
         }
 
         // Start Time

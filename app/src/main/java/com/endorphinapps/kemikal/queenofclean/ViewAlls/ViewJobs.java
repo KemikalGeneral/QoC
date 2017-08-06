@@ -56,6 +56,7 @@ public class ViewJobs extends MenuMain
         menu.add(0, v.getId(), 0, "Current");
         menu.add(0, v.getId(), 0, "Completed");
         menu.add(0, v.getId(), 0, "Cancelled");
+        menu.add(0, v.getId(), 0, "Quote");
     }
 
     /**
@@ -71,20 +72,19 @@ public class ViewJobs extends MenuMain
 
         if (item.getTitle().equals("Unconfirmed")) {
             db.changeJobStatus(jobId, item.getTitle().toString());
-            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         } else if (item.getTitle().equals("Pending")) {
             db.changeJobStatus(jobId, item.getTitle().toString());
-            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         } else if (item.getTitle().equals("Current")) {
             db.changeJobStatus(jobId, item.getTitle().toString());
-            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         } else if (item.getTitle().equals("Completed")) {
             db.changeJobStatus(jobId, item.getTitle().toString());
-            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
         } else if (item.getTitle().equals("Cancelled")) {
             db.changeJobStatus(jobId, item.getTitle().toString());
-            System.out.println("z! ViewJobs - onContextItemSelected - jobId: " + jobId);
+        } else if (item.getTitle().equals("Quote")) {
+            db.changeJobStatus(jobId, item.getTitle().toString());
         }
+        System.out.println("z! ViewJobs - onContextItemSelected - jobId:" + jobId + " - " + item.getTitle().toString());
+
         // Recreate the activity to apply changes
         recreate();
         return super.onContextItemSelected(item);
