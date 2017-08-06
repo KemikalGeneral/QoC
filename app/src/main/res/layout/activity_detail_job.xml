@@ -212,7 +212,7 @@
 
             <!--Customer Payment Status-->
             <TextView
-                android:id="@+id/customer_payment_status"
+                android:id="@+id/payment_status"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[payment status]"
@@ -235,7 +235,7 @@
                 android:layout_width="wrap_content"
                 android:text="[payment status]"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customer_payment_status" />
+                app:layout_constraintTop_toBottomOf="@id/payment_status" />
         </android.support.constraint.ConstraintLayout>
 
         <!--Job Items-->

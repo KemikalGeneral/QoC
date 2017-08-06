@@ -40,12 +40,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Job status-->
+    <!--Payment status-->
     <TextView
-        android:id="@+id/finances_status"
+        android:id="@+id/payment_status"
         style="@style/text_field_wrap"
         android:text="Status"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/finances_date" />
 
+    <!--Job Status-->
+    <TextView
+        android:id="@+id/job_status"
+        style="@style/text_field_wrap"
+        android:layout_marginRight="16dp"
+        android:text="[job status]"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintRight_toLeftOf="@id/payment_status"
+        app:layout_constraintBottom_toBottomOf="@id/payment_status" />
 </android.support.constraint.ConstraintLayout>

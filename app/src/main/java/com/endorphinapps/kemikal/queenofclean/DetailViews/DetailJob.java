@@ -140,7 +140,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
         tv_startDate = (TextView) findViewById(R.id.start_date);
         tv_startTime = (TextView) findViewById(R.id.start_time);
         tv_jobStatus = (TextView) findViewById(R.id.job_status);
-        tv_customerPaymentStatus = (TextView) findViewById(R.id.customer_payment_status);
+        tv_customerPaymentStatus = (TextView) findViewById(R.id.payment_status);
         tv_employeePaymentStatus = (TextView) findViewById(R.id.employee_payment_status);
         tv_estimatedTime = (TextView) findViewById(R.id.estimated_time);
         tv_totalPrice = (TextView) findViewById(R.id.total_price);

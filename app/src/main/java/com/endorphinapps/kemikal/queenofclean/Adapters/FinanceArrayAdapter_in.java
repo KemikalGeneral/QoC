@@ -61,14 +61,32 @@ public class FinanceArrayAdapter_in extends ArrayAdapter<Job> {
         String date = DateFormat.getDateInstance().format(job.getStartDate());
         endDate.setText(date);
 
-        // Fetch and display status
-        TextView status = (TextView) convertView.findViewById(R.id.finances_status);
-        status.setText(job.getCustomerPaymentStatusEnum());
+        // Fetch and display payment status
+        TextView paymentStatus = (TextView) convertView.findViewById(R.id.payment_status);
+        paymentStatus.setText(job.getCustomerPaymentStatusEnum());
         // Set status text colour accordingly
         if (job.getCustomerPaymentStatusEnum().equals("UnPaid")) {
-            status.setTextColor(Color.RED);
+            paymentStatus.setTextColor(Color.RED);
         } else if (job.getCustomerPaymentStatusEnum().equals("Paid")) {
-            status.setTextColor(Color.GREEN);
+            paymentStatus.setTextColor(Color.GREEN);
+        }
+
+        // Fetch and display job status
+        TextView jobStatus = (TextView) convertView.findViewById(R.id.job_status);
+        jobStatus.setText(job.getJobStatusEnum());
+        // Set status text colour accordingly
+        if (job.getJobStatusEnum().equals("Unconfirmed")) {
+            jobStatus.setTextColor(Color.LTGRAY);
+        } else if (job.getJobStatusEnum().equals("Pending")) {
+            jobStatus.setTextColor(Color.DKGRAY);
+        } else if (job.getJobStatusEnum().equals("Current")) {
+            jobStatus.setTextColor(Color.MAGENTA);
+        } else if (job.getJobStatusEnum().equals("Completed")) {
+            jobStatus.setTextColor(Color.GREEN);
+        } else if (job.getJobStatusEnum().equals("Cancelled")) {
+            jobStatus.setTextColor(Color.RED);
+        } else if (job.getJobStatusEnum().equals("Quote")) {
+            jobStatus.setTextColor(Color.LTGRAY);
         }
 
         // Handle on listView item click and send job ID
