@@ -13,7 +13,7 @@
 
         <!--Name-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_name_container"
+            android:id="@+id/name_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -42,11 +42,11 @@
 
         <!--Contact Details-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_contact_details_container"
+            android:id="@+id/contact_details_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_name_container">
+            app:layout_constraintTop_toBottomOf="@+id/name_container">
 
             <!--Home Number-->
             <TextView
@@ -109,11 +109,11 @@
 
         <!--Address-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_address_container"
+            android:id="@+id/address_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_contact_details_container">
+            app:layout_constraintTop_toBottomOf="@id/contact_details_container">
 
             <!--Address Line 1-->
             <TextView
@@ -178,7 +178,7 @@
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_address_container">
+            app:layout_constraintTop_toBottomOf="@id/address_container">
 
             <!--Day Label-->
             <TextView
@@ -430,7 +430,7 @@
 
         <!--Pay-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_pay_container"
+            android:id="@+id/rate_of_pay_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -457,13 +457,42 @@
                 app:layout_constraintBottom_toBottomOf="@id/rate_of_pay" />
         </android.support.constraint.ConstraintLayout>
 
+        <!--Notes-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/notes_container"
+            style="@style/containerGrey"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rate_of_pay_container">
+
+            <!--Notes-->
+            <TextView
+                android:id="@+id/notes"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="Notes"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon_notes"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_notes"
+                android:backgroundTint="@color/colorAccent"
+
+                app:layout_constraintBottom_toBottomOf="@id/notes"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/notes" />
+        </android.support.constraint.ConstraintLayout>
+
         <Button
             android:id="@+id/btn_edit_employee"
             style="@style/button"
             android:text="Edit"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_pay_container" />
+            app:layout_constraintTop_toBottomOf="@id/notes_container" />
 
         <Button
             android:id="@+id/btn_delete_employee"

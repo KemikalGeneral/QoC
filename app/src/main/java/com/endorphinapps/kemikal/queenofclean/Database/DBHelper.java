@@ -60,6 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_HOME_NUMBER = "homeNumber";
     private static final String COLUMN_MOBILE_NUMBER = "mobileNumber";
     private static final String COLUMN_EMAIL_ADDRESS = "emailAddress";
+    private static final String COLUMN_PERSON_NOTES = "personNotes";
     private static final String COLUMN_ADDRESS = "address";
     //Person - Customer
     private static final String COLUMN_CUSTOMER_ID = "customer_id";
@@ -77,7 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_EMPLOYEE_PAYMENT_STATUS = "employeePaymentStatus";
     private static final String COLUMN_ESTIMATED_TIME = "estimatedTime";
     private static final String COLUMN_TOTAL_JOB_COST = "totalJobCost";
-    private static final String COLUMN_NOTES = "notes";
+    private static final String COLUMN_JOB_NOTES = "jobNotes";
     private static final String COLUMN_CUSTOMER = "customer";
     private static final String COLUMN_EMPLOYEE = "employee";
     //Job Items
@@ -124,6 +125,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_HOME_NUMBER + " VARCHAR(11), " +
                     COLUMN_MOBILE_NUMBER + " VARCHAR(11) NOT NULL, " +
                     COLUMN_EMAIL_ADDRESS + " VARCHAR(50), " +
+                    COLUMN_PERSON_NOTES + " TEXT, " +
                     COLUMN_ADDRESS + " INTEGER NOT NULL, " +
                         " FOREIGN KEY (" + COLUMN_ADDRESS + ") REFERENCES " + TABLE_ADDRESSES + " (" + COLUMN_CUSTOMER_ID + "));";
 
@@ -136,6 +138,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_MOBILE_NUMBER + " VARCHAR(11) NOT NULL, " +
                     COLUMN_EMAIL_ADDRESS + " VARCHAR(50), " +
                     COLUMN_RATE_OF_PAY + " REAL, " +
+                    COLUMN_PERSON_NOTES + " TEXT, " +
                     COLUMN_ADDRESS + " INTEGER NOT NULL, " +
                     COLUMN_AVAILABILITY + " INTEGER NOT NULL, " +
                     " FOREIGN KEY (" + COLUMN_ADDRESS + ") REFERENCES " + TABLE_ADDRESSES + " (" + COLUMN_EMPLOYEE_ID + ")," +
@@ -153,7 +156,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_EMPLOYEE_PAYMENT_STATUS + " VARCHAR(50), " +
                     COLUMN_ESTIMATED_TIME + " REAL NOT NULL, " +
                     COLUMN_TOTAL_JOB_COST + " REAL NOT NULL, " +
-                    COLUMN_NOTES + " TEXT, " +
+                    COLUMN_JOB_NOTES + " TEXT, " +
                     COLUMN_CUSTOMER + " INTEGER NOT NULL, " +
                     COLUMN_EMPLOYEE + " INTEGER NOT NULL, " +
                         "FOREIGN KEY (" + COLUMN_CUSTOMER + ") REFERENCES " + TABLE_CUSTOMERS + " (" + COLUMN_CUSTOMER_ID + "), " +
@@ -460,12 +463,13 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param homeNumber
      * @param mobileNumber
      * @param eMail
+     * @param notes
      * @param address
      * @return customerId as a long
      */
     public long insertCustomer(String firstName, String lastName,
                                String homeNumber, String mobileNumber,
-                               String eMail, int address) {
+                               String eMail, String notes, int address) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -474,6 +478,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_HOME_NUMBER, homeNumber);
         values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
         values.put(COLUMN_EMAIL_ADDRESS, eMail);
+        values.put(COLUMN_PERSON_NOTES, notes);
         values.put(COLUMN_ADDRESS, address);
 
         long customerId = db.insert(TABLE_CUSTOMERS, null, values);
@@ -511,6 +516,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 customer.setTown(cursor.getString(cursor.getColumnIndex(COLUMN_TOWN)));
                 customer.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
                 customer.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
+                customer.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_PERSON_NOTES)));
                 customers.add(customer);
             } while (cursor.moveToNext());
         }
@@ -547,6 +553,7 @@ public class DBHelper extends SQLiteOpenHelper {
             customer.setTown(cursor.getString(cursor.getColumnIndex(COLUMN_TOWN)));
             customer.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
             customer.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
+            customer.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_PERSON_NOTES)));
         }
         cursor.close();
         db.close();
@@ -561,10 +568,12 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param homeNumber
      * @param mobileNumber
      * @param eMail
+     * @param notes
      */
     public void updateCustomer(long id, String firstName,
                                String lastName, String homeNumber,
-                               String mobileNumber, String eMail) {
+                               String mobileNumber, String eMail,
+                               String notes) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -573,6 +582,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_HOME_NUMBER, homeNumber);
         values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
         values.put(COLUMN_EMAIL_ADDRESS, eMail);
+        values.put(COLUMN_PERSON_NOTES, notes);
 
         db.update(TABLE_CUSTOMERS, values, COLUMN_CUSTOMER_ID + " = " + id, null);
         db.close();
@@ -604,12 +614,13 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param eMail
      * @param address
      * @param rateOfPay
+     * @param notes
      * @return employeeId as a long
      */
     public long insertEmployee(String firstName, String lastName,
                                String homeNumber, String mobileNumber,
-                               String eMail, long address, double rateOfPay,
-                               long availability) {
+                               String eMail, String notes, long address,
+                               double rateOfPay, long availability) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -619,6 +630,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
         values.put(COLUMN_EMAIL_ADDRESS, eMail);
         values.put(COLUMN_RATE_OF_PAY, rateOfPay);
+        values.put(COLUMN_PERSON_NOTES, notes);
         values.put(COLUMN_ADDRESS, address);
         values.put(COLUMN_AVAILABILITY, availability);
 
@@ -659,6 +671,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 employee.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
                 employee.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
                 employee.setRateOfPay(cursor.getDouble(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
+                employee.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_PERSON_NOTES)));
                 // Availability
                 employee.setMondayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_AM)));
                 employee.setMondayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_PM)));
@@ -712,6 +725,7 @@ public class DBHelper extends SQLiteOpenHelper {
             employee.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
             employee.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
             employee.setRateOfPay(cursor.getDouble(cursor.getColumnIndex(COLUMN_RATE_OF_PAY)));
+            employee.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_PERSON_NOTES)));
             employee.setMondayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_AM)));
             employee.setMondayPM(cursor.getInt(cursor.getColumnIndex(COLUMN_MONDAY_PM)));
             employee.setTuesdayAM(cursor.getInt(cursor.getColumnIndex(COLUMN_TUESDAY_AM)));
@@ -732,6 +746,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return employee;
     }
 
+
     /**
      * Update the customer's details using the ID
      * @param id
@@ -740,11 +755,13 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param homeNumber
      * @param mobileNumber
      * @param eMail
+     * @param rateOfPay
+     * @param notes
      */
     public void updateEmployee(long id, String firstName,
                                String lastName, String homeNumber,
                                String mobileNumber, String eMail,
-                               double rateOfPay) {
+                               double rateOfPay, String notes) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -754,6 +771,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
         values.put(COLUMN_EMAIL_ADDRESS, eMail);
         values.put(COLUMN_RATE_OF_PAY, rateOfPay);
+        values.put(COLUMN_PERSON_NOTES, notes);
 
         db.update(TABLE_EMPLOYEES, values, COLUMN_EMPLOYEE_ID + " = " + id, null);
         db.close();
@@ -801,7 +819,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_EMPLOYEE_PAYMENT_STATUS, employeePaymentStatus);
         values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
         values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
-        values.put(COLUMN_NOTES, notes);
+        values.put(COLUMN_JOB_NOTES, notes);
         values.put(COLUMN_CUSTOMER, customer);
         values.put(COLUMN_EMPLOYEE, employee);
         long jobId = db.insert(TABLE_JOBS, null, values);
@@ -839,7 +857,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
                 job.setEstimatedTime(cursor.getDouble(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
                 job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
-                job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
+                job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_NOTES)));
                 jobs.add(job);
             } while (cursor.moveToNext());
         }
@@ -876,7 +894,7 @@ public class DBHelper extends SQLiteOpenHelper {
             job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
             job.setEstimatedTime(cursor.getDouble(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
             job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
-            job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
+            job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_NOTES)));
         }
 
         System.out.println("z! ---------- getJobById ----------");
@@ -932,7 +950,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 job.setEmployeePaymentStatusEnum(cursor.getString(cursor.getColumnIndex(COLUMN_EMPLOYEE_PAYMENT_STATUS)));
                 job.setEstimatedTime(cursor.getDouble(cursor.getColumnIndex(COLUMN_ESTIMATED_TIME)));
                 job.setTotalPrice(cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_JOB_COST)));
-                job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_NOTES)));
+                job.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_JOB_NOTES)));
                 jobs.add(job);
             } while (cursor.moveToNext());
         }
@@ -971,7 +989,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_EMPLOYEE_PAYMENT_STATUS, employeePaymentStatus);
         values.put(COLUMN_ESTIMATED_TIME, estimatedTime);
         values.put(COLUMN_TOTAL_JOB_COST, totalPrice);
-        values.put(COLUMN_NOTES, notes);
+        values.put(COLUMN_JOB_NOTES, notes);
         values.put(COLUMN_CUSTOMER, customer);
         values.put(COLUMN_EMPLOYEE, employee);
 

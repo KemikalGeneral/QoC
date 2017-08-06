@@ -19,6 +19,9 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 public class DetailCustomer extends MenuMain
         implements ConfirmationDialog.ConfirmationDialogListener {
 
+    private DBHelper db;
+    private long customerId;
+
     private TextView tv_fullName;
     private TextView tv_homeNumber;
     private TextView tv_mobileNumber;
@@ -28,13 +31,10 @@ public class DetailCustomer extends MenuMain
     private TextView tv_town;
     private TextView tv_city;
     private TextView tv_postcode;
+    private TextView tv_notes;
 
     private Button btn_edit;
     private Button btn_delete;
-
-    private DBHelper db;
-
-    private long customerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class DetailCustomer extends MenuMain
         tv_town.setText(customer.getTown());
         tv_city.setText(customer.getCity());
         tv_postcode.setText(customer.getPostcode());
+        tv_notes.setText(customer.getNotes());
 
         // On Edit button click, send the customer ID
         // in the intent and start the EditCustomer activity
@@ -110,6 +111,7 @@ public class DetailCustomer extends MenuMain
         tv_town = (TextView) findViewById(R.id.address_town);
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
+        tv_notes = (TextView) findViewById(R.id.notes);
         btn_edit = (Button) findViewById(R.id.btn_edit_customer);
         btn_delete = (Button) findViewById(R.id.btn_delete_customer);
     }

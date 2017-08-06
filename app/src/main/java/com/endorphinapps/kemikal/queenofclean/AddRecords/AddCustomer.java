@@ -16,6 +16,8 @@ import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
 public class AddCustomer extends MenuMain {
 
+    private DBHelper db;
+
     private ScrollView sv_pageContainer;
     private EditText et_firstName;
     private EditText et_lastName;
@@ -27,11 +29,9 @@ public class AddCustomer extends MenuMain {
     private EditText et_town;
     private EditText et_city;
     private EditText et_postcode;
-
+    private EditText et_notes;
     //    private Button btn_populate;
     private Button btn_addNew;
-
-    private DBHelper db;
 
 //    private int counter = 0;
 
@@ -98,18 +98,19 @@ public class AddCustomer extends MenuMain {
      */
     private void findViews() {
         sv_pageContainer = (ScrollView) findViewById(R.id.activity_add_customer);
-        btn_addNew = (Button) findViewById(R.id.btn_submit);
+        et_firstName = (EditText) findViewById(R.id.first_name);
+        et_lastName = (EditText) findViewById(R.id.last_name);
+        et_mobileNumber = (EditText) findViewById(R.id.mobile_number);
+        et_homeNumber = (EditText) findViewById(R.id.home_number);
+        et_eMail = (EditText) findViewById(R.id.email);
+        et_addressLine1 = (EditText) findViewById(R.id.address_line_1);
+        et_addressLine2 = (EditText) findViewById(R.id.address_line_2);
+        et_town = (EditText) findViewById(R.id.town);
+        et_city = (EditText) findViewById(R.id.city);
+        et_postcode = (EditText) findViewById(R.id.postcode);
+        et_notes = (EditText) findViewById(R.id.notes);
 //        btn_populate = (Button) findViewById(R.id.btn_populate);
-        et_firstName = (EditText) findViewById(R.id.add_first_name);
-        et_lastName = (EditText) findViewById(R.id.add_last_name);
-        et_mobileNumber = (EditText) findViewById(R.id.add_mobile_number);
-        et_homeNumber = (EditText) findViewById(R.id.add_home_number);
-        et_eMail = (EditText) findViewById(R.id.add_email);
-        et_addressLine1 = (EditText) findViewById(R.id.add_address_line_1);
-        et_addressLine2 = (EditText) findViewById(R.id.add_address_line_2);
-        et_town = (EditText) findViewById(R.id.add_town);
-        et_city = (EditText) findViewById(R.id.add_city);
-        et_postcode = (EditText) findViewById(R.id.add_postcode);
+        btn_addNew = (Button) findViewById(R.id.btn_submit);
     }
 
     /**
@@ -185,6 +186,7 @@ public class AddCustomer extends MenuMain {
                 et_homeNumber.getText().toString().trim(),
                 et_mobileNumber.getText().toString().trim(),
                 et_eMail.getText().toString().trim(),
+                et_notes.getText().toString().trim(),
                 addressID
         );
 

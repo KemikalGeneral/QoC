@@ -13,6 +13,7 @@ public class Employee {
     private String mobileNumber;
     private String homeNumber;
     private String emailAddress;
+    private String notes;
     private double rateOfPay;
     // Availability
     private int mondayAM;
@@ -35,10 +36,10 @@ public class Employee {
 
     public Employee(long employeeId, String firstName,
                     String lastName, String addressLine1,
-                    String addressLine2,  String town, String city,
+                    String addressLine2, String town, String city,
                     String postcode, String mobileNumber,
                     String homeNumber, String emailAddress,
-                    double rateOfPay) {
+                    String notes, double rateOfPay) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +51,7 @@ public class Employee {
         this.mobileNumber = mobileNumber;
         this.homeNumber = homeNumber;
         this.emailAddress = emailAddress;
+        this.notes = notes;
         this.rateOfPay = rateOfPay;
     }
 
@@ -139,6 +141,14 @@ public class Employee {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public double getRateOfPay() {
@@ -275,6 +285,7 @@ public class Employee {
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", homeNumber='" + homeNumber + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", notes='" + notes + '\'' +
                 ", rateOfPay=" + rateOfPay +
                 ", mondayAM=" + mondayAM +
                 ", mondayPM=" + mondayPM +

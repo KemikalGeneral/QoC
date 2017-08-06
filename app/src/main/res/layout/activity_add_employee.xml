@@ -13,7 +13,7 @@
 
         <!--Names-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_names_container"
+            android:id="@+id/names_container"
             style="@style/containerPink"
             android:focusableInTouchMode="true"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -22,7 +22,7 @@
 
             <!--First Name-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_first_name_wrapper"
+                android:id="@+id/first_name_wrapper"
                 style="@style/text_input_wrapper"
                 android:layout_marginLeft="40dp"
                 android:hint="First Name"
@@ -32,7 +32,7 @@
                 android:theme="@style/TextLabelPink">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_first_name"
+                    android:id="@+id/first_name"
                     style="@style/text_field_full"
                     android:inputType="textCapWords|textPersonName" />
             </android.support.design.widget.TextInputLayout>
@@ -42,21 +42,21 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_person"
                 android:backgroundTint="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@id/add_first_name_wrapper"
+                app:layout_constraintBottom_toBottomOf="@id/first_name_wrapper"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_first_name_wrapper" />
+                app:layout_constraintTop_toTopOf="@id/first_name_wrapper" />
 
             <!--Last Name-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_last_name_wrapper"
+                android:id="@+id/last_name_wrapper"
                 style="@style/text_input_wrapper"
-                app:layout_constraintLeft_toLeftOf="@id/add_first_name_wrapper"
+                app:layout_constraintLeft_toLeftOf="@id/first_name_wrapper"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_first_name_wrapper"
+                app:layout_constraintTop_toBottomOf="@id/first_name_wrapper"
                 android:theme="@style/TextLabelPink">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_last_name"
+                    android:id="@+id/last_name"
                     style="@style/text_field_full"
                     android:hint="Last Name"
                     android:inputType="textCapWords|textPersonName" />
@@ -66,15 +66,15 @@
 
         <!--Contact Details-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_contact_details_container"
+            android:id="@+id/contact_details_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_names_container">
+            app:layout_constraintTop_toBottomOf="@id/names_container">
 
             <!--Home Number-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_home_number_wrapper"
+                android:id="@+id/home_number_wrapper"
                 style="@style/text_input_wrapper"
                 android:layout_marginLeft="40dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -83,7 +83,7 @@
                 android:theme="@style/TextLabelGrey">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_home_number"
+                    android:id="@+id/home_number"
                     style="@style/text_field_full"
                     android:hint="Home Number"
                     android:inputType="phone" />
@@ -94,21 +94,21 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_phone_home"
                 android:backgroundTint="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@id/add_home_number_wrapper"
+                app:layout_constraintBottom_toBottomOf="@id/home_number_wrapper"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_home_number_wrapper" />
+                app:layout_constraintTop_toTopOf="@id/home_number_wrapper" />
 
             <!--Mobile Number-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_mobile_number_wrapper"
+                android:id="@+id/mobile_number_wrapper"
                 style="@style/text_input_wrapper"
-                app:layout_constraintLeft_toLeftOf="@id/add_home_number_wrapper"
+                app:layout_constraintLeft_toLeftOf="@id/home_number_wrapper"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_home_number_wrapper"
+                app:layout_constraintTop_toBottomOf="@id/home_number_wrapper"
                 android:theme="@style/TextLabelGrey">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_mobile_number"
+                    android:id="@+id/mobile_number"
                     style="@style/text_field_full"
                     android:hint="Mobile Number"
                     android:inputType="phone" />
@@ -119,21 +119,21 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_phone_mobile"
                 android:backgroundTint="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@id/add_mobile_number_wrapper"
+                app:layout_constraintBottom_toBottomOf="@id/mobile_number_wrapper"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_mobile_number_wrapper" />
+                app:layout_constraintTop_toTopOf="@id/mobile_number_wrapper" />
 
             <!--eMail Address-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_email_wrapper"
+                android:id="@+id/email_wrapper"
                 style="@style/text_input_wrapper"
-                app:layout_constraintLeft_toLeftOf="@id/add_mobile_number_wrapper"
+                app:layout_constraintLeft_toLeftOf="@id/mobile_number_wrapper"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_mobile_number_wrapper"
+                app:layout_constraintTop_toBottomOf="@id/mobile_number_wrapper"
                 android:theme="@style/TextLabelGrey">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_email"
+                    android:id="@+id/email"
                     style="@style/text_field_full"
                     android:hint="eMail Address"
                     android:inputType="textEmailAddress" />
@@ -143,23 +143,23 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_email"
                 android:backgroundTint="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@id/add_email_wrapper"
+                app:layout_constraintBottom_toBottomOf="@id/email_wrapper"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_email_wrapper" />
+                app:layout_constraintTop_toTopOf="@id/email_wrapper" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Address-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_address_container"
+            android:id="@+id/address_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_contact_details_container">
+            app:layout_constraintTop_toBottomOf="@id/contact_details_container">
 
             <!--Address Line 1-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_address_line_1_wrapper"
+                android:id="@+id/address_line_1_wrapper"
                 style="@style/text_input_wrapper"
                 android:layout_marginLeft="40dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -168,7 +168,7 @@
                 android:theme="@style/TextLabelPink">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_address_line_1"
+                    android:id="@+id/address_line_1"
                     style="@style/text_field_full"
                     android:hint="Address Line 1"
                     android:inputType="textCapWords|textPostalAddress" />
@@ -179,21 +179,21 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_address"
                 android:backgroundTint="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@id/add_address_line_1_wrapper"
+                app:layout_constraintBottom_toBottomOf="@id/address_line_1_wrapper"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_address_line_1_wrapper" />
+                app:layout_constraintTop_toTopOf="@id/address_line_1_wrapper" />
 
             <!--Address Line 2-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_address_line_2_wrapper"
+                android:id="@+id/address_line_2_wrapper"
                 style="@style/text_input_wrapper"
-                app:layout_constraintLeft_toLeftOf="@id/add_address_line_1_wrapper"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1_wrapper"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_address_line_1_wrapper"
+                app:layout_constraintTop_toBottomOf="@id/address_line_1_wrapper"
                 android:theme="@style/TextLabelPink">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_address_line_2"
+                    android:id="@+id/address_line_2"
                     style="@style/text_field_full"
                     android:hint="Address Line 2"
                     android:inputType="textCapWords|textPostalAddress" />
@@ -201,15 +201,15 @@
 
             <!--Address Town-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_town_wrapper"
+                android:id="@+id/town_wrapper"
                 style="@style/text_input_wrapper"
-                app:layout_constraintLeft_toLeftOf="@id/add_address_line_1_wrapper"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1_wrapper"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_address_line_2_wrapper"
+                app:layout_constraintTop_toBottomOf="@id/address_line_2_wrapper"
                 android:theme="@style/TextLabelPink">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_town"
+                    android:id="@+id/town"
                     style="@style/text_field_full"
                     android:hint="Town"
                     android:inputType="textCapWords|textPostalAddress" />
@@ -217,15 +217,15 @@
 
             <!--Address City-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_city_wrapper"
+                android:id="@+id/city_wrapper"
                 style="@style/text_input_wrapper"
-                app:layout_constraintLeft_toLeftOf="@id/add_address_line_1_wrapper"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1_wrapper"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_town_wrapper"
+                app:layout_constraintTop_toBottomOf="@id/town_wrapper"
                 android:theme="@style/TextLabelPink">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_city"
+                    android:id="@+id/city"
                     style="@style/text_field_full"
                     android:hint="City"
                     android:inputType="textCapWords|textPostalAddress" />
@@ -233,15 +233,15 @@
 
             <!--Address PostCode-->
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_postcode_wrapper"
+                android:id="@+id/postcode_wrapper"
                 style="@style/text_input_wrapper"
-                app:layout_constraintLeft_toLeftOf="@id/add_address_line_1_wrapper"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1_wrapper"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/add_city_wrapper"
+                app:layout_constraintTop_toBottomOf="@id/city_wrapper"
                 android:theme="@style/TextLabelPink">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_postcode"
+                    android:id="@+id/postcode"
                     style="@style/text_field_full"
                     android:hint="Postcode"
                     android:inputType="textCapCharacters|textPostalAddress" />
@@ -255,7 +255,7 @@
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_address_container">
+            app:layout_constraintTop_toBottomOf="@id/address_container">
 
             <!--Day Label-->
             <TextView
@@ -508,14 +508,14 @@
 
         <!--Hourly Rate of Pay-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/add_pay_container"
+            android:id="@+id/rate_of_pay_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/availability_container">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_rate_of_pay_wrapper"
+                android:id="@+id/rate_of_pay_wrapper"
                 style="@style/text_input_wrapper"
                 android:layout_marginLeft="40dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -524,7 +524,7 @@
                 android:theme="@style/TextLabelPink">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/add_rate_of_pay"
+                    android:id="@+id/rate_of_pay"
                     style="@style/text_field_full"
                     android:hint="Hourly Rate of Pay"
                     android:inputType="numberDecimal" />
@@ -534,9 +534,46 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_money"
                 android:backgroundTint="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@id/add_rate_of_pay_wrapper"
+                app:layout_constraintBottom_toBottomOf="@id/rate_of_pay_wrapper"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/add_rate_of_pay_wrapper" />
+                app:layout_constraintTop_toTopOf="@id/rate_of_pay_wrapper" />
+        </android.support.constraint.ConstraintLayout>
+
+
+        <!--Notes-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/notes_container"
+            style="@style/containerGrey"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rate_of_pay_container">
+
+            <!--Notes-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/notes_wrapper"
+                style="@style/text_input_wrapper"
+                android:layout_marginLeft="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:theme="@style/TextLabelGrey">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/notes"
+                    style="@style/text_field_full"
+                    android:hint="Notes"
+                    android:inputType="textCapSentences" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Notes Icon-->
+            <ImageView
+                android:id="@+id/notes_label"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_notes"
+                android:backgroundTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@id/notes_wrapper"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/notes_wrapper" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -547,7 +584,7 @@
             android:text="@string/submit"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_pay_container" />
+            app:layout_constraintTop_toBottomOf="@id/notes_container" />
 
         <!--Populate Button - For Testing-->
         <!--<Button-->
