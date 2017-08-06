@@ -37,6 +37,7 @@ import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -672,10 +673,33 @@ public class EditJob extends MenuMain
      * @return total pay to employee as a double
      */
     private double calculatePayToEmployee() {
-        double rateOfPay = employee.getRateOfPay();
-        double employeePay = rateOfPay * getEstimatedTime();
+        double rateOfPay = 0;
+        double weekendPay = 0;
+        double employeePay;
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        String day = sdf.format(startDate).toLowerCase();
 
-        System.out.println("z! AddJob - calculatePayToEmployee(): " +
+        // Get Employee's rate of pay
+        try {
+            rateOfPay = employee.getRateOfPay();
+
+        } catch (NullPointerException e) {
+            System.out.println("z! EditJob - calculatePayToEmployee NPE: " + e);
+        }
+
+        // Reset the Employee pay
+        employeePay = rateOfPay * getEstimatedTime();
+
+        // If the day is a Saturday or Sunday, the employee gets
+        // an extra £1 per hour
+        if (day.equals("saturday") || day.equals("sunday")) {
+            weekendPay = getEstimatedTime();
+            System.out.println("z! EditJob - calculatePayToEmployee() - weekendPay: " + weekendPay);
+        }
+
+        // Calculate pay
+        employeePay = (rateOfPay * getEstimatedTime()) + weekendPay;
+        System.out.println("z! EditJob - calculatePayToEmployee(): " +
                 String.valueOf(employeePay));
 
         return employeePay;

@@ -38,6 +38,7 @@ import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -628,19 +629,32 @@ public class AddJob extends MenuMain
      */
     private double calculatePayToEmployee() {
         double rateOfPay = 0;
+        double weekendPay = 0;
+        double employeePay;
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        String day = sdf.format(startDate).toLowerCase();
 
+        // Get Employee's rate of pay
         try {
             rateOfPay = employee.getRateOfPay();
 
         } catch (NullPointerException e) {
-            System.out.println("AddJob - calculatePayToEmployee NPE: " + e);
+            System.out.println("z! AddJob - calculatePayToEmployee NPE: " + e);
         }
 
-        double employeePay = rateOfPay * getEstimatedTime();
-        System.out.println("z! AddJob - calculatePayToEmployee(): " +
-                String.valueOf(employeePay));
-        return employeePay;
+        // If the day is a Saturday or Sunday, the employee gets
+        // an extra £1 per hour
+        if (day.equals("saturday") || day.equals("sunday")) {
+            weekendPay = getEstimatedTime();
+            System.out.println("z! AddJob - calculatePayToEmployee() - weekendPay: " + weekendPay);
+        }
 
+        // Calculate pay
+        employeePay = (rateOfPay * getEstimatedTime()) + weekendPay;
+        System.out.println("z! AddJob - calculatePayToEmployee() - employeePay: " +
+                String.valueOf(employeePay));
+
+        return employeePay;
     }
 
     /**
