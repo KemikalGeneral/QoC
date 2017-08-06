@@ -14,8 +14,9 @@ import com.endorphinapps.kemikal.queenofclean.Adapters.DayJobsArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.JobsClass;
-import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.util.ArrayList;
@@ -84,6 +85,8 @@ public class ViewDayJobs extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         // Find views by  ID
         findViews();

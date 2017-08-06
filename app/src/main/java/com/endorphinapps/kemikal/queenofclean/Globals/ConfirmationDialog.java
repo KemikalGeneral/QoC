@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.Globals;
 
 import android.app.Dialog;
 import android.app.DialogFragment;

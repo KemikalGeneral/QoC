@@ -8,11 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.endorphinapps.kemikal.queenofclean.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditRecords.EditCustomer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ConfirmationDialog;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
@@ -40,6 +41,8 @@ public class DetailCustomer extends MenuMain
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_customer);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         // Find all views by ID
         findViews();

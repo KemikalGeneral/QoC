@@ -44,7 +44,7 @@
         <activity
             android:name=".EditRecords.EditJob"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".Menus.MenuMain" />
+        <activity android:name=".Globals.MenuMain" />
         <activity android:name=".ViewAlls.ViewDayJobs"></activity>
     </application>
 

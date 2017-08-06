@@ -33,7 +33,8 @@ import com.endorphinapps.kemikal.queenofclean.ENUMs.EmployeePaymentStatus;
 import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
@@ -93,6 +94,8 @@ public class AddJob extends MenuMain
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_job);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         //Find all views by their Id's
         findViews();

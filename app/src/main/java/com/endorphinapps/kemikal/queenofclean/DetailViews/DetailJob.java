@@ -18,14 +18,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.endorphinapps.kemikal.queenofclean.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditRecords.EditJob;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ConfirmationDialog;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 
@@ -69,6 +70,8 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_job);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         // Find all views by ID's
         findViews();

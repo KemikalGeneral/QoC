@@ -11,9 +11,10 @@ import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Adapters.FinanceArrayAdapter_in;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
-import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.text.DateFormat;
@@ -91,6 +92,8 @@ public class Finances_In extends MenuMain
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finances_in);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         // Find views by their ID
         findViews();

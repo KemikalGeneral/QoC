@@ -13,9 +13,10 @@ import android.widget.TextView;
 import com.endorphinapps.kemikal.queenofclean.Adapters.JobArrayAdapter;
 import com.endorphinapps.kemikal.queenofclean.AddRecords.AddJob;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
-import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 public class ViewJobs extends MenuMain
@@ -93,6 +94,8 @@ public class ViewJobs extends MenuMain
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_jobs);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         // Find all views by ID
         findViews();

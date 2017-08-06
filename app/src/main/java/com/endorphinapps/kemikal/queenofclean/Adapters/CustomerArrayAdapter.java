@@ -38,9 +38,14 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
         TextView customerName = (TextView) convertView.findViewById(R.id.full_name);
         customerName.setText(customerFullName);
 
-        // Fetch and populate the AddressLine1  field
+        // Fetch and populate the AddressLine1 field
         TextView addressLine1 = (TextView) convertView.findViewById(R.id.address_line_1);
         addressLine1.setText(customer.getAddressLine1());
+
+        // Fetch and populate the Town field
+        TextView town = (TextView) convertView.findViewById(R.id.town);
+        town.setText(", ");
+        town.append(customer.getTown());
 
         // Onclick, send all details below to the DetailCustomer page
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -48,16 +53,6 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customer> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DetailCustomer.class);
                 intent.putExtra("EXTRAS_id", customer.getCustomerId());
-//                intent.putExtra("EXTRAS_firstName", customer.getFirstName());
-//                intent.putExtra("EXTRAS_lastName", customer.getLastName());
-//                intent.putExtra("EXTRAS_homeNumber", customer.getHomeNumber());
-//                intent.putExtra("EXTRAS_mobileNumber", customer.getMobileNumber());
-//                intent.putExtra("EXTRAS_emailAddress", customer.getEmailAddress());
-//                intent.putExtra("EXTRAS_addressLine1", customer.getAddressLine1());
-//                intent.putExtra("EXTRAS_addressLine2", customer.getAddressLine2());
-//                intent.putExtra("EXTRAS_town", customer.getTown());
-//                intent.putExtra("EXTRAS_city", customer.getCity());
-//                intent.putExtra("EXTRAS_postcode", customer.getPostcode());
                 getContext().startActivity(intent);
 //                ((Activity) getContext()).finish();
             }

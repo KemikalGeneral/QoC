@@ -9,11 +9,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.endorphinapps.kemikal.queenofclean.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.EditRecords.EditEmployee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ConfirmationDialog;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
@@ -59,6 +60,8 @@ public class DetailEmployee extends MenuMain
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_employee);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         // Find all views by Id
         findViews();

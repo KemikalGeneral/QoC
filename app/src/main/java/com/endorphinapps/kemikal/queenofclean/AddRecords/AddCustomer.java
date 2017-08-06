@@ -10,7 +10,8 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
@@ -48,6 +49,8 @@ public class AddCustomer extends MenuMain {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         //Find all views by ID
         findViews();

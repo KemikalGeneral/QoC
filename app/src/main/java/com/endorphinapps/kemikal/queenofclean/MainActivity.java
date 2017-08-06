@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewDayJobs;
 
 import java.util.ArrayList;
@@ -62,6 +64,8 @@ public class MainActivity extends MenuMain
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         // Find all views by ID
         findViews();

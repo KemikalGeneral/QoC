@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean.Menus;
+package com.endorphinapps.kemikal.queenofclean.Globals;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

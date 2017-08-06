@@ -23,4 +23,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/full_name" />
 
+    <!--Address Town-->
+    <TextView
+        android:id="@+id/town"
+        style="@style/text_field_wrap"
+        android:textSize="@dimen/text_size_small"
+        android:text=", Town"
+        app:layout_constraintLeft_toRightOf="@+id/address_line_1"
+        app:layout_constraintTop_toBottomOf="@id/full_name" />
+
 </android.support.constraint.ConstraintLayout>

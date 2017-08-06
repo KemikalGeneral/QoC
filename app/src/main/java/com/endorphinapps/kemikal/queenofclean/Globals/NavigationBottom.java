@@ -1,4 +1,4 @@
-package com.endorphinapps.kemikal.queenofclean;
+package com.endorphinapps.kemikal.queenofclean.Globals;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.endorphinapps.kemikal.queenofclean.Finances.Finances_overview;
+import com.endorphinapps.kemikal.queenofclean.MainActivity;
+import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
 

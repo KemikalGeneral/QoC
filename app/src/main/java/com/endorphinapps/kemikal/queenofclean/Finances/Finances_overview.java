@@ -7,9 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
+import com.endorphinapps.kemikal.queenofclean.Globals.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.MainActivity;
-import com.endorphinapps.kemikal.queenofclean.Menus.MenuMain;
-import com.endorphinapps.kemikal.queenofclean.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.util.Locale;
@@ -44,6 +45,8 @@ public class Finances_overview extends MenuMain
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finances_overview);
+        // Set orientation to portrait
+        ActivityHelper.initialise(this);
 
         // Find all views by Id
         findViews();
