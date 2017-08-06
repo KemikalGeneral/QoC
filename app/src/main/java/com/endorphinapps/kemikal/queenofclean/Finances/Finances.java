@@ -11,15 +11,15 @@ import java.util.Calendar;
 class Finances {
 
     private DBHelper db;
-    private ArrayList<Job> jobs;
-    private ArrayList<Job> annualFinances;
+    private ArrayList<Job> weeklyJobs;
+    private ArrayList<Job> annualJobs;
     private int datePeriod;
     private int year;
 
     Finances(DBHelper db) {
         this.db = db;
-        this.jobs = getJobsByDateRange(datePeriod);
-        this.annualFinances = getJobsByFinancialYear(year);
+        this.weeklyJobs = getJobsByDateRange(datePeriod);
+        this.annualJobs = getJobsByFinancialYear(year);
     }
 
     /**
@@ -29,7 +29,7 @@ class Finances {
      * @return Jobs as an ArrayList
      */
     ArrayList<Job> getJobsByDateRange(int datePeriod) {
-        jobs = new ArrayList<>();
+        weeklyJobs = new ArrayList<>();
         long dateFrom;
         long dateTo;
 
@@ -40,9 +40,9 @@ class Finances {
         dateTo = getDateTo(datePeriod);
 
         // Populate array with results from DB search
-        jobs.addAll(db.getJobsByDateRange(dateFrom, dateTo));
+        weeklyJobs.addAll(db.getJobsByDateRange(dateFrom, dateTo));
 
-        return jobs;
+        return weeklyJobs;
     }
 
     /**
@@ -94,15 +94,15 @@ class Finances {
      */
     double getTotalAmount_In() {
         double totalAmount = 0;
-        int arrayLength = jobs.size();
+        int arrayLength = weeklyJobs.size();
 
         for (int i = 0; i < arrayLength; i++) {
             // Don't include the following statuses in the calculations
-            if (jobs.get(i).getJobStatusEnum().equals("Unconfirmed")
-                    || jobs.get(i).getJobStatusEnum().equals("Cancelled")
-                    || jobs.get(i).getJobStatusEnum().equals("Quote")) {
+            if (weeklyJobs.get(i).getJobStatusEnum().equals("Unconfirmed")
+                    || weeklyJobs.get(i).getJobStatusEnum().equals("Cancelled")
+                    || weeklyJobs.get(i).getJobStatusEnum().equals("Quote")) {
             } else {
-                totalAmount += jobs.get(i).getTotalPrice();
+                totalAmount += weeklyJobs.get(i).getTotalPrice();
             }
         }
 
@@ -118,7 +118,7 @@ class Finances {
      */
     double getTotalAmount_out() {
         double totalAmount = 0;
-        int arrayLength = jobs.size();
+        int arrayLength = weeklyJobs.size();
         long employeeId;
         Employee employee;
         double rateOfPay;
@@ -127,18 +127,18 @@ class Finances {
 
         for (int i = 0; i < arrayLength; i++) {
             // Don't include the following statuses in the calculations
-            if (jobs.get(i).getJobStatusEnum().equals("Unconfirmed")
-                    || jobs.get(i).getJobStatusEnum().equals("Cancelled")
-                    || jobs.get(i).getJobStatusEnum().equals("Quote")) {
+            if (weeklyJobs.get(i).getJobStatusEnum().equals("Unconfirmed")
+                    || weeklyJobs.get(i).getJobStatusEnum().equals("Cancelled")
+                    || weeklyJobs.get(i).getJobStatusEnum().equals("Quote")) {
             } else {
                 // Get job-employee by Id
-                employeeId = jobs.get(i).getEmployee();
+                employeeId = weeklyJobs.get(i).getEmployee();
                 employee = db.getEmployeeById(employeeId);
 
                 // Get employee rateOfPay and
                 // hours worked per job
                 rateOfPay = employee.getRateOfPay();
-                hours = jobs.get(i).getEstimatedTime();
+                hours = weeklyJobs.get(i).getEstimatedTime();
 
                 // Calculate employee pay for current job
                 employeePayForJob = rateOfPay * hours;
@@ -176,7 +176,7 @@ class Finances {
      * @return AnnualFinances as an ArrayList
      */
     ArrayList<Job> getJobsByFinancialYear(int year) {
-        annualFinances = new ArrayList<>();
+        annualJobs = new ArrayList<>();
         long dateFrom;
         long dateTo;
 
@@ -187,9 +187,9 @@ class Finances {
         dateTo = getAnnualDateTo(year);
 
         // Populate array with results from DB search
-        annualFinances.addAll(db.getJobsByDateRange(dateFrom, dateTo));
+        annualJobs.addAll(db.getJobsByDateRange(dateFrom, dateTo));
 
-        return annualFinances;
+        return annualJobs;
     }
 
     /**
@@ -236,16 +236,23 @@ class Finances {
 
     /**
      * Cycle through the AnnualFinances and calculate the
-     * totalAmount of income for the current year
+     * totalAmount of income for the current year.
+     * DO NOT calculate 'Unconfirmed', 'Cancelled' or 'Quote' statuses.
      *
      * @return totalAmount as a double
      */
     double getAnnualTotalAmount_In() {
         double totalAmount = 0;
-        int arrayLength = annualFinances.size();
+        int arrayLength = annualJobs.size();
 
         for (int i = 0; i < arrayLength; i++) {
-            totalAmount += annualFinances.get(i).getTotalPrice();
+            // Don't include the following statuses in the calculations
+            if (annualJobs.get(i).getJobStatusEnum().equals("Unconfirmed")
+                    || annualJobs.get(i).getJobStatusEnum().equals("Cancelled")
+                    || annualJobs.get(i).getJobStatusEnum().equals("Quote")) {
+            } else {
+                totalAmount += annualJobs.get(i).getTotalPrice();
+            }
         }
 
         return totalAmount;
@@ -253,13 +260,14 @@ class Finances {
 
     /**
      * Cycle through the AnnualFinances and calculate the
-     * totalAmount of outgoings for the current year
+     * totalAmount of outgoings for the current year.
+     * DO NOT calculate 'Unconfirmed', 'Cancelled' or 'Quote' statuses.
      *
      * @return totalAmount as a double
      */
     double getAnnualTotalAmount_out() {
         double totalAmount = 0;
-        int arrayLength = annualFinances.size();
+        int arrayLength = annualJobs.size();
         long employeeId;
         Employee employee;
         double rateOfPay;
@@ -267,21 +275,27 @@ class Finances {
         double employeePayForJob;
 
         for (int i = 0; i < arrayLength; i++) {
-            // Get job-employee by Id
-            employeeId = annualFinances.get(i).getEmployee();
-            employee = db.getEmployeeById(employeeId);
+            // Don't include the following statuses in the calculations
+            if (annualJobs.get(i).getJobStatusEnum().equals("Unconfirmed")
+                    || annualJobs.get(i).getJobStatusEnum().equals("Cancelled")
+                    || annualJobs.get(i).getJobStatusEnum().equals("Quote")) {
+            } else {
+                // Get job-employee by Id
+                employeeId = annualJobs.get(i).getEmployee();
+                employee = db.getEmployeeById(employeeId);
 
-            // Get employee rateOfPay and
-            // hours worked per job
-            rateOfPay = employee.getRateOfPay();
-            hours = annualFinances.get(i).getEstimatedTime();
+                // Get employee rateOfPay and
+                // hours worked per job
+                rateOfPay = employee.getRateOfPay();
+                hours = annualJobs.get(i).getEstimatedTime();
 
-            // Calculate employee pay for current job
-            employeePayForJob = rateOfPay * hours;
+                // Calculate employee pay for current job
+                employeePayForJob = rateOfPay * hours;
 
-            // Calculate total amount of pay to employees
-            // for current week, Monday to Sunday
-            totalAmount += employeePayForJob;
+                // Calculate total amount of pay to employees
+                // for current week, Monday to Sunday
+                totalAmount += employeePayForJob;
+            }
         }
 
         return totalAmount;
