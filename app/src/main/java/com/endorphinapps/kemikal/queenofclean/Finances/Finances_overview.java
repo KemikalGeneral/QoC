@@ -2,8 +2,10 @@ package com.endorphinapps.kemikal.queenofclean.Finances;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
@@ -20,16 +22,21 @@ public class Finances_overview extends MenuMain
 
     private DBHelper db;
     private Finances finances;
+
     private TextView tv_inTab;
     private TextView tv_outTab;
+
+    private ConstraintLayout cl_weekContainer;
     private TextView tv_totalAmountIn;
     private TextView tv_totalAmountOut;
     private TextView tv_totalAmountSum;
 
+    private ConstraintLayout cl_yearContainer;
     private TextView tv_totalAnnualAmountIn;
     private TextView tv_totalAnnualAmountOut;
     private TextView tv_totalAnnualAmountSum;
 
+    private Button btn_switchViews;
     private NavigationBottom navigationBottom;
 
     /**
@@ -50,6 +57,9 @@ public class Finances_overview extends MenuMain
 
         // Find all views by Id
         findViews();
+
+        // Hide annual section on load
+        cl_yearContainer.setVisibility(View.GONE);
 
         // Set ActionBar title
         ActionBar actionBar = getSupportActionBar();
@@ -74,6 +84,23 @@ public class Finances_overview extends MenuMain
             public void onClick(View v) {
                 startActivity(new Intent(Finances_overview.this, Finances_out.class));
                 finish();
+            }
+        });
+
+        btn_switchViews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cl_weekContainer.getVisibility() == View.VISIBLE) {
+                    cl_weekContainer.setVisibility(View.GONE);
+                    cl_yearContainer.setVisibility(View.VISIBLE);
+                    btn_switchViews.setText("Switch to WEEK view");
+                } else if (cl_yearContainer.getVisibility() == View.VISIBLE) {
+                    cl_weekContainer.setVisibility(View.VISIBLE);
+                    cl_yearContainer.setVisibility(View.GONE);
+                    btn_switchViews.setText("Switch to ANNUAL view");
+                }
+
+
             }
         });
 
@@ -111,13 +138,17 @@ public class Finances_overview extends MenuMain
         tv_inTab = (TextView) findViewById(R.id.inTab);
         tv_outTab = (TextView) findViewById(R.id.outTab);
 
+        cl_weekContainer = (ConstraintLayout) findViewById(R.id.finances_week_container);
         tv_totalAmountIn = (TextView) findViewById(R.id.total_in_amount);
         tv_totalAmountOut = (TextView) findViewById(R.id.total_out_amount);
         tv_totalAmountSum = (TextView) findViewById(R.id.total_sum_amount);
 
+        cl_yearContainer = (ConstraintLayout) findViewById(R.id.finances_year_container);
         tv_totalAnnualAmountIn = (TextView) findViewById(R.id.total_in_amount_year);
         tv_totalAnnualAmountOut = (TextView) findViewById(R.id.total_out_amount_year);
         tv_totalAnnualAmountSum = (TextView) findViewById(R.id.total_sum_amount_year);
+
+        btn_switchViews = (Button) findViewById(R.id.finance_switch_views);
     }
 
     /**

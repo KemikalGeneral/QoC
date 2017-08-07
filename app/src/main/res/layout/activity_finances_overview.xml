@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     tools:context="com.endorphinapps.kemikal.queenofclean.Finances.Finances_overview">
 
     <!--Top Tabs-->
@@ -39,20 +39,34 @@
             android:text="Out" />
     </LinearLayout>
 
+    <!--Switch between Week and Annual views-->
+    <Button
+        android:id="@+id/finance_switch_views"
+        style="@style/text_field_full"
+        android:background="@color/pinkDark"
+        android:text="Switch to ANNUAL view"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav" />
+
     <!--Weekly Finances-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/finances_week_container"
         style="@style/containerPink"
+        android:layout_margin="@dimen/padding_16"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabs_container">
+        app:layout_constraintTop_toBottomOf="@+id/tabs_container"
+        app:layout_constraintBottom_toTopOf="@id/finance_switch_views">
 
         <!--Week Label-->
         <TextView
             android:id="@+id/finances_week_label"
-            style="@style/text_field_full"
-            android:layout_width="wrap_content"
-            android:text="This Week So Far"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_16"
+            android:text="This WEEK"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
@@ -98,6 +112,7 @@
             android:id="@+id/total_sum_amount_label"
             style="@style/text_field_wrap"
             android:padding="@dimen/padding_8"
+            android:layout_marginTop="16dp"
             android:text="Total Sum"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/total_out_amount_label" />
@@ -116,16 +131,18 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/finances_year_container"
         style="@style/containerPink"
+        android:layout_margin="@dimen/padding_16"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav">
+        app:layout_constraintTop_toBottomOf="@+id/tabs_container"
+        app:layout_constraintBottom_toTopOf="@id/finance_switch_views">
 
         <!--Year Label-->
         <TextView
             android:id="@+id/finances_year_label"
-            style="@style/text_field_full"
-            android:layout_width="wrap_content"
-            android:text="This Year So Far"
+            style="@style/text_field_wrap"
+            android:padding="@dimen/padding_16"
+            android:text="This YEAR"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
@@ -171,6 +188,7 @@
             android:id="@+id/total_sum_amount_year_label"
             style="@style/text_field_wrap"
             android:padding="@dimen/padding_8"
+            android:layout_marginTop="16dp"
             android:text="Total Sum"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/total_out_amount_year_label" />
