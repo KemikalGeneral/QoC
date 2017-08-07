@@ -4,10 +4,12 @@
     <color name="colorPrimaryDark">#616161</color>
     <color name="colorAccent">#E91E63</color>
 
-
+    <!--Pinks-->
+    <color name="pinkDark">#C2185B</color>
+    <!--Greens-->
     <color name="green">#8BC34A</color>
     <color name="greenDark">#689F38</color>
-
+    <!--Reds-->
     <color name="red">#F44336</color>
     <color name="redDark">#D32F2F</color>
 </resources>
