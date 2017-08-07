@@ -52,33 +52,44 @@ public class AddJob extends MenuMain
     private DBHelper db;
     private Customer customer;
     private Employee employee;
+
     private ScrollView sv_pageContainer;
+    // Customer
     private TextView tv_dummyCustomer;
     private ImageView iv_dummyCustomerIcon;
     private Spinner sp_customerSpinner;
     private ImageView iv_customerSpinnerIcon;
-    private ConstraintLayout ll_addressContainer;
+    private ConstraintLayout cl_addressContainer;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
     private TextView tv_town;
     private TextView tv_city;
     private TextView tv_postcode;
+    // One-off Customer
+    private ConstraintLayout cl_oneOffContainer;
+    private Button btn_button_one_off_customer;
+    // Employee
     private TextView tv_dummyEmployee;
     private ImageView iv_dummyEmployeeIcon;
     private Spinner sp_employeeSpinner;
     private ImageView iv_employeeSpinnerIcon;
+    // Start Date & Time
     private TextView tv_startDate;
     private long startDate;
     private TextView tv_startTime;
     private long startTime;
+    // Statuses
     private Spinner sp_jobStatusSpinner;
     private Spinner sp_customerPaymentStatusSpinner;
     private Spinner sp_employeePaymentStatusSpinner;
+    // Job Items
     private LinearLayout ll_jobListContainer;
     private TextView tv_addNewJobRow;
+
     private EditText et_estimatedTime;
     private TextView tv_jobTotalPrice;
     private EditText et_notes;
+
     private Button btn_JobSubmit;
 
     /**
@@ -107,7 +118,8 @@ public class AddJob extends MenuMain
         // Set some views to GONE until needed
         sp_customerSpinner.setVisibility(View.GONE);
         iv_customerSpinnerIcon.setVisibility(View.GONE);
-        ll_addressContainer.setVisibility(View.GONE);
+        cl_addressContainer.setVisibility(View.GONE);
+        cl_oneOffContainer.setVisibility(View.GONE);
         sp_employeeSpinner.setVisibility(View.GONE);
         iv_employeeSpinnerIcon.setVisibility(View.GONE);
 
@@ -119,7 +131,21 @@ public class AddJob extends MenuMain
                 iv_dummyCustomerIcon.setVisibility(View.GONE);
                 sp_customerSpinner.setVisibility(View.VISIBLE);
                 iv_customerSpinnerIcon.setVisibility(View.VISIBLE);
-                ll_addressContainer.setVisibility(View.VISIBLE);
+                cl_addressContainer.setVisibility(View.VISIBLE);
+            }
+        });
+
+        // On one-off click, hide and show the required views
+        btn_button_one_off_customer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_button_one_off_customer.setVisibility(View.GONE);
+                tv_dummyCustomer.setVisibility(View.GONE);
+                iv_dummyCustomerIcon.setVisibility(View.GONE);
+                sp_customerSpinner.setVisibility(View.GONE);
+                iv_customerSpinnerIcon.setVisibility(View.GONE);
+                cl_addressContainer.setVisibility(View.GONE);
+                cl_oneOffContainer.setVisibility(View.VISIBLE);
             }
         });
 
@@ -196,30 +222,40 @@ public class AddJob extends MenuMain
      */
     private void findViews() {
         sv_pageContainer = (ScrollView) findViewById(R.id.add_job_page_container);
+
         tv_dummyCustomer = (TextView) findViewById(R.id.dummy_customer);
         iv_dummyCustomerIcon = (ImageView) findViewById(R.id.icon_dummy_customer);
         sp_customerSpinner = (Spinner) findViewById(R.id.customer_spinner);
         iv_customerSpinnerIcon = (ImageView) findViewById(R.id.icon_customer_spinner);
-        ll_addressContainer = (ConstraintLayout) findViewById(R.id.customer_address_container);
+        cl_addressContainer = (ConstraintLayout) findViewById(R.id.customer_address_container);
         tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
         tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
         tv_town = (TextView) findViewById(R.id.address_town);
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
+
+        cl_oneOffContainer = (ConstraintLayout) findViewById(R.id.one_off_customer_details_container);
+        btn_button_one_off_customer = (Button) findViewById(R.id.button_one_off_customer);
+
         tv_dummyEmployee = (TextView) findViewById(R.id.dummy_employee);
         iv_dummyEmployeeIcon = (ImageView) findViewById(R.id.icon_dummy_employee);
         sp_employeeSpinner = (Spinner) findViewById(R.id.employee_spinner);
         iv_employeeSpinnerIcon = (ImageView) findViewById(R.id.icon_employee_spinner);
+
         tv_startDate = (TextView) findViewById(R.id.start_date);
         tv_startTime = (TextView) findViewById(R.id.start_time);
+
         sp_jobStatusSpinner = (Spinner) findViewById(R.id.job_status_spinner);
         sp_customerPaymentStatusSpinner = (Spinner) findViewById(R.id.customer_payment_status_spinner);
         sp_employeePaymentStatusSpinner = (Spinner) findViewById(R.id.employee_payment_status_spinner);
+
         ll_jobListContainer = (LinearLayout) findViewById(R.id.job_list_container);
         tv_addNewJobRow = (TextView) findViewById(R.id.job_item_row);
+
         et_estimatedTime = (EditText) findViewById(R.id.estimated_time);
         tv_jobTotalPrice = (TextView) findViewById(R.id.total_price);
         et_notes = (EditText) findViewById(R.id.notes);
+
         btn_JobSubmit = (Button) findViewById(R.id.add_Job_btn_submit);
 
     }
