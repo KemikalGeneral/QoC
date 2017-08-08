@@ -234,7 +234,7 @@ public class AddJob extends MenuMain
 
     /**
      * If a 'one-off' customer is selected
-     * grab the new details
+     * grab and save the new details as a one-off
      */
     private void saveOneOffDetails() {
         // Add address details
@@ -362,6 +362,9 @@ public class AddJob extends MenuMain
     /**
      * Validate against NullPointerExceptions.
      * Customer cannot be null.
+     * One-off Customer Name cannot be null.
+     * One-off Customer Address Line 1 cannot be null.
+     * One-off Customer Town cannot be null.
      * Employee cannot be null.
      * StartDate cannot be null.
      *
@@ -370,10 +373,33 @@ public class AddJob extends MenuMain
     public boolean isValidated() {
 
         // Check Customer
-        if (!isOneOff && getCustomerId() == -1) {
-            Toast.makeText(this, "You must select a Customer!", Toast.LENGTH_SHORT).show();
-            sv_pageContainer.smoothScrollTo(0, tv_dummyCustomer.getTop());
-            return false;
+        if (!isOneOff) {
+            if (getCustomerId() == -1) {
+                Toast.makeText(this, "You must select a Customer!", Toast.LENGTH_SHORT).show();
+                sv_pageContainer.smoothScrollTo(0, tv_dummyCustomer.getTop());
+                return false;
+            }
+        }
+
+        // Check one-off Customer
+        if (isOneOff) {
+            if (et_oneOff_firstName.getText().toString().equals("")) {
+                Toast.makeText(this, "Your Customer must have a Name!", Toast.LENGTH_SHORT).show();
+                sv_pageContainer.smoothScrollTo(0, et_oneOff_firstName.getTop());
+                return false;
+            }
+
+            if (et_oneOff_addressLine1.getText().toString().equals("")) {
+                Toast.makeText(this, "Your Job must have an Address!", Toast.LENGTH_SHORT).show();
+                sv_pageContainer.smoothScrollTo(0, et_oneOff_addressLine1.getTop());
+                return false;
+            }
+
+            if (et_oneOff_town.getText().toString().equals("")) {
+                Toast.makeText(this, "Your Job must be in a Town!", Toast.LENGTH_SHORT).show();
+                sv_pageContainer.smoothScrollTo(0, et_oneOff_town.getTop());
+                return false;
+            }
         }
 
         // Check Employee
