@@ -14,6 +14,7 @@ public class Customer {
     private String homeNumber;
     private String emailAddress;
     private String notes;
+    private int isOneOff;
 
     public Customer() {
     }
@@ -23,7 +24,7 @@ public class Customer {
                     String addressLine2, String town, String city,
                     String postcode, String mobileNumber,
                     String homeNumber, String emailAddress,
-                    String notes) {
+                    String notes, int isOneOff) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,6 +37,7 @@ public class Customer {
         this.homeNumber = homeNumber;
         this.emailAddress = emailAddress;
         this.notes = notes;
+        this.isOneOff = isOneOff;
     }
 
     public long getCustomerId() {
@@ -134,6 +136,14 @@ public class Customer {
         this.notes = notes;
     }
 
+    public int isOneOff() {
+        return isOneOff;
+    }
+
+    public void setOneOff(int oneOff) {
+        isOneOff = oneOff;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -149,6 +159,7 @@ public class Customer {
                 ", homeNumber='" + homeNumber + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", notes='" + notes + '\'' +
+                ", isOneOff='" + isOneOff + '\'' +
                 '}';
     }
 }

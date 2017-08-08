@@ -64,6 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_ADDRESS = "address";
     //Person - Customer
     private static final String COLUMN_CUSTOMER_ID = "customer_id";
+    private static final String COLUMN_IS_ONE_OFF = "isOneOff";
     //Person - Employee
     private static final String COLUMN_EMPLOYEE_ID = "employee_id";
     private static final String COLUMN_RATE_OF_PAY = "rateOfPay";
@@ -126,6 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_MOBILE_NUMBER + " VARCHAR(11) NOT NULL, " +
                     COLUMN_EMAIL_ADDRESS + " VARCHAR(50), " +
                     COLUMN_PERSON_NOTES + " TEXT, " +
+                    COLUMN_IS_ONE_OFF + " INTEGER, " +
                     COLUMN_ADDRESS + " INTEGER NOT NULL, " +
                         " FOREIGN KEY (" + COLUMN_ADDRESS + ") REFERENCES " + TABLE_ADDRESSES + " (" + COLUMN_CUSTOMER_ID + "));";
 
@@ -469,7 +471,9 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public long insertCustomer(String firstName, String lastName,
                                String homeNumber, String mobileNumber,
-                               String eMail, String notes, int address) {
+                               String eMail, String notes, int isOneOff,
+                               int address
+    ) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -479,6 +483,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_MOBILE_NUMBER, mobileNumber);
         values.put(COLUMN_EMAIL_ADDRESS, eMail);
         values.put(COLUMN_PERSON_NOTES, notes);
+        values.put(COLUMN_IS_ONE_OFF, isOneOff);
         values.put(COLUMN_ADDRESS, address);
 
         long customerId = db.insert(TABLE_CUSTOMERS, null, values);
@@ -488,7 +493,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Select all details of all customers
+     * Select all details of all permanent customers (NOT on-offs)
      * @return list of customers
      */
     public ArrayList<Customer> getAllCustomers() {
@@ -498,7 +503,8 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(
                 "SELECT * " +
                         "FROM " + TABLE_CUSTOMERS + " c " +
-                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = c." + COLUMN_ADDRESS + ";",
+                        "JOIN " + TABLE_ADDRESSES + " a ON a." + COLUMN_ADDRESS_ID + " = c." + COLUMN_ADDRESS +
+                        " WHERE " + COLUMN_IS_ONE_OFF + " = 0;",
                 null
         );
 
@@ -554,6 +560,7 @@ public class DBHelper extends SQLiteOpenHelper {
             customer.setCity(cursor.getString(cursor.getColumnIndex(COLUMN_CITY)));
             customer.setPostcode(cursor.getString(cursor.getColumnIndex(COLUMN_POSTCODE)));
             customer.setNotes(cursor.getString(cursor.getColumnIndex(COLUMN_PERSON_NOTES)));
+            customer.setOneOff(cursor.getInt(cursor.getColumnIndex(COLUMN_IS_ONE_OFF)));
         }
         cursor.close();
         db.close();

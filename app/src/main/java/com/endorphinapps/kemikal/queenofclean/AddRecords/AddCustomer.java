@@ -190,6 +190,7 @@ public class AddCustomer extends MenuMain {
                 et_mobileNumber.getText().toString().trim(),
                 et_eMail.getText().toString().trim(),
                 et_notes.getText().toString().trim(),
+                0, // Not a one-off customer
                 addressID
         );
 

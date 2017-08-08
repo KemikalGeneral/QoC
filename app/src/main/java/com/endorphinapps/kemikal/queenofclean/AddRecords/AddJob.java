@@ -66,7 +66,16 @@ public class AddJob extends MenuMain
     private TextView tv_city;
     private TextView tv_postcode;
     // One-off Customer
+    private boolean isOneOff;
     private ConstraintLayout cl_oneOffContainer;
+    private EditText et_oneOff_firstName;
+    private EditText et_oneOff_lastName;
+    private EditText et_oneOff_contactNumber;
+    private EditText et_oneOff_addressLine1;
+    private EditText et_oneOff_addressLine2;
+    private EditText et_oneOff_town;
+    private EditText et_oneOff_city;
+    private EditText et_oneOff_postcode;
     private Button btn_button_one_off_customer;
     // Employee
     private TextView tv_dummyEmployee;
@@ -132,6 +141,7 @@ public class AddJob extends MenuMain
                 sp_customerSpinner.setVisibility(View.VISIBLE);
                 iv_customerSpinnerIcon.setVisibility(View.VISIBLE);
                 cl_addressContainer.setVisibility(View.VISIBLE);
+                isOneOff = false;
             }
         });
 
@@ -146,6 +156,7 @@ public class AddJob extends MenuMain
                 iv_customerSpinnerIcon.setVisibility(View.GONE);
                 cl_addressContainer.setVisibility(View.GONE);
                 cl_oneOffContainer.setVisibility(View.VISIBLE);
+                isOneOff = true;
             }
         });
 
@@ -202,7 +213,11 @@ public class AddJob extends MenuMain
         btn_JobSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isOneOff) {
+                    saveOneOffDetails();
+                }
                 // Validate against NullPointerExceptions
+                //TODO validate one-off customer
                 if (isValidated()) {
                     onSubmit();
                 }
@@ -215,6 +230,37 @@ public class AddJob extends MenuMain
         if (intent.hasExtra("addJobDay")) {
             populateSelectedStartDate(intent);
         }
+    }
+
+    /**
+     * If a 'one-off' customer is selected
+     * grab the new details
+     */
+    private void saveOneOffDetails() {
+        // Add address details
+        int addressID = (int) db.insertAddress(
+                et_oneOff_addressLine1.getText().toString().trim(),
+                et_oneOff_addressLine2.getText().toString().trim(),
+                et_oneOff_town.getText().toString().trim(),
+                et_oneOff_city.getText().toString().trim(),
+                et_oneOff_postcode.getText().toString().trim());
+
+        // Add customer details
+        long customerId = db.insertCustomer(
+                et_oneOff_firstName.getText().toString().trim(),
+                et_oneOff_lastName.getText().toString().trim(),
+                null,
+                et_oneOff_contactNumber.getText().toString().trim(),
+                null,
+                null,
+                1, // Is a one-off customer
+                addressID
+        );
+
+        System.out.println("z! AddCustomer - addressId: " + String.valueOf(addressID));
+        System.out.println("z! AddCustomer - customerId: " + String.valueOf(customerId));
+
+        customer = db.getCustomerById(customerId);
     }
 
     /**
@@ -235,6 +281,14 @@ public class AddJob extends MenuMain
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
 
         cl_oneOffContainer = (ConstraintLayout) findViewById(R.id.one_off_customer_details_container);
+        et_oneOff_firstName = (EditText) findViewById(R.id.one_off_first_name);
+        et_oneOff_lastName = (EditText) findViewById(R.id.one_off_last_name);
+        et_oneOff_contactNumber = (EditText) findViewById(R.id.one_off_contact_number);
+        et_oneOff_addressLine1 = (EditText) findViewById(R.id.one_off_address_line_1);
+        et_oneOff_addressLine2 = (EditText) findViewById(R.id.one_off_address_line_2);
+        et_oneOff_town = (EditText) findViewById(R.id.one_off_address_town);
+        et_oneOff_city = (EditText) findViewById(R.id.one_off_address_city);
+        et_oneOff_postcode = (EditText) findViewById(R.id.one_off_address_postcode);
         btn_button_one_off_customer = (Button) findViewById(R.id.button_one_off_customer);
 
         tv_dummyEmployee = (TextView) findViewById(R.id.dummy_employee);
@@ -316,7 +370,7 @@ public class AddJob extends MenuMain
     public boolean isValidated() {
 
         // Check Customer
-        if (getCustomerId() == -1) {
+        if (!isOneOff && getCustomerId() == -1) {
             Toast.makeText(this, "You must select a Customer!", Toast.LENGTH_SHORT).show();
             sv_pageContainer.smoothScrollTo(0, tv_dummyCustomer.getTop());
             return false;
