@@ -552,7 +552,7 @@
 
             <!--Notes Icon-->
             <ImageView
-                android:id="@+id/notes_label"
+                android:id="@+id/notes_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_notes"
                 android:backgroundTint="@color/colorAccent"

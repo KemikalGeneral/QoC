@@ -217,7 +217,6 @@ public class AddJob extends MenuMain
                     saveOneOffDetails();
                 }
                 // Validate against NullPointerExceptions
-                //TODO validate one-off customer
                 if (isValidated()) {
                     onSubmit();
                 }

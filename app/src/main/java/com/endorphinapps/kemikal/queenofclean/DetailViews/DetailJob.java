@@ -39,14 +39,12 @@ import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 public class DetailJob extends MenuMain implements ConfirmationDialog.ConfirmationDialogListener {
 
     private DBHelper db;
-    private Job job;
-    private long jobId;
     private Customer customer;
     private Employee employee;
-    private Button btn_edit;
-    private Button btn_delete;
-    private Button btn_sms;
+    private Job job;
+    private long jobId;
     private TextView tv_customerName;
+    private TextView tv_mobileNumber;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
     private TextView tv_town;
@@ -62,8 +60,10 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
     private TextView tv_totalPrice;
     private TextView tv_notes;
     private ConstraintLayout tl_jobDetailContainer;
+    private Button btn_edit;
+    private Button btn_delete;
+    private Button btn_sms;
 
-    private String phoneNumber;
     private StringBuilder message;
 
     @Override
@@ -127,25 +127,26 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
      * Find all views by ID
      */
     private void findViews() {
-        btn_edit = (Button) findViewById(R.id.btn_edit_job);
-        btn_delete = (Button) findViewById(R.id.btn_delete_job);
-        btn_sms = (Button) findViewById(R.id.btn_sms_job);
         tv_customerName = (TextView) findViewById(R.id.full_name_customer);
-        tv_addressLine1 = (TextView) findViewById(R.id.detail_Job_address_1);
-        tv_addressLine2 = (TextView) findViewById(R.id.detail_Job_address_2);
-        tv_town = (TextView) findViewById(R.id.detail_Job_address_town);
-        tv_city = (TextView) findViewById(R.id.detail_Job_address_city);
-        tv_postcode = (TextView) findViewById(R.id.detail_Job_address_postcode);
+        tv_mobileNumber = (TextView) findViewById(R.id.mobile_number);
+        tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
+        tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
+        tv_town = (TextView) findViewById(R.id.town);
+        tv_city = (TextView) findViewById(R.id.city);
+        tv_postcode = (TextView) findViewById(R.id.postcode);
         tv_employeeName = (TextView) findViewById(R.id.full_name_employee);
         tv_startDate = (TextView) findViewById(R.id.start_date);
         tv_startTime = (TextView) findViewById(R.id.start_time);
         tv_jobStatus = (TextView) findViewById(R.id.job_status);
-        tv_customerPaymentStatus = (TextView) findViewById(R.id.payment_status);
+        tv_customerPaymentStatus = (TextView) findViewById(R.id.customer_payment_status);
         tv_employeePaymentStatus = (TextView) findViewById(R.id.employee_payment_status);
         tv_estimatedTime = (TextView) findViewById(R.id.estimated_time);
         tv_totalPrice = (TextView) findViewById(R.id.total_price);
         tv_notes = (TextView) findViewById(R.id.notes);
         tl_jobDetailContainer = (ConstraintLayout) findViewById(R.id.job_detail_container);
+        btn_edit = (Button) findViewById(R.id.btn_edit_job);
+        btn_delete = (Button) findViewById(R.id.btn_delete_job);
+        btn_sms = (Button) findViewById(R.id.btn_sms_job);
     }
 
     /**
@@ -163,6 +164,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
                 .format(job.getStartTime());
         // Set TextViews
         tv_customerName.setText(customer.getFirstName() + " " + customer.getLastName());
+        tv_mobileNumber.setText(customer.getMobileNumber());
         tv_addressLine1.setText(customer.getAddressLine1());
         tv_addressLine2.setText(customer.getAddressLine2());
         tv_town.setText(customer.getTown());
@@ -180,7 +182,6 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
         } else {
             tv_estimatedTime.append(" hours");
         }
-
         tv_totalPrice.setText("£");
         tv_totalPrice.append(String.format(Locale.getDefault(), "%.2f", job.getTotalPrice()));
         tv_notes.setText(job.getNotes());
@@ -231,7 +232,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
             jobRowContainer.addView(price);
 
             //Add the Row Container to the Jobs List Container
-            LinearLayout v = (LinearLayout) findViewById(R.id.detail_test_item_row);
+            LinearLayout v = (LinearLayout) findViewById(R.id.item_row_container);
             v.addView(jobRowContainer);
         }
     }
@@ -271,7 +272,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
      * Get the mobile number of the Employee, build a message and send it off
      */
     private void sendSMS() {
-        phoneNumber = employee.getMobileNumber();
+        String smsPhoneNumber = employee.getMobileNumber();
         message = new StringBuilder();
         // Get date as a long and format to locale
         String date = DateFormat.getDateInstance().format(job.getStartDate());
@@ -286,7 +287,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
                 .append("there's a job at ")
                 .append(customer.getAddressLine1() + ", " + customer.getTown() + "");
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message.toString(), null, null);
+        smsManager.sendTextMessage(smsPhoneNumber, null, message.toString(), null, null);
     }
 
     /**

@@ -295,7 +295,8 @@
                         android:id="@+id/one_off_address_postcode"
                         style="@style/text_field_full"
                         android:hint="Postcode"
-                        android:inputType="textCapWords|textPostalAddress" />
+                        android:inputType="textPostalAddress"
+                        android:textAllCaps="true" />
                 </android.support.design.widget.TextInputLayout>
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
@@ -500,7 +501,7 @@
             app:layout_constraintTop_toBottomOf="@id/job_items_container">
 
             <TextView
-                android:id="@+id/estimated_time_label"
+                android:id="@+id/estimated_time_icon"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="40dp"
@@ -513,9 +514,9 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_time"
                 android:backgroundTint="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@id/estimated_time_label"
+                app:layout_constraintBottom_toBottomOf="@id/estimated_time_icon"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/estimated_time_label" />
+                app:layout_constraintTop_toTopOf="@id/estimated_time_icon" />
 
             <EditText
                 android:id="@+id/estimated_time"
@@ -537,7 +538,7 @@
             app:layout_constraintTop_toBottomOf="@id/estimated_time_container">
 
             <TextView
-                android:id="@+id/total_price_label"
+                android:id="@+id/money_icon"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="40dp"
@@ -550,9 +551,9 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_money"
                 android:backgroundTint="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@id/total_price_label"
+                app:layout_constraintBottom_toBottomOf="@id/money_icon"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/total_price_label" />
+                app:layout_constraintTop_toTopOf="@id/money_icon" />
 
             <TextView
                 android:id="@+id/total_price"
