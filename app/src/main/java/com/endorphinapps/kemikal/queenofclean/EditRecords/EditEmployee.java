@@ -1,5 +1,6 @@
 package com.endorphinapps.kemikal.queenofclean.EditRecords;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,15 +12,18 @@ import android.widget.EditText;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewEmployees;
 
 import java.util.Locale;
 
-public class EditEmployee extends MenuMain {
+public class EditEmployee extends MenuMain implements
+        ConfirmationDialog.ConfirmationDialogListener {
 
     private DBHelper db;
+    private long employeeId;
 
     private EditText et_firstName;
     private EditText et_lastName;
@@ -85,7 +89,7 @@ public class EditEmployee extends MenuMain {
         // Get the ID of the employee from the Detail intent
         // and get the required employee by the ID
         Intent intent = getIntent();
-        final long employeeId = intent.getLongExtra("EXTRAS_id", 0);
+        employeeId = intent.getLongExtra("EXTRAS_id", 0);
         Employee employee = db.getEmployeeById(employeeId);
 
         // Populate employee detail fields with employee info
@@ -108,12 +112,8 @@ public class EditEmployee extends MenuMain {
         btn_applyChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCheckboxSelection();
-                // Validate fields on form.
-                // Update DB is they pass.
-                if (isValidated()) {
-                    updateEmployee(employeeId);
-                }
+                // Show confirmation dialog yes/no to update
+                showConfirmationDialog();
             }
         });
     }
@@ -155,6 +155,7 @@ public class EditEmployee extends MenuMain {
     /**
      * Populate the employee work availability checkboxes
      * from the DB
+     *
      * @param employee
      */
     private void populateAvailabilityCheckboxes(Employee employee) {
@@ -277,8 +278,8 @@ public class EditEmployee extends MenuMain {
             sundayPM = 1;
         } else {
             sundayPM = 0;
-                }
         }
+    }
 
     /**
      * Validates the essential details so that they cannot be null
@@ -303,15 +304,6 @@ public class EditEmployee extends MenuMain {
         // Last Name
         if (et_lastName.getText().toString().trim().equals("")) {
             et_lastName.setError("Your employee must have a last name!");
-            return false;
-        }
-
-        // Mobile Number
-        if (et_mobileNumber.getText().toString().trim().equals("")) {
-            et_mobileNumber.setError("Your employee must have a mobile number!");
-            return false;
-        } else if (et_mobileNumber.getText().length() != 11) {
-            et_mobileNumber.setError("Mobile number should contain 11 numbers!");
             return false;
         }
 
@@ -347,6 +339,7 @@ public class EditEmployee extends MenuMain {
      * Update the employee record.
      * Update the address details first
      * and then the personal details.
+     *
      * @param employeeId
      */
     private void updateEmployee(long employeeId) {
@@ -390,5 +383,39 @@ public class EditEmployee extends MenuMain {
 
         startActivity(new Intent(EditEmployee.this, ViewEmployees.class));
         finish();
+    }
+
+    /**
+     * Instantiate an show new ConfirmationDialog class and pass through the dialog message
+     */
+    private void showConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.setMessage("Save changes to this Employee?");
+        confirmationDialog.show(getFragmentManager(), "updateEmployee");
+    }
+
+    /**
+     * On positive click, update the Employee by ID and start the ViewEmployee activity
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogPositiveClick(DialogFragment dialogFragment) {
+        getCheckboxSelection();
+        // Validate fields on form.
+        // Update DB is they pass.
+        if (isValidated()) {
+            updateEmployee(employeeId);
+        }
+    }
+
+    /**
+     * On negative click, dismiss dialog and do nothing
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogNegativeClick(DialogFragment dialogFragment) {
+        // Do nothing
     }
 }

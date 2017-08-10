@@ -1,5 +1,6 @@
 package com.endorphinapps.kemikal.queenofclean.EditRecords;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -10,13 +11,16 @@ import android.widget.EditText;
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
-public class EditCustomer extends MenuMain {
+public class EditCustomer extends MenuMain
+        implements ConfirmationDialog.ConfirmationDialogListener {
 
     private DBHelper db;
+    private long customerId;
 
     private EditText et_firstName;
     private EditText et_lastName;
@@ -52,7 +56,7 @@ public class EditCustomer extends MenuMain {
         // Get the ID of the customer from the Detail intent
         // and get the required customer by the ID
         Intent intent = getIntent();
-        final long customerId = intent.getLongExtra("EXTRAS_id", 0);
+        customerId = intent.getLongExtra("EXTRAS_id", 0);
         Customer customer = db.getCustomerById(customerId);
 
         // Populate customer detail fields with customer info
@@ -71,11 +75,8 @@ public class EditCustomer extends MenuMain {
         btn_applyChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Validate fields on form.
-                // Update DB if they all pass
-                if (isValidated()) {
-                    updateCustomer(customerId);
-                }
+                // Show confirmation dialog yes/no to update
+                showConfirmationDialog();
             }
         });
     }
@@ -121,15 +122,6 @@ public class EditCustomer extends MenuMain {
         // Last Name
         if (et_lastName.getText().toString().trim().equals("")) {
             et_lastName.setError("Your customer must have a last name!");
-            return false;
-        }
-
-        // Mobile Number
-        if (et_mobileNumber.getText().toString().trim().equals("")) {
-            et_mobileNumber.setError("Your customer must have a mobile number!");
-            return false;
-        } else if (et_mobileNumber.getText().toString().trim().length() != 11) {
-            et_mobileNumber.setError("Mobile number should contain 11 numbers!");
             return false;
         }
 
@@ -188,5 +180,38 @@ public class EditCustomer extends MenuMain {
 
         startActivity(new Intent(EditCustomer.this, ViewCustomers.class));
         finish();
+    }
+
+    /**
+     * Instantiate an show new ConfirmationDialog class and pass through the dialog message
+     */
+    private void showConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.setMessage("Save changes to this Customer?");
+        confirmationDialog.show(getFragmentManager(), "updateCustomer");
+    }
+
+    /**
+     * On positive click, update the Customer by ID and start the ViewCustomers activity
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogPositiveClick(DialogFragment dialogFragment) {
+        // Validate fields on form.
+        // Update DB if they all pass
+        if (isValidated()) {
+            updateCustomer(customerId);
+        }
+    }
+
+    /**
+     * On negative click, dismiss dialog and do nothing
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogNegativeClick(DialogFragment dialogFragment) {
+
     }
 }

@@ -311,8 +311,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
     public void dialogPositiveClick(DialogFragment dialogFragment) {
         db.deleteJobById(jobId);
         db.deleteJobItemByJobId(jobId);
-        Intent deleteIntent = new Intent(DetailJob.this, ViewJobs.class);
-        startActivity(deleteIntent);
+        startActivity(new Intent(DetailJob.this, ViewJobs.class));
         finish();
     }
 

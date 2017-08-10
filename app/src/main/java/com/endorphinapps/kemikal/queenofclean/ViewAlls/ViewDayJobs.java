@@ -17,6 +17,7 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
 import com.endorphinapps.kemikal.queenofclean.Globals.NavigationBottom;
 import com.endorphinapps.kemikal.queenofclean.JobsClass;
+import com.endorphinapps.kemikal.queenofclean.MainActivity;
 import com.endorphinapps.kemikal.queenofclean.R;
 
 import java.util.ArrayList;
@@ -31,6 +32,15 @@ public class ViewDayJobs extends AppCompatActivity
     private TextView tv_emptyList;
     private FloatingActionButton fab;
     private NavigationBottom navigationBottom;
+
+    /**
+     * Go back to the MainActivity on back press
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 
     /**
      * Create a context menu on a long press of the
@@ -58,6 +68,7 @@ public class ViewDayJobs extends AppCompatActivity
      * Action the item selected in the context menu
      * by calling changeJobStatus() and passing the JobId
      * and the amended status
+     *
      * @param item
      * @return true
      */

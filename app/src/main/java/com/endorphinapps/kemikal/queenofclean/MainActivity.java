@@ -104,6 +104,7 @@ public class MainActivity extends MenuMain
                 Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "monday");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -113,6 +114,7 @@ public class MainActivity extends MenuMain
                 Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "tuesday");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -122,6 +124,7 @@ public class MainActivity extends MenuMain
                 Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "wednesday");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -131,6 +134,7 @@ public class MainActivity extends MenuMain
                 Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "thursday");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -140,6 +144,7 @@ public class MainActivity extends MenuMain
                 Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "friday");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -149,6 +154,7 @@ public class MainActivity extends MenuMain
                 Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "saturday");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -158,6 +164,7 @@ public class MainActivity extends MenuMain
                 Intent intent = new Intent(MainActivity.this, ViewDayJobs.class);
                 intent.putExtra("EXTRAS_day", "sunday");
                 startActivity(intent);
+                finish();
             }
         });
     }

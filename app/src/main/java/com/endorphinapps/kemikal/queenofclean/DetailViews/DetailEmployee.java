@@ -231,8 +231,7 @@ public class DetailEmployee extends MenuMain
     @Override
     public void dialogPositiveClick(DialogFragment dialogFragment) {
         db.deleteEmployeeById(employeeId);
-        Intent deleteIntent = new Intent(DetailEmployee.this, ViewEmployees.class);
-        startActivity(deleteIntent);
+        startActivity(new Intent(DetailEmployee.this, ViewEmployees.class));
         finish();
     }
 
