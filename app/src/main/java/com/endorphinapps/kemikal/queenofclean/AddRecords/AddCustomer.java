@@ -1,5 +1,6 @@
 package com.endorphinapps.kemikal.queenofclean.AddRecords;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,11 +12,12 @@ import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewCustomers;
 
-public class AddCustomer extends MenuMain {
+public class AddCustomer extends MenuMain implements ConfirmationDialog.ConfirmationDialogListener {
 
     private DBHelper db;
 
@@ -41,8 +43,8 @@ public class AddCustomer extends MenuMain {
      */
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, ViewCustomers.class));
-        finish();
+        // Show confirmation dialog yes/no to delete
+        showConfirmationDialog();
     }
 
     @Override
@@ -199,5 +201,35 @@ public class AddCustomer extends MenuMain {
 
         startActivity(new Intent(AddCustomer.this, ViewCustomers.class));
         finish();
+    }
+
+    /**
+     * Instantiate an show new ConfirmationDialog class and pass through the dialog message
+     */
+    private void showConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.setMessage("Leave without saving this Customer?");
+        confirmationDialog.show(getFragmentManager(), "addCustomer");
+    }
+
+    /**
+     * On positive click, start the ViewCustomers activity
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogPositiveClick(DialogFragment dialogFragment) {
+        startActivity(new Intent(this, ViewCustomers.class));
+        finish();
+    }
+
+    /**
+     * On negative click, dismiss dialog and do nothing
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogNegativeClick(DialogFragment dialogFragment) {
+        // Do nothing
     }
 }

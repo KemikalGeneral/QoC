@@ -34,6 +34,7 @@ import com.endorphinapps.kemikal.queenofclean.ENUMs.JobStatus;
 import com.endorphinapps.kemikal.queenofclean.Entities.Customer;
 import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
@@ -107,8 +108,8 @@ public class AddJob extends MenuMain
      */
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, ViewJobs.class));
-        finish();
+        // Show confirmation dialog yes/no to delete
+        showConfirmationDialog();
     }
 
     @Override
@@ -233,37 +234,6 @@ public class AddJob extends MenuMain
     }
 
     /**
-     * If a 'one-off' customer is selected
-     * grab and save the new details as a one-off
-     */
-    private void saveOneOffDetails() {
-        // Add address details
-        int addressID = (int) db.insertAddress(
-                et_oneOff_addressLine1.getText().toString().trim(),
-                et_oneOff_addressLine2.getText().toString().trim(),
-                et_oneOff_town.getText().toString().trim(),
-                et_oneOff_city.getText().toString().trim(),
-                et_oneOff_postcode.getText().toString().trim());
-
-        // Add customer details
-        long customerId = db.insertCustomer(
-                et_oneOff_firstName.getText().toString().trim(),
-                et_oneOff_lastName.getText().toString().trim(),
-                et_oneOff_homeNumber.getText().toString().trim(),
-                et_oneOff_mobileNumber.getText().toString().trim(),
-                null,
-                null,
-                1, // Is a one-off customer
-                addressID
-        );
-
-        System.out.println("z! AddCustomer - addressId: " + String.valueOf(addressID));
-        System.out.println("z! AddCustomer - customerId: " + String.valueOf(customerId));
-
-        customer = db.getCustomerById(customerId);
-    }
-
-    /**
      * Find all views by their ID's
      */
     private void findViews() {
@@ -313,6 +283,37 @@ public class AddJob extends MenuMain
 
         btn_JobSubmit = (Button) findViewById(R.id.add_Job_btn_submit);
 
+    }
+
+    /**
+     * If a 'one-off' customer is selected
+     * grab and save the new details as a one-off
+     */
+    private void saveOneOffDetails() {
+        // Add address details
+        int addressID = (int) db.insertAddress(
+                et_oneOff_addressLine1.getText().toString().trim(),
+                et_oneOff_addressLine2.getText().toString().trim(),
+                et_oneOff_town.getText().toString().trim(),
+                et_oneOff_city.getText().toString().trim(),
+                et_oneOff_postcode.getText().toString().trim());
+
+        // Add customer details
+        long customerId = db.insertCustomer(
+                et_oneOff_firstName.getText().toString().trim(),
+                et_oneOff_lastName.getText().toString().trim(),
+                et_oneOff_homeNumber.getText().toString().trim(),
+                et_oneOff_mobileNumber.getText().toString().trim(),
+                null,
+                null,
+                1, // Is a one-off customer
+                addressID
+        );
+
+        System.out.println("z! AddCustomer - addressId: " + String.valueOf(addressID));
+        System.out.println("z! AddCustomer - customerId: " + String.valueOf(customerId));
+
+        customer = db.getCustomerById(customerId);
     }
 
     /**
@@ -946,7 +947,35 @@ public class AddJob extends MenuMain
             // Save to DB
             db.insertJobItem(jobId, description, price);
         }
-
     }
 
+    /**
+     * Instantiate an show new ConfirmationDialog class and pass through the dialog message
+     */
+    private void showConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.setMessage("Leave without saving this Job?");
+        confirmationDialog.show(getFragmentManager(), "addJob");
+    }
+
+    /**
+     * On positive click, start the ViewJobs activity
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogPositiveClick(DialogFragment dialogFragment) {
+        startActivity(new Intent(this, ViewJobs.class));
+        finish();
+    }
+
+    /**
+     * On negative click, dismiss dialog and do nothing
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogNegativeClick(DialogFragment dialogFragment) {
+        // Do nothing
+    }
 }

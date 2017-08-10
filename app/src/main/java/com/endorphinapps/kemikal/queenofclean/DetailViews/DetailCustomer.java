@@ -136,8 +136,7 @@ public class DetailCustomer extends MenuMain
     @Override
     public void dialogPositiveClick(DialogFragment dialogFragment) {
         db.deleteCustomerById(customerId);
-        Intent deleteIntent = new Intent(DetailCustomer.this, ViewCustomers.class);
-        startActivity(deleteIntent);
+        startActivity(new Intent(DetailCustomer.this, ViewCustomers.class));
         finish();
     }
 
@@ -148,6 +147,7 @@ public class DetailCustomer extends MenuMain
      */
     @Override
     public void dialogNegativeClick(DialogFragment dialogFragment) {
+        // Do nothing
     }
 
 }

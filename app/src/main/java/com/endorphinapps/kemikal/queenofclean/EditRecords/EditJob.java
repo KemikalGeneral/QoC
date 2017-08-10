@@ -35,6 +35,7 @@ import com.endorphinapps.kemikal.queenofclean.Entities.Employee;
 import com.endorphinapps.kemikal.queenofclean.Entities.Job;
 import com.endorphinapps.kemikal.queenofclean.Entities.JobItem;
 import com.endorphinapps.kemikal.queenofclean.Globals.ActivityHelper;
+import com.endorphinapps.kemikal.queenofclean.Globals.ConfirmationDialog;
 import com.endorphinapps.kemikal.queenofclean.Globals.MenuMain;
 import com.endorphinapps.kemikal.queenofclean.R;
 import com.endorphinapps.kemikal.queenofclean.ViewAlls.ViewJobs;
@@ -49,7 +50,8 @@ import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
 public class EditJob extends MenuMain
         implements DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener {
+        TimePickerDialog.OnTimeSetListener,
+        ConfirmationDialog.ConfirmationDialogListener {
 
     private DBHelper db;
     private Customer customer;
@@ -219,7 +221,8 @@ public class EditJob extends MenuMain
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSubmit();
+                // Show confirmation dialog yes/no to update
+                showConfirmationDialog();
             }
         });
     }
@@ -927,4 +930,32 @@ public class EditJob extends MenuMain
         }
     }
 
+    /**
+     * Instantiate an show new ConfirmationDialog class and pass through the dialog message
+     */
+    private void showConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.setMessage("Save changes to this Job?");
+        confirmationDialog.show(getFragmentManager(), "updateJob");
+    }
+
+    /**
+     * On positive click, update the Job by ID and start the ViewJobs activity
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogPositiveClick(DialogFragment dialogFragment) {
+        onSubmit();
+    }
+
+    /**
+     * On negative click, dismiss dialog and do nothing
+     *
+     * @param dialogFragment
+     */
+    @Override
+    public void dialogNegativeClick(DialogFragment dialogFragment) {
+        // Do nothing
+    }
 }
