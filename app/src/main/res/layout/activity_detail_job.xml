@@ -40,6 +40,25 @@
                 app:layout_constraintTop_toTopOf="@id/full_name_customer"
                 app:layout_constraintBottom_toBottomOf="@id/full_name_customer" />
 
+            <!--Home Number-->
+            <TextView
+                android:id="@+id/home_number"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="02000000000"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
+                app:layout_constraintTop_toBottomOf="@id/full_name_customer" />
+
+            <!--Home Phone Icon-->
+            <ImageView
+                android:id="@+id/home_number_icon"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_phone_home"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/home_number"
+                app:layout_constraintBottom_toBottomOf="@id/home_number" />
+
             <!--Mobile Number-->
             <TextView
                 android:id="@+id/mobile_number"
@@ -47,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:text="07000000000"
                 app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
-                app:layout_constraintTop_toBottomOf="@id/full_name_customer" />
+                app:layout_constraintTop_toBottomOf="@id/home_number" />
 
             <!--Mobile Icon-->
             <ImageView

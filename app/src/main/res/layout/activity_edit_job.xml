@@ -24,6 +24,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <!--Customer-->
             <Spinner
                 android:id="@+id/customer_spinner"
                 style="@style/text_field_full"
@@ -64,24 +65,43 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@id/full_name_customer" />
 
-            <!--One-off Customer Contact Number-->
+            <!--One-off Customer Home Number-->
             <TextView
-                android:id="@+id/one_off_contact_number"
+                android:id="@+id/one_off_home_number"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
-                android:text="Contact Number:"
+                android:text="Home Number:"
                 app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
                 app:layout_constraintTop_toBottomOf="@id/full_name_customer" />
 
-            <!--Phone Icon-->
+            <!--Home Phone Icon-->
             <ImageView
-                android:id="@+id/one_off_contact_number_icon"
+                android:id="@+id/one_off_home_number_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_phone_home"
                 android:backgroundTint="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@id/one_off_contact_number"
+                app:layout_constraintBottom_toBottomOf="@id/one_off_home_number"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/one_off_contact_number" />
+                app:layout_constraintTop_toTopOf="@id/one_off_home_number" />
+
+            <!--One-off Customer Mobile Number-->
+            <TextView
+                android:id="@+id/one_off_mobile_number"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Mobile Number:"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
+                app:layout_constraintTop_toBottomOf="@id/one_off_home_number" />
+
+            <!--Mobile Phone Icon-->
+            <ImageView
+                android:id="@+id/one_off_mobile_number_icon"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_phone_mobile"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/one_off_mobile_number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/one_off_mobile_number" />
         </android.support.constraint.ConstraintLayout>
 
         <!--Customer Address-->

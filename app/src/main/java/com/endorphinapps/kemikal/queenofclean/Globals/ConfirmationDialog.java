@@ -19,7 +19,6 @@ public class ConfirmationDialog extends DialogFragment {
      */
     public interface ConfirmationDialogListener {
         void dialogPositiveClick(DialogFragment dialogFragment);
-
         void dialogNegativeClick(DialogFragment dialogFragment);
     }
 
@@ -28,7 +27,7 @@ public class ConfirmationDialog extends DialogFragment {
     /**
      * Get dialog message
      *
-     * @return
+     * @return message as a String
      */
     public String getMessage() {
         return message;
@@ -58,7 +57,7 @@ public class ConfirmationDialog extends DialogFragment {
      * Create and return a yes or no dialog box
      *
      * @param savedInstanceState
-     * @return a dialog
+     * @return a yes or no dialog
      */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

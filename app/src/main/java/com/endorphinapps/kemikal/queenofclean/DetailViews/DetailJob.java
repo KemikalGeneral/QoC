@@ -44,6 +44,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
     private Job job;
     private long jobId;
     private TextView tv_customerName;
+    private TextView tv_homeNumber;
     private TextView tv_mobileNumber;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
@@ -128,6 +129,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
      */
     private void findViews() {
         tv_customerName = (TextView) findViewById(R.id.full_name_customer);
+        tv_homeNumber = (TextView) findViewById(R.id.home_number);
         tv_mobileNumber = (TextView) findViewById(R.id.mobile_number);
         tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
         tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
@@ -164,6 +166,7 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
                 .format(job.getStartTime());
         // Set TextViews
         tv_customerName.setText(customer.getFirstName() + " " + customer.getLastName());
+        tv_homeNumber.setText(customer.getHomeNumber());
         tv_mobileNumber.setText(customer.getMobileNumber());
         tv_addressLine1.setText(customer.getAddressLine1());
         tv_addressLine2.setText(customer.getAddressLine2());

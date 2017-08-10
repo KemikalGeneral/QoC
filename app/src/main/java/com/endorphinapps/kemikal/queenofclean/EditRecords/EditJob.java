@@ -63,8 +63,10 @@ public class EditJob extends MenuMain
     private ConstraintLayout cl_addressContainer;
     private TextView tv_fullName;
     private ImageView iv_fullNameIcon;
-    private TextView tv_contactNumber;
-    private ImageView iv_contactNumberIcon;
+    private TextView tv_homeNumber;
+    private ImageView iv_homeNumberIcon;
+    private TextView tv_mobileNumber;
+    private ImageView iv_mobileNumberIcon;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
     private TextView tv_town;
@@ -133,11 +135,19 @@ public class EditJob extends MenuMain
             sp_customerSpinner.setVisibility(View.GONE);
             iv_customerSpinnerIcon.setVisibility(View.GONE);
             populateOneOffCustomer();
+            cl_customerContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(EditJob.this, "You cannot edit a one-off customer!", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             tv_fullName.setVisibility(View.GONE);
             iv_fullNameIcon.setVisibility(View.GONE);
-            tv_contactNumber.setVisibility(View.GONE);
-            iv_contactNumberIcon.setVisibility(View.GONE);
+            tv_homeNumber.setVisibility(View.GONE);
+            iv_homeNumberIcon.setVisibility(View.GONE);
+            tv_mobileNumber.setVisibility(View.GONE);
+            iv_mobileNumberIcon.setVisibility(View.GONE);
             // Populate customers ArrayList and spinner with
             // customer details from the DB.
             // Set spinner to current customer
@@ -212,19 +222,13 @@ public class EditJob extends MenuMain
                 onSubmit();
             }
         });
-
-        cl_customerContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(EditJob.this, "You cannot edit a one-off customer!", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void populateOneOffCustomer() {
         String fullName = customer.getFirstName() + " " + customer.getLastName();
         tv_fullName.setText(fullName);
-        tv_contactNumber.setText(customer.getMobileNumber());
+        tv_homeNumber.setText(customer.getHomeNumber());
+        tv_mobileNumber.setText(customer.getMobileNumber());
         tv_addressLine1.setText(customer.getAddressLine1());
         tv_addressLine2.setText(customer.getAddressLine2());
         tv_town.setText(customer.getTown());
@@ -242,8 +246,10 @@ public class EditJob extends MenuMain
         iv_customerSpinnerIcon = (ImageView) findViewById(R.id.customer_spinner_icon);
         tv_fullName = (TextView) findViewById(R.id.full_name_customer);
         iv_fullNameIcon = (ImageView) findViewById(R.id.full_name_customer_icon);
-        tv_contactNumber = (TextView) findViewById(R.id.one_off_contact_number);
-        iv_contactNumberIcon = (ImageView) findViewById(R.id.one_off_contact_number_icon);
+        tv_homeNumber = (TextView) findViewById(R.id.one_off_home_number);
+        iv_homeNumberIcon = (ImageView) findViewById(R.id.one_off_home_number_icon);
+        tv_mobileNumber = (TextView) findViewById(R.id.one_off_mobile_number);
+        iv_mobileNumberIcon = (ImageView) findViewById(R.id.one_off_mobile_number_icon);
         tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
         tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
         tv_town = (TextView) findViewById(R.id.address_town);

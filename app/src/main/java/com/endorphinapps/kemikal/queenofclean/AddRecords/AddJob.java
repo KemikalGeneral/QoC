@@ -70,7 +70,8 @@ public class AddJob extends MenuMain
     private ConstraintLayout cl_oneOffContainer;
     private EditText et_oneOff_firstName;
     private EditText et_oneOff_lastName;
-    private EditText et_oneOff_contactNumber;
+    private EditText et_oneOff_homeNumber;
+    private EditText et_oneOff_mobileNumber;
     private EditText et_oneOff_addressLine1;
     private EditText et_oneOff_addressLine2;
     private EditText et_oneOff_town;
@@ -248,8 +249,8 @@ public class AddJob extends MenuMain
         long customerId = db.insertCustomer(
                 et_oneOff_firstName.getText().toString().trim(),
                 et_oneOff_lastName.getText().toString().trim(),
-                null,
-                et_oneOff_contactNumber.getText().toString().trim(),
+                et_oneOff_homeNumber.getText().toString().trim(),
+                et_oneOff_mobileNumber.getText().toString().trim(),
                 null,
                 null,
                 1, // Is a one-off customer
@@ -282,7 +283,8 @@ public class AddJob extends MenuMain
         cl_oneOffContainer = (ConstraintLayout) findViewById(R.id.one_off_customer_details_container);
         et_oneOff_firstName = (EditText) findViewById(R.id.one_off_first_name);
         et_oneOff_lastName = (EditText) findViewById(R.id.one_off_last_name);
-        et_oneOff_contactNumber = (EditText) findViewById(R.id.one_off_contact_number);
+        et_oneOff_homeNumber = (EditText) findViewById(R.id.one_off_home_number);
+        et_oneOff_mobileNumber = (EditText) findViewById(R.id.one_off_mobile_number);
         et_oneOff_addressLine1 = (EditText) findViewById(R.id.one_off_address_line_1);
         et_oneOff_addressLine2 = (EditText) findViewById(R.id.one_off_address_line_2);
         et_oneOff_town = (EditText) findViewById(R.id.one_off_address_town);
