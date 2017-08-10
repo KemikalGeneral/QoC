@@ -42,7 +42,7 @@
 
     <!--Payment status-->
     <TextView
-        android:id="@+id/payment_status"
+        android:id="@+id/customer_payment_status"
         style="@style/text_field_wrap"
         android:text="Status"
         app:layout_constraintRight_toRightOf="parent"
@@ -55,6 +55,6 @@
         android:layout_marginRight="16dp"
         android:text="[job status]"
         android:textSize="@dimen/text_size_small"
-        app:layout_constraintRight_toLeftOf="@id/payment_status"
-        app:layout_constraintBottom_toBottomOf="@id/payment_status" />
+        app:layout_constraintRight_toLeftOf="@id/customer_payment_status"
+        app:layout_constraintBottom_toBottomOf="@id/customer_payment_status" />
 </android.support.constraint.ConstraintLayout>

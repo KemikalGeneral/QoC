@@ -17,10 +17,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.endorphinapps.kemikal.queenofclean.Database.DBHelper;
 import com.endorphinapps.kemikal.queenofclean.DateTime.DatePickerFragment;
@@ -50,39 +52,49 @@ public class EditJob extends MenuMain
         TimePickerDialog.OnTimeSetListener {
 
     private DBHelper db;
-
+    private Customer customer;
+    private Employee employee;
+    private Job job;
+    private long jobId;
+    // Customer
+    private ConstraintLayout cl_customerContainer;
     private Spinner sp_customerSpinner;
-    private ConstraintLayout ll_addressContainer;
+    private ImageView iv_customerSpinnerIcon;
+    private ConstraintLayout cl_addressContainer;
+    private TextView tv_fullName;
+    private ImageView iv_fullNameIcon;
+    private TextView tv_homeNumber;
+    private ImageView iv_homeNumberIcon;
+    private TextView tv_mobileNumber;
+    private ImageView iv_mobileNumberIcon;
     private TextView tv_addressLine1;
     private TextView tv_addressLine2;
     private TextView tv_town;
     private TextView tv_city;
     private TextView tv_postcode;
-
+    // Employee
     private Spinner sp_employeeSpinner;
+    // Start Date & Time
     private TextView tv_startDate;
     private TextView tv_startTime;
     private long startDate;
     private long startTime;
+    // Statuses
     private Spinner sp_jobStatusSpinner;
     private Spinner sp_customerPaymentStatusSpinner;
     private Spinner sp_employeePaymentStatusSpinner;
+    // Job Items
     private LinearLayout ll_jobListContainer;
     private TextView tv_addNewJobRow;
+
     private EditText et_estimatedTime;
     private TextView tv_jobTotalPrice;
     private EditText et_notes;
+
     private Button btn_edit;
 
-    private Customer customer;
-    private Employee employee;
-    private Job job;
-
-    private TextView tv_dummyCustomer;
-    private TextView tv_dummyEmployee;
-
-    private long jobId;
     private Intent intent;
+    private boolean isOneOff = false;
 
     /**
      * Go back to ViewCustomers on back press
@@ -107,6 +119,9 @@ public class EditJob extends MenuMain
         jobId = intent.getLongExtra("EXTRAS_id", 0);
         job = db.getJobById(jobId);
         customer = db.getCustomerById(job.getCustomer());
+        if (customer.isOneOff() == 1) {
+            isOneOff = true;
+        }
         employee = db.getEmployeeById(job.getEmployee());
 
         //Find all views by their Id's
@@ -116,16 +131,31 @@ public class EditJob extends MenuMain
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Edit a Job");
 
-        tv_dummyCustomer.setVisibility(View.GONE);
-        tv_dummyEmployee.setVisibility(View.GONE);
-
-        // Populate customers ArrayList and spinner with
-        // customer details from the DB.
-        // Set spinner to current customer
-        getCustomersAndPopulateSpinner();
-        // On button click, populate the customer's
-        // address fields from the spinner selection
-        populateCustomerDetailsFromSpinnerSelection();
+        if (isOneOff) {
+            sp_customerSpinner.setVisibility(View.GONE);
+            iv_customerSpinnerIcon.setVisibility(View.GONE);
+            populateOneOffCustomer();
+            cl_customerContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(EditJob.this, "You cannot edit a one-off customer!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            tv_fullName.setVisibility(View.GONE);
+            iv_fullNameIcon.setVisibility(View.GONE);
+            tv_homeNumber.setVisibility(View.GONE);
+            iv_homeNumberIcon.setVisibility(View.GONE);
+            tv_mobileNumber.setVisibility(View.GONE);
+            iv_mobileNumberIcon.setVisibility(View.GONE);
+            // Populate customers ArrayList and spinner with
+            // customer details from the DB.
+            // Set spinner to current customer
+            getCustomersAndPopulateSpinner();
+            // On button click, populate the customer's
+            // address fields from the spinner selection
+            populateCustomerDetailsFromSpinnerSelection();
+        }
 
         // Populate employees ArrayList and spinner with
         // employee details from the DB.
@@ -194,17 +224,37 @@ public class EditJob extends MenuMain
         });
     }
 
+    private void populateOneOffCustomer() {
+        String fullName = customer.getFirstName() + " " + customer.getLastName();
+        tv_fullName.setText(fullName);
+        tv_homeNumber.setText(customer.getHomeNumber());
+        tv_mobileNumber.setText(customer.getMobileNumber());
+        tv_addressLine1.setText(customer.getAddressLine1());
+        tv_addressLine2.setText(customer.getAddressLine2());
+        tv_town.setText(customer.getTown());
+        tv_city.setText(customer.getCity());
+        tv_postcode.setText(customer.getPostcode());
+    }
+
     /**
      * Find all views by their ID's
      */
     private void findViews() {
-        ll_addressContainer = (ConstraintLayout) findViewById(R.id.customer_address_container);
+        cl_addressContainer = (ConstraintLayout) findViewById(R.id.customer_address_container);
+        cl_customerContainer = (ConstraintLayout) findViewById(R.id.customer_container);
+        sp_customerSpinner = (Spinner) findViewById(R.id.customer_spinner);
+        iv_customerSpinnerIcon = (ImageView) findViewById(R.id.customer_spinner_icon);
+        tv_fullName = (TextView) findViewById(R.id.full_name_customer);
+        iv_fullNameIcon = (ImageView) findViewById(R.id.full_name_customer_icon);
+        tv_homeNumber = (TextView) findViewById(R.id.one_off_home_number);
+        iv_homeNumberIcon = (ImageView) findViewById(R.id.one_off_home_number_icon);
+        tv_mobileNumber = (TextView) findViewById(R.id.one_off_mobile_number);
+        iv_mobileNumberIcon = (ImageView) findViewById(R.id.one_off_mobile_number_icon);
         tv_addressLine1 = (TextView) findViewById(R.id.address_line_1);
         tv_addressLine2 = (TextView) findViewById(R.id.address_line_2);
         tv_town = (TextView) findViewById(R.id.address_town);
         tv_city = (TextView) findViewById(R.id.address_city);
         tv_postcode = (TextView) findViewById(R.id.address_postcode);
-        sp_customerSpinner = (Spinner) findViewById(R.id.customer_spinner);
         sp_employeeSpinner = (Spinner) findViewById(R.id.employee_spinner);
         tv_startDate = (TextView) findViewById(R.id.start_date);
         tv_startTime = (TextView) findViewById(R.id.start_time);
@@ -217,9 +267,6 @@ public class EditJob extends MenuMain
         tv_jobTotalPrice = (TextView) findViewById(R.id.total_price);
         et_notes = (EditText) findViewById(R.id.notes);
         btn_edit = (Button) findViewById(R.id.apply_changes);
-
-        tv_dummyCustomer = (TextView) findViewById(R.id.dummy_customer);
-        tv_dummyEmployee = (TextView) findViewById(R.id.dummy_employee);
     }
 
     /**

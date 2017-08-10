@@ -15,24 +15,21 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/customer_container"
             style="@style/containerPink"
+            android:padding="0dp"
+            android:paddingTop="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/dummy_customer"
-                style="@style/text_field_full"
-                android:layout_width="0dp"
-                android:layout_marginLeft="40dp"
-                android:text="Select a Customer..."
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            <!--Customer-->
             <Spinner
                 android:id="@+id/customer_spinner"
                 style="@style/text_field_full"
                 android:layout_marginLeft="40dp"
+                android:layout_marginTop="16dp"
                 android:padding="0dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -40,71 +37,132 @@
 
             <!--Person Icon-->
             <ImageView
+                android:id="@+id/customer_spinner_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_person"
                 android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/customer_spinner"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/customer_spinner"
-                app:layout_constraintBottom_toBottomOf="@id/customer_spinner" />
+                app:layout_constraintTop_toTopOf="@id/customer_spinner" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/customer_address_container"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <!--One-off Customer Name-->
+            <TextView
+                android:id="@+id/full_name_customer"
+                style="@style/text_field_full"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customer_spinner">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/address_line_1"
-                    style="@style/text_field_full"
-                    android:layout_marginLeft="40dp"
-                    android:text="@string/address_line_1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <!--Person Icon-->
+            <ImageView
+                android:id="@+id/full_name_customer_icon"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_person"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/full_name_customer"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/full_name_customer" />
 
-                <!--Address Icon-->
-                <ImageView
-                    style="@style/detail_icon"
-                    android:background="@drawable/ic_address"
-                    android:backgroundTint="@color/colorPrimary"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/address_line_1"
-                    app:layout_constraintBottom_toBottomOf="@id/address_line_1" />
+            <!--One-off Customer Home Number-->
+            <TextView
+                android:id="@+id/one_off_home_number"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Home Number:"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
+                app:layout_constraintTop_toBottomOf="@id/full_name_customer" />
 
-                <TextView
-                    android:id="@+id/address_line_2"
-                    style="@style/text_field_full"
-                    android:layout_width="wrap_content"
-                    android:text="@string/address_line_2"
-                    app:layout_constraintLeft_toLeftOf="@id/address_line_1"
-                    app:layout_constraintTop_toBottomOf="@id/address_line_1" />
+            <!--Home Phone Icon-->
+            <ImageView
+                android:id="@+id/one_off_home_number_icon"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_phone_home"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/one_off_home_number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/one_off_home_number" />
 
-                <TextView
-                    android:id="@+id/address_town"
-                    style="@style/text_field_full"
-                    android:layout_width="wrap_content"
-                    android:text="@string/town"
-                    app:layout_constraintLeft_toLeftOf="@id/address_line_1"
-                    app:layout_constraintTop_toBottomOf="@id/address_line_2" />
+            <!--One-off Customer Mobile Number-->
+            <TextView
+                android:id="@+id/one_off_mobile_number"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="Mobile Number:"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
+                app:layout_constraintTop_toBottomOf="@id/one_off_home_number" />
 
-                <TextView
-                    android:id="@+id/address_city"
-                    style="@style/text_field_full"
-                    android:layout_width="wrap_content"
-                    android:text="@string/city"
-                    app:layout_constraintLeft_toLeftOf="@id/address_line_1"
-                    app:layout_constraintTop_toBottomOf="@id/address_town" />
+            <!--Mobile Phone Icon-->
+            <ImageView
+                android:id="@+id/one_off_mobile_number_icon"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_phone_mobile"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/one_off_mobile_number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/one_off_mobile_number" />
+        </android.support.constraint.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/address_postcode"
-                    style="@style/text_field_full"
-                    android:layout_width="wrap_content"
-                    android:text="@string/postcode"
-                    app:layout_constraintLeft_toLeftOf="@id/address_line_1"
-                    app:layout_constraintTop_toBottomOf="@id/address_city" />
-            </android.support.constraint.ConstraintLayout>
+        <!--Customer Address-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/customer_address_container"
+            style="@style/containerPink"
+            android:padding="0dp"
+            android:paddingStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/customer_container">
+
+            <TextView
+                android:id="@+id/address_line_1"
+                style="@style/text_field_full"
+                android:layout_marginLeft="40dp"
+                android:text="@string/address_line_1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Address Icon-->
+            <ImageView
+                style="@style/detail_icon"
+                android:background="@drawable/ic_address"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/address_line_1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/address_line_1" />
+
+            <TextView
+                android:id="@+id/address_line_2"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="@string/address_line_2"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1"
+                app:layout_constraintTop_toBottomOf="@id/address_line_1" />
+
+            <TextView
+                android:id="@+id/address_town"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="@string/town"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1"
+                app:layout_constraintTop_toBottomOf="@id/address_line_2" />
+
+            <TextView
+                android:id="@+id/address_city"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="@string/city"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1"
+                app:layout_constraintTop_toBottomOf="@id/address_town" />
+
+            <TextView
+                android:id="@+id/address_postcode"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="@string/postcode"
+                app:layout_constraintLeft_toLeftOf="@id/address_line_1"
+                app:layout_constraintTop_toBottomOf="@id/address_city" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -114,16 +172,7 @@
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/customer_container">
-
-            <TextView
-                android:id="@+id/dummy_employee"
-                style="@style/text_field_full"
-                android:layout_marginLeft="40dp"
-                android:text="Select an Employee..."
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/customer_address_container">
 
             <Spinner
                 android:id="@+id/employee_spinner"
@@ -138,9 +187,9 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_person"
                 android:backgroundTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@id/employee_spinner"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/employee_spinner"
-                app:layout_constraintBottom_toBottomOf="@id/employee_spinner" />
+                app:layout_constraintTop_toTopOf="@id/employee_spinner" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -165,9 +214,9 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_date"
                 android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/start_date"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/start_date"
-                app:layout_constraintBottom_toBottomOf="@id/start_date" />
+                app:layout_constraintTop_toTopOf="@id/start_date" />
 
             <TextView
                 android:id="@+id/start_time"
@@ -181,9 +230,9 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_time"
                 android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/start_time"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/start_time"
-                app:layout_constraintBottom_toBottomOf="@id/start_time" />
+                app:layout_constraintTop_toTopOf="@id/start_time" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -245,9 +294,9 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_add"
                 android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/job_item_row"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/job_item_row"
-                app:layout_constraintBottom_toBottomOf="@id/job_item_row" />
+                app:layout_constraintTop_toTopOf="@id/job_item_row" />
 
             <LinearLayout
                 android:id="@+id/job_list_container"
@@ -269,10 +318,10 @@
             app:layout_constraintTop_toBottomOf="@id/job_items_container">
 
             <TextView
-                android:id="@+id/estimated_time_label"
+                android:id="@+id/estimated_time_icon"
                 style="@style/text_field_full"
-                android:layout_marginLeft="40dp"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="40dp"
                 android:text="Length of Job in Hours:"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -282,9 +331,9 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_time"
                 android:backgroundTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@id/estimated_time_icon"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/estimated_time_label"
-                app:layout_constraintBottom_toBottomOf="@id/estimated_time_label" />
+                app:layout_constraintTop_toTopOf="@id/estimated_time_icon" />
 
             <EditText
                 android:id="@+id/estimated_time"
@@ -306,7 +355,7 @@
             app:layout_constraintTop_toBottomOf="@id/estimated_time_container">
 
             <TextView
-                android:id="@+id/total_price_label"
+                android:id="@+id/money_icon"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="40dp"
@@ -319,9 +368,9 @@
                 style="@style/detail_icon"
                 android:background="@drawable/ic_money"
                 android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/money_icon"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/total_price_label"
-                app:layout_constraintBottom_toBottomOf="@id/total_price_label" />
+                app:layout_constraintTop_toTopOf="@id/money_icon" />
 
             <TextView
                 android:id="@+id/total_price"
@@ -354,8 +403,8 @@
                     style="@style/text_field_full"
                     android:gravity="top"
                     android:hint="Add Notes..."
-                    android:lines="5"
-                    android:inputType="textCapSentences" />
+                    android:inputType="textCapSentences"
+                    android:lines="5" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageView

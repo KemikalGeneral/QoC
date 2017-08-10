@@ -12,7 +12,7 @@ public class CustomerTest {
     private Customer customer = new Customer(
             1, "first", "last", "add1", "add2", "town", "city",
             "CF123AB", "07890123456", "02920123456",
-            "e@mail.com");
+            "e@mail.com", "notes", 0);
 
     @Test
     public void getCustomerId() throws Exception {

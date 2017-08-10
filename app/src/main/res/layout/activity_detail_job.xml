@@ -14,7 +14,7 @@
 
         <!--Customer Details-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_customer_container"
+            android:id="@+id/customer_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -32,7 +32,7 @@
 
             <!--Person Icon-->
             <ImageView
-                android:id="@+id/full_name_customer_label"
+                android:id="@+id/full_name_customer_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_person"
                 android:backgroundTint="@color/colorPrimary"
@@ -40,70 +40,108 @@
                 app:layout_constraintTop_toTopOf="@id/full_name_customer"
                 app:layout_constraintBottom_toBottomOf="@id/full_name_customer" />
 
+            <!--Home Number-->
+            <TextView
+                android:id="@+id/home_number"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="02000000000"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
+                app:layout_constraintTop_toBottomOf="@id/full_name_customer" />
+
+            <!--Home Phone Icon-->
+            <ImageView
+                android:id="@+id/home_number_icon"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_phone_home"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/home_number"
+                app:layout_constraintBottom_toBottomOf="@id/home_number" />
+
+            <!--Mobile Number-->
+            <TextView
+                android:id="@+id/mobile_number"
+                style="@style/text_field_full"
+                android:layout_width="wrap_content"
+                android:text="07000000000"
+                app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
+                app:layout_constraintTop_toBottomOf="@id/home_number" />
+
+            <!--Mobile Icon-->
+            <ImageView
+                android:id="@+id/mobile_number_icon"
+                style="@style/detail_icon"
+                android:background="@drawable/ic_phone_mobile"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/mobile_number"
+                app:layout_constraintBottom_toBottomOf="@id/mobile_number" />
+
             <!--Address Line 1-->
             <TextView
-                android:id="@+id/detail_Job_address_1"
+                android:id="@+id/address_line_1"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[Address Line 1]"
                 app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
-                app:layout_constraintTop_toBottomOf="@id/full_name_customer" />
+                app:layout_constraintTop_toBottomOf="@id/mobile_number" />
 
             <!--Address Icon-->
             <ImageView
-                android:id="@+id/detail_Job_address_label"
+                android:id="@+id/address_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_address"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/detail_Job_address_1"
-                app:layout_constraintBottom_toBottomOf="@id/detail_Job_address_1" />
+                app:layout_constraintTop_toTopOf="@id/address_line_1"
+                app:layout_constraintBottom_toBottomOf="@id/address_line_1" />
 
             <!--Address Line 2-->
             <TextView
-                android:id="@+id/detail_Job_address_2"
+                android:id="@+id/address_line_2"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[Address Line 2]"
                 app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
-                app:layout_constraintTop_toBottomOf="@id/detail_Job_address_1" />
+                app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
             <!--Address Town-->
             <TextView
-                android:id="@+id/detail_Job_address_town"
+                android:id="@+id/town"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[Town]"
                 app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
-                app:layout_constraintTop_toBottomOf="@id/detail_Job_address_2" />
+                app:layout_constraintTop_toBottomOf="@id/address_line_2" />
 
             <!--Address City-->
             <TextView
-                android:id="@+id/detail_Job_address_city"
+                android:id="@+id/city"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[City]"
                 app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
-                app:layout_constraintTop_toBottomOf="@id/detail_Job_address_town" />
+                app:layout_constraintTop_toBottomOf="@id/town" />
 
             <!--Address Postcode-->
             <TextView
-                android:id="@+id/detail_Job_address_postcode"
+                android:id="@+id/postcode"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[Postcode]"
                 app:layout_constraintLeft_toLeftOf="@id/full_name_customer"
-                app:layout_constraintTop_toBottomOf="@id/detail_Job_address_city" />
+                app:layout_constraintTop_toBottomOf="@id/city" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Employee Details-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_employee_container"
+            android:id="@+id/employee_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_customer_container">
+            app:layout_constraintTop_toBottomOf="@id/customer_container">
 
             <!--Name-->
             <TextView
@@ -128,11 +166,11 @@
 
         <!--Start Date-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_start_container"
+            android:id="@+id/date_time_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_employee_container">
+            app:layout_constraintTop_toBottomOf="@id/employee_container">
 
             <!--Start Date-->
             <TextView
@@ -146,7 +184,7 @@
 
             <!--Date Icon-->
             <ImageView
-                android:id="@+id/start_date_label"
+                android:id="@+id/date_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_date"
                 android:backgroundTint="@color/colorPrimary"
@@ -165,7 +203,7 @@
 
             <!--Start Time Label-->
             <TextView
-                android:id="@+id/start_time_label"
+                android:id="@+id/time_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_time"
                 android:backgroundTint="@color/colorPrimary"
@@ -177,11 +215,11 @@
 
         <!--Status-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_status_container"
+            android:id="@+id/status_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_start_container">
+            app:layout_constraintTop_toBottomOf="@id/date_time_container">
 
             <!--Job Status Label-->
             <TextView
@@ -203,7 +241,7 @@
 
             <!--Customer Payment Status Label-->
             <TextView
-                android:id="@+id/customer_payment_status_status_label"
+                android:id="@+id/customer_payment_status_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Customer Paid:"
@@ -212,7 +250,7 @@
 
             <!--Customer Payment Status-->
             <TextView
-                android:id="@+id/payment_status"
+                android:id="@+id/customer_payment_status"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="[payment status]"
@@ -221,12 +259,12 @@
 
             <!--Employee Payment Status Label-->
             <TextView
-                android:id="@+id/employee_payment_status_status_label"
+                android:id="@+id/employee_payment_status_label"
                 style="@style/text_field_full"
                 android:layout_width="wrap_content"
                 android:text="Employee Paid:"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/customer_payment_status_status_label" />
+                app:layout_constraintTop_toBottomOf="@id/customer_payment_status_label" />
 
             <!--Employee Payment Status-->
             <TextView
@@ -235,19 +273,19 @@
                 android:layout_width="wrap_content"
                 android:text="[payment status]"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/payment_status" />
+                app:layout_constraintTop_toBottomOf="@id/customer_payment_status" />
         </android.support.constraint.ConstraintLayout>
 
         <!--Job Items-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_job_item_row_container"
+            android:id="@+id/job_items_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_status_container">
+            app:layout_constraintTop_toBottomOf="@id/status_container">
 
             <TextView
-                android:id="@+id/detail_job_item_label"
+                android:id="@+id/job_item_label"
                 style="@style/text_field_full"
                 android:text="Job Tasks..."
                 android:layout_marginLeft="40dp"
@@ -259,28 +297,28 @@
                 android:background="@drawable/ic_jobs"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/detail_job_item_label"
-                app:layout_constraintBottom_toBottomOf="@id/detail_job_item_label" />
+                app:layout_constraintTop_toTopOf="@id/job_item_label"
+                app:layout_constraintBottom_toBottomOf="@id/job_item_label" />
 
             <LinearLayout
-                android:id="@+id/detail_test_item_row"
+                android:id="@+id/item_row_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_16"
-                app:layout_constraintLeft_toLeftOf="@id/detail_job_item_label"
+                app:layout_constraintLeft_toLeftOf="@id/job_item_label"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_job_item_label" />
+                app:layout_constraintTop_toBottomOf="@id/job_item_label" />
         </android.support.constraint.ConstraintLayout>
 
 
         <!--Estimated Time-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_estimated_time_container"
+            android:id="@+id/estimated_time_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_job_item_row_container">
+            app:layout_constraintTop_toBottomOf="@id/job_items_container">
 
             <!--Time-->
             <TextView
@@ -292,9 +330,9 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--Time Label-->
+            <!--Time Icon-->
             <ImageView
-                android:id="@+id/estimated_time_label"
+                android:id="@+id/estimated_time_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_time"
                 android:backgroundTint="@color/colorAccent"
@@ -306,11 +344,11 @@
 
         <!--Total Price-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_total_price_container"
+            android:id="@+id/total_price_container"
             style="@style/containerPink"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_estimated_time_container">
+            app:layout_constraintTop_toBottomOf="@id/estimated_time_container">
 
             <!--Price-->
             <TextView
@@ -324,7 +362,7 @@
 
             <!--Money Icon-->
             <ImageView
-                android:id="@+id/total_price_label"
+                android:id="@+id/money_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_money"
                 android:backgroundTint="@color/colorPrimary"
@@ -336,11 +374,11 @@
 
         <!--Notes-->
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/detail_notes_container"
+            android:id="@+id/notes_container"
             style="@style/containerGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_total_price_container">
+            app:layout_constraintTop_toBottomOf="@id/total_price_container">
 
             <!--Notes-->
             <TextView
@@ -354,7 +392,7 @@
 
             <!--Notes Icon-->
             <ImageView
-                android:id="@+id/notes_label"
+                android:id="@+id/notes_icon"
                 style="@style/detail_icon"
                 android:background="@drawable/ic_notes"
                 android:backgroundTint="@color/colorAccent"
@@ -369,7 +407,7 @@
             android:text="Edit"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_notes_container" />
+            app:layout_constraintTop_toBottomOf="@id/notes_container" />
 
         <Button
             android:id="@+id/btn_delete_job"
