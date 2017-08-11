@@ -57,7 +57,7 @@ public class MenuMain extends AppCompatActivity
         confirmationDialog.setMessage(
                 "Are you sure you want to DELETE all records in the DATABASE?" +
                         "\n\n" +
-                        "...this is bad and cannot be undone!");
+                        "This is bad and cannot be undone!");
         confirmationDialog.show(getFragmentManager(), "dropTables");
     }
 
