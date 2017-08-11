@@ -240,6 +240,9 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
         }
     }
 
+    //////////////////////////////////////////////////
+    //      SMS
+    //////////////////////////////////////////////////
     /**
      * Check permissions for sending an SMS
      */
@@ -288,11 +291,53 @@ public class DetailJob extends MenuMain implements ConfirmationDialog.Confirmati
                 .append("@ ")
                 .append(time + " ")
                 .append("there's a job at ")
-                .append(customer.getAddressLine1() + ", " + customer.getTown() + "");
+                .append(customer.getAddressLine1() + ", " + customer.getTown() + ".\n\n")
+                .append("The customer is " + customer.getFirstName() + " " + customer.getLastName() + " ")
+                .append("and they need you to ");
+
+        // Get all the jobItems
+        ArrayList<JobItem> descriptions;
+        descriptions = db.getJobItemsByJobId(jobId);
+
+        // Cycle through the jobItems and pull out the descriptions
+        int arrayLength = descriptions.size();
+        for (int i = 0; i < arrayLength; i++) {
+            // insert and 'and', before the last item
+            if (i == descriptions.size() - 1) {
+                message.append("and ");
+            }
+            message
+                    .append(descriptions.get(i).getDescription() + ", ");
+        }
+
+        // Estimated hours
+        message
+                .append("so I've put you down for " + job.getEstimatedTime() + " ");
+        // 'hour' or 'hours'
+        if (job.getEstimatedTime() == 1) {
+            message.append("hour.");
+        } else {
+            message.append("hours.");
+        }
+
+        message.append("\n\n");
+
+        // Notes
+        if (job.getNotes().length() > 0) {
+            message.append("Notes: " + job.getNotes());
+        } else {
+            message.append("There are no extra notes for this job.");
+        }
+
+        // Send message
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(smsPhoneNumber, null, message.toString(), null, null);
+        ArrayList<String> parts = smsManager.divideMessage(message.toString());
+        smsManager.sendMultipartTextMessage(smsPhoneNumber, null, parts, null, null);
     }
 
+    //////////////////////////////////////////////////
+    //      Confirmation Dialog
+    //////////////////////////////////////////////////
     /**
      * Instantiate an show new ConfirmationDialog class and pass through the dialog message
      */
